@@ -1,57 +1,62 @@
 <!--  -->
 <template>
-  <div class='report-info'>
-      <div class='report-info-title'>
-          <span class='report-info-title-go1'>我的审批</span>
-          <span class='report-info-title-separator'> / </span>
-          <span class='report-info-title-go2'>支付凭证</span>
+  <div class='unlock-apply'>
+      <div class='unlock-apply-title'>
+          <span class='unlock-apply-title-go1'>我的审批</span>
+          <span class='unlock-apply-title-separator'> / </span>
+          <span class='unlock-apply-title-go2'>债权处理</span>
       </div>
-      <div class='report-info-list'>
-        <div class='report-info-list-select'>
+      <div class='unlock-apply-list'>
+        <div class='unlock-apply-list-select'>
             <span @click='HandleSelect(item)' v-for='(item,index) in SelectOption' :key='index' :class="item.isSelect? 'active':'' ">{{item.SelectName}}</span>
         </div>
-        <div class='report-info-list-search'>
-            <div class='report-info-list-search-form'>
+        <div class='unlock-apply-list-search'>
+            <div class='unlock-apply-list-search-form'>
                 <el-form ref="form">
                     <el-form-item>
-                        <span>录入编号：</span>
+                        <span>债事人:</span>
+                        <el-input></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <span>录入编号:</span>
                         <el-input></el-input>
                     </el-form-item>
                 </el-form>
             </div>
-            <div class='report-info-list-search-button'>搜索</div>
+            <div class='unlock-apply-list-search-button'>搜索</div>
         </div>
-        <div class='report-info-list-content'>
-            <div class='report-info-list-content-title'>
-                <span>序号</span>
-                <span>录入号</span>
-                <span>缴费人</span>
-                <span>合同人</span>
-                <span>类型</span>
-                <span>支付号</span>
-                <span>金额</span>
-                <span>图片</span>
-                <span>审核状态</span>
-                <span>操作</span>
-            </div>
-            <div class='report-info-list-content-tab'>
-                <div class='report-info-list-content-tab-item' v-for='(item,index) in PaymentMsg' :key='index'>
-                    <span>{{index+1}}</span>
-                    <span>{{item.reportNo}}</span>
-                    <span>{{item.payertName}}</span>
-                    <span>{{item.contractName}}</span>
-                    <span>{{item.payType}}</span>
-                    <span>{{item.payNo}}</span>
-                    <span>{{item.cost}}</span>
-                    <span>
-                        <img :src="ImgItem" v-for='(ImgItem,Imgindex) in item.voucher' :key='Imgindex' alt="">
-                    </span>
-                    <span>{{item.status}}</span>
-                    <span>
-                        <button v-show="item.status === '0'" @click='CheckPayment(index)'>审核</button>
-                    </span>
+        <div class='unlock-apply-list-content'>
+            <!-- 正常显示模板 -->
+            <template>
+                <div class='unlock-apply-list-content-title'>
+                    <span>序号</span>
+                    <span>录入号</span>
+                    <span>录入编号</span>
+                    <span>服务协议ID</span>
+                    <span>债权处理编号</span>
+                    <span>审核状态</span>
+                    <span>债事人</span>
+                    <span>操作</span>
                 </div>
-            </div>
+                <div class='unlock-apply-list-content-tab'>
+                    <div class='unlock-apply-list-content-tab-item' v-for='(item,index) in UnlockMsg' :key='index'>
+                        <span>{{index+1}}</span>
+                        <span>{{item.reportId}}</span>
+                        <span>{{item.civilno}}</span>
+                        <span>{{item.debtId}}</span>
+                        <span>{{item.debtNo}}</span>
+                        <span :class="[item.status === '2' || item.status === '6' || item.status === '9'? ('pass') : item.status === '1' || item.status === '4' || item.status === '7'? 'unpass': 'hassubmit']">
+                            {{item.status === '0' ? '调查报告未审核' :  item.status === '1' ? '调查报告审核未通过' : item.status === '2' ? '调查报告审批通过,债权信息未审核' : item.status === '3' ? '置换信息审核未通过' : item.status === '4' ? '置换信息审核通过': item.status === '5' ? '置换信息审核通过': item.status === '7' ? '财务未审核': item.status === '8' ? '财务审核未通过' : '财务审核通过'}}
+                        </span>
+                        <span>{{item.personName}}</span>
+                        <span>
+                            <button v-show="item.status === '6'" @click='GoUnlockPayment(index)'>缴费</button>
+                            <button v-show="item.status === '0'" @click='CheckData(index)'>调查报告审批</button>
+                            <button v-show="item.status === '4'" @click='CheckUnlockData(index)'>债权信息审核</button>
+                        </span>
+                    </div>
+                </div>
+            </template>
         </div>
       </div>
   </div>
@@ -61,7 +66,6 @@
 export default {
     data () {
         return {
-            // 分页器结构数据源
             // 选项卡
             SelectOption: [
                 {
@@ -81,14 +85,11 @@ export default {
                     isSelect: false
                 }
             ],
-            // 支付信息信息列表数据源
-            PaymentMsg: [],
+            // 解锁信息列表数据源
+            UnlockMsg: [
+            ],
             // 确定选用正常模板还是多选模板
             isNormal: false,
-            TimeSelect: {
-                TimeStart: '2020-02-30',
-                TimeEnd: '2020-04-28'
-            },
             pickerOptions: {
                 disabledDate (time) {
                     return time.getTime() > Date.now()
@@ -114,64 +115,67 @@ export default {
                     }
                 }]
             },
-            VoucherSearchSrc: {
+            UnlockSearchSrc: {
                 pageNum: '1',
-                pageSize: '30',
+                pageSize: '10',
                 debtNo: '',
+                debtId: '',
                 companyType: window.sessionStorage.getItem('companyType')
             }
         }
     },
     methods: {
-        SelectMore () {
-            this.isNormal = !this.isNormal
-        },
         HandleSelect (item) {
             this.SelectOption.forEach(v => {
                 v.isSelect = false
             })
             item.isSelect = true
         },
-        async IniVoucherApply () {
+        async InitUnlockApply () {
             const formData = new FormData()
-            for (const key in this.VoucherSearchSrc) {
-                formData.append(key, this.VoucherSearchSrc[key])
+            for (const key in this.UnlockSearchSrc) {
+                formData.append(key, this.UnlockSearchSrc[key])
             }
             const { data: result } = await this.$http({
                 method: 'post',
-                url: '/api/api/busPayDetailController/selectPayInfoList',
+                url: '/api/api/pubDebtController/selectDebtListShow',
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            this.PaymentMsg = result.data.list
-            this.PaymentMsg.map(v => {
-                v.voucher = v.voucher.split(',')
-            })
-            console.log(this.PaymentMsg)
+            this.UnlockMsg = result.data.list
+            console.log(this.UnlockMsg)
         },
-        CheckPayment (index) {
-            if (this.PaymentMsg[index].stage === '1') {
-                window.sessionStorage.setItem('payId', this.PaymentMsg[index].payId)
-                window.sessionStorage.setItem('reportid', this.PaymentMsg[index].reportId)
-                this.$emit('onChangeFragment', 'ReportVoucherApprove')
-            } else {
-                window.sessionStorage.setItem('payId', this.PaymentMsg[index].payId)
-                window.sessionStorage.setItem('reportid', this.PaymentMsg[index].reportId)
-                this.$emit('onChangeFragment', 'UnlockPaymentApprove')
-            }
+        // 调查报告审批
+        CheckData (index) {
+            // 获取当前用户点击的报备ID
+            window.sessionStorage.setItem('debtId', this.UnlockMsg[index].debtId)
+            window.sessionStorage.setItem('reportId', this.UnlockMsg[index].reportId)
+            // 打开审批栏
+            this.$emit('onChangeFragment', 'ExamineReportFormApprove')
+        },
+        // 解债信息审批
+        CheckUnlockData (index) {
+            window.sessionStorage.setItem('debtId', this.UnlockMsg[index].debtId)
+            this.$emit('onChangeFragment', 'UnlockApplyApprove')
+        },
+        GoUnlockPayment (index) {
+            window.sessionStorage.setItem('debtId', this.UnlockMsg[index].debtId)
+            window.sessionStorage.setItem('reportId', this.UnlockMsg[index].reportId)
+            window.sessionStorage.setItem('payId', this.UnlockMsg[index].payId)
+            this.$emit('onChangeFragment', 'UnlockPayment')
         }
     },
     created () {
-        this.IniVoucherApply()
+        this.InitUnlockApply()
     }
 }
 
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
-.report-info {
+.unlock-apply {
     display: flex;
     flex-direction: column;
     background-color: #E9F0F5;
@@ -222,31 +226,29 @@ export default {
             display: flex;
             align-items: center;
             height: px2rem(16);
-
+            line-height: px2rem(16);
             &-form {
-                display: flex;
-                align-items: center;
-                height: px2rem(10);
-                line-height: px2rem(10);
-                margin-left: px2rem(2);
                 .el-form {
                     display: flex;
                     align-items: center;
                     .el-form-item {
-                        height: px2rem(10);
-                        line-height: px2rem(10);
+                        .el-input {
+                            width: px2rem(45);
+                        }
                         span {
+                            margin:0 px2rem(2);
                             font-size: px2rem(3.2);
-                            width: px2rem(24);
                         }
                     }
                 }
             }
             &-button {
                 margin-left: px2rem(4);
-                padding: px2rem(1.4) px2rem(3.5);
-                font-size: px2rem(3.2);
+                height: px2rem(7);
+                line-height: px2rem(7);
+                width: px2rem(15);
                 text-align: center;
+                font-size: px2rem(3.2);
                 background-color: #616789;
                 border-radius: px2rem(2);
                 color: #fff;
@@ -273,11 +275,14 @@ export default {
                 :nth-child(1) {
                     flex: 1;
                 }
-                :nth-child(2),:nth-child(6) {
-                    flex: 4;
+                :nth-child(2),:nth-child(4) {
+                    flex: 4.5;
                 }
-                :nth-child(8) {
-                    flex: 7;
+                :nth-child(6) {
+                    flex: 5
+                }
+                :last-child {
+                    flex: 4;
                 }
             }
 
@@ -285,38 +290,53 @@ export default {
                 display: flex;
                 flex-direction: column;
                 font-size: px2rem(3);
+                &-item {
+                    .pass {
+                        color: #17C67A !important
+                    }
+                    .unpass {
+                        color: #FF0000 !important
+                    }
+                    .hassubmit {
+                        color: #272A39 !important
+                    }
+                }
                 div:nth-child(odd) {
                     display: flex;
-                    height: px2rem(12);
-                    line-height: px2rem(12);
+                    height: px2rem(10);
+                    line-height: px2rem(10);
                     span {
+                        height: px2rem(10);
+                        line-height: px2rem(10);
                         flex:3;
                         text-align: center;
                         color:#272A39;
+                        border: 1px solid #fff;
                         display: inline-block;
                         border: none;
                     }
                     :nth-child(1) {
                         flex: 1;
                     }
-                    :nth-child(8) {
-                        flex: 7;
-                        margin-top: px2rem(1);
+                    :nth-child(2),:nth-child(4) {
+                        flex: 4.5;
                     }
-                    :nth-child(2),:nth-child(6) {
-                        flex: 4;
+                    :nth-child(6) {
+                        flex: 5
                     }
                     :last-child {
+                        flex: 4;
                         button {
                             font-size: px2rem(2);
-                            margin: px2rem(6);
+                            padding: px2rem(1) px2rem(3);
                             border: none;
-                            padding: px2rem(1) px2rem(2);
                             border-radius: px2rem(1);
                             color: #fff;
-                            margin: 0 px2rem(2);
                         }
                         :first-child {
+                            background-color: #616789;
+                        }
+                        :nth-child(2) {
                             background-color: #616789;
                         }
                         :last-child {
@@ -326,10 +346,12 @@ export default {
                 }
                 div:nth-child(even) {
                     display: flex;
-                    height: px2rem(12);
-                    line-height: px2rem(12);
-                    background-color: #E0E3F8;
+                    height: px2rem(10);
+                    line-height: px2rem(10);
                     span {
+                        background-color: #E0E3F8;
+                        height: px2rem(10);
+                        line-height: px2rem(10);
                         flex:3;
                         text-align: center;
                         color:#272A39;
@@ -339,22 +361,20 @@ export default {
                     :nth-child(1) {
                         flex: 1;
                     }
-                    :nth-child(8) {
-                        flex: 7;
-                        margin-top: px2rem(1);
+                    :nth-child(2),:nth-child(4) {
+                        flex: 4.5;
                     }
-                    :nth-child(2),:nth-child(6) {
-                        flex: 4;
+                    :nth-child(6) {
+                        flex: 5
                     }
                     :last-child {
+                        flex: 4;
                         button {
                             font-size: px2rem(2);
-                            margin: px2rem(6);
+                            padding: px2rem(1) px2rem(3);
                             border: none;
-                            padding: px2rem(1) px2rem(2);
                             border-radius: px2rem(1);
                             color: #fff;
-                            margin: 0 px2rem(2);
                         }
                         :first-child {
                             background-color: #616789;
@@ -363,11 +383,6 @@ export default {
                             background-color: #FC7F89;
                         }
                     }
-                }
-                img {
-                    width: px2rem(12);
-                    height: px2rem(8);
-                    margin: 0 px2rem(1);
                 }
             }
         }

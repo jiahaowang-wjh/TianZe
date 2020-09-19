@@ -4,10 +4,10 @@
         <div class='payment-civil-title'>
             <span class='payment-civil-title-go1'>我的审批</span>
             <span class='payment-civil-title-separator'> / </span>
-            <span class='payment-civil-title-go2'>债权处理信息缴费</span>
+            <span class='payment-civil-title-go2'>报备缴费</span>
         </div>
         <div class='payment-civil-content'>
-            <div class='payment-civil-content-title'>您提交的债权处理信息缴费总部公司已经审核通过，请根据下面所给信息线下支付报备费用。</div>
+            <div class='payment-civil-content-title'>您提交的民事调解信息总部公司已经审核通过，请根据下面所给信息线下支付报备费用。</div>
             <div>汇款账户：</div>
             <div><input type="text" v-model='PamentMsg.CardNum' disabled='true'></div>
             <div><input type="text" v-model='PamentMsg.AccountName' disabled='true'></div>
@@ -17,20 +17,31 @@
                 上传凭证：
                 <div class='payment-civil-content-update-box'>
                     <div class='payment-civil-content-update-box-container'>
-                        <img :src="item" v-for='(item,index) in SubmitData.voucher' :key='index'>
+                        <img src="@imgs/home/baidu.png" alt="">
+                    </div>
+                    <div class='payment-civil-content-update-box-container'>
+                        <img src="@imgs/home/baidu.png" alt="">
+                    </div>
+                    <div class='payment-civil-content-update-box-container'>
+                        <img src="@imgs/home/baidu.png" alt="">
+                    </div>
+                    <div class='payment-civil-content-update-box-container'>
+                        <img src="@imgs/home/baidu.png" alt="">
                     </div>
                 </div>
                 <button class='payment-civil-content-update-button'>点击上传</button>
-                <input @change='UpdataVoucher' type="file" ref='Voucher'>
             </div>
-            <div class='payment-civil-content-payer'>
+            <div>
                 合同人姓名：
-                <input type="text" v-model='SubmitData.contractName'>
+                <el-select placeholder="请选择" v-model='PamentMsg.Contractor'>
+                    <el-option label="债市人1" value="debtor1"></el-option>
+                    <el-option label="债市人2" value="debtor2"></el-option>
+                </el-select>
             </div>
             <div class='payment-civil-content-payer'>打款人姓名：
-                <input type="text" placeholder="请输入" v-model='SubmitData.payertName'>
+                <input type="text" placeholder="请输入">
             </div>
-            <button class='payment-civil-content-submit' @click='SubmitPayment'>提交</button>
+            <button class='payment-civil-content-submit'>提交</button>
         </div>
     </div>
 </template>
@@ -45,84 +56,16 @@ export default {
                 OpeningBank: '开户行：中国建设银行',
                 FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
                 Contractor: ''
-            },
-            SubmitData: {
-                reportId: '',
-                contractName: '',
-                payertName: '',
-                voucher: [],
-                cost: '880',
-                flag: '3',
-                status: '0',
-                debtId: ''
-            },
-            UpdatePay: {
-                status: '',
-                payId: ''
             }
         }
     },
     methods: {
-        async SubmitPayment () {
-            // 提交缴费
-            // this.SubmitData.reportId = ''
-            this.SubmitData.reportId = window.sessionStorage.getItem('reportId')
-            this.SubmitData.debtId = window.sessionStorage.getItem('debtId')
-            const formData = new FormData()
-            for (const key in this.SubmitData) {
-                formData.append(key, this.SubmitData[key])
-            }
-            const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busPayDetailController/insertSelective',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            console.log(result)
-            if (result.resultCode !== '200') return this.$message.error('提交错误, 请重试')
-            // 调用状态接口更改缴费状态
-            this.UpdatePayStatus(result.data)
-            // 调用状态改变接口
-            const UpdateStatusFormData = new FormData()
-            UpdateStatusFormData.append('debtId', this.SubmitData.debtId)
-            UpdateStatusFormData.append('status', '7')
-            const { data: StatusResult } = await this.$http({
-                method: 'post',
-                url: '/api/api/pubDebtController/updateStatus',
-                data: UpdateStatusFormData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            if (StatusResult.resultCode !== '200') return this.$message.error('提交错误, 请重试')
-            this.$message.success(StatusResult.resultMessage)
-        },
-        UpdataVoucher () {
-            const file = this.$refs.Voucher.files[0]
-            this.$UpdateFile(file).then(result => {
-                console.log(result)
-                this.SubmitData.voucher.push(result)
-            })
-        },
-        async UpdatePayStatus (data) {
-            const formData = new FormData()
-            this.UpdatePay.status = '0'
-            this.UpdatePay.payId = data
-            for (const key in this.UpdatePay) {
-                formData.append(key, this.UpdatePay[key])
-            }
-            const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busPayDetailController/updateStatus',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            console.log(result)
+        async InitData () {
+            
         }
+    },
+    created () {
+        
     }
 }
 
@@ -175,27 +118,28 @@ export default {
             font-weight: 600;
         }
         &-update {
-            position: relative;
             height: px2rem(16);
             display: flex;
             margin: px2rem(4) 0;
             &-box {
                 width: px2rem(140);
+                height: px2rem(16);
                 border: 1px solid #E8EAEC;
                 margin: 0 px2rem(4);
                 display: flex;
                 align-items: center;
 
                 &-container {
-                    margin: 0 px2rem(2);
+                    border: 1px solid #E8E8E8;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
                     margin: 0 px2rem(1);
                     height: px2rem(10);
+                    width: px2rem(14);
                     img {
-                        width: px2rem(16);
-                        height: px2rem(10);
-                        margin: 0 px2rem(1);
+                        width: px2rem(14);
+                        height: px2rem(8)
                     }
                 }
             }
@@ -206,14 +150,6 @@ export default {
                 background-color: #616789;
                 color: #fff;
                 border-radius: px2rem(2);
-            }
-            input[type=file] {
-                height: px2rem(9);
-                width: px2rem(20);
-                position: absolute;
-                left: px2rem(166);
-                bottom: px2rem(6);
-                opacity: 0;
             }
         }
         &-payer {

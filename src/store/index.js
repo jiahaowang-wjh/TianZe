@@ -1,27 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import mutations from './mutations'
+import actions from './actions'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        reportId: '',
-        payId: '',
-        debtId: ''
-    },
-    mutations: {
-        AlterReportId: (state, n) => {
-            state.reportId = n
-        },
-        AlterPayId: (state, n) => {
-            state.payId = n
-        },
-        AlterDebtId: (state, n) => {
-            state.debtId = n
+        userMenuTree:[],
+        userMenu:[],
+        userInfo:{
+            id:''
         }
     },
-    actions: {
-    },
+    mutations: mutations,
+    actions: actions,
     modules: {
     }
 })
