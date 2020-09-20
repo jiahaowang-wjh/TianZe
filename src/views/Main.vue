@@ -192,6 +192,10 @@ export default {
       this.onChangeFragment(componentName)
     },
   },
+  created () {
+    this.userMsg.userName = window.sessionStorage.getItem('userName')
+    this.userMsg.userAvatar = require('@imgs/home/user-logo.png')
+  }
 }
 </script>
 <style lang="scss" scoped>
