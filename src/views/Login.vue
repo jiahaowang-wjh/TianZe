@@ -13,8 +13,8 @@
       <!-- 登录表单区域 -->
       <el-form
         label-width="0px"
-         @submit.prevent="()=>false"
-         @submit.native.prevent
+        @submit.prevent="()=>false"
+        @submit.native.prevent
         class="login-box-form"
         :model="loginForm"
         :rules="loginFormRules"
@@ -50,7 +50,7 @@
 <script>
 import QS from 'qs'
 import { getToken, setToken } from '@/util'
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex'
 import store from '@/store'
 export default {
   data() {
@@ -108,26 +108,31 @@ export default {
     },
     // 获取验证码图片地址
     GetRandomImg() {
-      this.$http
-        .get('/api/verificationCode/verifyCode', {
-          responseType: 'arraybuffer',
-        })
-        .then((response) => {
-          this.testingCodeImg =
-            'data:image/png;base64,' +
-            btoa(
-              new Uint8Array(response.data).reduce(
-                (data, byte) => data + String.fromCharCode(byte),
-                ''
-              )
-            )
-        })
+      // this.$http
+      //   .get('/api/verificationCode/verifyCode', {
+      //     responseType: 'arraybuffer',
+      //   })
+      //   .then((response) => {
+      //     this.testingCodeImg =
+      //       'data:image/png;base64,' +
+      //       btoa(
+      //         new Uint8Array(response.data).reduce(
+      //           (data, byte) => data + String.fromCharCode(byte),
+      //           ''
+      //         )
+      //       )
+      //   })
+      this.testingCodeImg = ''
+      this.testingCodeImg = '/api/verificationCode/verifyCode'
     },
     login() {
       // 验证表单是否通过
       this.$refs.loginFormRef.validate(async (valid) => {
         // 如果验证不通过,直接return
-        if (!valid) return this.$message.error('账号密码格式错误, 请重新输入')
+        if (!valid) {
+          this.$message.error('账号密码格式错误, 请重新输入')
+          return
+        }
         const { data: result } = await this.$http({
           method: 'POST',
           url: '/api/authentication/form',
@@ -141,7 +146,8 @@ export default {
           this.loginForm.randomStr = ''
           // 重新生成验证码
           this.GetRandomImg()
-          return this.$message.error(result.resultMessage)
+          this.$message.error(result.resultMessage)
+          return
         }
         // 存储用户信息到store
         this.SAVE_USER_INFO(result.data.additionalInformation)
@@ -183,17 +189,14 @@ export default {
 
         // return false
         store.dispatch('userMenus').then(() => {
-               console.log(this.userMenuTree);
+          console.log(this.userMenuTree)
           this.$router.push({
             path: this.userMenuTree[0].menuUrl,
             query: {
               username: result.data.additionalInformation.userNickname,
             },
           })
-        });
-     
-
-
+        })
       })
     },
   },

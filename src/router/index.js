@@ -236,7 +236,7 @@ const routes = [{
                         name: 'ExamineReportFormApprove',
                         component: () => import('@/views/currency/ExamineReportFormApprove'),
                         meta: {
-                            leftMenu: '/myapproval',
+                            leftMenu: '/ReportInfo',
                         }
                     }, { // 解债审批
                         path: '/UnlockApplyApprove',
@@ -258,7 +258,7 @@ const routes = [{
                         name: 'EditReport',
                         component: () => import('@/views/currency/EditReport'),
                         meta: {
-                            leftMenu: '/myapproval',
+                            leftMenu: '/ReportInfo',
                         }
                     },
                 ]
