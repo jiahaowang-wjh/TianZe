@@ -59,4 +59,66 @@ input[type='checkbox']:checked {
 input[type='checkbox']:after {
     content: "✔";
 }
-
+// 中间大按钮
+.middle-submit-button {
+    box-sizing: border-box;
+    border: none;
+    background: #616789;
+    color: #fff;
+    font-size: 14px;
+    width: 230px;
+    height: 35px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+// 上传凭证按钮
+.update-voucher-button {
+    width: 90px;
+    height: 28px;
+    background-color: #616789;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+// 编辑小按钮
+.mini-edit-button {
+    width: 60px;
+    height: 25px;
+    background-color:#616789;
+    border: none;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+}
+// 删除小按钮
+.mini-delete-button {
+    width: 60px;
+    height: 25px;
+    background-color: #FC7F89;
+    border: none;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+}
+// 上传身份证图片大小
+.update-idcard-img {
+    width: 320px;
+    height: 150px;
+    border-radius: px2rem(8)
+}
+.update-voucher-img {
+    width: 100px;
+    height: 40px;
+}
+.el-input {
+    width: 240px;
+}
+.el-select {
+    width: 240px;
+}
+.el-date-editor{
+    width: 240px;
+}
+.el-form-item__label {
+    font-size: 13px!important;
+}
