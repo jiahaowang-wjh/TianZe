@@ -199,11 +199,11 @@ export default {
             // 如果当前用户处于报备待审批状态 status === '0', stage === '1'
             if ((this.ReportInfoMsg[index].status === '0' || this.ReportInfoMsg[index].status === '5') && this.ReportInfoMsg[index].stage === '1') {
                 // 获取当前用户点击的报备ID
-                this.$router.push({name: 'ReportApprove', params: {reportId: this.ReportInfoMsg[index].reportId}})
+                this.$router.push({path: '/ReportApprove', query: {reportId: this.ReportInfoMsg[index].reportId}})
             } else if (this.ReportInfoMsg[index].status === '4' && this.ReportInfoMsg[index].stage === '1') {
                 // 当前用户处于报备支付凭证待审批 status === '4' , stage === '1'
                 // 获取当前用户点击的报备ID
-                this.$router.push({name: 'ReportVoucherApprove', params: {reportId: this.ReportInfoMsg[index].reportId}})
+                this.$router.push({path: '/ReportVoucherApprove', query: {reportId: this.ReportInfoMsg[index].reportId}})
             }
         },
         CloseCheckPage () {

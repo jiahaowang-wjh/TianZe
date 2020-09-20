@@ -158,7 +158,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error('添加错误,请重新输入')
             this.$message.success('添加文档成功')
-            this.$emit('RenovateFragment', 'Document')
             this.IsAddDictionary = false
         },
         // 编辑文档
@@ -185,7 +184,6 @@ export default {
             console.log(result)
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('修改文档成功')
-            this.$emit('RenovateFragment', 'Document')
             this.IsEditDocument = false
         },
         DelectDocument () {
@@ -219,7 +217,6 @@ export default {
                             message: '删除成功!'
                         })
                     }
-                    this.$emit('RenovateFragment', 'Document')
                 }).catch(() => {
                     this.$message({
                         type: 'info',

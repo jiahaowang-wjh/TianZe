@@ -423,7 +423,7 @@ export default {
         async InitData () {
             // 相对人信息初始化
             const formData = new FormData()
-            const relativePerId = window.sessionStorage.getItem('relativePerId')
+            const relativePerId = this.$route.params.relativePerId
             formData.append('relativePerId', relativePerId)
             const { data: result } = await this.$http({
                 method: 'post',

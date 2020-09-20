@@ -149,7 +149,7 @@ export default {
         },
         // 调查报告审批
         CheckData (index) {
-            this.$router.push({name: ExamineReportFormApprove, params: {debtId: this.UnlockMsg[index].debtId, reportId: this.UnlockMsg[index].reportId}})
+            this.$router.push({path: '/ExamineReportFormApprove', query: {debtId: this.UnlockMsg[index].debtId, reportId: this.UnlockMsg[index].reportId}})
         },
         // 解债信息审批
         CheckUnlockData (index) {

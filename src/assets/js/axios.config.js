@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import { Message } from 'element-ui'
 // 使用session和cookie,没有跨域问题
 // 使用token,有跨域问题使用token
 // token 原理
@@ -15,5 +16,19 @@ axios.interceptors.request.use(config => {
     const token = window.sessionStorage.getItem('token')
     config.headers.Authorization = token
     return config
+})
+axios.interceptors.response.use(result => {
+    if(result.status) {
+        if(result.status !== 200) {
+            Message.error(result.statusText)
+            return Promise.reject(error)
+        }
+    } else if (result.resultCode) {
+        if(result.resultCode !== '200') {
+            Message.error(result.resultMessage)
+            return Promise.reject(error)
+        }
+    }
+    return result
 })
 Vue.prototype.$http = axios

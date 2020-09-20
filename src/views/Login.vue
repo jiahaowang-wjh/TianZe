@@ -184,7 +184,7 @@ export default {
                console.log(this.userMenuTree);
           this.$router.push({
             path: this.userMenuTree[0].menuUrl,
-            params: {
+            query: {
               username: result.data.additionalInformation.userNickname,
             },
           })

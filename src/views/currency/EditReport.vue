@@ -1297,7 +1297,6 @@ export default {
         // 初始化债事人, 相对人信息列表
         async InitData () {
             // 获取当前用户的reportId
-            this.CommitApproveData.reportId = window.sessionStorage.getItem('reportId')
             const reportId = this.CommitApproveData.reportId
             // 获取债事人信息
             const formData = new FormData()

@@ -468,7 +468,7 @@
                     <el-collapse-item title="相对人基本信息表" name="2" v-show='ResponseReportId'>
                         <div class='add-report-container-relative'>
                             <div class='add-report-container-relative-add-button'>
-                                <button>新增相对人</button>
+                                <button @click='ClearRelativeForm'>新增相对人</button>
                             </div>
                             <div class='add-report-container-relative-list-title'>
                                 <span>序号</span>
@@ -2536,6 +2536,7 @@ export default {
             if (Result.resultCode !== '200') return this.$message.error(Result.resultMessage)
             this.$message.success('添加相对人信息成功')
             this.SearchCounterpartList()
+            this.ClearRelativeForm()
         },
         // 关闭提交页面
         CloseConfirm () {
@@ -2544,6 +2545,44 @@ export default {
         // 确定提交按钮
         ConfirmSubmit () {
             this.IsUserConfirm = false
+        },
+        // 清空相对人表单
+        ClearRelativeForm () {
+            // this.PersonalRelativeMsg = this.RelativeOriginMsg[0]
+            for (const key in this.PersonalRelativeMsg) {
+                this.PersonalRelativeMsg[key] = ''
+                this.PersonalRelativeMsg.iscoordinate = '1'
+                this.PersonalRelativeMsg.reportType = '1'
+                this.PersonalRelativeMsg.sex = '1'
+                this.PersonalRelativeMsg.ifWork = '1'
+                this.PersonalRelativeMsg.reportId = this.ResponseReportId
+                this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+                this.PersonalRelativeMsg.usage = '1'
+                this.PersonalRelativeMsg.uploadDebtCertificate = []
+            }
+            for (const key in this.BusinessRelativeMsg) {
+                this.BusinessRelativeMsg[key] = ''
+                this.BusinessRelativeMsg.reportId = this.ResponseReportId
+                this.BusinessRelativeMsg.iscoordinate = '1'
+                this.BusinessRelativeMsg.reportType = '1'
+                this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+                this.BusinessRelativeMsg.usage = '1'
+                this.BusinessRelativeMsg.economics = '1'
+                this.BusinessRelativeMsg.agreementNo = '111'
+                this.BusinessRelativeMsg.uploadDebtCertificate = []
+            }
+            for (const key in this.BankRelativeMsg) {
+                this.BankRelativeMsg[key] = ''
+                this.BankRelativeMsg.iscoordinate = '1'
+                this.BankRelativeMsg.reportType = '1'
+                this.BankRelativeMsg.reportId = this.ResponseReportId
+                this.BankRelativeMsg.reportId = this.ResponseReportId
+                this.BankRelativeMsg.usage = '1'
+                this.BankRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+                this.BankRelativeMsg.economics = '1'
+                this.BankRelativeMsg.agreementNo = '111'
+                this.BankRelativeMsg.uploadDebtCertificate = []
+            }
         }
     },
     created () {
