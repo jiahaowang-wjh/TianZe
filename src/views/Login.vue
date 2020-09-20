@@ -316,4 +316,8 @@ export default {
 .el-input__inner {
   height: px2rem(10);
 }
+
+.el-input {
+  width: 100%;
+}
 </style>
