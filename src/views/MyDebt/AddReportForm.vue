@@ -652,7 +652,7 @@
           <el-collapse-item title="相对人基本信息表" name="2" v-show="ResponseReportId">
             <div class="add-report-container-relative">
               <div class="add-report-container-relative-add-button">
-                <button>新增相对人</button>
+                <button @click='ClearRelativeForm'>新增相对人</button>
                 <button
                   style="margin-letf:20px"
                   v-if="RelativeList.length"
@@ -676,10 +676,10 @@
                   :key="item.id"
                 >
                   <span>{{index+1}}</span>
-                  <span>{{item.personalName}}</span>
+                  <span>{{item.personalName ? item.personalName : item.companyName}}</span>
                   <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
                   <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
-                  <span>{{item.phone}}</span>
+                  <span>{{item.phone?item.phone : item.contactPhone}}</span>
                   <span>
                     <button @click="RelativeEdit(item)">编辑</button>
                     <button>删除</button>
@@ -2949,6 +2949,41 @@ export default {
     ConfirmSubmit() {
       this.IsUserConfirm = false
     },
+    ClearRelativeForm () {
+        for (const key in this.PersonalRelativeMsg) {
+            this.PersonalRelativeMsg[key] = ''
+            this.PersonalRelativeMsg.iscoordinate = '1'
+            this.PersonalRelativeMsg.reportType = '1'
+            this.PersonalRelativeMsg.sex = '1'
+            this.PersonalRelativeMsg.ifWork = '1'
+            this.PersonalRelativeMsg.reportId = this.ResponseReportId
+            this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+            this.PersonalRelativeMsg.usage = '1'
+            this.PersonalRelativeMsg.uploadDebtCertificate = []
+        }
+        for (const key in this.BusinessRelativeMsg) {
+            this.BusinessRelativeMsg[key] = ''
+            this.BusinessRelativeMsg.reportId = this.ResponseReportId
+            this.BusinessRelativeMsg.iscoordinate = '1'
+            this.BusinessRelativeMsg.reportType = '1'
+            this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+            this.BusinessRelativeMsg.usage = '1'
+            this.BusinessRelativeMsg.economics = '1'
+            this.BusinessRelativeMsg.agreementNo = '111'
+            this.BusinessRelativeMsg.uploadDebtCertificate = []
+        }
+        for (const key in this.BankRelativeMsg) {
+            this.BankRelativeMsg[key] = ''
+            this.BankRelativeMsg.reportId = this.ResponseReportId
+            this.BankRelativeMsg.reportType = '1'
+            this.BankRelativeMsg.usage = '1'
+            this.BankRelativeMsg.iscoordinate = '1'
+            this.BankRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+            this.BankRelativeMsg.economics = '1'
+            this.BankRelativeMsg.agreementNo = '111'
+            this.BankRelativeMsg.uploadDebtCertificate = []
+        }
+    }
   },
   created() {
     // 查询推荐人信息
@@ -3020,7 +3055,7 @@ export default {
           margin: 0 px2rem(2);
         }
         .el-select {
-          width: px2rem(80);
+            width: px2rem(81);
         }
         :nth-child(1) {
           span {
@@ -3261,7 +3296,12 @@ export default {
           margin: 0 px2rem(2);
         }
         .el-input {
-          width: px2rem(80);
+            width: px2rem(80);
+        }
+        :nth-child(3) {
+            .el-input {
+                 width: px2rem(70);
+            }
         }
       }
       &-person-item-7 {
@@ -3287,7 +3327,7 @@ export default {
             width: px2rem(22);
           }
           .el-input {
-            width: px2rem(68);
+            width: px2rem(66);
           }
         }
       }
@@ -3656,7 +3696,7 @@ export default {
             width: px2rem(20);
           }
           .el-input {
-            width: px2rem(72);
+            width: px2rem(68);
           }
         }
         :nth-child(3) {
@@ -3767,6 +3807,11 @@ export default {
         }
         .el-input {
           width: px2rem(80);
+        }
+        :nth-child(3) {
+            .el-input {
+                 width: px2rem(70);
+            }
         }
       }
       &-business-item-7 {
@@ -4205,6 +4250,11 @@ export default {
         }
         .el-input {
           width: px2rem(80);
+        }
+        :nth-child(3) {
+            .el-input {
+                 width: px2rem(70);
+            }
         }
       }
       &-bank-item-7 {
