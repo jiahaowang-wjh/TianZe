@@ -179,7 +179,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('新增公式成功')
-            this.$emit('RenovateFragment', 'Formula')
         },
         async SubmitEditFomula () {
             const formData = new FormData()
@@ -196,7 +195,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('修改公式成功')
-            this.$emit('RenovateFragment', 'Formula')
         },
         async OpenDel (index) {
             const formData = new FormData()
@@ -211,7 +209,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('删除公式成功')
-            this.$emit('RenovateFragment', 'Formula')
         }
     },
     created () {

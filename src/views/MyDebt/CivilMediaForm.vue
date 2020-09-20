@@ -549,7 +549,7 @@ export default {
         CloseRelativeList () {
             // 退回主页
             this.$message.error('请先选择相对人')
-            this.$router.push({name: 'MyDebt'})
+            this.$router.push({path: '/MyDebt'})
             this.IsPopSelectiveList = false
         },
         SelectMore () {
@@ -630,7 +630,7 @@ export default {
             })
             if (DebtorPhoneCheckResult.resultCode !== '200') return this.$message.error('债务人短信验证码输入错误,请重新输入')
             // 数据提交
-            this.SubmitData.reportId = this.$route.params.reportId
+            this.SubmitData.reportId = this.$route.query.reportId
             this.SubmitData.relativePerId = this.relativePerId
             this.GuaranteesList.map((v, i) => {
                 for (const key in v) {
@@ -699,7 +699,7 @@ export default {
         },
         // 查询相对人信息
         async SearchRelative () {
-            const reportId = this.$route.params.reportId
+            const reportId = this.$route.query.reportId
             const formData = new FormData()
             formData.append('reportId', reportId)
             const { data: result } = await this.$http({
@@ -806,7 +806,7 @@ export default {
         // 获取民事调解记录
         async GetMediaHistory () {
             const formData = new FormData()
-            formData.append('reportId', this.$route.params.reportId)
+            formData.append('reportId', this.$route.query.reportId)
             const { data: result } = await this.$http({
                 method: 'post',
                 url: '/api/api/busCivilController/selectByReportId',

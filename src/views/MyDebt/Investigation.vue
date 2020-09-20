@@ -126,7 +126,7 @@ export default {
         },
         async InitData () {
             const formData = new FormData()
-            const reportId = this.$route.params.reportId
+            const reportId = this.$route.query.reportId
             formData.append('reportId', reportId)
             const { data: result } = await this.$http({
                 method: 'post',
@@ -140,7 +140,7 @@ export default {
         },
         async SubmitInvestigation () {
             // 协议信息提交,生成协议编号
-            this.SubmitData.reportId = this.$route.params.reportId
+            this.SubmitData.reportId = this.$route.query.reportId
             const formData = new FormData()
             for (const key in this.SubmitData) {
                 formData.append(key, this.SubmitData[key])
@@ -164,7 +164,9 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            if (StatusChangeResult.resultCode === '200' && StatusChangeResult.data === 1) return this.$emit('onChangeFragment', 'MyDebt')
+            if (StatusChangeResult.resultCode === '200' && StatusChangeResult.data === 1) this.$router.push({
+                name: '/Mydebt'
+            })
         }
     },
     created () {

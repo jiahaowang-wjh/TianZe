@@ -244,32 +244,32 @@ export default {
     },
     methods: {
         EnterContract () {
-            this.$router.push({name: 'Assignment', params: {reportId: this.MyDebtMsg[index].reportId}})
+            this.$router.push({path: '/Assignment', query: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 前往新增报备
         GoAddReportForm () {
-            this.$router.push({name: 'AddReportForm'})
+            this.$router.push({path: '/AddReportForm'})
         },
         // 前往解锁申请界面
         GoUnlockApplyForm (index) {
-            this.$router.push({name: 'UnlockApplyForm', params: {reportId: this.MyDebtMsg[index].reportId}})
+            this.$router.push({path: '/UnlockApplyForm', query: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 前往民事调解界面
         GoCivilMediaForm (index) {
-            this.$router.push({name: 'CivilMediaForm', params: {reportId: this.MyDebtMsg[index].reportId}})
+            this.$router.push({path: '/CivilMediaForm', query: {reportId: this.MyDebtMsg[index].reportId}})
         },
         GoInvestigation (index) {
-            this.$router.push({name: 'Investigation', params: {reportId: this.MyDebtMsg[index].reportId}})
+            this.$router.push({path: '/Investigation', query: {reportId: this.MyDebtMsg[index].reportId}})
         },
         SelectRelative () {
             // window.sessionStorage.setItem('reportId', this.MyDebtMsg[index].reportId)
-            this.$router.push({name: 'ExamineReportForm'})
+            this.$router.push({path: '/ExamineReportForm'})
         },
         CloseSelectRelative () {
             this.IsShowRelativePage = false
         },
         EditMsg (index) {
-            this.$router.push({name: 'EditReport', params: {reportId: this.MyDebtMsg[index].reportId}})
+            this.$router.push({path: '/EditReport', query: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 页面初始化
         async InitData () {
