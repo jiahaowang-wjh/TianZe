@@ -284,7 +284,7 @@ export default {
     methods: {
         async InitData () {
             const formData = new FormData()
-            formData.append('reportId', window.sessionStorage.getItem('reportId'))
+            formData.append('reportId', this.$route.params.reportId)
             const { data: result } = await this.$http({
                 method: 'post',
                 url: '/api/api/busInvestigateReportController/selectByPrimaryKey',
@@ -307,7 +307,7 @@ export default {
         async UpdateCheckStatus (status) {
             const formData = new FormData()
             this.SubmitApproveData.status = status
-            this.SubmitApproveData.debtId = window.sessionStorage.getItem('debtId')
+            this.SubmitApproveData.debtId = this.$route.params.debtId
             for (const key in this.SubmitApproveData) {
                 formData.append(key, this.SubmitApproveData[key])
             }

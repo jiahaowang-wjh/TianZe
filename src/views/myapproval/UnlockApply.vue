@@ -149,11 +149,7 @@ export default {
         },
         // 调查报告审批
         CheckData (index) {
-            // 获取当前用户点击的报备ID
-            window.sessionStorage.setItem('debtId', this.UnlockMsg[index].debtId)
-            window.sessionStorage.setItem('reportId', this.UnlockMsg[index].reportId)
-            // 打开审批栏
-            this.$emit('onChangeFragment', 'ExamineReportFormApprove')
+            this.$router.push({name: ExamineReportFormApprove, params: {debtId: this.UnlockMsg[index].debtId, reportId: this.UnlockMsg[index].reportId}})
         },
         // 解债信息审批
         CheckUnlockData (index) {

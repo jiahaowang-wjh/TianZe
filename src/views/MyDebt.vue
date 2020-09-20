@@ -244,38 +244,32 @@ export default {
     },
     methods: {
         EnterContract () {
-            this.$emit('onChangeFragment', 'Assignment')
+            this.$router.push({name: 'Assignment', params: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 前往新增报备
         GoAddReportForm () {
-            this.$emit('onChangeFragment', 'AddReportForm')
+            this.$router.push({name: 'AddReportForm'})
         },
         // 前往解锁申请界面
         GoUnlockApplyForm (index) {
-            window.sessionStorage.setItem('reportId', this.MyDebtMsg[index].reportId)
-            this.$emit('onChangeFragment', 'UnlockApplyForm')
+            this.$router.push({name: 'UnlockApplyForm', params: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 前往民事调解界面
         GoCivilMediaForm (index) {
-            window.sessionStorage.setItem('reportId', this.MyDebtMsg[index].reportId)
-            this.$emit('onChangeFragment', 'CivilMediaForm')
+            this.$router.push({name: 'CivilMediaForm', params: {reportId: this.MyDebtMsg[index].reportId}})
         },
         GoInvestigation (index) {
-            window.sessionStorage.setItem('ApproveReportId', this.MyDebtMsg[index].reportId)
-            this.$emit('onChangeFragment', 'Investigation')
+            this.$router.push({name: 'Investigation', params: {reportId: this.MyDebtMsg[index].reportId}})
         },
         SelectRelative () {
             // window.sessionStorage.setItem('reportId', this.MyDebtMsg[index].reportId)
-            this.$emit('onChangeFragment', 'ExamineReportForm')
+            this.$router.push({name: 'ExamineReportForm'})
         },
         CloseSelectRelative () {
             this.IsShowRelativePage = false
         },
         EditMsg (index) {
-            window.sessionStorage.setItem('reportId', this.MyDebtMsg[index].reportId)
-            if (this.MyDebtMsg[index].status === '1') {
-                this.$emit('onChangeFragment', 'EditReport')
-            }
+            this.$router.push({name: 'EditReport', params: {reportId: this.MyDebtMsg[index].reportId}})
         },
         // 页面初始化
         async InitData () {

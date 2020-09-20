@@ -126,7 +126,7 @@ export default {
         },
         async InitData () {
             const formData = new FormData()
-            const reportId = window.sessionStorage.getItem('ApproveReportId')
+            const reportId = this.$route.params.reportId
             formData.append('reportId', reportId)
             const { data: result } = await this.$http({
                 method: 'post',
@@ -140,7 +140,7 @@ export default {
         },
         async SubmitInvestigation () {
             // 协议信息提交,生成协议编号
-            this.SubmitData.reportId = window.sessionStorage.getItem('ApproveReportId')
+            this.SubmitData.reportId = this.$route.params.reportId
             const formData = new FormData()
             for (const key in this.SubmitData) {
                 formData.append(key, this.SubmitData[key])

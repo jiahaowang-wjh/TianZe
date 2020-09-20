@@ -302,7 +302,6 @@ export default {
                 }
             })
             if (result.resultCode !== '200') return this.$message.error('操作失败')
-            this.$emit('RenovateFragment', 'Roles')
             this.$message.success('新增角色成功')
         },
         async DeleteRole (index) {
@@ -317,7 +316,6 @@ export default {
                 }
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
-            this.$emit('RenovateFragment', 'Roles')
             this.$message.success('操作成功')
         },
         OpenAlterPage (index) {
@@ -338,7 +336,6 @@ export default {
                 }
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
-            this.$emit('RenovateFragment', 'Roles')
             this.$message.success('操作成功')
         },
         CloseAlterPage () {

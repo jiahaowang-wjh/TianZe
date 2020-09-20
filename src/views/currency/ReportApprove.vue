@@ -793,7 +793,7 @@ export default {
         // 初始化债事人, 相对人信息列表
         async InitData () {
             // 获取当前用户的reportId
-            this.CommitApproveData.reportId = window.sessionStorage.getItem('ApproveReportId')
+            this.CommitApproveData.reportId = this.$route.params.reportId
             const reportId = this.CommitApproveData.reportId
             // 获取债事人信息
             const formData = new FormData()
@@ -807,7 +807,6 @@ export default {
                 }
             })
             this.ReportMsg = result.data
-            console.log(this.ReportMsg)
             // 处理债事凭证信息
             this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(',')
             if (this.ReportMsg.reportPropert === '1') {
@@ -817,7 +816,6 @@ export default {
             } else {
                 this.ReporterProperties = 'bank'
             }
-
             // 通过报备ID查询相对人信息列表
             const { data: RelativeListresult } = await this.$http({
                 method: 'post',
@@ -827,10 +825,10 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            console.log('RelativeListresult', RelativeListresult)
             this.RelativeList = RelativeListresult.data
         },
         async GetDetailMsg (index) {
+            console.log(index)
             this.RelativeMsg = this.RelativeList[index]
             this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(',')
             if (this.RelativeMsg.reportPropert === '1') {

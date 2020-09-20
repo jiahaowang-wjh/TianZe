@@ -573,7 +573,7 @@ export default {
                     }
                 })
                 if (StatusUpdateResult.resultCode === '200') {
-                    this.$emit('onChangeFragment', 'MyDebt')
+                    this.$router.push({name: 'MyDebt'})
                     return this.$message.success('新增调查报告信息成功')
                 } else {
                     return this.$message.error('新增调查报告信息失败')

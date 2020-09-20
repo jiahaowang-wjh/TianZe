@@ -648,7 +648,7 @@ export default {
             })
         },
         ViewContract () {
-            this.$emit('onChangeFragment', 'PledgedContract')
+            this.$router.push({name: 'PledgedContract'})
         },
         // 解债申请信息初始化
         async InitData (relativePerId) {
@@ -681,7 +681,7 @@ export default {
             })
             if (PhoneCheckResult.resultCode !== '200') return this.$message.error('短信验证码输入错误,请重新输入')
             // 数据提交
-            this.SubmitData.reportId = window.sessionStorage.getItem('reportId')
+            this.SubmitData.reportId = this.$route.params.reportId
             this.SubmitData.relativePerId = this.relativePerId
             const formData = new FormData()
             for (const key in this.SubmitData) {
@@ -716,7 +716,7 @@ export default {
                 }
             }
             const StageUpdateformData = new FormData()
-            StageUpdateformData.append('reportId', window.sessionStorage.getItem('reportId'))
+            StageUpdateformData.append('reportId', this.$route.params.reportId)
             StageUpdateformData.append('stage', '3')
             this.$http({
                 method: 'post',
@@ -734,7 +734,7 @@ export default {
         CloseRelativeList () {
             // 退回主页
             this.$message.error('请先选择相对人')
-            this.$emit('onChangeFragment', 'MyDebt')
+            this.$router.push({name: 'MyDebt'})
             this.IsPopSelectiveList = false
         },
         // 确定选择相对人页面 并 通过relativePerId查询得到报备人及相对人信息
@@ -762,8 +762,8 @@ export default {
         },
         // 进入调查报告页面
         GoInvestigationReport (index) {
-            window.sessionStorage.setItem('debtId', 'debtId')
-            this.$emit('onChangeFragment', 'ExamineReportForm')
+            const debtId = this.$router.params.debtId
+            this.$router.push({name: 'MyDebt', params: {debtId: debtId}})
         },
         // 查询担保人信息
         async Getguarantor (civilId) {
@@ -781,7 +781,7 @@ export default {
         },
         // 查询调解书信息
         async SearchConciliation () {
-            const reportId = window.sessionStorage.getItem('reportId')
+            const reportId = this.$route.params.reportId
             const formData = new FormData()
             formData.append('reportId', reportId)
             const { data: result } = await this.$http({
@@ -815,7 +815,7 @@ export default {
         // 获取解债信息列表
         async GetMsgList () {
             const formData = new FormData()
-            const reportId = window.sessionStorage.getItem('reportId')
+            const reportId = this.$route.params.reportId
             formData.append('reportId', reportId)
             const { data: result } = await this.$http({
                 method: 'post',

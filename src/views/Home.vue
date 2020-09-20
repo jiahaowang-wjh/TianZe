@@ -12,22 +12,22 @@
           <!-- 第一排图表 -->
           <div class='home-charts-first-row'>
               <div class='home-charts-first-row-chart1'>
-                  <Echarts :optionData='option1' :IsInitData='IsInitData'></Echarts>
+                  <Echarts :optionData='option1' :IsInitData='IsInitData1'></Echarts>
               </div>
               <div class='home-charts-first-row-chart2'>
-                  <Echarts :optionData='option2' :IsInitData='IsInitData'></Echarts>
+                  <Echarts :optionData='option2' :IsInitData='IsInitData2'></Echarts>
               </div>
           </div>
           <!-- 第二排图表 -->
           <div class='home-charts-second-row'>
               <div class='home-charts-second-row-chart3'>
-                  <Echarts :optionData='option3' :IsInitData='IsInitData'></Echarts>
+                  <Echarts :optionData='option3' :IsInitData='IsInitData3'></Echarts>
               </div>
               <div class='home-charts-second-row-chart4'>
-                  <Echarts :optionData='option4' :IsInitData='IsInitData'></Echarts>
+                  <Echarts :optionData='option4' :IsInitData='IsInitData4'></Echarts>
               </div>
               <div class='home-charts-second-row-chart5'>
-                  <Echarts :optionData='option5' :IsInitData='IsInitData'></Echarts>
+                  <Echarts :optionData='option5' :IsInitData='IsInitData5'></Echarts>
               </div>
           </div>
       </div>
@@ -43,23 +43,23 @@ export default {
             buttonData: [
                 {
                     title: '+新增录入',
-                    path: '/AddReportForm'
+                    path: 'AddReportForm'
                 },
                 {
                     title: '财务审查',
-                    path: '/PaymentVoucher'
+                    path: 'PaymentVoucher'
                 },
                 {
                     title: '录入信息',
-                    path: '/ReportInfo'
+                    path: 'ReportInfo'
                 },
                 {
                     title: '调解信息',
-                    path: '/CivilMedia'
+                    path: 'CivilMedia'
                 },
                 {
                     title: '债权处理',
-                    path: '/UnlockApply'
+                    path: 'UnlockApply'
                 }
             ],
             // 图表1数据源
@@ -247,7 +247,7 @@ export default {
             option2: {
                 xAxis: {
                     type: 'category',
-                    data: ['6月01日', '6月02日', '6月03日', '6月04日', '6月05日', '6月06日', '6月07日', '6月08日', '6月09日', '6月10日'],
+                    data: [],
                     axisTick: {
                         alignWithLabel: true
                     },
@@ -305,7 +305,7 @@ export default {
                 },
                 series: [
                     {
-                        data: [40, 60, 100, 90, 70, 120, 130, 50, 80, 30],
+                        data: [],
                         type: 'line',
                         lineStyle: {
                             color: '#7D7AA3',
@@ -467,7 +467,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['12月12日', '6月9日', '6月8日', '6月7日', '6月6日', '6月5日', '6月4日', '6月3日', '6月2日', '6月1日'],
+                    data: [],
                     axisTick: {
                         show: false
                     },
@@ -493,7 +493,7 @@ export default {
                     {
                         name: '2011年',
                         type: 'bar',
-                        data: [156, 92, 142, 44, 155, 77, 133, 43, 145, 200],
+                        data: [],
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 1, 0, 0, 0,
@@ -531,7 +531,7 @@ export default {
                     }
                 },
                 xAxis: {
-                    data: ['6月01日', '6月02日', '6月03日', '6月04日', '6月05日', '6月06日', '6月07日'],
+                    data: [],
                     color: '#62678A',
                     type: 'category',
                     axisTick: {
@@ -592,7 +592,7 @@ export default {
                             )
                         },
                         barCategoryGap: '60%',
-                        data: [40, 90, 70, 130, 50, 80, 30],
+                        data: [],
                         // 条纹形背景色
                         markArea: {
                             silent: true,
@@ -697,10 +697,10 @@ export default {
                     }
                 ],
                 grid: {
-                    left: '10%',
+                    left: '8%',
                     right: '2%',
-                    bottom: '10%',
-                    top: '15%'
+                    bottom: '8%',
+                    top: '18%'
                 }
             },
             // 图表5数据源
@@ -740,7 +740,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['12月12日', '6月9日', '6月8日', '6月7日', '6月6日', '6月5日', '6月4日', '6月3日', '6月2日', '6月1日'],
+                    data: [],
                     axisTick: {
                         show: false
                     },
@@ -766,7 +766,7 @@ export default {
                     {
                         name: '2011年',
                         type: 'bar',
-                        data: [156, 92, 142, 44, 155, 77, 133, 43, 145, 200],
+                        data: [],
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 1, 0, 0, 0,
@@ -796,7 +796,11 @@ export default {
                 ]
             },
             // 是否开始渲染Echarts图形
-            IsInitData: false
+            IsInitData1: false,
+            IsInitData2: false,
+            IsInitData3: false,
+            IsInitData4: false,
+            IsInitData5: false
         }
     },
     components: {
@@ -804,50 +808,64 @@ export default {
     },
     methods: {
         Shortcut (path) {
-            // this.$emit('onChangeFragment', path)
-            this.$router.push(path);
+            this.$emit('onChangeFragment', path)
         },
         // 获取相应信息
         async InitData () {
             // 报备信息
+            const formData = new FormData()
+            formData.append('type', window.sessionStorage.getItem('companyType'))
             const { data: ReportResult } = await this.$http({
                 method: 'post',
-                url: '/api/api/busReportController/selectDaysCount'
+                url: '/api/api/busReportController/selectDaysCount',
+                data: formData
             })
+            // 开始渲染1图形
+            this.IsInitData1 = true
             // 表单1数据处理
             this.option1.xAxis.data = ReportResult.data.map(v => v.days)
             this.option1.series[0].data = ReportResult.data.map(v => v.count)
             // 调解信息
             const { data: CivilResult } = await this.$http({
                 method: 'post',
-                url: '/api/api/busCivilController/selectDaysCount'
+                url: '/api/api/busCivilController/selectDaysCount',
+                data: formData
             })
             this.option2.xAxis.data = CivilResult.data.map(v => v.days)
             this.option2.series[0].data = CivilResult.data.map(v => v.count)
+            // 开始渲染2图形
+            this.IsInitData2 = true
             // 解债申请
             const { data: UnlockResult } = await this.$http({
                 method: 'post',
-                url: '/api/api/pubDebtController/selectDaysCount'
+                url: '/api/api/pubDebtController/selectDaysCount',
+                data: formData
             })
             // 表单3数据处理
             this.option3.yAxis.data = UnlockResult.data.map(v => v.days)
             this.option3.series[1].data = UnlockResult.data.map(v => v.count)
+            // 开始渲染图形
+            this.IsInitData3 = true
             // 资产评估 Assess
             const { data: AssessResult } = await this.$http({
                 method: 'post',
-                url: '/api/api/busAssessmentController/selectDaysCount'
+                url: '/api/api/busAssessmentController/selectDaysCount',
+                data: formData
             })
             this.option4.xAxis.data = AssessResult.data.map(v => v.days)
             this.option4.series[0].data = AssessResult.data.map(v => v.count)
+            // 开始渲染图形
+            this.IsInitData4 = true
             // 债行信息
             const { data: DebtBankResult } = await this.$http({
                 method: 'post',
-                url: '/api/api/busReportController/selectDaysCount'
+                url: '/api/api/busReportController/selectDaysCount',
+                data: formData
             })
             this.option5.yAxis.data = DebtBankResult.data.map(v => v.days)
             this.option5.series[1].data = DebtBankResult.data.map(v => v.count)
             // 开始渲染图形
-            this.IsInitData = true
+            this.IsInitData5 = true
         }
     },
     created () {

@@ -230,7 +230,6 @@ export default {
                         })
                         this.InitDictionaryList()
                     }
-                    this.$emit('RenovateFragment', 'Dictionary')
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -260,7 +259,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('添加信息成功')
-            this.$emit('RenovateFragment', 'Dictionary')
             this.IsAddDictionary = false
         },
         CloseEdit () {
@@ -285,7 +283,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error('修改错误,请重新输入')
             this.$message.success('修改信息成功')
-            this.$emit('RenovateFragment', 'Dictionary')
         }
     },
     created () {

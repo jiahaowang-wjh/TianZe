@@ -199,15 +199,11 @@ export default {
             // 如果当前用户处于报备待审批状态 status === '0', stage === '1'
             if ((this.ReportInfoMsg[index].status === '0' || this.ReportInfoMsg[index].status === '5') && this.ReportInfoMsg[index].stage === '1') {
                 // 获取当前用户点击的报备ID
-                window.sessionStorage.setItem('ApproveReportId', this.ReportInfoMsg[index].reportId)
-                // 打开审批栏
-                this.$emit('onChangeFragment', 'ReportApprove')
+                this.$router.push({name: 'ReportApprove', params: {reportId: this.ReportInfoMsg[index].reportId}})
             } else if (this.ReportInfoMsg[index].status === '4' && this.ReportInfoMsg[index].stage === '1') {
                 // 当前用户处于报备支付凭证待审批 status === '4' , stage === '1'
                 // 获取当前用户点击的报备ID
-                window.sessionStorage.setItem('reportId', this.ReportInfoMsg[index].reportId)
-                // 打开审批栏
-                this.$emit('onChangeFragment', 'ReportVoucherApprove')
+                this.$router.push({name: 'ReportVoucherApprove', params: {reportId: this.ReportInfoMsg[index].reportId}})
             }
         },
         CloseCheckPage () {
@@ -217,9 +213,7 @@ export default {
             this.IsCheckData = false
         },
         GoReportPayment (index) {
-            window.sessionStorage.setItem('reportId', this.ReportInfoMsg[index].reportId)
-            window.sessionStorage.setItem('debtId', this.ReportInfoMsg[index].debtId)
-            this.$emit('onChangeFragment', 'ReportPayment')
+            this.$router.push({name: ReportPayment, params: {debtId: this.UnlockMsg[index].debtId, reportId: this.UnlockMsg[index].reportId}})
         },
         Search () {
             this.InitData()

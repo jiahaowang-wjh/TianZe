@@ -140,7 +140,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('新增权限成功')
-            this.$emit('RenovateFragment', 'Right')
         },
         CloseAdd () {
             this.IsAddRight = false
@@ -171,7 +170,6 @@ export default {
             })
             if (result.resultCode !== '200') return this.$message.error(result.resultMessage)
             this.$message.success('修改权限成功')
-            this.$emit('RenovateFragment', 'Right')
         },
         DelRight (index) {
             const formData = new FormData()
@@ -196,7 +194,6 @@ export default {
                         })
                         this.InitDictionaryList()
                     }
-                    this.$emit('RenovateFragment', 'Dictionary')
                 }).catch(() => {
                     this.$message({
                         type: 'info',
