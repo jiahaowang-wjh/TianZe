@@ -8,9 +8,9 @@
         </div>
         <div class='add-report-container'>
             <div class='add-report-container-form'>
-                <el-collapse>
+                <el-collapse  :value="collapseActive" >
                     <!-- 债务人基本信息登记表 -->
-                    <el-collapse-item title="债事人基本信息登记表" name="1">
+                    <el-collapse-item title="债事人基本信息登记表" name="1"  >
                         <!-- 第一行表单 -->
                         <div class='add-report-container-form-first'>
                             <div class='add-report-container-form-first-item'>
@@ -94,10 +94,10 @@
                             </div>
                             <h3>上传身份证</h3>
                             <div class='add-report-container-form-person-upload-idcard'>
-                                <img :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc" alt="">
+                                <img :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc" @click="openImgToLink(PersonalReportMsg.cardJust)" alt="">
                                 <input type="file" @change="UpdateReportJustIDCard" ref="PersonReportJustIdCard" class='add-report-container-form-person-upload-idcard-just' value='点击上传'>
                                 <button>点击上传</button>
-                                <img :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc" alt="">
+                                <img :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc" @click="openImgToLink(PersonalReportMsg.cardBack)" alt="">
                                 <input type="file" @change="UpdateReportBackIDCard" ref="PersonReportBackIdCard" class='add-report-container-form-person-upload-idcard-back' value='点击上传'>
                                 <button>点击上传</button>
                             </div>
@@ -127,6 +127,7 @@
                                 <div>
                                     <span>利率：</span>
                                     <el-input v-model='PersonalReportMsg.interestRate' maxlength='10' v-input-num-2></el-input>
+                                     <span>%</span>
                                 </div>
                             </div>
                             <div class='add-report-container-form-person-item-7'>
@@ -150,7 +151,7 @@
                             <div class='add-report-container-form-person-update-imgs'>
                                 <span>上传债事凭证：</span>
                                 <div class='add-report-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in PersonalReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in PersonalReportMsg.uploadDebtCertificate' :key='index' @click="openImgToLink(item)" :src="item" alt="">
                                 </div>
                                 <input type="file" @change="UpdateReportVoucher" ref="PersonReportVoucher" class='add-report-container-form-person-update-imgs-form' value='点击上传'>
                                 <button>点击上传</button>
@@ -194,7 +195,7 @@
                                     <span>银行预留手机：</span>
                                     <el-input v-model='Certification[0].mobilePhone' :disabled="this.IsReportPhoneCertification.Person" v-input-num maxlength="11"></el-input>
                                 </div>
-                                <div>
+                                <div   >
                                     <span>手机验证码：</span>
                                     <el-input v-model='NoteCode[0].PersonReportNodeCode' :disabled="!this.IsReportPhoneCertification.Person" maxlength="4"></el-input>
                                     <button @click='PhoneCheck'>点击获取</button>
@@ -248,10 +249,10 @@
                             </div>
                             <h3>上传身份证</h3>
                             <div class='add-report-container-form-business-upload-idcard'>
-                                <img :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc" alt="">
+                                <img :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc" @click="openImgToLink(BusinessReportMsg.cardJust)" alt="">
                                 <input type="file" @change="UpdateReportJustIDCard" ref="BusinessReportJustIdCard" class='add-report-container-form-business-upload-idcard-just' value='点击上传'>
                                 <button>点击上传</button>
-                                <img :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc" alt="">
+                                <img :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc" @click="openImgToLink(BusinessReportMsg.cardBack)" alt="">
                                 <input type="file" @change="UpdateReportBackIDCard" ref="BusinessReportBackIdCard" class='add-report-container-form-business-upload-idcard-back' value='点击上传'>
                                 <button>点击上传</button>
                             </div>
@@ -281,6 +282,7 @@
                                 <div>
                                     <span>利率：</span>
                                     <el-input v-model="BusinessReportMsg.interestRate" maxlength='6' v-input-num-2></el-input>
+                                     <span>%</span>
                                 </div>
                             </div>
                             <div class='add-report-container-form-business-item-7'>
@@ -304,7 +306,7 @@
                             <div class='add-report-container-form-business-update-imgs'>
                                 <span>上传债事凭证：</span>
                                 <div class='add-report-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in BusinessReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in BusinessReportMsg.uploadDebtCertificate' @click="openImgToLink(item)" :key='index' :src="item" alt="">
                                 </div>
                                 <input type="file" @change="UpdateReportVoucher" ref="BusinessReportVoucher" class='add-report-container-form-business-update-imgs-form' value='点击上传'>
                                 <button>点击上传</button>
@@ -422,6 +424,7 @@
                                 <div>
                                     <span>利率：</span>
                                     <el-input v-model='BankReportMsg.interestRate' maxlength='6'></el-input>
+                                     <span>%</span>
                                 </div>
                             </div>
                             <div class='add-report-container-form-bank-item-7'>
@@ -445,7 +448,7 @@
                             <div class='add-report-container-form-bank-update-imgs'>
                                 <span>上传债事凭证：</span>
                                 <div class='add-report-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in BankReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in BankReportMsg.uploadDebtCertificate' :key='index' :src="item" @click="openImgToLink(item)" alt="">
                                 </div>
                                 <input type="file" @change="UpdateReportVoucher" ref="BankReportVoucher" class='add-report-container-form-bank-update-imgs-form' value='点击上传'>
                                 <button>点击上传</button>
@@ -468,7 +471,10 @@
                     <el-collapse-item title="相对人基本信息表" name="2" v-show='ResponseReportId'>
                         <div class='add-report-container-relative'>
                             <div class='add-report-container-relative-add-button'>
-                                <button>新增相对人</button>
+                                <button >新增相对人</button>
+                                 <button  style="margin-letf:20px" v-if="RelativeList.length"   @click="()=>{ 
+                                     $message.success('已提交至总公司！')
+                                     }" >提交至总公司</button>
                             </div>
                             <div class='add-report-container-relative-list-title'>
                                 <span>序号</span>
@@ -574,10 +580,11 @@
                                 </div>
                                 <h3>上传身份证</h3>
                                 <div class='add-report-container-relative-form-person-upload-idcard'>
-                                    <img :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"  alt="">
+
+                                    <img :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc" @click="openImgToLink(PersonalRelativeMsg.cardJust)" alt="">
                                     <input type="file" @change="UpdateRelativeJustIDCard" ref="PersonRelativeJustIdCard" class='add-report-container-relative-form-person-upload-idcard-just' value='点击上传'>
                                     <button>点击上传</button>
-                                    <img :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc" alt="">
+                                    <img :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc" @click="openImgToLink(PersonalRelativeMsg.cardBack)" alt="">
                                     <input type="file" @change="UpdateRelativeBackIDCard" ref="PersonRelativeBackIdCard" class='add-report-container-relative-form-person-upload-idcard-back'  value='点击上传'>
                                     <button>点击上传</button>
                                 </div>
@@ -607,6 +614,7 @@
                                     <div>
                                         <span>利率：</span>
                                         <el-input v-model='PersonalRelativeMsg.interestRate' maxlength='6'></el-input>
+                                        <span>%</span>
                                     </div>
                                 </div>
                                 <div class='add-report-container-relative-form-person-item-7'>
@@ -630,7 +638,7 @@
                                 <div class='add-report-container-relative-form-person-update-imgs'>
                                     <span>上传债事凭证：</span>
                                     <div class='add-report-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in PersonalRelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in PersonalRelativeMsg.uploadDebtCertificate' :key='index' @click="openImgToLink(item)" :src="item" alt="">
                                     </div>
                                     <input type="file" @change="UpdateRelativeVoucher" ref="PersonRelativeVoucher" class='add-report-container-form-business-update-imgs-form' value='点击上传'>
                                     <button>点击上传</button>
@@ -696,10 +704,10 @@
                                 </div>
                                 <h3>上传身份证</h3>
                                 <div class='add-report-container-relative-form-business-upload-idcard'>
-                                    <img :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"  alt="">
+                                    <img :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc" @click="openImgToLink(BusinessRelativeMsg.cardJust)" alt="">
                                     <input type="file" @change="UpdateRelativeJustIDCard" ref="BusinessRelativeJustIdCard" class='add-report-container-relative-form-business-upload-idcard-just' value='点击上传'>
                                     <button>点击上传</button>
-                                    <img :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"  alt="">
+                                    <img :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc" @click="openImgToLink(BusinessRelativeMsg.cardBack)"  alt="">
                                     <input type="file" @change="UpdateRelativeBackIDCard" ref="BusinessRelativeBackIdCard" class='add-report-container-relative-form-business-upload-idcard-back' value='点击上传'>
                                     <button>点击上传</button>
                                 </div>
@@ -729,6 +737,7 @@
                                     <div>
                                         <span>利率：</span>
                                         <el-input v-model='BusinessRelativeMsg.interestRate' maxlength='6' v-input-num-2></el-input>
+                                         <span>%</span>
                                     </div>
                                 </div>
                                 <div class='add-report-container-relative-form-business-item-7'>
@@ -752,7 +761,7 @@
                                 <div class='add-report-container-relative-form-business-update-imgs'>
                                     <span>上传债事凭证：</span>
                                     <div class='add-report-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in BusinessRelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in BusinessRelativeMsg.uploadDebtCertificate' :key='index' @click="openImgToLink(item)" :src="item" alt="">
                                     </div>
                                     <input type="file" @change="UpdateRelativeVoucher" ref="BusinessRelativeVoucher" class='add-report-container-form-business-update-imgs-form' value='点击上传'>
                                     <button>点击上传</button>
@@ -838,6 +847,7 @@
                                     <div>
                                         <span>利率：</span>
                                         <el-input v-model='BankRelativeMsg.interestRate' maxlength='6' v-input-num-2></el-input>
+                                         <span>%</span>
                                     </div>
                                 </div>
                                 <div class='add-report-container-relative-form-bank-item-7'>
@@ -861,7 +871,7 @@
                                 <div class='add-report-container-relative-form-bank-update-imgs'>
                                     <span>上传债事凭证：</span>
                                     <div class='add-report-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in BankRelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in BankRelativeMsg.uploadDebtCertificate' :key='index' @click="openImgToLink(item)" :src="item" alt="">
                                     </div>
                                     <input type="file" @change="UpdateRelativeVoucher" ref="BankRelativeVoucher" class='add-report-container-form-business-update-imgs-form' value='点击上传'>
                                     <button>点击上传</button>
@@ -882,7 +892,8 @@
                         </div>
                     </el-collapse-item>
                     <!-- 债市链 -->
-                    <el-collapse-item title="债事链" name="3" v-show='ResponseReportId'>
+                    <el-collapse-item title="债事链" name="3" v-show='false'>
+                    <!-- <el-collapse-item title="债事链" name="3" v-show='ResponseReportId'> -->
                         <div class='add-report-container-debt-chain'>
                             <img src="@imgs/home/DebtChain.png" alt="" class='add-report-container-debt-chain-img'>
                         </div>
@@ -932,6 +943,7 @@
 export default {
     data () {
         return {
+            collapseActive:'1',
             // 是否显示推荐人弹窗
             IsPopRecommond: true,
             // 是否显示用户确认界面
@@ -2152,7 +2164,9 @@ export default {
                 message: '选择推荐人成功',
                 type: 'success'
             })
-            this.IsPopRecommond = false
+            this.IsPopRecommond = false;
+            console.log(this.IsPopRecommond);
+            this.$forceUpdate()
         },
         // 获取报备推荐人的index及推荐人ID
         getValue (index) {
@@ -2237,7 +2251,8 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                Responseresult = result
+                Responseresult = result;
+                
                 // 传入当前用户报备ID
             } else if (this.ReporterProperties === 'business') {
                 // 当用户选择企业报备时
@@ -2260,7 +2275,8 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                Responseresult = result
+                Responseresult = result;
+                
             } else {
                 // 当用户选择企业报备时
                 this.BankReportMsg.companyId = window.sessionStorage.getItem('companyId')
@@ -2276,15 +2292,18 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                Responseresult = result
+                Responseresult = result;
+ 
             }
             // 如何返回结果成功,传入报备Id
             if (Responseresult.resultCode !== '200') {
                 return this.$message.error(Responseresult.resultMessage)
             }
             this.$message.success('债事人信息登记成功')
-            this.ResponseReportId = Responseresult.data
-            this.HasSubmitDebt = true
+            this.ResponseReportId = Responseresult.data||'';
+            this.HasSubmitDebt = true; 
+            this.collapseActive='2'; 
+
         },
         // 上传报备正面身份证
         async UpdateReportJustIDCard () {
@@ -2463,7 +2482,7 @@ export default {
                 }
             })
             // 数据处理
-            this.RelativeList = result.data
+            this.RelativeList = result.data||[];
         },
         // 获取相对人是否配合
         GetRelativeIscoordinate (value) {
@@ -2534,7 +2553,8 @@ export default {
                 Result = result
             }
             if (Result.resultCode !== '200') return this.$message.error(Result.resultMessage)
-            this.$message.success('添加相对人信息成功')
+            this.$message.success('添加相对人信息成功');
+            // this.collapseActive='3';
             this.SearchCounterpartList()
         },
         // 关闭提交页面

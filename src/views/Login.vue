@@ -13,6 +13,8 @@
       <!-- 登录表单区域 -->
       <el-form
         label-width="0px"
+         @submit.prevent="()=>false"
+         @submit.native.prevent
         class="login-box-form"
         :model="loginForm"
         :rules="loginFormRules"

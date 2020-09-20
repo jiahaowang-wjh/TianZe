@@ -36,7 +36,6 @@
                                     <span>{{subItem.menuName}}</span>
                                 </div>
                             </div>
-                      
             </div>-->
             <el-menu :default-active="currentRoute" class="home-container-body-aside-menu" router>
               <template v-for="(item ) in userMenuTree">
@@ -60,7 +59,8 @@
             @onChangeFragment="onChangeFragment"
             @RenovateFragment="RenovateFragment"
             v-if="isRouterAlive"
-          ></component>-->
+          ></component>
+          -->
           <router-view></router-view>
           <!-- :ComponentName='Componentname'-->
         </el-main>

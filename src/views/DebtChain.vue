@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Echarts from '@c/currency/Echarts.vue'
+import Echarts from '@/views/currency/Echarts.vue'
 export default {
     data () {
         return {
