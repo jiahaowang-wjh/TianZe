@@ -103,7 +103,10 @@ Vue.prototype.$UpdateFile = async function (file) {
     if (result.resultCode !== '200') return this.$message.error('上传失败, 请重试')
     // http://113.204.236.218:8989/
     // http://47.108.135.174:9000/
-    return 'http://113.204.236.218:8989/' + result.data.split('/')[3]
+    const fileBasePath = 'http://47.108.135.174:9000/'; //线上环境
+    // const fileBasePath='http://113.204.236.218:8989/';
+    // const fileBasePath='http://47.108.135.174:9000/';
+    return fileBasePath + result.data.split('/')[3]
 }
 new Vue({
     router,
