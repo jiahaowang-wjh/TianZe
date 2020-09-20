@@ -11,7 +11,7 @@ export default {
 </script>
 <style lang="scss">
 @import '@css/style.scss';
-@import  '@css/el_style.scss';
+@import '@css/el_style.scss';
 .app {
   position: relative;
   width: 100%;
@@ -168,15 +168,17 @@ input::-webkit-input-placeholder {
 }
 .el-form-item__error {
   font-size: px2rem(3.5) !important;
+  top: px2rem(4.5) !important;
+  height: px2rem(4.5) !important;
   margin-top: px2rem(1);
 }
 .el-select-dropdown__item span {
   font-size: px2rem(3.5) !important;
 }
 .el-form-item__label {
-  font-size: px2rem(3) !important;
-  width: px2rem(18) !important;
-  padding: 0;
+  float: left;
+  line-height: px2rem(8) !important;
+  // padding: 0;
 }
 .el-input__icon {
   display: flex;
@@ -187,7 +189,7 @@ input::-webkit-input-placeholder {
   margin-left: px2rem(0.5);
 }
 .el-form-item__content {
-  height: px2rem(8) !important;
+  min-height: px2rem(8) !important;
   line-height: px2rem(8) !important;
   display: flex;
 }
