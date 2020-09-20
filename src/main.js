@@ -8,7 +8,7 @@ import './assets/js/htmlFontSize.js'
 import './assets/js/axios.config.js'
 import './assets/js/filters.js';
 import { getToken, loginOut } from '@/util'
-
+import mixin from '@/mixins';
 // router跳转权限控制
 const WHITE_LIST = ['/login'];
 
@@ -101,6 +101,7 @@ Vue.prototype.$UpdateFile = async function (file) {
 }
 new Vue({
     router,
+    mixins: [mixin],
     store,
     render: h => h(App)
 }).$mount('#app')

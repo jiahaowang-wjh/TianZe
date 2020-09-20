@@ -59,7 +59,7 @@ module.exports = {
     
     // 它支持webPack-dev-server的所有选项
     devServer: {
-        host: 'localhost',
+        host: '10.20.2.172',
         port: 8080,
         https: false,
         hotOnly: false,
