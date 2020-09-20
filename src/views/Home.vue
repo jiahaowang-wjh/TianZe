@@ -43,23 +43,23 @@ export default {
             buttonData: [
                 {
                     title: '+新增录入',
-                    path: 'AddReportForm'
+                    path: '/AddReportForm'
                 },
                 {
                     title: '财务审查',
-                    path: 'PaymentVoucher'
+                    path: '/PaymentVoucher'
                 },
                 {
                     title: '录入信息',
-                    path: 'ReportInfo'
+                    path: '/ReportInfo'
                 },
                 {
                     title: '调解信息',
-                    path: 'CivilMedia'
+                    path: '/CivilMedia'
                 },
                 {
                     title: '债权处理',
-                    path: 'UnlockApply'
+                    path: '/UnlockApply'
                 }
             ],
             // 图表1数据源
@@ -804,7 +804,8 @@ export default {
     },
     methods: {
         Shortcut (path) {
-            this.$emit('onChangeFragment', path)
+            // this.$emit('onChangeFragment', path)
+            this.$router.push(path);
         },
         // 获取相应信息
         async InitData () {

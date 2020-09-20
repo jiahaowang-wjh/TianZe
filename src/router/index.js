@@ -14,8 +14,7 @@ Vue.use(VueRouter)
 
 
 
-const routes = [
-    {
+const routes = [{
         path: '/',
         redirect: '/login'
     },
@@ -31,8 +30,7 @@ const routes = [
         meta: {
             requireAuth: true
         },
-        children: [
-            {
+        children: [{
                 path: '/Home',
                 name: 'Home',
                 component: () => import('@/views/Home'),
@@ -40,7 +38,7 @@ const routes = [
                     leftMenu: '/Home'
                 }
             },
-            {//"债事链
+            { //"债事链
                 path: '/DebtChain',
                 name: 'DebtChain',
                 component: () => import('@/views/DebtChain'),
@@ -48,7 +46,7 @@ const routes = [
                     leftMenu: '/DebtChain',
                 }
             },
-            {//"用户管理"
+            { //"用户管理"
                 path: '/UserManage',
                 name: 'UserManage',
                 component: () => import('@/views/UserManage'),
@@ -56,7 +54,7 @@ const routes = [
                     leftMenu: '/UserManage',
                 }
             },
-            {//我的债行
+            { //我的债行
                 path: '/MyDebt',
                 name: 'MyDebt',
                 component: () => import('@/views/MyDebt'),
@@ -64,7 +62,7 @@ const routes = [
                     leftMenu: '/MyDebt',
                 }
             },
-            {// 支付明细
+            { // 支付明细
                 path: '/PayDetail',
                 name: 'PayDetail',
                 component: () => import('@/views/PayDetail'),
@@ -73,7 +71,7 @@ const routes = [
                 }
             },
 
-            {//公式配置
+            { //公式配置
                 path: '/Formula',
                 name: 'Formula',
                 component: () => import('@/views/Formula'),
@@ -81,7 +79,7 @@ const routes = [
                     leftMenu: '/Formula',
                 }
             },
-            {//角色管理
+            { //角色管理
                 path: '/Roles',
                 name: 'Roles',
                 component: () => import('@/views/Roles'),
@@ -89,7 +87,7 @@ const routes = [
                     leftMenu: '/Roles',
                 }
             },
-            {//权限管理
+            { //权限管理
                 path: '/Right',
                 name: 'Right',
                 component: () => import('@/views/Right'),
@@ -97,7 +95,7 @@ const routes = [
                     leftMenu: '/Right',
                 }
             },
-            {//"字典管理"
+            { //"字典管理"
                 path: '/Dictionary',
                 name: 'Dictionary',
                 component: () => import('@/views/Dictionary'),
@@ -105,7 +103,7 @@ const routes = [
                     leftMenu: '/Dictionary',
                 }
             },
-            {//文档管理
+            { //文档管理
                 path: '/Document',
                 name: 'Document',
                 component: () => import('@/views/Document'),
@@ -113,7 +111,7 @@ const routes = [
                     leftMenu: '/Document',
                 }
             },
-            {//修改密码
+            { //修改密码
                 path: '/Password',
                 name: 'Password',
                 component: () => import('@/views/Password'),
@@ -121,15 +119,8 @@ const routes = [
                     leftMenu: '/Password',
                 }
             },
-            {// 子页面
-                path: '/AddReportForm',
-                name: 'AddReportForm',
-                component: () => import('@/views/MyDebt/AddReportForm'),
-                meta: {
-                    leftMenu: '/AddReportForm',
-                }
-            },
-            {//子页面
+
+            { //子页面
                 path: '/ExamineReportForm',
                 name: 'ExamineReportForm',
                 component: () => import('@/views/MyDebt/ExamineReportForm'),
@@ -137,7 +128,7 @@ const routes = [
                     leftMenu: '/ExamineReportForm',
                 }
             },
-            {//子页面
+            { //子页面
                 path: '/Investigation',
                 name: 'Investigation',
                 component: () => import('@/views/MyDebt/Investigation'),
@@ -145,47 +136,46 @@ const routes = [
                     leftMenu: '/Investigation',
                 }
             },
-            {//子页面
+            { //子页面
                 path: '/UnlockApplyForm',
                 name: 'UnlockApplyForm',
                 component: () => import('@/views/MyDebt/UnlockApplyForm'),
                 meta: {
                     leftMenu: '/UnlockApplyForm',
                 }
-            }, {//子页面
+            }, { //子页面
                 path: '/CivilMediaForm',
                 name: 'CivilMediaForm',
                 component: () => import('@/views/MyDebt/CivilMediaForm'),
                 meta: {
                     leftMenu: '/CivilMediaForm',
                 }
-            }, {//子页面
+            }, { //子页面
                 path: '/PledgedContract',
                 name: 'PledgedContract',
                 component: () => import('@/views/MyDebt/PledgedContract'),
                 meta: {
                     leftMenu: '/PledgedContract',
                 }
-            }, {//子页面
+            }, { //子页面
                 path: '/ReportPayment',
                 name: 'ReportPayment',
                 component: () => import('@/views/currency/ReportPayment'),
                 meta: {
                     leftMenu: '/ReportPayment',
                 }
-            }, {//子页面
+            }, { //子页面
                 path: '/UnlockPayment',
                 name: 'UnlockPayment',
                 component: () => import('@/views/currency/UnlockPayment'),
                 meta: {
                     leftMenu: '/UnlockPayment',
                 }
-            }, {//我的审批
+            }, { //我的审批
                 path: '/myapproval',
                 name: 'MyApproval',
                 component: () => import('@/views/myapproval'),
-                children: [
-                    {//录入信息
+                children: [{ //录入信息
                         path: '/ReportInfo',
                         name: 'ReportInfo',
                         component: () => import('@/views/myapproval/ReportInfo'),
@@ -193,7 +183,15 @@ const routes = [
                             leftMenu: '/ReportInfo',
                         }
                     },
-                    {//调解信息
+                    { // 新增录入
+                        path: '/AddReportForm',
+                        name: 'AddReportForm',
+                        component: () => import('@/views/MyDebt/AddReportForm'),
+                        meta: {
+                            leftMenu: '/ReportInfo',
+                        }
+                    },
+                    { //调解信息
                         path: '/CivilMedia',
                         name: 'CivilMedia',
                         component: () => import('@/views/myapproval/CivilMedia'),
@@ -201,7 +199,7 @@ const routes = [
                             leftMenu: '/CivilMedia',
                         }
                     },
-                    {//债权处理
+                    { //债权处理
                         path: '/UnlockApply',
                         name: 'UnlockApply',
                         component: () => import('@/views/myapproval/UnlockApply'),
@@ -209,7 +207,7 @@ const routes = [
                             leftMenu: '/UnlockApply',
                         }
                     },
-                    {//支付凭证
+                    { //支付凭证
                         path: '/PaymentVoucher',
                         name: 'PaymentVoucher',
                         component: () => import('@/views/myapproval/PaymentVoucher'),
@@ -217,7 +215,7 @@ const routes = [
                             leftMenu: '/PaymentVoucher',
                         }
                     },
-                    {   // 报备凭证审批
+                    { // 报备凭证审批
                         path: '/ReportVoucherApprove',
                         name: 'ReportVoucherApprove',
                         component: () => import('@/views/currency/ReportVoucherApprove'),
@@ -225,7 +223,7 @@ const routes = [
                             leftMenu: '/myapproval',
                         }
                     },
-                    {  // 调解审批
+                    { // 调解审批
                         path: '/MediaApprove',
                         name: 'MediaApprove',
                         component: () => import('@/views/currency/MediaApprove'),
@@ -233,14 +231,14 @@ const routes = [
                             leftMenu: '/myapproval',
                         }
                     },
-                    {    // 调查报告审批
+                    { // 调查报告审批
                         path: '/ExamineReportFormApprove',
                         name: 'ExamineReportFormApprove',
                         component: () => import('@/views/currency/ExamineReportFormApprove'),
                         meta: {
                             leftMenu: '/myapproval',
                         }
-                    }, {  // 解债审批
+                    }, { // 解债审批
                         path: '/UnlockApplyApprove',
                         name: 'UnlockApplyApprove',
                         component: () => import('@/views/currency/UnlockApplyApprove'),
@@ -266,21 +264,21 @@ const routes = [
                 ]
             },
 
-            {//"辅助债务信息
+            { //"辅助债务信息
                 path: '/DebtDownload',
                 name: 'DebtDownload',
                 component: () => import('@/views/DebtDownload'),
                 meta: {
                     leftMenu: '/DebtDownload',
                 }
-            }, {//辅助财务信息
+            }, { //辅助财务信息
                 path: '/FinanceDownload',
                 name: 'FinanceDownload',
                 component: () => import('@/views/FinanceDownload'),
                 meta: {
                     leftMenu: '/FinanceDownload',
                 }
-            }, {//子页面
+            }, { //子页面
                 path: '/ReportApprove',
                 name: 'ReportApprove',
                 component: () => import('@/views/currency/ReportApprove'),
