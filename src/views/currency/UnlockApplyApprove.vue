@@ -12,7 +12,7 @@
           <!-- 关系绑定 -->
           <el-collapse-item title="关系绑定" name="1">
             <div class="unlock-apply-container-form-new">
-              <button>新增</button>
+              <!-- <button>新增</button> -->
             </div>
             <div class="unlock-apply-container-form-table-1-title">
               <span>序号</span>
@@ -891,12 +891,17 @@ export default {
         },
       })
       console.log(UserMsgresult)
+      // UserMsgresult.data.debtName = UserMsgresult.data.debtName || ''
+
+      this.UnlockUserMsg = UserMsgresult.data
+
       this.SubmitData = Object.assign(
         this.SubmitData,
         CivilMsgresult.data,
         UserMsgresult.data,
         result.data
       )
+      this.$forceUpdate()
     },
     // 提交解债信息
     async SubmitMessage() {

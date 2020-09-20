@@ -991,6 +991,7 @@ export default {
         v.value = i
         // v.overViewContent = ``
       })
+      this.GetMediaMsg(this.MediaIndex)
       console.log(this.MediaSrc)
       // this.RelativeList = result.data
       // 策划方案数据获取
