@@ -6,14 +6,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userMenuTree:[],
-        userMenu:[],
-        userInfo:{
-            id:''
+        userMenuTree: [],
+        userMenu: [],
+        userInfo: {
+            id: ''
+        },
+        receiveMoney: {
+            userName: '开户名：山东盛世天泽公关顾问有限公司',
+            cardNum: '收款卡号：810101201421046328',
+            openAddr: '开户行：日照银行股份有限公司银海支行'
         }
     },
     mutations: mutations,
     actions: actions,
-    modules: {
-    }
+    modules: {}
 })

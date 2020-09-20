@@ -507,6 +507,9 @@
                 <el-input v-model="ReportMsg.prjectManager"></el-input>
               </div>
             </template>
+            <p class style="text-align:center">
+              <button @click="SendReporterData" :disabled="HasSubmitDebt">确认</button>
+            </p>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
           <el-collapse-item title="相对人基本信息表" name="2">
@@ -622,6 +625,7 @@
                     :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
                     alt
                   />
+                  {{PersonalRelativeMsg.cardJust}}
                   <input
                     type="file"
                     @change="UpdateRelativeJustIDCard"
@@ -1046,6 +1050,7 @@
 export default {
   data() {
     return {
+      HasSubmitDebt: false,
       // 身份证默认图片源
       IDCardDefaultSrc: {
         JustSrc: require('@imgs/home/IDcard.png'),
@@ -1546,14 +1551,24 @@ export default {
       this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(
         ','
       )
+      // 1=个人  2= 企业 3=银行
+      const cardJust = result.data.cardJust
+      const cardBack = result.data.cardBack
       if (this.ReportMsg.reportPropert === '1') {
         this.ReporterProperties = '1'
+        this.PersonalReportMsg.cardJust = cardJust // 身份证-正
+        this.PersonalReportMsg.cardBack = cardBack // 身份证-反
       } else if (this.ReportMsg.reportPropert === '2') {
         this.ReporterProperties = '2'
+        this.BusinessReportMsg.cardJust = cardJust // 身份证-正
+        this.BusinessReportMsg.cardBack = cardBack // 身份证-反
       } else {
         this.ReporterProperties = '3'
+        this.BankReportMsg.cardJust = cardJust //身份证-正
+        this.BankReportMsg.cardBack = cardBack // 身份证-反
       }
-
+      // console.log(this.PersonalRelativeMsg.cardJust)
+      this.$forceUpdate()
       // 通过报备ID查询相对人信息列表
       const { data: RelativeListresult } = await this.$http({
         method: 'post',
@@ -1566,6 +1581,73 @@ export default {
       console.log('RelativeListresult', RelativeListresult)
       this.RelativeList = RelativeListresult.data
     },
+    //提交债权人基本信息
+    async SendReporterData() {
+      const type = this.ReportMsg.reportPropert // 1=个人 2=企业  3=银行
+
+      // 报备信息登记
+      let Responseresult = {}
+      if (type === '1') {
+        // 用户个人报备
+        const formData = new FormData()
+        for (const key in this.PersonalReportMsg) {
+          formData.append(key, this.ReportMsg[key])
+        }
+        formData.append('reportId', this.ReportMsg.reportId)
+        const { data: result } = await this.$http({
+          method: 'post',
+          url: '/api/api/busReportController/updatePrivateSelective',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        Responseresult = result
+
+        // 传入当前用户报备ID
+      } else if (this.ReporterProperties === '2') {
+        // 当用户选择企业报备时
+
+        const formData = new FormData()
+        for (const key in this.BusinessReportMsg) {
+          formData.append(key, this.ReportMsg[key])
+        }
+        formData.append('reportId', this.ReportMsg.reportId)
+        const { data: result } = await this.$http({
+          method: 'post',
+          url: '/api/api/busReportController/updateEterpriseSelective',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        Responseresult = result
+      } else {
+        const formData = new FormData()
+        for (const key in this.BankReportMsg) {
+          formData.append(key, this.ReportMsg[key])
+        }
+        formData.append('reportId', this.ReportMsg.reportId)
+        const { data: result } = await this.$http({
+          method: 'post',
+          url: '/api/api/busReportController/updateBankSelective',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        Responseresult = result
+      }
+      // 如何返回结果成功,传入报备Id
+      if (Responseresult.resultCode !== '200') {
+        return this.$message.error(Responseresult.resultMessage)
+      }
+      this.$message.success('债事人信息登记成功')
+      this.ResponseReportId = Responseresult.data || ''
+      this.HasSubmitDebt = true
+    },
+
+    // 获取详情
     async GetDetailMsg(index) {
       this.RelativeMsg = this.RelativeList[index]
 
@@ -1582,13 +1664,13 @@ export default {
     },
     async UpdateReportJustIDCard() {
       let file = {}
-      if (this.ReporterProperties === 'person') {
+      if (this.ReporterProperties === '1') {
         file = this.$refs.PersonReportJustIdCard.files[0]
       } else {
         file = this.$refs.BusinessReportJustIdCard.files[0]
       }
       this.$UpdateFile(file).then((result) => {
-        if (this.ReporterProperties === 'person') {
+        if (this.ReporterProperties === '1') {
           this.PersonalReportMsg.cardJust = result
         } else {
           this.BusinessReportMsg.cardJust = result
@@ -1598,13 +1680,14 @@ export default {
     // 上传报备反面身份证
     async UpdateReportBackIDCard() {
       let file = {}
-      if (this.ReporterProperties === 'person') {
+      // console.log(this.$refs.PersonReportBackIdCard.files)
+      if (this.ReporterProperties === '1') {
         file = this.$refs.PersonReportBackIdCard.files[0]
       } else {
         file = this.$refs.BusinessReportBackIdCard.files[0]
       }
       this.$UpdateFile(file).then((result) => {
-        if (this.ReporterProperties === 'person') {
+        if (this.ReporterProperties === '1') {
           this.PersonalReportMsg.cardBack = result
         } else {
           this.BusinessReportMsg.cardBack = result
@@ -1614,13 +1697,13 @@ export default {
     // 上传相对人正面身份证
     async UpdateRelativeJustIDCard() {
       let file = {}
-      if (this.RelativeProperties === 'person') {
+      if (this.RelativeProperties === '1') {
         file = this.$refs.PersonRelativeJustIdCard.files[0]
       } else {
         file = this.$refs.BusinessRelativeJustIdCard.files[0]
       }
       this.$UpdateFile(file).then((result) => {
-        if (this.RelativeProperties === 'person') {
+        if (this.RelativeProperties === '1') {
           this.PersonalRelativeMsg.cardJust = result
         } else {
           this.BusinessRelativeMsg.cardJust = result

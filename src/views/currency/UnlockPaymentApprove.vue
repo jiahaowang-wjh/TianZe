@@ -9,13 +9,13 @@
     <div class="payment-civil-content">
       <div>汇款账户：</div>
       <div>
-        <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
+        <input type="text" v-model="receiveMoney.userName" disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.AccountName" disabled="true" />
+        <input type="text" v-model="receiveMoney.cardNum" disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.OpeningBank" disabled="true" />
+        <input type="text" v-model="receiveMoney.openAddr" disabled="true" />
       </div>
       <div>
         <input type="text" v-model="PamentMsg.FeePayable" disabled="true" />
@@ -24,16 +24,7 @@
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img src="@imgs/home/baidu.png" alt />
-          </div>
-          <div class="payment-civil-content-update-box-container">
-            <img src="@imgs/home/baidu.png" alt />
-          </div>
-          <div class="payment-civil-content-update-box-container">
-            <img src="@imgs/home/baidu.png" alt />
-          </div>
-          <div class="payment-civil-content-update-box-container">
-            <img src="@imgs/home/baidu.png" alt />
+            <img :src="SubmitData.voucher" alt />
           </div>
         </div>
         <button class="payment-civil-content-update-button">点击上传</button>
@@ -61,17 +52,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       PamentMsg: {
-        CardNum: '收款卡号：4785124845218451',
-        AccountName: '开户名：默默',
-        OpeningBank: '开户行：中国建设银行',
+        CardNum: '收款卡号：',
+        AccountName: '开户名：',
+        OpeningBank: '开户行：',
         FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
         Contractor: '',
       },
-      SubmitData: {},
+      SubmitData: {
+        voucher: '',
+      },
       SubmitApproveData: {
         checkReason: '',
         status: '',
@@ -96,6 +90,7 @@ export default {
       },
     }
   },
+  computed: { ...mapState(['receiveMoney']) },
   methods: {
     async InitData() {
       const { payId, reportId, debtId } = this.$route.query

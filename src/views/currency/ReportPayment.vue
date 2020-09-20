@@ -101,7 +101,7 @@ export default {
       //  根据返回payId修改缴费状态
       if (result.resultCode !== '200')
         return this.$message.error(result.resultMessage)
-      this.UpdatePayStatus(0, result)
+      this.UpdatePayStatus(0, result.data)
       // 调用状态改变接口
       const UpdateStatusFormData = new FormData()
       UpdateStatusFormData.append('reportId', this.SubmitData.reportId)
@@ -117,6 +117,7 @@ export default {
       if (StatusResult.resultCode !== '200')
         return this.$message.error('提交错误, 请重试')
       this.$message.success(StatusResult.resultMessage)
+      this.$router.push('/ReportInfo')
     },
     UpdataVoucher() {
       const file = this.$refs.Voucher.files[0]
@@ -134,14 +135,21 @@ export default {
       for (const key in UpdatePay) {
         formData.append(key, this.UpdatePay[key])
       }
-      this.$http({
-        method: 'post',
-        url: '/api/api/busPayDetailController/updateStatus',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      this.$http(
+        {
+          method: 'post',
+          url: '/api/api/busPayDetailController/updateStatus',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      })
+        (res) => {
+          if (res.resultCode == '200') {
+            this.$router.push('/ReportInfo')
+          }
+        }
+      )
     },
   },
   created() {
