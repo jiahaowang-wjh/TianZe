@@ -93,9 +93,9 @@ export default {
   },
   created() {
     this.GetRandomImg()
-    if (!getToken()) {
-      setToken('Basic Y2xpZW50OjEyMzQ1Ng==')
-    }
+    // if (!getToken()) {
+    //   setToken('Basic Y2xpZW50OjEyMzQ1Ng==')
+    // }
   },
   computed: {
     ...mapState(['userMenuTree']),
@@ -123,7 +123,9 @@ export default {
       //       )
       //   })
       this.testingCodeImg = ''
-      this.testingCodeImg = '/api/verificationCode/verifyCode'
+      this.$nextTick(() => {
+        this.testingCodeImg = '/api/verificationCode/verifyCode'
+      })
     },
     login() {
       // 验证表单是否通过
@@ -313,5 +315,9 @@ export default {
 }
 .el-input__inner {
   height: px2rem(10);
+}
+
+.el-input {
+  width: 100%;
 }
 </style>
