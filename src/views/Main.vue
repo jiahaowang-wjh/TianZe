@@ -92,8 +92,6 @@ export default {
   },
 
   created() {
-    console.log(this.userMenuTree)
-    console.log(this.userInfo)
     // 初始化数据
     this.initData()
   },
@@ -102,7 +100,6 @@ export default {
   },
   watch:{
       $route(to){
-          console.log(to)
           this.currentRoute=to.meta.leftMenu;
       }
   },

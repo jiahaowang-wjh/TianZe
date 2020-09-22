@@ -649,7 +649,7 @@
             </div>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
-          <el-collapse-item title="相对人基本信息表" name="2" v-show="ResponseReportId">
+          <el-collapse-item title="相对人基本信息表" name="2" >  <!-- v-show="ResponseReportId" -->
             <div class="add-report-container-relative">
               <div class="add-report-container-relative-add-button">
                 <button @click='ClearRelativeForm'>新增相对人</button>
@@ -2826,7 +2826,6 @@ export default {
         justify-content: space-around;
         font-size: px2rem(3);
         height: px2rem(10);
-        position: relative;
         div {
           flex: 1;
         }
@@ -2850,6 +2849,7 @@ export default {
         }
         :nth-child(3) {
           height: px2rem(8);
+          position: relative;
           span {
             width: px2rem(18);
           }
@@ -2857,7 +2857,7 @@ export default {
             width: px2rem(68);
           }
           button {
-            left: px2rem(277);
+            left: px2rem(75);
             position: absolute;
             padding: px2rem(0.5) px2rem(2);
             margin-left: px2rem(2);
@@ -3318,7 +3318,6 @@ export default {
         justify-content: space-around;
         font-size: px2rem(3);
         height: px2rem(10);
-        position: relative;
         div {
           flex: 1;
         }
@@ -3342,6 +3341,7 @@ export default {
         }
         :nth-child(3) {
           height: px2rem(8);
+          position: relative;
           span {
             width: px2rem(18);
           }
@@ -3349,7 +3349,7 @@ export default {
             width: px2rem(68);
           }
           button {
-            left: px2rem(277);
+            left: px2rem(75);
             position: absolute;
             padding: px2rem(0.5) px2rem(2);
             margin-left: px2rem(2);
@@ -4099,6 +4099,11 @@ export default {
           .el-input {
             width: px2rem(80);
           }
+          div:nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
+          }
         }
         &-person-item-7 {
           margin: px2rem(4) 0;
@@ -4545,6 +4550,11 @@ export default {
           .el-input {
             width: px2rem(80);
           }
+          :nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
+          }
         }
         &-business-item-7 {
           margin: px2rem(4) 0;
@@ -4903,6 +4913,11 @@ export default {
           }
           .el-input {
             width: px2rem(80);
+          }
+          div:nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
           }
         }
         &-bank-item-7 {

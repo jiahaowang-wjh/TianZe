@@ -18,35 +18,26 @@ const WHITE_LIST = ['/login'];
 
 var isLoadRouter = false;
 router.beforeEach((to, from, next) => {
-    console.log(to)
     if (to.path === '/login') {
         window.sessionStorage.setItem('token', 'Basic Y2xpZW50OjEyMzQ1Ng==')
         // return next()
     }
-
-
-
-
-    console.log(store.state.vMenuList)
     if (isLoadRouter) {
         next();
     } else {
 
         // 判断登录是否有效
         let tokenState = getToken(); //获取token getToken()
-        console.log(tokenState);
         if (tokenState) {
             if (to.path == '/login') {
                 next();
             } else {
                 let sessionUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
                 // 判断登录数据是否存在
-                console.log('用户信息:', sessionUserInfo)
 
                 if (sessionUserInfo.userInfoId) {
                     store.commit('SAVE_USER_INFO', sessionUserInfo);
                     store.dispatch('userMenus').then(() => {
-                        console.log(store.state.userMenuTree[0])
                         next(store.state.userMenuTree[0])
                     })
                 } else {
@@ -103,7 +94,7 @@ Vue.prototype.$UpdateFile = async function (file) {
     if (result.resultCode !== '200') return this.$message.error('上传失败, 请重试')
     // http://113.204.236.218:8989/
     // http://47.108.135.174:9000/
-    const fileBasePath = 'http://47.108.135.174:9000/'; //线上环境
+    const fileBasePath = 'http://113.204.236.218:8989/'; //线上环境
     // const fileBasePath='http://113.204.236.218:8989/';
     // const fileBasePath='http://47.108.135.174:9000/';
     return fileBasePath + result.data.split('/')[3]
