@@ -108,24 +108,9 @@ export default {
     },
     // 获取验证码图片地址
     GetRandomImg() {
-      // this.$http
-      //   .get('/api/verificationCode/verifyCode', {
-      //     responseType: 'arraybuffer',
-      //   })
-      //   .then((response) => {
-      //     this.testingCodeImg =
-      //       'data:image/png;base64,' +
-      //       btoa(
-      //         new Uint8Array(response.data).reduce(
-      //           (data, byte) => data + String.fromCharCode(byte),
-      //           ''
-      //         )
-      //       )
-      //   })
-      this.testingCodeImg = ''
-      this.$nextTick(() => {
-        this.testingCodeImg = '/api/verificationCode/verifyCode'
-      })
+  
+        this.testingCodeImg = '/api/verificationCode/verifyCode?random_str='+Math.random();
+    
     },
     login() {
       // 验证表单是否通过
