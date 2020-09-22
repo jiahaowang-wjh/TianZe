@@ -314,6 +314,7 @@ export default {
         pageSize: '20',
         pageNum: '1',
         companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
       }
       for (const key in DataList) {
         formData.append(key, DataList[key])

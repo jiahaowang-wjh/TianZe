@@ -168,6 +168,7 @@ export default {
         reportNo: '',
         status: '',
         companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
       },
       SelectOption: [
         {

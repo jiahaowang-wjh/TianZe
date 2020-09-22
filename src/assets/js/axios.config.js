@@ -32,29 +32,34 @@ axios.interceptors.request.use(config => {
 })
 axios.interceptors.response.use(result => {
     _loading.close()
-    console.log(result)
     const {
         status,
         data
     } = result
-    if (status !== 200) {
+    if (status) {
+        if (status !== 200) {
+            Message({
+                message: result.statusText,
+                type: 'error'
+            });
+            return Promise.reject(result)
+        }else  if (data.resultCode !== '200') {
+            Message({
+                message: data.resultMessage,
+                type: 'error'
+            });
+            return Promise.reject(data)
+        }
+    } else if (data.resultCode){
         Message({
-            message: result.statusText,
+            message: '网络响应错误！',
             type: 'error'
         });
         return Promise.reject(result)
-    } else if (data.resultCode !== '200') {
-        Message({
-            message: data.resultMessage,
-            type: 'error'
-        });
-        return Promise.reject(data)
-
     }
     return result
 }, error => {
     _loading.close()
-
     Message({
         message: "请求错误，请联系管理员",
         type: 'error'

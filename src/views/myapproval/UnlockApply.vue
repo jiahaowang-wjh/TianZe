@@ -133,6 +133,7 @@ export default {
         debtNo: '',
         debtId: '',
         companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
       },
     }
   },

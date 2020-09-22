@@ -186,6 +186,7 @@ export default {
     },
     async InitCiviMedia() {
       const formData = new FormData()
+      formData.append('comId', window.sessionStorage.getItem('companyId'))
       for (const key in this.MediaSearchSrc) {
         formData.append(key, this.MediaSearchSrc[key])
       }

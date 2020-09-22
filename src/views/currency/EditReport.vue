@@ -3,7 +3,7 @@
     <div class="report-approve-title">
       <span class="report-approve-title-go1">我的审批</span>
       <span class="report-approve-title-separator">/</span>
-      <span class="report-approve-title-go2">报备审核</span>
+      <span class="report-approve-title-go2">录入编辑</span>
     </div>
 
     <div class="report-approve-container">
@@ -15,14 +15,14 @@
             <div class="report-approve-container-form-first">
               <div class="report-approve-container-form-first-item">
                 <span>债事人是否配合：</span>
-                <el-select v-model="ReportMsg.iscoordinate" placeholder="是">
+                <el-select v-model="ReportIscoordinate" placeholder="是" @change="GetIsCoordinate">
                   <el-option label="是" value="1"></el-option>
                   <el-option label="否" value="2"></el-option>
                 </el-select>
               </div>
               <div class="report-approve-container-form-first-item">
                 <span>类型：</span>
-                <el-select v-model="ReportMsg.reportType" placeholder="债务人">
+                <el-select v-model="reportType" placeholder="债务人" @change="GetReportType">
                   <el-option label="债权人" value="1"></el-option>
                   <el-option label="债务人" value="2"></el-option>
                   <el-option label="债权债务人" value="3"></el-option>
@@ -30,7 +30,7 @@
               </div>
               <div class="report-approve-container-form-first-item">
                 <span>性质：</span>
-                <el-select v-model="ReportMsg.reportPropert" placeholder="个人">
+                <el-select v-model="ReporterProperties" placeholder="个人">
                   <el-option label="个人" value="1"></el-option>
                   <el-option label="企业" value="2"></el-option>
                   <el-option label="银行" value="3"></el-option>
@@ -38,64 +38,69 @@
               </div>
             </div>
             <!-- 个人 -->
-            <template v-if="ReportMsg.reportPropert === '1'">
+            <template v-if="ReporterProperties === '1'">
               <h3>个人:</h3>
               <div class="report-approve-container-form-person-item-1">
                 <div>
                   <span>是否从业：</span>
-                  <el-select placeholder="是" v-model="ReportMsg.ifWork">
+                  <el-select placeholder="是" v-model="PersonalReportMsg.ifWork">
                     <el-option label="是" value="1"></el-option>
                     <el-option label="否" value="2"></el-option>
                   </el-select>
                 </div>
                 <div>
                   <span>姓名：</span>
-                  <el-input v-model="ReportMsg.personalName"></el-input>
+                  <el-input v-model="PersonalReportMsg.personalName"></el-input>
                 </div>
                 <div>
                   <span>手机号码：</span>
-                  <el-input v-model="ReportMsg.phone" v-input-num maxlength="11"></el-input>
+                  <el-input v-model="PersonalReportMsg.phone" v-input-num maxlength="11"></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-person-item-2">
                 <div>
                   <span>身份证号码：</span>
-                  <el-input v-model="ReportMsg.idCard" maxlength="20"></el-input>
+                  <el-input v-model="PersonalReportMsg.idCard" maxlength="20"></el-input>
                 </div>
                 <div>
                   <span>性别：</span>
-                  <el-select v-model="ReportMsg.sex">
+                  <el-select v-model="PersonalReportMsg.sex" placeholder="男">
                     <el-option label="男" value="1"></el-option>
                     <el-option label="女" value="2"></el-option>
                   </el-select>
                 </div>
                 <div>
                   <span>所在地区：</span>
-                  <el-input v-model="ReportMsg.area"></el-input>
+                  <el-input v-model="PersonalReportMsg.area"></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-person-item-3">
                 <div>
                   <span>电子邮箱：</span>
-                  <el-input v-model="ReportMsg.email" maxlength="32"></el-input>
+                  <el-input v-model="PersonalReportMsg.email" maxlength="32"></el-input>
                 </div>
                 <div>
                   <span>资产总价值（元）：</span>
-                  <el-input v-model="ReportMsg.assets" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.assets" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>资产项数：</span>
-                  <el-input v-model="ReportMsg.assetsNumber" maxlength="5" v-input-num></el-input>
+                  <el-input v-model="PersonalReportMsg.assetsNumber" maxlength="5" v-input-num></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-person-item-4">
                 <span>可流通资产价值(元)：</span>
-                <el-input v-model="ReportMsg.circulationAssets"></el-input>
+                <el-input
+                  v-model="PersonalReportMsg.circulationAssets"
+                  maxlength="14"
+                  v-input-num-2
+                ></el-input>
               </div>
-              <h3>身份证信息</h3>
+              <h3>上传身份证</h3>
               <div class="report-approve-container-form-person-upload-idcard">
                 <img
                   :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                  @click="openImgToLink(PersonalReportMsg.cardJust)"
                   alt
                 />
                 <input
@@ -108,6 +113,7 @@
                 <button>点击上传</button>
                 <img
                   :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                  @click="openImgToLink(PersonalReportMsg.cardBack)"
                   alt
                 />
                 <input
@@ -122,11 +128,11 @@
               <div class="report-approve-container-form-person-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input v-model="ReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input v-model="ReportMsg.obligatRightNo" maxlength="6" v-input-num></el-input>
+                  <el-input v-model="PersonalReportMsg.obligatRightNo" maxlength="6" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -135,7 +141,7 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.obligatTime"
+                    v-model="PersonalReportMsg.obligatTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
@@ -143,25 +149,26 @@
               <div class="report-approve-container-form-person-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input v-model="ReportMsg.capital" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.capital" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input v-model="ReportMsg.interest" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.interest" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input v-model="ReportMsg.interestRate" maxlength="10" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.interestRate" maxlength="10" v-input-num-2></el-input>
+                  <span>%</span>
                 </div>
               </div>
               <div class="report-approve-container-form-person-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input v-model="ReportMsg.debt" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="PersonalReportMsg.debt" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input v-model="ReportMsg.debtNo" maxlength="10" v-input-num></el-input>
+                  <el-input v-model="PersonalReportMsg.debtNo" maxlength="10" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -170,14 +177,14 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.debtTime"
+                    v-model="PersonalReportMsg.debtTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
               </div>
               <div class="report-approve-container-form-person-item-8">
                 <span>债事凭证：</span>
-                <el-input v-model="ReportMsg.debtCertificate"></el-input>
+                <el-input v-model="PersonalReportMsg.debtCertificate"></el-input>
               </div>
               <div class="report-approve-container-form-person-update-imgs">
                 <span>上传债事凭证：</span>
@@ -185,6 +192,7 @@
                   <img
                     v-for="(item,index) in PersonalReportMsg.uploadDebtCertificate"
                     :key="index"
+                    @click="openImgToLink(item)"
                     :src="item"
                     alt
                   />
@@ -200,67 +208,68 @@
               </div>
               <div class="report-approve-container-form-person-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <textarea v-model="ReportMsg.isResult"></textarea>
+                <textarea v-model="PersonalReportMsg.isResult"></textarea>
               </div>
               <div class="report-approve-container-form-person-economic">
                 <span>目前经济情况：</span>
-                <textarea v-model="ReportMsg.economics"></textarea>
+                <textarea v-model="PersonalReportMsg.economics"></textarea>
               </div>
               <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
               <div class="report-approve-container-form-person-item-9">
                 <span>项目负责人：</span>
-                <el-input v-model="ReportMsg.prjectManager"></el-input>
+                <el-input v-model="PersonalReportMsg.prjectManager"></el-input>
               </div>
             </template>
             <!-- 企业 -->
-            <template v-else-if="ReportMsg.reportPropert === '2'">
+            <template v-else-if="ReporterProperties === '2'">
               <h3>企业:</h3>
               <div class="report-approve-container-form-business-item-1">
                 <div>
                   <span>企业名称：</span>
-                  <el-input v-model="ReportMsg.CompanyName"></el-input>
+                  <el-input v-model="BusinessReportMsg.CompanyName"></el-input>
                 </div>
                 <div>
                   <span>社会统一信用代码：</span>
-                  <el-input v-model="ReportMsg.CreditCode" maxlength="19"></el-input>
+                  <el-input v-model="BusinessReportMsg.CreditCode" maxlength="19"></el-input>
                 </div>
                 <div>
                   <span>行业属性：</span>
-                  <el-input v-model="ReportMsg.industryAttributes"></el-input>
+                  <input v-model="BusinessReportMsg.industryAttributes" />
                 </div>
               </div>
               <div class="report-approve-container-form-business-item-2">
                 <div>
                   <span>法定代表人名称：</span>
-                  <el-input v-model="ReportMsg.LegalName"></el-input>
+                  <el-input v-model="BusinessReportMsg.LegalName"></el-input>
                 </div>
                 <div>
                   <span>法定代表人联系电话：</span>
-                  <el-input v-model="ReportMsg.LegalPhone" maxlength="14"></el-input>
+                  <el-input v-model="BusinessReportMsg.LegalPhone" maxlength="14"></el-input>
                 </div>
                 <div>
                   <span>法定代表人身份证号：</span>
-                  <el-input v-model="ReportMsg.LegalIdCard" maxlength="20"></el-input>
+                  <el-input v-model="BusinessReportMsg.LegalIdCard" maxlength="20"></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-business-item-3">
                 <div>
                   <span>注册地址：</span>
-                  <el-input v-model="ReportMsg.address"></el-input>
+                  <el-input v-model="BusinessReportMsg.address"></el-input>
                 </div>
                 <div>
                   <span>企业联系人：</span>
-                  <el-input v-model="ReportMsg.ContactPerson"></el-input>
+                  <input v-model="BusinessReportMsg.ContactPerson" />
                 </div>
                 <div>
                   <span>联系电话：</span>
-                  <el-input v-model="ReportMsg.ContactPhone" maxlength="14"></el-input>
+                  <el-input v-model="BusinessReportMsg.ContactPhone" maxlength="14"></el-input>
                 </div>
               </div>
-              <h3>身份证信息</h3>
+              <h3>上传身份证</h3>
               <div class="report-approve-container-form-business-upload-idcard">
                 <img
                   :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                  @click="openImgToLink(BusinessReportMsg.cardJust)"
                   alt
                 />
                 <input
@@ -273,6 +282,7 @@
                 <button>点击上传</button>
                 <img
                   :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                  @click="openImgToLink(BusinessReportMsg.cardBack)"
                   alt
                 />
                 <input
@@ -287,11 +297,11 @@
               <div class="report-approve-container-form-business-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input v-model="ReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BusinessReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input v-model="ReportMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
+                  <el-input v-model="BusinessReportMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -300,7 +310,7 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.obligatTime"
+                    v-model="BusinessReportMsg.obligatTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
@@ -308,25 +318,26 @@
               <div class="report-approve-container-form-business-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input v-model="ReportMsg.capital" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BusinessReportMsg.capital" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input v-model="ReportMsg.interest" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BusinessReportMsg.interest" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input v-model="ReportMsg.interestRate" maxlength="6" v-input-num-2></el-input>
+                  <el-input v-model="BusinessReportMsg.interestRate" maxlength="6" v-input-num-2></el-input>
+                  <span>%</span>
                 </div>
               </div>
               <div class="report-approve-container-form-business-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input v-model="ReportMsg.debt" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BusinessReportMsg.debt" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input v-model="ReportMsg.debtNo" maxlength="10" v-input-num></el-input>
+                  <el-input v-model="BusinessReportMsg.debtNo" maxlength="10" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -335,20 +346,21 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.debtTime"
+                    v-model="BusinessReportMsg.debtTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
               </div>
               <div class="report-approve-container-form-business-item-8">
                 <span>债事凭证：</span>
-                <el-input v-model="ReportMsg.debtCertificate"></el-input>
+                <el-input v-model="BusinessReportMsg.debtCertificate"></el-input>
               </div>
               <div class="report-approve-container-form-business-update-imgs">
                 <span>上传债事凭证：</span>
                 <div class="report-approve-container-form-person-update-imgs-list">
                   <img
                     v-for="(item,index) in BusinessReportMsg.uploadDebtCertificate"
+                    @click="openImgToLink(item)"
                     :key="index"
                     :src="item"
                     alt
@@ -365,12 +377,12 @@
               </div>
               <div class="report-approve-container-form-business-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <el-input v-model="ReportMsg.isResult"></el-input>
+                <textarea v-model="BusinessReportMsg.isResult"></textarea>
               </div>
               <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
               <div class="report-approve-container-form-business-item-9">
                 <span>项目负责人：</span>
-                <el-input v-model="ReportMsg.prjectManager"></el-input>
+                <el-input v-model="BusinessReportMsg.prjectManager"></el-input>
               </div>
             </template>
             <!-- 银行 -->
@@ -379,53 +391,53 @@
               <div class="report-approve-container-form-bank-item-1">
                 <div>
                   <span>企业名称：</span>
-                  <el-input v-model="ReportMsg.companyName"></el-input>
+                  <el-input v-model="BankReportMsg.CompanyName"></el-input>
                 </div>
                 <div>
                   <span>社会统一信用代码：</span>
-                  <el-input v-model="ReportMsg.creditCode" maxlength="19"></el-input>
+                  <el-input v-model="BankReportMsg.CreditCode" maxlength="19"></el-input>
                 </div>
                 <div>
                   <span>行业属性：</span>
-                  <el-input v-model="ReportMsg.industryAttributes"></el-input>
+                  <input v-model="BankReportMsg.industryAttributes" />
                 </div>
               </div>
               <div class="report-approve-container-form-bank-item-2">
                 <div>
                   <span>法定代表人名称：</span>
-                  <el-input v-model="ReportMsg.legalName"></el-input>
+                  <input v-model="BankReportMsg.LegalName" />
                 </div>
                 <div>
                   <span>法定代表人联系电话：</span>
-                  <el-input v-model="ReportMsg.legalPhone" maxlength="14"></el-input>
+                  <el-input v-model="BankReportMsg.LegalPhone" maxlength="14"></el-input>
                 </div>
                 <div>
                   <span>法定代表人身份证号：</span>
-                  <el-input v-model="ReportMsg.legalIdCard" maxlength="20"></el-input>
+                  <el-input v-model="BankReportMsg.LegalIdCard" maxlength="20"></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-bank-item-3">
                 <div>
                   <span>注册地址：</span>
-                  <el-input v-model="ReportMsg.address"></el-input>
+                  <el-input v-model="BankReportMsg.address"></el-input>
                 </div>
                 <div>
                   <span>企业联系人：</span>
-                  <el-input v-model="ReportMsg.contactPerson"></el-input>
+                  <input v-model="BankReportMsg.ContactPerson" />
                 </div>
                 <div>
                   <span>联系电话：</span>
-                  <el-input v-model="ReportMsg.contactPhone" maxlength="14"></el-input>
+                  <el-input v-model="BankReportMsg.ContactPhone" maxlength="14"></el-input>
                 </div>
               </div>
               <div class="report-approve-container-form-bank-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input v-model="ReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BankReportMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input v-model="ReportMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
+                  <el-input v-model="BankReportMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -434,7 +446,7 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.obligatTime"
+                    v-model="BankReportMsg.obligatTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
@@ -442,25 +454,26 @@
               <div class="report-approve-container-form-bank-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input v-model="ReportMsg.capital" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BankReportMsg.capital" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input v-model="ReportMsg.interest" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BankReportMsg.interest" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input v-model="ReportMsg.interestRate" maxlength="6"></el-input>
+                  <el-input v-model="BankReportMsg.interestRate" maxlength="6"></el-input>
+                  <span>%</span>
                 </div>
               </div>
               <div class="report-approve-container-form-bank-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input v-model="ReportMsg.debt" maxlength="14" v-input-num-2></el-input>
+                  <el-input v-model="BankReportMsg.debt" maxlength="14" v-input-num-2></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input v-model="ReportMsg.debtNo" maxlength="10" v-input-num></el-input>
+                  <el-input v-model="BankReportMsg.debtNo" maxlength="10" v-input-num></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
@@ -469,14 +482,14 @@
                     type="date"
                     placeholder="请选择日期"
                     :picker-options="pickerOptions"
-                    v-model="ReportMsg.debtTime"
+                    v-model="BankReportMsg.debtTime"
                     value-format="yyyy-MM-dd"
                   ></el-date-picker>
                 </div>
               </div>
               <div class="report-approve-container-form-bank-item-8">
                 <span>债事凭证：</span>
-                <el-input v-model="ReportMsg.debtCertificate"></el-input>
+                <el-input v-model="BankReportMsg.debtCertificate"></el-input>
               </div>
               <div class="report-approve-container-form-bank-update-imgs">
                 <span>上传债事凭证：</span>
@@ -485,6 +498,7 @@
                     v-for="(item,index) in BankReportMsg.uploadDebtCertificate"
                     :key="index"
                     :src="item"
+                    @click="openImgToLink(item)"
                     alt
                   />
                 </div>
@@ -499,12 +513,12 @@
               </div>
               <div class="report-approve-container-form-bank-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <textarea v-model="ReportMsg.isResult"></textarea>
+                <textarea></textarea>
               </div>
               <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
               <div class="report-approve-container-form-bank-item-9">
                 <span>项目负责人：</span>
-                <el-input v-model="ReportMsg.prjectManager"></el-input>
+                <el-input v-model="BankReportMsg.prjectManager"></el-input>
               </div>
             </template>
             <p class style="text-align:center">
@@ -534,7 +548,7 @@
                   <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
                   <span>{{item.phone ? item.phone: item.contactPhone}}</span>
                   <span>
-                    <button @click="GetDetailMsg(index)">查看详细信息</button>
+                    <button @click="GetDetailMsg(index)">编辑该相对人信息</button>
                   </span>
                 </div>
               </div>
@@ -565,67 +579,71 @@
                 </div>
               </div>
               <!-- 个人 -->
-              <template v-if="RelativeMsg.reportPropert === '1'">
+              <template v-if="RelativeProperties === '1'">
                 <h3>个人:</h3>
                 <div class="report-approve-container-relative-form-person-item-1">
                   <div>
                     <span>是否从业：</span>
-                    <el-select v-model="RelativeMsg.ifWork" placeholder="是">
+                    <el-select v-model="PersonalRelativeMsg.ifWork" placeholder="是">
                       <el-option label="是" value="1"></el-option>
                       <el-option label="否" value="2"></el-option>
                     </el-select>
                   </div>
                   <div>
                     <span>姓名：</span>
-                    <el-input v-model="RelativeMsg.personalName"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.personalName"></el-input>
                   </div>
                   <div>
                     <span>手机号码：</span>
-                    <el-input v-model="RelativeMsg.phone" v-input-num maxlength="11"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.phone" v-input-num maxlength="11"></el-input>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-person-item-2">
                   <div>
                     <span>身份证号码：</span>
-                    <el-input v-model="RelativeMsg.idCard"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.idCard" maxlength="20"></el-input>
                   </div>
                   <div>
                     <span>性别：</span>
-                    <el-select v-model="RelativeMsg.sex" placeholder="男">
+                    <el-select v-model="PersonalRelativeMsg.sex" placeholder="男">
                       <el-option label="男" value="1"></el-option>
                       <el-option label="女" value="2"></el-option>
                     </el-select>
                   </div>
                   <div>
                     <span>所在地区：</span>
-                    <el-input v-model="RelativeMsg.area"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.area"></el-input>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-person-item-3">
                   <div>
                     <span>电子邮箱：</span>
-                    <el-input v-model="RelativeMsg.email" maxlength="32"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.email" maxlength="32"></el-input>
                   </div>
                   <div>
                     <span>资产总价值（元）：</span>
-                    <el-input v-model="RelativeMsg.assets" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="PersonalRelativeMsg.assets" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>资产项数：</span>
-                    <el-input v-model="RelativeMsg.assetsNumber" maxlength="10" v-input-num></el-input>
+                    <el-input v-model="PersonalRelativeMsg.assetsNumber" maxlength="10" v-input-num></el-input>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-person-item-4">
                   <span>可流通资产价值(元)：</span>
-                  <el-input v-model="RelativeMsg.circulationAssets" maxlength="14" v-input-num-2></el-input>
+                  <el-input
+                    v-model="PersonalRelativeMsg.CirculationAssets"
+                    maxlength="14"
+                    v-input-num-2
+                  ></el-input>
                 </div>
                 <h3>上传身份证</h3>
                 <div class="report-approve-container-relative-form-person-upload-idcard">
                   <img
                     :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                    @click="openImgToLink(PersonalRelativeMsg.cardJust)"
                     alt
                   />
-                  {{PersonalRelativeMsg.cardJust}}
                   <input
                     type="file"
                     @change="UpdateRelativeJustIDCard"
@@ -636,6 +654,7 @@
                   <button>点击上传</button>
                   <img
                     :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                    @click="openImgToLink(PersonalRelativeMsg.cardBack)"
                     alt
                   />
                   <input
@@ -650,11 +669,19 @@
                 <div class="report-approve-container-relative-form-person-item-5">
                   <div>
                     <span>债权(元)：</span>
-                    <el-input v-model="RelativeMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                    <el-input
+                      v-model="PersonalRelativeMsg.obligatRight"
+                      maxlength="14"
+                      v-input-num-2
+                    ></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input v-model="RelativeMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
+                    <el-input
+                      v-model="PersonalRelativeMsg.obligatRightNo"
+                      maxlength="10"
+                      v-input-num
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -663,7 +690,7 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.obligatTime"
+                      v-model="PersonalRelativeMsg.obligatTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
@@ -671,25 +698,26 @@
                 <div class="report-approve-container-relative-form-person-item-6">
                   <div>
                     <span>本金：</span>
-                    <el-input v-model="RelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="PersonalRelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input v-model="RelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="PersonalRelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input v-model="RelativeMsg.interestRate" maxlength="6"></el-input>
+                    <el-input v-model="PersonalRelativeMsg.interestRate" maxlength="6"></el-input>
+                    <span>%</span>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-person-item-7">
                   <div>
                     <span>债务(元)：</span>
-                    <el-input v-model="RelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="PersonalRelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input v-model="RelativeMsg.debtNo" maxlength="10" v-input-num></el-input>
+                    <el-input v-model="PersonalRelativeMsg.debtNo" maxlength="10" v-input-num></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -698,14 +726,14 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.debtTime"
+                      v-model="PersonalRelativeMsg.debtTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-person-item-8">
                   <span>债事凭证：</span>
-                  <el-input v-model="RelativeMsg.debtCertificate"></el-input>
+                  <el-input v-model="PersonalRelativeMsg.debtCertificate"></el-input>
                 </div>
                 <div class="report-approve-container-relative-form-person-update-imgs">
                   <span>上传债事凭证：</span>
@@ -713,6 +741,7 @@
                     <img
                       v-for="(item,index) in PersonalRelativeMsg.uploadDebtCertificate"
                       :key="index"
+                      @click="openImgToLink(item)"
                       :src="item"
                       alt
                     />
@@ -728,67 +757,68 @@
                 </div>
                 <div class="report-approve-container-relative-form-person-lawsuit">
                   <span>是否诉讼及结果：</span>
-                  <textarea v-model="RelativeMsg.isResult"></textarea>
+                  <textarea v-model="PersonalRelativeMsg.isResult"></textarea>
                 </div>
                 <div class="report-approve-container-relative-form-person-economic">
                   <span>目前经济情况：</span>
-                  <textarea v-model="RelativeMsg.economics"></textarea>
+                  <textarea v-model="PersonalRelativeMsg.economics"></textarea>
                 </div>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <div class="report-approve-container-form-person-item-9">
                   <span>项目负责人：</span>
-                  <el-input v-model="RelativeMsg.prjectManager"></el-input>
+                  <el-input v-model="PersonalRelativeMsg.prjectManager"></el-input>
                 </div>
               </template>
               <!-- 企业 -->
-              <template v-else-if="RelativeMsg.reportPropert === '2'">
+              <template v-else-if="RelativeProperties === '2'">
                 <h3>企业:</h3>
                 <div class="report-approve-container-relative-form-business-item-1">
                   <div>
                     <span>企业名称：</span>
-                    <el-input v-model="RelativeMsg.companyName"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.CompanyName"></el-input>
                   </div>
                   <div>
                     <span>社会统一信用代码：</span>
-                    <el-input v-model="RelativeMsg.creditCode" maxlength="19"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.CreditCode" maxlength="19"></el-input>
                   </div>
                   <div>
                     <span>行业属性：</span>
-                    <el-input v-model="RelativeMsg.industryAttributes"></el-input>
+                    <input v-model="BusinessRelativeMsg.industryAttributes" />
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-business-item-2">
                   <div>
                     <span>法定代表人名称：</span>
-                    <el-input v-model="RelativeMsg.legalName"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.LegalName"></el-input>
                   </div>
                   <div>
                     <span>法定代表人联系电话：</span>
-                    <el-input v-model="RelativeMsg.legalPhone"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.LegalPhone" maxlength="14"></el-input>
                   </div>
                   <div>
                     <span>法定代表人身份证号：</span>
-                    <el-input v-model="RelativeMsg.legalIdCard"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.LegalIdCard" maxlength="20"></el-input>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-business-item-3">
                   <div>
                     <span>注册地址：</span>
-                    <el-input v-model="RelativeMsg.address"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.address"></el-input>
                   </div>
                   <div>
                     <span>企业联系人：</span>
-                    <el-input v-model="RelativeMsg.contactPerson" maxlength="14"></el-input>
+                    <input v-model="BusinessRelativeMsg.ContactPerson" />
                   </div>
                   <div>
                     <span>联系电话：</span>
-                    <el-input v-model="RelativeMsg.contactPhone" maxlength="20"></el-input>
+                    <el-input v-model="BusinessRelativeMsg.ContactPhone" maxlength="14"></el-input>
                   </div>
                 </div>
                 <h3>上传身份证</h3>
                 <div class="report-approve-container-relative-form-business-upload-idcard">
                   <img
                     :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                    @click="openImgToLink(BusinessRelativeMsg.cardJust)"
                     alt
                   />
                   <input
@@ -801,6 +831,7 @@
                   <button>点击上传</button>
                   <img
                     :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                    @click="openImgToLink(BusinessRelativeMsg.cardBack)"
                     alt
                   />
                   <input
@@ -815,11 +846,19 @@
                 <div class="report-approve-container-relative-form-business-item-5">
                   <div>
                     <span>债权(元)：</span>
-                    <el-input v-model="RelativeMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                    <el-input
+                      v-model="BusinessRelativeMsg.obligatRight"
+                      maxlength="14"
+                      v-input-num-2
+                    ></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input v-model="RelativeMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
+                    <el-input
+                      v-model="BusinessRelativeMsg.obligatRightNo"
+                      maxlength="10"
+                      v-input-num
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -828,7 +867,7 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.obligatTime"
+                      v-model="BusinessRelativeMsg.obligatTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
@@ -836,25 +875,30 @@
                 <div class="report-approve-container-relative-form-business-item-6">
                   <div>
                     <span>本金：</span>
-                    <el-input v-model="RelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BusinessRelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input v-model="RelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BusinessRelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input v-model="RelativeMsg.interestRate" maxlength="6" v-input-num-2></el-input>
+                    <el-input
+                      v-model="BusinessRelativeMsg.interestRate"
+                      maxlength="6"
+                      v-input-num-2
+                    ></el-input>
+                    <span>%</span>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-business-item-7">
                   <div>
                     <span>债务(元)：</span>
-                    <el-input v-model="RelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BusinessRelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input v-model="RelativeMsg.debtNo" maxlength="10" v-input-num></el-input>
+                    <el-input v-model="BusinessRelativeMsg.debtNo" maxlength="10" v-input-num></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -863,14 +907,14 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.debtTime"
+                      v-model="BusinessRelativeMsg.debtTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-business-item-8">
                   <span>债事凭证：</span>
-                  <el-input v-model="RelativeMsg.debtCertificate"></el-input>
+                  <el-input v-model="BusinessRelativeMsg.debtCertificate"></el-input>
                 </div>
                 <div class="report-approve-container-relative-form-business-update-imgs">
                   <span>上传债事凭证：</span>
@@ -878,6 +922,7 @@
                     <img
                       v-for="(item,index) in BusinessRelativeMsg.uploadDebtCertificate"
                       :key="index"
+                      @click="openImgToLink(item)"
                       :src="item"
                       alt
                     />
@@ -893,12 +938,12 @@
                 </div>
                 <div class="report-approve-container-relative-form-business-lawsuit">
                   <span>是否诉讼及结果：</span>
-                  <textarea v-model="RelativeMsg.isResult"></textarea>
+                  <textarea v-model="BusinessRelativeMsg.isResult"></textarea>
                 </div>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <div class="report-approve-container-relative-form-business-item-9">
                   <span>项目负责人：</span>
-                  <el-input v-model="RelativeMsg.prjectManager"></el-input>
+                  <el-input v-model="BusinessRelativeMsg.prjectManager"></el-input>
                 </div>
               </template>
               <!-- 银行 -->
@@ -907,53 +952,53 @@
                 <div class="report-approve-container-relative-form-bank-item-1">
                   <div>
                     <span>企业名称：</span>
-                    <el-input v-model="RelativeMsg.companyName"></el-input>
+                    <el-input v-model="BankRelativeMsg.CompanyName"></el-input>
                   </div>
                   <div>
                     <span>社会统一信用代码：</span>
-                    <el-input v-model="RelativeMsg.creditCode" maxlength="19"></el-input>
+                    <el-input v-model="BankRelativeMsg.CreditCode" maxlength="19"></el-input>
                   </div>
                   <div>
                     <span>行业属性：</span>
-                    <el-input v-model="RelativeMsg.industryAttributes"></el-input>
+                    <input v-model="BankRelativeMsg.industryAttributes" />
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-bank-item-2">
                   <div>
                     <span>法定代表人名称：</span>
-                    <el-input v-model="RelativeMsg.legalName"></el-input>
+                    <el-input v-model="BankRelativeMsg.LegalName"></el-input>
                   </div>
                   <div>
                     <span>法定代表人联系电话：</span>
-                    <el-input v-model="RelativeMsg.legalPhone" maxlength="14"></el-input>
+                    <el-input v-model="BankRelativeMsg.LegalPhone" maxlength="14"></el-input>
                   </div>
                   <div>
                     <span>法定代表人身份证号：</span>
-                    <el-input v-model="RelativeMsg.legalIdCard" maxlength="20"></el-input>
+                    <el-input v-model="BankRelativeMsg.LegalIdCard" maxlength="20"></el-input>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-bank-item-3">
                   <div>
                     <span>注册地址：</span>
-                    <el-input v-model="RelativeMsg.address"></el-input>
+                    <input v-model="BankRelativeMsg.address" />
                   </div>
                   <div>
                     <span>企业联系人：</span>
-                    <el-input v-model="RelativeMsg.contactPerson"></el-input>
+                    <input v-model="BankRelativeMsg.ContactPerson" />
                   </div>
                   <div>
                     <span>联系电话：</span>
-                    <el-input v-model="RelativeMsg.contactPhone" maxlength="14"></el-input>
+                    <input v-model="BankRelativeMsg.ContactPhone" maxlength="14" />
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-bank-item-5">
                   <div>
                     <span>债权(元)：</span>
-                    <el-input v-model="RelativeMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BankRelativeMsg.obligatRight" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input v-model="RelativeMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
+                    <el-input v-model="BankRelativeMsg.obligatRightNo" maxlength="10" v-input-num></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -962,7 +1007,7 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.obligatTime"
+                      v-model="BankRelativeMsg.obligatTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
@@ -970,25 +1015,26 @@
                 <div class="report-approve-container-relative-form-bank-item-6">
                   <div>
                     <span>本金：</span>
-                    <el-input v-model="RelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BankRelativeMsg.capital" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input v-model="RelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BankRelativeMsg.interest" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input v-model="RelativeMsg.interestRate" maxlength="6" v-input-num-2></el-input>
+                    <el-input v-model="BankRelativeMsg.interestRate" maxlength="6" v-input-num-2></el-input>
+                    <span>%</span>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-bank-item-7">
                   <div>
                     <span>债务(元)：</span>
-                    <el-input v-model="RelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
+                    <el-input v-model="BankRelativeMsg.debt" maxlength="14" v-input-num-2></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input v-model="RelativeMsg.debtNo" maxlength="14" v-input-num></el-input>
+                    <el-input v-model="BankRelativeMsg.debtNo" maxlength="10" v-input-num></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
@@ -997,14 +1043,14 @@
                       type="date"
                       placeholder="请选择日期"
                       :picker-options="pickerOptions"
-                      v-model="RelativeMsg.debtTime"
+                      v-model="BankRelativeMsg.debtTime"
                       value-format="yyyy-MM-dd"
                     ></el-date-picker>
                   </div>
                 </div>
                 <div class="report-approve-container-relative-form-bank-item-8">
                   <span>债事凭证：</span>
-                  <el-input v-model="RelativeMsg.debtCertificate"></el-input>
+                  <el-input v-model="BankRelativeMsg.debtCertificate"></el-input>
                 </div>
                 <div class="report-approve-container-relative-form-bank-update-imgs">
                   <span>上传债事凭证：</span>
@@ -1012,6 +1058,7 @@
                     <img
                       v-for="(item,index) in BankRelativeMsg.uploadDebtCertificate"
                       :key="index"
+                      @click="openImgToLink(item)"
                       :src="item"
                       alt
                     />
@@ -1027,16 +1074,16 @@
                 </div>
                 <div class="report-approve-container-relative-form-bank-lawsuit">
                   <span>是否诉讼及结果：</span>
-                  <textarea v-model="RelativeMsg.isResult"></textarea>
+                  <textarea v-model="BankRelativeMsg.isResult"></textarea>
                 </div>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <div class="report-approve-container-relative-form-bank-item-9">
                   <span>项目负责人：</span>
-                  <el-input v-model="RelativeMsg.prjectManager"></el-input>
+                  <el-input v-model="BankRelativeMsg.prjectManager"></el-input>
                 </div>
               </template>
               <div class="report-approve-container-form-person-button">
-                <button>确认</button>
+                <button @click='ResubmitRelativeMsg'>确认</button>
               </div>
             </div>
           </el-collapse-item>
@@ -1058,7 +1105,6 @@ export default {
       },
       // 报备人的属性 个人/企业/银行
       ReporterProperties: '',
-
       // 报备信息源
       ReportMsg: {},
       // 相对人信息列表信息源
@@ -1066,6 +1112,12 @@ export default {
       // 相对人信息源
       RelativeMsg: {},
       // 相对人的属性 个人/企业/银行
+      // 报备债市人是否配合
+      ReportIscoordinate: '1',
+      // 报备人类型(1:债权人 2:债务人 3:债权债务人)
+      reportType: '1',
+      // 报备人的属性 个人/企业/银行
+      ReporterProperties: '1',
       RelativeProperties: '',
       CommitApproveData: {
         reportId: '',
@@ -1532,7 +1584,6 @@ export default {
     // 初始化债事人, 相对人信息列表
     async InitData() {
       // 获取当前用户的reportId
-      // this.CommitApproveData.reportId = window.sessionStorage.getItem('reportId')
       this.CommitApproveData.reportId = this.$route.query.reportId
       const reportId = this.CommitApproveData.reportId
       // 获取债事人信息
@@ -1546,28 +1597,27 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-      this.ReportMsg = result.data
-      // 处理债事凭证信息
-      this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(
-        ','
-      )
-      // 1=个人  2= 企业 3=银行
-      const cardJust = result.data.cardJust
-      const cardBack = result.data.cardBack
-      if (this.ReportMsg.reportPropert === '1') {
+      if (result.data.reportPropert === '1') {
         this.ReporterProperties = '1'
-        this.PersonalReportMsg.cardJust = cardJust // 身份证-正
-        this.PersonalReportMsg.cardBack = cardBack // 身份证-反
-      } else if (this.ReportMsg.reportPropert === '2') {
+        this.PersonalReportMsg = result.data
+        // 如果债事凭证没有','   代表不需要用split处理
+        if(this.PersonalRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.PersonalRelativeMsg.uploadDebtCertificate = this.PersonalRelativeMsg.uploadDebtCertificate.split(',')
+        }
+      } else if (result.data.reportPropert === '2') {
         this.ReporterProperties = '2'
-        this.BusinessReportMsg.cardJust = cardJust // 身份证-正
-        this.BusinessReportMsg.cardBack = cardBack // 身份证-反
+        this.BusinessReportMsg = result.data
+        if(this.PersonalRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.PersonalRelativeMsg.uploadDebtCertificate = this.PersonalRelativeMsg.uploadDebtCertificate.split(',')
+        }
       } else {
         this.ReporterProperties = '3'
-        this.BankReportMsg.cardJust = cardJust //身份证-正
-        this.BankReportMsg.cardBack = cardBack // 身份证-反
+        this.BankReportMsg = result.data
+        if(this.PersonalRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.PersonalRelativeMsg.uploadDebtCertificate = this.PersonalRelativeMsg.uploadDebtCertificate.split(',')
+        }
       }
-      // console.log(this.PersonalRelativeMsg.cardJust)
+      console.log(this.PersonalRelativeMsg.cardJust)
       this.$forceUpdate()
       // 通过报备ID查询相对人信息列表
       const { data: RelativeListresult } = await this.$http({
@@ -1584,7 +1634,6 @@ export default {
     //提交债权人基本信息
     async SendReporterData() {
       const type = this.ReportMsg.reportPropert // 1=个人 2=企业  3=银行
-
       // 报备信息登记
       let Responseresult = {}
       if (type === '1') {
@@ -1603,11 +1652,9 @@ export default {
           },
         })
         Responseresult = result
-
         // 传入当前用户报备ID
       } else if (this.ReporterProperties === '2') {
         // 当用户选择企业报备时
-
         const formData = new FormData()
         for (const key in this.BusinessReportMsg) {
           formData.append(key, this.ReportMsg[key])
@@ -1650,16 +1697,29 @@ export default {
     // 获取详情
     async GetDetailMsg(index) {
       this.RelativeMsg = this.RelativeList[index]
-
-      this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(
-        ','
-      )
       if (this.RelativeMsg.reportPropert === '1') {
-        this.RelativeProperties = 'person'
+        this.RelativeProperties = '1'
+        // 当前录入的相对人信息为个人, 让相对个人获取到当前用户信息
+        this.PersonalRelativeMsg = this.RelativeMsg
+        // 处理债事凭证信息
+        if(this.PersonalRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.PersonalRelativeMsg.uploadDebtCertificate = this.PersonalRelativeMsg.uploadDebtCertificate.split(',')
+        }
       } else if (this.RelativeMsg.reportPropert === '2') {
-        this.RelativeProperties = 'business'
+        this.RelativeProperties = '2'
+        // 当前录入的相对人信息为企业
+        this.BusinessRelativeMsg = this.RelativeMsg
+        // 处理债事凭证信息
+        if(this.BusinessRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.BusinessRelativeMsg.uploadDebtCertificate = this.BusinessRelativeMsg.uploadDebtCertificate.split(',')
+        }
       } else {
-        this.RelativeProperties = 'bank'
+        this.RelativeProperties = '3'
+        // 当前录入的相对人信息为银行
+        this.BankRelativeMsg = this.RelativeMsg
+        if(this.BankRelativeMsg.uploadDebtCertificate.indexOf(',') !== -1) {
+            this.BankRelativeMsg.uploadDebtCertificate = this.BankRelativeMsg.uploadDebtCertificate.split(',')
+        }
       }
     },
     async UpdateReportJustIDCard() {
@@ -1756,6 +1816,7 @@ export default {
       } else {
         file = this.$refs.BankRelativeVoucher.files[0]
       }
+      console.log(file)
       this.$UpdateFile(file).then((result) => {
         if (this.RelativeProperties === '1') {
           this.PersonalRelativeMsg.uploadDebtCertificate.push(result)
@@ -1777,6 +1838,9 @@ export default {
       this.BusinessReportMsg.reportType = value
       this.BankReportMsg.reportType = value
     },
+    // 更新相对人信息
+    ResubmitRelativeMsg () {
+    }
   },
   created() {
     this.InitData()
@@ -2088,6 +2152,11 @@ export default {
         }
         .el-input {
           width: px2rem(80);
+        }
+        :nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
         }
       }
       &-person-item-7 {
@@ -2594,6 +2663,11 @@ export default {
         .el-input {
           width: px2rem(80);
         }
+        :nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
+        }
       }
       &-business-item-7 {
         margin: px2rem(4) 0;
@@ -3031,6 +3105,11 @@ export default {
         }
         .el-input {
           width: px2rem(80);
+        }
+        :nth-child(3) {
+            .el-input {
+                width: px2rem(70);
+            }
         }
       }
       &-bank-item-7 {

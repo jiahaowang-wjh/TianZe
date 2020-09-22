@@ -895,8 +895,8 @@
                   <button>点击上传</button>
                 </div>
                 <div class="add-report-container-relative-form-person-lawsuit">
-                  <span>是否诉讼及结果：</span>
-                  <textarea v-model="PersonalRelativeMsg.isResult"></textarea>
+                  <span>是负债资金使用用途：</span>
+                  <textarea v-model="PersonalRelativeMsg.usage"></textarea>
                 </div>
                 <div class="add-report-container-relative-form-person-economic">
                   <span>目前经济情况：</span>
@@ -1076,8 +1076,8 @@
                   <button>点击上传</button>
                 </div>
                 <div class="add-report-container-relative-form-business-lawsuit">
-                  <span>是否诉讼及结果：</span>
-                  <textarea v-model="BusinessRelativeMsg.isResult"></textarea>
+                  <span>是负债资金使用用途：</span>
+                  <textarea v-model="BusinessRelativeMsg.usage"></textarea>
                 </div>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <div class="add-report-container-relative-form-business-item-9">
@@ -1212,8 +1212,8 @@
                   <button>点击上传</button>
                 </div>
                 <div class="add-report-container-relative-form-bank-lawsuit">
-                  <span>是否诉讼及结果：</span>
-                  <textarea v-model="BankRelativeMsg.isResult"></textarea>
+                  <span>是负债资金使用用途：</span>
+                  <textarea v-model="BankRelativeMsg.usage"></textarea>
                 </div>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <div class="add-report-container-relative-form-bank-item-9">
@@ -1372,9 +1372,9 @@ export default {
         // 阶段
         stage: '1',
         // 创建人Id(录入人)
-        createUserId: '7969107472849379328',
+        createUserId: window.sessionStorage.getItem('userId'),
         // 更新人Id
-        updateUserId: '7969107472849379328',
+        updateUserId: window.sessionStorage.getItem('userId'),
         // 银行
         bank: '',
         // 银行卡号
@@ -1442,9 +1442,9 @@ export default {
         // 是否诉讼及结果
         isResult: '',
         // 创建人Id(录入人)
-        createUserId: '7969107472849379328',
+        createUserId: window.sessionStorage.getItem('userId'),
         // 更新人Id
-        updateUserId: '7969107472849379328',
+        updateUserId: window.sessionStorage.getItem('userId'),
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
@@ -1515,9 +1515,9 @@ export default {
         // 是否诉讼及结果
         isResult: '1',
         // 创建人Id(录入人)
-        createUserId: '7969107472849379328',
+        createUserId: window.sessionStorage.getItem('userId'),
         // 更新人Id
-        updateUserId: '7969107472849379328',
+        updateUserId: window.sessionStorage.getItem('userId'),
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
@@ -1592,8 +1592,6 @@ export default {
         debtCertificate: '',
         // 上传债事凭证
         uploadDebtCertificate: [],
-        // 是否诉讼及结果
-        isResult: '',
         // 目前经济状况
         economics: '',
         // 项目责任人
@@ -1607,7 +1605,8 @@ export default {
         // 更新人Id
         updateUserId: window.sessionStorage.getItem('userId'),
         agreementNo: '7969107472849373213',
-        usage: '1',
+        // 是负债经济使用用途
+        usage: '',
       },
       // 企业相对信息源
       BusinessRelativeMsg: {
@@ -1729,9 +1728,9 @@ export default {
         // 是否诉讼及结果
         isResult: '',
         // 创建人Id(录入人)
-        createUserId: '7969107472849379328',
+        createUserId: window.sessionStorage.getItem('userId'),
         // 更新人Id
-        updateUserId: '7969107472849379328',
+        updateUserId: window.sessionStorage.getItem('userId'),
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
@@ -1741,7 +1740,7 @@ export default {
         // 经济状况, (原定没有该项,测试用)
         economics: '良好',
         agreementNo: '7969107472849373213',
-        usage: '1',
+        usage: '',
       },
       // 相对人列表数据源
       RelativeList: [],
@@ -2290,6 +2289,7 @@ export default {
       this.$message.success('添加相对人信息成功')
       // this.collapseActive='3';
       this.SearchCounterpartList()
+      this.ClearRelativeForm()
     },
     // 关闭提交页面
     CloseConfirm() {
@@ -2826,7 +2826,6 @@ export default {
         justify-content: space-around;
         font-size: px2rem(3);
         height: px2rem(10);
-        position: relative;
         div {
           flex: 1;
         }
@@ -2850,6 +2849,7 @@ export default {
         }
         :nth-child(3) {
           height: px2rem(8);
+          position: relative;
           span {
             width: px2rem(18);
           }
@@ -2857,7 +2857,7 @@ export default {
             width: px2rem(68);
           }
           button {
-            left: px2rem(277);
+            left: px2rem(75);
             position: absolute;
             padding: px2rem(0.5) px2rem(2);
             margin-left: px2rem(2);
@@ -3318,7 +3318,6 @@ export default {
         justify-content: space-around;
         font-size: px2rem(3);
         height: px2rem(10);
-        position: relative;
         div {
           flex: 1;
         }
@@ -3342,6 +3341,7 @@ export default {
         }
         :nth-child(3) {
           height: px2rem(8);
+          position: relative;
           span {
             width: px2rem(18);
           }
@@ -3349,7 +3349,7 @@ export default {
             width: px2rem(68);
           }
           button {
-            left: px2rem(277);
+            left: px2rem(75);
             position: absolute;
             padding: px2rem(0.5) px2rem(2);
             margin-left: px2rem(2);
@@ -4099,6 +4099,11 @@ export default {
           .el-input {
             width: px2rem(80);
           }
+          div:nth-child(3) {
+            .el-input {
+                width: px2rem(68);
+            }
+          }
         }
         &-person-item-7 {
           margin: px2rem(4) 0;
@@ -4545,6 +4550,11 @@ export default {
           .el-input {
             width: px2rem(80);
           }
+          :nth-child(3) {
+            .el-input {
+                width: px2rem(68);
+            }
+          }
         }
         &-business-item-7 {
           margin: px2rem(4) 0;
@@ -4827,7 +4837,7 @@ export default {
           span {
             margin: 0 px2rem(2);
           }
-          :nth-child(1) {
+          div:nth-child(1) {
             span {
               display: inline-block;
               width: px2rem(15);
@@ -4836,15 +4846,15 @@ export default {
               width: px2rem(75);
             }
           }
-          :nth-child(2) {
+          div:nth-child(2) {
             span {
               width: px2rem(20);
             }
-            .el-input {
-              width: px2rem(72);
+            input {
+              width: px2rem(72)!important;
             }
           }
-          :nth-child(3) {
+          div:nth-child(3) {
             span {
               display: inline-block;
               width: px2rem(15);
@@ -4903,6 +4913,11 @@ export default {
           }
           .el-input {
             width: px2rem(80);
+          }
+          div:nth-child(3) {
+            .el-input {
+                width: px2rem(68);
+            }
           }
         }
         &-bank-item-7 {

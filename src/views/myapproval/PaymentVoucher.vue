@@ -132,7 +132,8 @@ export default {
         pageSize: '30',
         debtNo: '',
         companyType: window.sessionStorage.getItem('companyType'),
-      },
+        comId: window.sessionStorage.getItem('companyId')
+      }
     }
   },
   methods: {

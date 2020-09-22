@@ -815,6 +815,7 @@ export default {
             // 报备信息
             const formData = new FormData()
             formData.append('type', window.sessionStorage.getItem('companyType'))
+            formData.append('comId', window.sessionStorage.getItem('companyId'))
             const { data: ReportResult } = await this.$http({
                 method: 'post',
                 url: '/api/api/busReportController/selectDaysCount',
