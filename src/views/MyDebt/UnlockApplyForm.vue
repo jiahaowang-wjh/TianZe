@@ -147,44 +147,58 @@
             <!-- 手机号码验证 -->
             <!-- 本次债权处理信息 -->
             <h3>本次债权处理信息</h3>
-            <div class="unlock-apply-container-form-defuse-1">
-              <div>
-                债权总金额：
-                <input type="text" v-model="SubmitData.amountTotal" />
-              </div>
-              <div>
-                累计已转让债权金额：
-                <input type="text" v-model="SubmitData.amountCumulative" />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-defuse-2">
-              <div>
-                本次申请转让债权金额（小写）：
-                <input type="text" v-model="SubmitData.amountThis" />
-              </div>
-              <div>
-                本次申请转让债权金额（大写）：
-                <input
-                  type="text"
-                  :disabled="true"
-                  :value="SubmitData.amountThis|Uppercase"
-                />
-              </div>
-              <div style="color:red">注：请确定金额无误后在输入，输入后不可更改</div>
-            </div>
-            <h3>手机验证码认证</h3>
-            <div class="unlock-apply-container-form-phonecheck">
-              <div>
-                <span>手机号码：</span>
-                <el-input v-input-num maxlength="11" v-model="PhoneNumber"></el-input>
-              </div>
-              <div>
-                <span>手机验证码：</span>
-                <el-input maxlength="4" v-model="SendPhoneAndChekno.checkNo"></el-input>
-                <button @click="SendPhoneCheck">点击获取</button>
-              </div>
-              <div></div>
-            </div>
+
+            <el-form label-width="0" class="pub-row-box page-row-box1"  :model="SubmitData"   >
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">债权总金额：</span>
+                  <el-form-item  :rules="[  { required: true, message: '请输入债权总金额', trigger: 'blur' }]" prop="amountTotal" >
+                    <el-input type="text" v-model="SubmitData.amountTotal" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">累计已转让债权金额：</span>
+                  <el-form-item>
+                    <el-input type="text" v-model="SubmitData.amountCumulative" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">本次申请转让债权金额（小写）：</span>
+                  <el-form-item>
+                    <el-input type="text" v-model="SubmitData.amountThis" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">本次申请转让债权金额（大写）：</span>
+                  <el-form-item>
+                    <el-input type="text" :disabled="true" v-model="Uppercase" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label" style="color:red">注：请确定金额无误后在输入，输入后不可更改</span>
+                </el-col>
+                <br />
+                <el-col :span="24">
+                  <h3>手机验证码认证</h3>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">手机号码：</span>
+                  <el-form-item>
+                    <el-input type="text" v-input-num maxlength="11" v-model="PhoneNumber" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <span class="col-label">手机验证码：</span>
+                  <el-form-item>
+                    <el-input maxlength="4" v-model="SendPhoneAndChekno.checkNo"></el-input>
+                    <el-button @click="SendPhoneCheck" class="getVcode" style size="medium" type="primary">点击获取</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
           </el-collapse-item>
           <el-collapse-item title="债权处理方式" name="2">
             <div class="unlock-apply-container-form-relative-3">
@@ -618,15 +632,15 @@ export default {
         {
           IsCoordinate: 'true',
           Type: 'debtor',
-          Properties: 'person',
-        },
+          Properties: 'person'
+        }
       ],
       RelativeMsg: [
         {
           IsCoordinate: 'true',
           Type: 'debtor',
-          Properties: 'person',
-        },
+          Properties: 'person'
+        }
       ],
       // 解债表单 1数据源,
       UnlockApplyMsg: [],
@@ -639,29 +653,29 @@ export default {
           Name: '姓名1',
           DebtType: '相对人',
           DebtNature: '个人',
-          Phone: '15121221443',
+          Phone: '15121221443'
         },
         {
           Id: '2',
           Name: '姓名2',
           DebtType: '相对人',
           DebtNature: '个人',
-          Phone: '15121221443',
+          Phone: '15121221443'
         },
         {
           Id: '3',
           Name: '姓名3',
           DebtType: '相对人',
           DebtNature: '个人',
-          Phone: '15121221443',
-        },
+          Phone: '15121221443'
+        }
       ],
       // 确定选用正常模板还是多选模板
       isNormal: false,
       TimeSelect: {
         TimeStart: '',
         TimeEnd: '',
-        ClosingTime: '',
+        ClosingTime: ''
       },
       DebtTreatment: '',
       pickerOptions: {
@@ -673,7 +687,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
@@ -681,7 +695,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
@@ -689,9 +703,9 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       // 解债年份：
       DebtReliefYear: '',
@@ -703,19 +717,20 @@ export default {
         {
           Id: '1',
           FileName: '文件名1',
-          FileAddress: '地址1',
+          FileAddress: '地址1'
         },
         {
           Id: '2',
           FileName: '文件名2',
-          FileAddress: '地址2',
+          FileAddress: '地址2'
         },
         {
           Id: '3',
           FileName: '文件名3',
-          FileAddress: '地址3',
-        },
+          FileAddress: '地址3'
+        }
       ],
+      Uppercase:'',
       IsPopSelectiveList: true,
       UnlockUserMsg: {},
       // 提交解债表单
@@ -785,7 +800,7 @@ export default {
         // 甲方联系人
         partyaPersonInfo: '',
         // 甲方电话
-        partyaTelInfo: '',
+        partyaTelInfo: ''
       },
       // 民事调解书数据源
       MediaSrc: [],
@@ -797,9 +812,9 @@ export default {
       PhoneNumber: '',
       SendPhoneAndChekno: {
         tel: '',
-        checkNo: '',
+        checkNo: ''
       },
-      IsSendPhoneCheckMsg: false,
+      IsSendPhoneCheckMsg: false
     }
   },
   methods: {
@@ -814,18 +829,18 @@ export default {
         url: '/api/api/fileUploading/uploading',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       return 'http://113.204.236.218:8989/' + result.data.split('\\')[3]
     },
     UpdatePartASeal() {
-      this.UpdateFile(this.$refs.PartASeal.files[0]).then((result) => {
+      this.UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
         this.SubmitData.partyaSeal = result
       })
     },
     UpdatePartBSeal() {
-      this.UpdateFile(this.$refs.PartBSeal.files[0]).then((result) => {
+      this.UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
         console.log(result)
         this.SubmitData.partybSeal = result
       })
@@ -842,8 +857,8 @@ export default {
         url: '/api/api/busRelativePersonController/selectByRelativePerId',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.UnlockUserMsg = result.data
     },
@@ -860,8 +875,8 @@ export default {
         url: '/api/api/smsSend/checkNO',
         data: PhoneCheckFormData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (PhoneCheckResult.resultCode !== '200')
         return this.$message.error('短信验证码输入错误,请重新输入')
@@ -878,8 +893,8 @@ export default {
         url: '/api/api/pubDebtController/insertSelective',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (result.resultCode === '200') {
         // 调用status改变接口
@@ -895,8 +910,8 @@ export default {
           url: '/api/api/pubDebtController/updateStatus',
           data: StatusUpdateformData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         if (StatusUpdateResult.resultCode === '200') {
           this.GetMsgList()
@@ -914,9 +929,9 @@ export default {
         url: '/api/api/busReportController/updateDebtStage',
         data: StageUpdateformData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }).then((StageUpdateResult) => {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(StageUpdateResult => {
         if (StageUpdateResult.data.resultCode !== '200')
           return this.$message.error(StageUpdateResult.data.resultMessage)
         this.$message.success('进入债权处理阶段')
@@ -938,7 +953,7 @@ export default {
       // 选择成功, 关闭面板, 发送选择成功信息
       this.$message({
         message: '选择相对人成功',
-        type: 'success',
+        type: 'success'
       })
       this.InitData(this.relativePerId)
       this.IsPopSelectiveList = false
@@ -956,7 +971,7 @@ export default {
     GoInvestigationReport(index, item) {
       this.$router.push({
         path: '/ExamineReportForm',
-        query: { debtId: item.debtId },
+        query: { debtId: item.debtId }
       })
     },
     // 查询担保人信息
@@ -968,8 +983,8 @@ export default {
         url: '/api/api/busGuaranteeController/selectByPrimaryKey',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.GuarantorMsg = result.data
     },
@@ -983,8 +998,8 @@ export default {
         url: '/api/api/busCivilController/selectCivi',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.MediaSrc = result.data
       this.MediaSrc.forEach((v, i) => {
@@ -1002,8 +1017,8 @@ export default {
         url: '/api/api/busCivilController/initializePlan',
         data: AgreemenFormData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       console.log(AgreemenResult)
     },
@@ -1017,8 +1032,8 @@ export default {
         url: '/api/api/pubDebtController/selectByReportIds',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.UnlockApplyMsg = result.data
     },
@@ -1035,34 +1050,50 @@ export default {
         url: '/api/api/smsSend/sendCheckNO',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (result.resultCode !== '200')
         this.$message.error('手机验证失败, 请重试')
       this.$message({
         message: '手机验证码发送成功, 请填写正确的验证码',
-        type: 'success',
+        type: 'success'
       })
       // 存储发送成功的电话号码
       this.SendPhoneAndChekno.tel = tel
       this.IsSendPhoneCheckMsg = true
-    },
+    }
   },
   created() {
     this.SearchConciliation()
     this.GetMsgList()
-  },
+  }
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+
+.page-row-box1 {
+  .el-col {
+    padding-right: px2rem(12);
+  }
+  .getVcode {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+
+
+
 .unlock-apply {
   display: flex;
   flex-direction: column;
   background-color: #e9f0f5;
   height: 100%;
   width: 100%;
+
   input:disabled {
     background-color: #e0e3f8;
   }

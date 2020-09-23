@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 获取到的 fontSize 不允许超过我们定义的最大值
     fontSize = fontSize > MAX_FONT_SIZE ? MAX_FONT_SIZE : fontSize
 
-    if (fontSize > 165) {
-        // 定义根元素（html）fontSize 的大小 （rem）
+    if (fontSize < 165) {
+        // 定义根元素（html）fontSize 的大小 （rem） 
+          html.style.fontSize = 165 + 'px';
+    } else if (fontSize > 265) {
+        html.style.fontSize = 265 + 'px';
+    } else {
         html.style.fontSize = fontSize + 'px'
-    }else{
-       html.style.fontSize = 165 + 'px'
     }
 
 })

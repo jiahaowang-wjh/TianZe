@@ -7,6 +7,7 @@ import './assets/css/style.scss'
 import './assets/js/htmlFontSize.js'
 import './assets/js/axios.config.js'
 import './assets/js/filters.js';
+import "../element-variables.scss";
 import {
     getToken,
     loginOut
@@ -99,9 +100,11 @@ Vue.prototype.$UpdateFile = async function (file) {
     // const fileBasePath='http://47.108.135.174:9000/';
     return fileBasePath + result.data.split('/')[3]
 }
+Vue.mixin(mixin);
+
 new Vue({
     router,
-    mixins: [mixin],
+    
     store,
     render: h => h(App)
 }).$mount('#app')
