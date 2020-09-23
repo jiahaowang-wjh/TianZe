@@ -649,7 +649,7 @@
             </div>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
-          <el-collapse-item title="相对人基本信息表" name="2" v-show="ResponseReportId">
+          <el-collapse-item title="相对人基本信息表" name="2" >  <!-- v-show="ResponseReportId" -->
             <div class="add-report-container-relative">
               <div class="add-report-container-relative-add-button">
                 <button @click='ClearRelativeForm'>新增相对人</button>
@@ -4101,7 +4101,11 @@ export default {
           }
           div:nth-child(3) {
             .el-input {
+<<<<<<< HEAD
                 width: px2rem(68);
+=======
+                width: px2rem(70);
+>>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }
@@ -4552,7 +4556,11 @@ export default {
           }
           :nth-child(3) {
             .el-input {
+<<<<<<< HEAD
                 width: px2rem(68);
+=======
+                width: px2rem(70);
+>>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }
@@ -4916,7 +4924,11 @@ export default {
           }
           div:nth-child(3) {
             .el-input {
+<<<<<<< HEAD
                 width: px2rem(68);
+=======
+                width: px2rem(70);
+>>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }
