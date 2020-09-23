@@ -51,7 +51,7 @@
           ></el-date-picker>
         </div>
         <div class="my-debt-list-search-button-search">搜索</div>
-        <div class="my-debt-list-search-button-add" @click="GoAddReportForm">新增录入</div>
+        <div class="my-debt-list-search-button-add" @click="GoAddReportForm" v-show="roleId==='7992691295821774848'" >新增录入</div>
       </div>
       <div class="my-debt-list-content">
         <!-- 正常显示模板 -->
@@ -102,15 +102,15 @@
               >{{item.status === '0' ? ('报备数据未审核') : item.status === '1' ? ('报备数据审核未通过') : item.status === '2' ? ('报备数据审核通过') : item.status === '3' ? (' 请缴费'): item.status === '4' ? ('财务信息未审核') : item.status === '5' ? ('进入调解阶段') : item.status === '6' ? ('财务信息审核未通过') : '/'}}</span>
             </div>
             <span>
-              <button @click.stop="GoCivilMediaForm(index)" v-show="item.stage === '2'">调解</button>
+              <button @click.stop="GoCivilMediaForm(index)" v-show="item.stage === '2' && roleId==='7992691295821774848'">调解</button>
               <button
                 @click="GoInvestigation(index)"
-                v-show="item.status === '2'&& item.stage === '1'"
+                v-show="item.status === '2'&& item.stage === '1' && roleId==='7992691295821774848'"
               >暨尽调协议</button>
-              <button @click="GoUnlockApplyForm(index)" v-show="item.stage === '3'">债权处理</button>
+              <button @click="GoUnlockApplyForm(index)" v-show="item.stage === '3' && roleId==='7992691295821774848'">债权处理</button>
               <button @click="dialogTableVisible = true" v-show="item.status === '5'">下载</button>
               <button v-show="item.status === '2' || item.status === '4'">查看</button>
-              <button v-show="item.status === '1' || item.status === '6'" @click="EditMsg(index)">编辑</button>
+              <button v-show="(item.status === '1' || item.status === '6') && roleId==='7992691295821774848'" @click="EditMsg(index)">编辑</button>
             </span>
           </div>
         </div>
@@ -138,6 +138,7 @@ export default {
     return {
       // 分页器结构数据源
       bgc: true,
+      roleId:window.sessionStorage.getItem('roleId'),
       // 选项卡
       SelectOption: [
         {

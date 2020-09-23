@@ -178,7 +178,7 @@ export default {
         store.dispatch('userMenus').then(() => {
           console.log(this.userMenuTree)
           this.$router.push({
-            path: this.userMenuTree[0].menuUrl,
+            path: this.userMenuTree[0].menuUrl+"?menuId="+this.userMenuTree[0].menuId,
             query: {
               username: result.data.additionalInformation.userNickname,
             },
