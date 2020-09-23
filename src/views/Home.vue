@@ -41,26 +41,7 @@ export default {
     data () {
         return {
             buttonData: [
-                {
-                    title: '+新增录入',
-                    path: '/AddReportForm'
-                },
-                {
-                    title: '财务审查',
-                    path: '/PaymentVoucher'
-                },
-                {
-                    title: '录入信息',
-                    path: '/ReportInfo'
-                },
-                {
-                    title: '调解信息',
-                    path: '/CivilMedia'
-                },
-                {
-                    title: '债权处理',
-                    path: '/UnlockApply'
-                }
+                
             ],
             // 图表1数据源
             option1: {
@@ -812,6 +793,47 @@ export default {
         },
         // 获取相应信息
         async InitData () {
+            var roleId =  window.sessionStorage.getItem('roleId')
+            var butten1 = {
+                    "title": "+新增录入",
+                    "path": "/AddReportForm"
+                }
+            var butten2 = {
+                    "title": "财务审查",
+                    "path": "/PaymentVoucher"
+                }
+            var butten3 = {
+                    "title": "录入信息",
+                    "path": "/ReportInfo"
+                }
+            var butten4 = {
+                    "title": "调解信息",
+                    "path": "/CivilMedia"
+                }
+            var butten5 = {
+                    "title": "债权处理",
+                    "path": "/UnlockApply"
+                }
+            if(roleId === '7992691295821774848'){//分公司录入人员
+                this.buttonData.push(butten1)
+                this.buttonData.push(butten3)
+                this.buttonData.push(butten4)
+                this.buttonData.push(butten5)
+            }else if(roleId === '7992691247939600384'){//总公司财务人员
+                this.buttonData.push(butten2)
+            }else if(roleId === '7992691214771044352'){//总公司司信息审核人员
+                this.buttonData.push(butten3)
+                this.buttonData.push(butten4)
+                this.buttonData.push(butten5)
+            }else{
+                this.buttonData.push(butten1)
+                this.buttonData.push(butten2)
+                this.buttonData.push(butten3)
+                this.buttonData.push(butten4)
+                this.buttonData.push(butten5)
+            }
+
+
             // 报备信息
             const formData = new FormData()
             formData.append('type', window.sessionStorage.getItem('companyType'))
