@@ -4101,11 +4101,7 @@ export default {
           }
           div:nth-child(3) {
             .el-input {
-<<<<<<< HEAD
                 width: px2rem(68);
-=======
-                width: px2rem(70);
->>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }
@@ -4556,11 +4552,7 @@ export default {
           }
           :nth-child(3) {
             .el-input {
-<<<<<<< HEAD
                 width: px2rem(68);
-=======
-                width: px2rem(70);
->>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }
@@ -4924,11 +4916,7 @@ export default {
           }
           div:nth-child(3) {
             .el-input {
-<<<<<<< HEAD
                 width: px2rem(68);
-=======
-                width: px2rem(70);
->>>>>>> 2c1b2adc94ad1c1dfbd624fdb13bd1a9eb3dd57a
             }
           }
         }

@@ -4,10 +4,10 @@
         <div class='payment-civil-title'>
             <span class='payment-civil-title-go1'>我的审批</span>
             <span class='payment-civil-title-separator'> / </span>
-            <span class='payment-civil-title-go2'>报备缴费</span>
+            <span class='payment-civil-title-go2'>录入缴费</span>
         </div>
         <div class='payment-civil-content'>
-            <div class='payment-civil-content-title'>您提交的民事调解信息总部公司已经审核通过，请根据下面所给信息线下支付报备费用。</div>
+            <div class='payment-civil-content-title'>您提交的民事调解信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。</div>
             <div>汇款账户：</div>
             <div><input type="text" v-model='PamentMsg.CardNum' disabled='true'></div>
             <div><input type="text" v-model='PamentMsg.AccountName' disabled='true'></div>
