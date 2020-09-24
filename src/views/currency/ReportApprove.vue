@@ -512,8 +512,8 @@
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-person-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债资金使用用途：</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <div class='report-approve-container-relative-form-person-economic'>
                                     <span>目前经济情况：</span>
@@ -629,8 +629,8 @@
 
                                 </div>
                                 <div class='report-approve-container-relative-form-business-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债资金使用用途：</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                                 <div class='report-approve-container-relative-form-business-item-9'>
@@ -736,8 +736,8 @@
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-bank-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债资金使用用途：</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                                 <div class='report-approve-container-relative-form-bank-item-9'>
@@ -867,6 +867,9 @@ export default {
             })
             if (result.data !== '0' && result.resultCode === '200') {
                 this.$message.success(result.resultMessage)
+                this.$router.push({
+                    path: '/ReportInfo',
+                })
             } else {
                 this.$message.error('操作失败, 请重试')
             }
