@@ -25,6 +25,10 @@ function filterRouteData(menuArr) {
     return parentArr
 }
 
+function auth(){
+    
+}
+
 
 
 export default {

@@ -108,8 +108,8 @@
               >{{item.status === '0'?('未审核'):item.status === '1'?('审核未通过'):item.status === '2'?('审核通过'):item.status === '3'?('暨尽调协议'): item.status === '4'?('财务未审核'):item.status === '5'?('财务审核通过'):'财务审核未通过'}}</span>
             </div>
             <span>
-              <button v-if="item.status === '0'" @click="CheckData(index,item)">审核</button>
-              <button v-if="item.status === '3'" @click="GoReportPayment(index,item)">缴费</button>
+              <button v-if="item.status === '0' && roleId ==='7992691214771044352'" @click="CheckData(index,item)">审核</button>
+              <button v-if="item.status === '3' && roleId ==='7992691295821774848'" @click="GoReportPayment(index,item)">缴费</button>
               <button
                 v-if="item.status==='1'"
                 @click="()=>{$router.push({path:'/EditReport',query:{reportId:item.reportId}})}"
@@ -130,6 +130,7 @@ export default {
       ReportInfoMsg: [],
       // 确定选用正常模板还是多选模板
       isNormal: false,
+      roleId:window.sessionStorage.getItem('roleId'),
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now()

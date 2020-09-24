@@ -83,7 +83,7 @@
                 :class="item.status === '2' ? ('pass') : item.status === '1' ? 'unpass': ' '"
               >{{item.status === '0' ? ('调解信息待审核') : item.status === '2' ? '调解信息审核通过' : '调解信息审核未通过'}}</span>
               <span>
-                <button v-show="item.status === '0'" @click="CheckMediaMsg(index,item)">审核</button>
+                <button v-show="item.status === '0' && roleId ==='7992691214771044352'" @click="CheckMediaMsg(index,item)">审核</button>
               </span>
             </div>
           </div>
@@ -131,6 +131,7 @@ export default {
       MediateMsg: [],
       // 确定选用正常模板还是多选模板
       isNormal: false,
+      roleId:window.sessionStorage.getItem('roleId'),
       TimeSelect: {
         TimeStart: '2020-02-30',
         TimeEnd: '2020-04-28',
