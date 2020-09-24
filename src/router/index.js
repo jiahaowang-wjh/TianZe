@@ -120,7 +120,7 @@ const routes = [{
                 }
             },
 
-            { //子页面
+            { //调查报告
                 path: '/ExamineReportForm',
                 name: 'ExamineReportForm',
                 component: () => import('@/views/MyDebt/ExamineReportForm'),
@@ -128,7 +128,7 @@ const routes = [{
                     leftMenu: '/ExamineReportForm',
                 }
             },
-            { //子页面
+            { //信息分析暨尽调协议
                 path: '/Investigation',
                 name: 'Investigation',
                 component: () => import('@/views/MyDebt/Investigation'),
@@ -136,35 +136,35 @@ const routes = [{
                     leftMenu: '/Investigation',
                 }
             },
-            { //子页面
+            { //债权处理
                 path: '/UnlockApplyForm',
                 name: 'UnlockApplyForm',
                 component: () => import('@/views/MyDebt/UnlockApplyForm'),
                 meta: {
                     leftMenu: '/UnlockApplyForm',
                 }
-            }, { //子页面
+            }, { //调解
                 path: '/CivilMediaForm',
                 name: 'CivilMediaForm',
                 component: () => import('@/views/MyDebt/CivilMediaForm'),
                 meta: {
                     leftMenu: '/CivilMediaForm',
                 }
-            }, { //子页面
+            }, { //质押合同
                 path: '/PledgedContract',
                 name: 'PledgedContract',
                 component: () => import('@/views/MyDebt/PledgedContract'),
                 meta: {
                     leftMenu: '/PledgedContract',
                 }
-            }, { //子页面
+            }, { //录入缴费
                 path: '/ReportPayment',
                 name: 'ReportPayment',
                 component: () => import('@/views/currency/ReportPayment'),
                 meta: {
                     leftMenu: '/ReportPayment',
                 }
-            }, { //子页面
+            }, { //债权处理信息缴费
                 path: '/UnlockPayment',
                 name: 'UnlockPayment',
                 component: () => import('@/views/currency/UnlockPayment'),

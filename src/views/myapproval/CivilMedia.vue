@@ -7,13 +7,15 @@
       <span class="civil-media-title-go2">调解信息</span>
     </div>
     <div class="civil-media-list">
-      <div class="civil-media-list-select">
-        <span
-          @click="HandleSelect(item)"
-          v-for="(item,index) in SelectOption"
-          :key="index"
-          :class="item.isSelect? 'active':'' "
-        >{{item.SelectName}}</span>
+        <div class="public-tabs"> 
+        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+          <el-tab-pane
+            :label="item.SelectName"
+            :name="item.SelectName"
+            v-for="(item) in SelectOption"
+            :key="item.SelectName"
+          ></el-tab-pane>
+        </el-tabs>
       </div>
       <div class="civil-media-list-search">
         <div class="civil-media-list-search-form">
@@ -95,6 +97,7 @@
 export default {
   data() {
     return {
+      activeTabs:'全部',
       // 选项卡
       SelectOption: [
         {

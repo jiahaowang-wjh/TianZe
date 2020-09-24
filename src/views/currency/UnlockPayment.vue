@@ -7,7 +7,7 @@
       <span class="payment-civil-title-go2">债权处理信息缴费</span>
     </div>
     <div class="payment-civil-content">
-      <div class="payment-civil-content-title">您提交的债权处理信息缴费总部公司已经审核通过，请根据下面所给信息线下支付报备费用。</div>
+      <div class="payment-civil-content-title">您提交的债权处理信息缴费总部公司已经审核通过，请根据下面所给信息线下支付咨询服务费用。</div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />

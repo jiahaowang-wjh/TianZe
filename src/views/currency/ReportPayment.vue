@@ -4,10 +4,10 @@
     <div class="payment-info-title">
       <span class="payment-info-title-go1">我的审批</span>
       <span class="payment-info-title-separator">/</span>
-      <span class="payment-info-title-go2">报备缴费</span>
+      <span class="payment-info-title-go2">录入缴费</span>
     </div>
     <div class="payment-info-content">
-      <div class="payment-info-content-title">您新增的报备信息总部公司已经审核通过，请根据下面所给信息线下支付报备费用。</div>
+      <div class="payment-info-content-title">您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。</div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />

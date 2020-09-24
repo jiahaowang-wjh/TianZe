@@ -3,13 +3,15 @@
   <div class="my-debt">
     <div class="my-debt-title">我的债行</div>
     <div class="my-debt-list">
-      <div class="my-debt-list-select">
-        <span
-          @click="HandleSelect(item)"
-          v-for="(item,index) in SelectOption"
-          :key="index"
-          :class="item.isSelect? 'active':'' "
-        >{{item.SelectName}}</span>
+      <div class="public-tabs"> 
+        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+          <el-tab-pane
+            :label="item.SelectName"
+            :name="item.SelectName"
+            v-for="(item) in SelectOption"
+            :key="item.SelectName"
+          ></el-tab-pane>
+        </el-tabs>
       </div>
       <div class="my-debt-list-search">
         <div class="my-debt-list-search-form">
@@ -138,24 +140,25 @@ export default {
     return {
       // 分页器结构数据源
       bgc: true,
+      activeTabs:'全部',
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
-          isSelect: true,
+          isSelect: true
         },
         {
           SelectName: '待审核',
-          isSelect: false,
+          isSelect: false
         },
         {
           SelectName: '审核通过',
-          isSelect: false,
+          isSelect: false
         },
         {
           SelectName: '审核驳回',
-          isSelect: false,
-        },
+          isSelect: false
+        }
       ],
       // 调解信息列表数据源
       MyDebtMsg: [],
@@ -165,7 +168,7 @@ export default {
       IsShowRelativePage: true,
       TimeSelect: {
         TimeStart: '2020-02-30',
-        TimeEnd: '2020-04-28',
+        TimeEnd: '2020-04-28'
       },
       pickerOptions: {
         disabledDate(time) {
@@ -176,7 +179,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
@@ -184,7 +187,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
@@ -192,62 +195,62 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       // 下载弹出窗的数据源
       gridData: [
         {
           Order: '1',
           WordName: '《债务人基本信息登记表》',
-          WordType: 'word',
+          WordType: 'word'
         },
         {
           Order: '2',
           WordName: '《附件》',
-          WordType: 'excel',
+          WordType: 'excel'
         },
         {
           Order: '3',
           WordName: '《债务人身份证正面附件》',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '4',
           WordName: '《债务人身份证反面附件》',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '5',
           WordName: '王小虎',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '6',
           WordName: '王小虎',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '7',
           WordName: '王小虎',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '8',
           WordName: '王小虎',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '9',
           WordName: '王小虎',
-          WordType: 'mp3',
+          WordType: 'mp3'
         },
         {
           Order: '10',
           WordName: '王小虎',
-          WordType: 'mp3',
-        },
+          WordType: 'mp3'
+        }
       ],
       dialogTableVisible: false,
       // 选择表单的数据源
@@ -259,15 +262,15 @@ export default {
         // 选择相对人
         Relevant: '',
         // 录入编号
-        ReportNum: '',
-      },
+        ReportNum: ''
+      }
     }
   },
   methods: {
     EnterContract() {
       this.$router.push({
         path: '/Assignment',
-        query: { reportId: this.MyDebtMsg[index].reportId },
+        query: { reportId: this.MyDebtMsg[index].reportId }
       })
     },
     // 前往新增报备
@@ -278,20 +281,20 @@ export default {
     GoUnlockApplyForm(index) {
       this.$router.push({
         path: '/UnlockApplyForm',
-        query: { reportId: this.MyDebtMsg[index].reportId },
+        query: { reportId: this.MyDebtMsg[index].reportId }
       })
     },
     // 前往民事调解界面
     GoCivilMediaForm(index) {
       this.$router.push({
         path: '/CivilMediaForm',
-        query: { reportId: this.MyDebtMsg[index].reportId },
+        query: { reportId: this.MyDebtMsg[index].reportId }
       })
     },
     GoInvestigation(index) {
       this.$router.push({
         path: '/Investigation',
-        query: { reportId: this.MyDebtMsg[index].reportId },
+        query: { reportId: this.MyDebtMsg[index].reportId }
       })
     },
     SelectRelative() {
@@ -304,7 +307,7 @@ export default {
     EditMsg(index) {
       this.$router.push({
         path: '/EditReport',
-        query: { reportId: this.MyDebtMsg[index].reportId },
+        query: { reportId: this.MyDebtMsg[index].reportId }
       })
     },
     // 页面初始化
@@ -324,16 +327,16 @@ export default {
         url: '/api/api/busReportController/selectDebtInfos',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.MyDebtMsg = result.data.list
       console.log(this.MyDebtMsg)
-    },
+    }
   },
   created() {
     this.InitData()
-  },
+  }
 }
 </script>
 <style lang='scss' scoped>
@@ -358,28 +361,28 @@ export default {
     margin: 0 px2rem(4);
     padding: px2rem(4);
 
-    &-select {
-      display: flex;
-      height: px2rem(8);
-      border-bottom: px2rem(0.1) solid #dfe0e7;
-      span {
-        display: inline-block;
-        font-size: px2rem(4);
-        color: #999999;
-        margin: 0 px2rem(4);
-        height: px2rem(8);
-        line-height: px2rem(8);
-        width: px2rem(22);
-        text-align: center;
-      }
-      span:hover,
-      span:active {
-        background-color: #efeff3;
-      }
-      .active {
-        border-bottom: px2rem(0.4) solid #616789;
-      }
-    }
+    // &-select {
+    //   display: flex;
+    //   height: px2rem(8);
+    //   border-bottom: px2rem(0.1) solid #dfe0e7;
+    //   span {
+    //     display: inline-block;
+    //     font-size: px2rem(4);
+    //     color: #999999;
+    //     margin: 0 px2rem(4);
+    //     height: px2rem(8);
+    //     line-height: px2rem(8);
+    //     width: px2rem(22);
+    //     text-align: center;
+    //   }
+    //   span:hover,
+    //   span:active {
+    //     background-color: #efeff3;
+    //   }
+    //   .active {
+    //     border-bottom: px2rem(0.4) solid #616789;
+    //   }
+    // }
     &-search {
       display: flex;
       align-items: center;

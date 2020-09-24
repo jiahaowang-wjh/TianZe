@@ -7,13 +7,15 @@
       <span class="unlock-apply-title-go2">债权处理</span>
     </div>
     <div class="unlock-apply-list">
-      <div class="unlock-apply-list-select">
-        <span
-          @click="HandleSelect(item)"
-          v-for="(item,index) in SelectOption"
-          :key="index"
-          :class="item.isSelect? 'active':'' "
-        >{{item.SelectName}}</span>
+       <div class="public-tabs"> 
+        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+          <el-tab-pane
+            :label="item.SelectName"
+            :name="item.SelectName"
+            v-for="(item) in SelectOption"
+            :key="item.SelectName"
+          ></el-tab-pane>
+        </el-tabs>
       </div>
       <div class="unlock-apply-list-search">
         <div class="unlock-apply-list-search-form">
@@ -75,6 +77,7 @@
 export default {
   data() {
     return {
+      activeTabs:'全部',
       // 选项卡
       SelectOption: [
         {

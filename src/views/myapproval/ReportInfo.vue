@@ -7,13 +7,15 @@
       <span class="report-info-title-go2">录入信息</span>
     </div>
     <div class="report-info-list">
-      <div class="report-info-list-select">
-        <span
-          @click="HandleSelect(item)"
-          v-for="(item,index) in SelectOption"
-          :key="index"
-          :class="item.isSelect? 'active':'' "
-        >{{item.SelectName}}</span>
+        <div class="public-tabs"> 
+        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+          <el-tab-pane
+            :label="item.SelectName"
+            :name="item.SelectName"
+            v-for="(item) in SelectOption"
+            :key="item.SelectName"
+          ></el-tab-pane>
+        </el-tabs>
       </div>
       <div class="report-info-list-search">
         <div class="report-info-list-search-form">
@@ -170,6 +172,7 @@ export default {
         companyType: window.sessionStorage.getItem('companyType'),
         comId: window.sessionStorage.getItem('companyId')
       },
+      activeTabs:'全部',
       SelectOption: [
         {
           SelectName: '全部',

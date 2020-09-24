@@ -2085,7 +2085,8 @@ export default {
         Business: false,
       },
       BankList: BankList,
-      ruleForm: []
+      ruleForm: [],
+      rules: []
     }
   },
   methods: {
@@ -2668,7 +2669,7 @@ export default {
     // 查询推荐人信息
     this.SearchRecommonder()
     // this.SearchCounterpartList()
-  },
+  }
 }
 </script>
 <style lang='scss' scoped>
