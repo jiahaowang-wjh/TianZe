@@ -10,47 +10,35 @@
       <div class="add-report-container-form">
         <el-collapse :value="collapseActive">
           <!-- 债务人基本信息登记表 -->
-          <el-collapse-item title="债事人基本信息登记表"
-                            name="1">
-            <el-form ref="form" label-width="" :model="ruleForm" :rules="rules">
+          <el-collapse-item title="债事人基本信息登记表" name="1">
+            <el-form ref="form" label-width :model="ruleForm" :rules="rules">
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">债事人是否配合：</span>
-                  <el-form-item label="">
-                    <el-select v-model="ReportIscoordinate"
-                               placeholder="是">
-                      <el-option label="是"
-                                 value="1"></el-option>
-                      <el-option label="否"
-                                 value="2"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="ReportIscoordinate" placeholder="是">
+                      <el-option label="是" value="1"></el-option>
+                      <el-option label="否" value="2"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">类型：</span>
-                  <el-form-item label="">
-                    <el-select v-model="reportType"
-                               placeholder="债务人">
-                      <el-option label="债权人"
-                                 value="1"></el-option>
-                      <el-option label="债务人"
-                                 value="2"></el-option>
-                      <el-option label="债权债务人"
-                                 value="3"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="reportType" placeholder="债务人">
+                      <el-option label="债权人" value="1"></el-option>
+                      <el-option label="债务人" value="2"></el-option>
+                      <el-option label="债权债务人" value="3"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">性质：</span>
-                  <el-form-item label="">
-                    <el-select v-model="ReporterProperties"
-                               placeholder="个人">
-                      <el-option label="个人"
-                                 value="person"></el-option>
-                      <el-option label="企业"
-                                 value="business"></el-option>
-                      <el-option label="银行"
-                                 value="bank"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="ReporterProperties" placeholder="个人">
+                      <el-option label="个人" value="person"></el-option>
+                      <el-option label="企业" value="business"></el-option>
+                      <el-option label="银行" value="bank"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -61,148 +49,155 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">是否从业：</span>
-                    <el-form-item label="">
-                      <el-select v-model="PersonalReportMsg.ifWork"
-                                 placeholder="是">
-                        <el-option label="是"
-                                   value="1"></el-option>
-                        <el-option label="否"
-                                   value="2"></el-option>
+                    <el-form-item label>
+                      <el-select v-model="PersonalReportMsg.ifWork" placeholder="是">
+                        <el-option label="是" value="1"></el-option>
+                        <el-option label="否" value="2"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">姓名：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalReportMsg.personalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.personalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机号码：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalReportMsg.phone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.phone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.idCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.idCard" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">性别：</span>
-                    <el-form-item label="">
-                      <el-select v-model="PersonalReportMsg.sex"
-                                 placeholder="男">
-                        <el-option label="男"
-                                   value="1"></el-option>
-                        <el-option label="女"
-                                   value="2"></el-option>
+                    <el-form-item label>
+                      <el-select v-model="PersonalReportMsg.sex" placeholder="男">
+                        <el-option label="男" value="1"></el-option>
+                        <el-option label="女" value="2"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">所在地区：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.area"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.area" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">电子邮箱：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.email"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.email" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">资产总价值（元）：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.assets"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.assets" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">资产项数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.assetsNumber"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.assetsNumber" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">可流通资产价值(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.circulationAssets"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.circulationAssets" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <h3>上传身份证</h3>
                 <el-row class="add-report-container-upload-idcard">
-                  <el-col :span='24'>
-                    <img :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
-                         @click="openImgToLink(PersonalReportMsg.cardJust)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateReportJustIDCard"
-                           ref="PersonReportJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
-                    <img :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
-                         @click="openImgToLink(PersonalReportMsg.cardBack)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateReportBackIDCard"
-                           ref="PersonReportBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                  <el-col :span="24">
+                    <img
+                      :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                      @click="openImgToLink(PersonalReportMsg.cardJust)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportJustIDCard"
+                        ref="PersonReportJustIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
+
+                    <img
+                      :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                      @click="openImgToLink(PersonalReportMsg.cardBack)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportBackIDCard"
+                        ref="PersonReportBackIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="PersonalReportMsg.obligatTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="PersonalReportMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.interestRate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.interestRate" />
                     </el-form-item>
                     <span>%</span>
                   </el-col>
@@ -210,33 +205,35 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债务笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="PersonalReportMsg.debtTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="PersonalReportMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -244,33 +241,38 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in PersonalReportMsg.uploadDebtCertificate"
-                           :key="index"
-                           @click="openImgToLink(item)"
-                           :src="item"
-                           alt />
+                      <img
+                        v-for="(item,index) in PersonalReportMsg.uploadDebtCertificate"
+                        :key="index"
+                        @click="openImgToLink(item)"
+                        :src="item"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="PersonReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportVoucher"
+                        ref="PersonReportVoucher"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">是否诉讼及结果：</span>
-                    <el-form-item label="">
-                        <textarea v-model="PersonalReportMsg.isResult"></textarea>
+                    <el-form-item label>
+                      <textarea v-model="PersonalReportMsg.isResult"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">目前经济情况：</span>
-                    <el-form-item label="">
-                        <textarea v-model="PersonalReportMsg.economics"></textarea>
+                    <el-form-item label>
+                      <textarea v-model="PersonalReportMsg.economics"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -278,8 +280,8 @@
                 <el-row class="add-report-container-form-person-lawsuit">
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalReportMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -287,52 +289,66 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">姓名：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[0].userName"
-                              :disabled="this.IsReportPhoneCertification.Person"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[0].userName"
+                        :disabled="this.IsReportPhoneCertification.Person"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[0].identifyNum"
-                              :disabled="this.IsReportPhoneCertification.Person"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[0].identifyNum"
+                        :disabled="this.IsReportPhoneCertification.Person"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">选择银行：</span>
-                    <el-form-item label="">
-                        <el-select v-model="Certification[0].bank"
-                                filterable
-                                :disabled="this.IsReportPhoneCertification.Person">
-                        <el-option :label="item.text"
-                                    :value="item.text"
-                                    v-for="(item,index) in BankList"
-                                    :key="index"></el-option>
-                        </el-select>
+                    <el-form-item label>
+                      <el-select
+                        v-model="Certification[0].bank"
+                        filterable
+                        :disabled="this.IsReportPhoneCertification.Person"
+                      >
+                        <el-option
+                          :label="item.text"
+                          :value="item.text"
+                          v-for="(item,index) in BankList"
+                          :key="index"
+                        ></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-form-person-item-11">
                   <el-col :span="8">
                     <span class="col-label">银行卡号：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[0].bankCard"
-                              :disabled="this.IsReportPhoneCertification.Person"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[0].bankCard"
+                        :disabled="this.IsReportPhoneCertification.Person"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">银行预留手机：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[0].mobilePhone"
-                              :disabled="this.IsReportPhoneCertification.Person"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[0].mobilePhone"
+                        :disabled="this.IsReportPhoneCertification.Person"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机验证码：</span>
-                    <el-form-item label="">
-                    <el-input v-model="NoteCode[0].PersonReportNodeCode"
-                              :disabled="!this.IsReportPhoneCertification.Person"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="NoteCode[0].PersonReportNodeCode"
+                        :disabled="!this.IsReportPhoneCertification.Person"
+                      />
                     </el-form-item>
                     <button @click="PhoneCheck">点击获取</button>
                   </el-col>
@@ -344,163 +360,176 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.companyName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.companyName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">社会统一信用代码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.creditCode"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.creditCode" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">行业属性：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.industryAttributes" />
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.industryAttributes" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">法定代表人名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.legalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.legalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.legalPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.legalPhone" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人身份证号：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.legalIdCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.legalIdCard" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.address"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">企业联系人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.contactPerson" /> </el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.contactPerson" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.contactPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.contactPhone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <h3>上传身份证</h3>
                 <el-row class="add-report-container-upload-idcard">
                   <el-col :span="24">
-                    <img :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
-                         @click="openImgToLink(BusinessReportMsg.cardJust)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateReportJustIDCard"
-                           ref="BusinessReportJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
-                    <img :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
-                         @click="openImgToLink(BusinessReportMsg.cardBack)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateReportBackIDCard"
-                           ref="BusinessReportBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <img
+                      :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                      @click="openImgToLink(BusinessReportMsg.cardJust)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportJustIDCard"
+                        ref="BusinessReportJustIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
+                    <img
+                      :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                      @click="openImgToLink(BusinessReportMsg.cardBack)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportBackIDCard"
+                        ref="BusinessReportBackIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BusinessReportMsg.obligatTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BusinessReportMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.interestRate"></el-input>
-                    <span>%</span>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.interestRate" />
+                      <span>%</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BusinessReportMsg.debtTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BusinessReportMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -508,25 +537,30 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in BusinessReportMsg.uploadDebtCertificate"
-                           @click="openImgToLink(item)"
-                           :key="index"
-                           :src="item"
-                           alt />
+                      <img
+                        v-for="(item,index) in BusinessReportMsg.uploadDebtCertificate"
+                        @click="openImgToLink(item)"
+                        :key="index"
+                        :src="item"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="BusinessReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportVoucher"
+                        ref="BusinessReportVoucher"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">是否诉讼及结果：</span>
-                    <el-form-item label="">
-                        <textarea v-model="BusinessReportMsg.isResult"></textarea>
+                    <el-form-item label>
+                      <textarea v-model="BusinessReportMsg.isResult"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -534,8 +568,8 @@
                 <el-row class="add-report-container-form-business-lawsuit">
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessReportMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -543,52 +577,67 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">姓名：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[1].userName" :disabled="IsReportPhoneCertification.Business" />
-                        </el-innput>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[1].userName"
+                        :disabled="IsReportPhoneCertification.Business"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[1].identifyNum" :disabled="IsReportPhoneCertification.Business" />
-                        </el-innput>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[1].identifyNum"
+                        :disabled="IsReportPhoneCertification.Business"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">选择银行：</span>
-                    <el-form-item label="">
-                        <el-select v-model="Certification[1].bank"
-                                filterable
-                                :disabled="IsReportPhoneCertification.Business">
-                        <el-option :label="item.text"
-                                    :value="item.text"
-                                    v-for="(item,index) in BankList"
-                                    :key="index"></el-option>
-                        </el-select>
+                    <el-form-item label>
+                      <el-select
+                        v-model="Certification[1].bank"
+                        filterable
+                        :disabled="IsReportPhoneCertification.Business"
+                      >
+                        <el-option
+                          :label="item.text"
+                          :value="item.text"
+                          v-for="(item,index) in BankList"
+                          :key="index"
+                        ></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-form-business-item-11">
                   <el-col :span="8">
                     <span class="col-label">银行卡号：</span>
-                    <el-form-item label="">
-                        <el-input   el-input v-model="Certification[1].bankCard"
-                              :disabled="IsReportPhoneCertification.Business"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        el-input
+                        v-model="Certification[1].bankCard"
+                        :disabled="IsReportPhoneCertification.Business"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">银行预留手机：</span>
-                    <el-form-item label="">
-                        <el-input v-model="Certification[1].mobilePhone"
-                              :disabled="IsReportPhoneCertification.Business"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="Certification[1].mobilePhone"
+                        :disabled="IsReportPhoneCertification.Business"
+                      />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机验证码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="NoteCode[0].BusinessReportNodeCode"
-                              :disabled="!IsReportPhoneCertification.Business"></el-input>
+                    <el-form-item label>
+                      <el-input
+                        v-model="NoteCode[0].BusinessReportNodeCode"
+                        :disabled="!IsReportPhoneCertification.Business"
+                      />
                     </el-form-item>
                     <button @click="PhoneCheck">点击获取</button>
                   </el-col>
@@ -600,107 +649,105 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.companyName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.companyName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">社会统一信用代码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.creditCode"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.creditCode" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">行业属性：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.industryAttributes" /></el-input>
-                    </el-form-item>
+                    <el-form-item label><el-input v-model="BankReportMsg.industryAttributes" /></el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">法定代表人名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.legalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.legalPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalPhone" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人身份证号：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.legalIdCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalIdCard" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.address"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">企业联系人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.contactPerson" />
-                        </el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.contactPerson" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.contactPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.contactPhone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                        type="date"
-                                        placeholder="请选择日期"
-                                        :picker-options="pickerOptions"
-                                        v-model="BankReportMsg.obligatTime"
-                                        value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BankReportMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.interestRate"
-                              ></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.interestRate" />
                     </el-form-item>
                     <span>%</span>
                   </el-col>
@@ -708,33 +755,35 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债务笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BankReportMsg.debtTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BankReportMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -742,25 +791,30 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in BankReportMsg.uploadDebtCertificate"
-                           :key="index"
-                           :src="item"
-                           @click="openImgToLink(item)"
-                           alt />
+                      <img
+                        v-for="(item,index) in BankReportMsg.uploadDebtCertificate"
+                        :key="index"
+                        :src="item"
+                        @click="openImgToLink(item)"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="BankReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateReportVoucher"
+                        ref="BankReportVoucher"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">是否诉讼及结果：</span>
-                    <el-form-item label="">
-                        <textarea v-model='BankReportMsg.isResult'></textarea>
+                    <el-form-item label>
+                      <textarea v-model="BankReportMsg.isResult"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -768,8 +822,8 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankReportMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -782,10 +836,12 @@
           <!-- 相对人基本信息表 -->
           <el-collapse-item title="相对人基本信息表" name="2" v-show="ResponseReportId">
             <div class="add-report-container-relative-add-button">
-              <button @click='ClearRelativeForm'>新增相对人</button>
-              <button style="margin-letf:20px"
-                      v-if="RelativeList.length"
-                      @click="()=>{ $message.success('已提交至总公司！')}">提交至总公司</button>
+              <button @click="ClearRelativeForm">新增相对人</button>
+              <button
+                style="margin-letf:20px"
+                v-if="RelativeList.length"
+                @click="()=>{ $message.success('已提交至总公司！')}"
+              >提交至总公司</button>
             </div>
             <div class="add-report-container-relative-list-title">
               <span>序号</span>
@@ -796,9 +852,11 @@
               <span>操作</span>
             </div>
             <div class="add-report-container-relative-list">
-              <div class="add-report-container-relative-list-item"
-                   v-for="(item,index) in RelativeList"
-                   :key="item.id">
+              <div
+                class="add-report-container-relative-list-item"
+                v-for="(item,index) in RelativeList"
+                :key="item.id"
+              >
                 <span>{{index+1}}</span>
                 <span>{{item.personalName ? item.personalName : item.companyName}}</span>
                 <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
@@ -812,198 +870,193 @@
             </div>
             <h3>相对人信息登记表</h3>
             <!-- 第一行表单 -->
-            <el-form ref="form"
-                     label-width="">
+            <el-form ref="form" label-width>
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">债事人是否配合：</span>
-                  <el-form-item label="">
-                    <el-select v-model="RelativeIscoordinate"
-                               placeholder="是">
-                      <el-option label="是"
-                                 value="1"></el-option>
-                      <el-option label="否"
-                                 value="2"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="RelativeIscoordinate" placeholder="是">
+                      <el-option label="是" value="1"></el-option>
+                      <el-option label="否" value="2"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">类型：</span>
-                  <el-form-item label="">
-                    <el-select v-model="RelativeType"
-                               placeholder="债务人">
-                      <el-option label="债权人"
-                                 value="1"></el-option>
-                      <el-option label="债务人"
-                                 value="2"></el-option>
-                      <el-option label="债权债务人"
-                                 value="3"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="RelativeType" placeholder="债务人">
+                      <el-option label="债权人" value="1"></el-option>
+                      <el-option label="债务人" value="2"></el-option>
+                      <el-option label="债权债务人" value="3"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">性质：</span>
-                  <el-form-item label="">
-                    <el-select v-model="RelativeProperties"
-                               placeholder="个人">
-                      <el-option label="个人"
-                                 value="person"></el-option>
-                      <el-option label="企业"
-                                 value="business"></el-option>
-                      <el-option label="银行"
-                                 value="bank"></el-option>
+                  <el-form-item label>
+                    <el-select v-model="RelativeProperties" placeholder="个人">
+                      <el-option label="个人" value="person"></el-option>
+                      <el-option label="企业" value="business"></el-option>
+                      <el-option label="银行" value="bank"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-col>
               </el-row>
               <!-- 个人 -->
               <template v-if="RelativeProperties === 'person'">
-                <h3>个人:</h3>  
+                <h3>个人:</h3>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">是否从业：</span>
-                    <el-form-item label="">
-                      <el-select v-model="PersonalRelativeMsg.ifWork"
-                                 placeholder="是">
-                        <el-option label="是"
-                                   value="1"></el-option>
-                        <el-option label="否"
-                                   value="2"></el-option>
+                    <el-form-item label>
+                      <el-select v-model="PersonalRelativeMsg.ifWork" placeholder="是">
+                        <el-option label="是" value="1"></el-option>
+                        <el-option label="否" value="2"></el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">姓名：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.personalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.personalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机号码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.phone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.phone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.idCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.idCard" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <span class="col-label">性别： </span>
-                    <el-form-item label="">
-                        <el-select v-model="PersonalRelativeMsg.sex"
-                                    placeholder="男">
-                            <el-option label="男"
-                                    value="1"></el-option>
-                            <el-option label="女"
-                                    value="2"></el-option>
-                        </el-select>
+                    <span class="col-label">性别：</span>
+                    <el-form-item label>
+                      <el-select v-model="PersonalRelativeMsg.sex" placeholder="男">
+                        <el-option label="男" value="1"></el-option>
+                        <el-option label="女" value="2"></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">所在地区：</span>
-                    <el-form-item label="">
-                    `   <el-input v-model="PersonalRelativeMsg.area"></el-input>
+                    <el-form-item label>
+                      `
+                      <el-input v-model="PersonalRelativeMsg.area" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">电子邮箱：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.email"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.email" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">资产总价值（元）：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.assets"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.assets" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">资产项数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.assetsNumber"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.assetsNumber" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">可流通资产价值(元)：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalRelativeMsg.circulationAssets"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.circulationAssets" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <h3>上传身份证</h3>
                 <el-row class="add-report-container-upload-idcard">
                   <el-col :span="24">
-                    <img :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
-                         @click="openImgToLink(PersonalRelativeMsg.cardJust)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateRelativeJustIDCard"
-                           ref="PersonRelativeJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
-                    <img :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
-                         @click="openImgToLink(PersonalRelativeMsg.cardBack)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateRelativeBackIDCard"
-                           ref="PersonRelativeBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <img
+                      :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                      @click="openImgToLink(PersonalRelativeMsg.cardJust)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeJustIDCard"
+                        ref="PersonRelativeJustIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
+                    <img
+                      :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                      @click="openImgToLink(PersonalRelativeMsg.cardBack)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeBackIDCard"
+                        ref="PersonRelativeBackIdCard"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                        type="date"
-                                        placeholder="请选择日期"
-                                        :picker-options="pickerOptions"
-                                        v-model="PersonalRelativeMsg.obligatTime"
-                                        value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="PersonalRelativeMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.interestRate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.interestRate" />
                     </el-form-item>
                     <span>%</span>
                   </el-col>
@@ -1011,33 +1064,35 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债务笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                        type="date"
-                                        placeholder="请选择日期"
-                                        :picker-options="pickerOptions"
-                                        v-model="PersonalRelativeMsg.debtTime"
-                                        value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="PersonalRelativeMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1045,18 +1100,23 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in PersonalRelativeMsg.uploadDebtCertificate"
-                           :key="index"
-                           @click="openImgToLink(item)"
-                           :src="item"
-                           alt />
+                      <img
+                        v-for="(item,index) in PersonalRelativeMsg.uploadDebtCertificate"
+                        :key="index"
+                        @click="openImgToLink(item)"
+                        :src="item"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="PersonRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeVoucher"
+                        ref="PersonRelativeVoucher"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1070,8 +1130,8 @@
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">目前经济情况：</span>
-                    <el-form-item label="">
-                        <textarea v-model="PersonalRelativeMsg.economics"></textarea>
+                    <el-form-item label>
+                      <textarea v-model="PersonalRelativeMsg.economics"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1079,8 +1139,8 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="PersonalRelativeMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1091,130 +1151,142 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.companyName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.companyName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">社会统一信用代码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.creditCode"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.creditCode" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">行业属性：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.industryAttributes" />
-                        </el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.industryAttributes" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">法定代表人名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.legalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.legalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.legalPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.legalPhone" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人身份证号：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.legalIdCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.legalIdCard" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.address"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">企业联系人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.contactPerson" />
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.contactPerson" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.contactPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.contactPhone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <h3>上传身份证</h3>
                 <el-row class="add-report-container-upload-idcard">
                   <el-col :span="24">
-                    <img :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
-                         @click="openImgToLink(BusinessRelativeMsg.cardJust)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateRelativeJustIDCard"
-                           ref="BusinessRelativeJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
-                    <img :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
-                         @click="openImgToLink(BusinessRelativeMsg.cardBack)"
-                         alt />
-                    <input type="file"
-                           @change="UpdateRelativeBackIDCard"
-                           ref="BusinessRelativeBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <img
+                      :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
+                      @click="openImgToLink(BusinessRelativeMsg.cardJust)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeJustIDCard"
+                        ref="BusinessRelativeJustIdCard"
+                        class="add-report-container-upload-idcard-just"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
+                    <img
+                      :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
+                      @click="openImgToLink(BusinessRelativeMsg.cardBack)"
+                      alt
+                    />
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeBackIDCard"
+                        ref="BusinessRelativeBackIdCard"
+                        class="add-report-container-upload-idcard-back"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                        type="date"
-                                        placeholder="请选择日期"
-                                        :picker-options="pickerOptions"
-                                        v-model="BusinessRelativeMsg.obligatTime"
-                                        value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BusinessRelativeMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.interestRate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.interestRate" />
                     </el-form-item>
                     <span>%</span>
                   </el-col>
@@ -1222,33 +1294,35 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                    <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BusinessRelativeMsg.debtTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BusinessRelativeMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1256,18 +1330,24 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in BusinessRelativeMsg.uploadDebtCertificate"
-                           :key="index"
-                           @click="openImgToLink(item)"
-                           :src="item"
-                           alt />
+                      <img
+                        v-for="(item,index) in BusinessRelativeMsg.uploadDebtCertificate"
+                        :key="index"
+                        @click="openImgToLink(item)"
+                        :src="item"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="BusinessRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeVoucher"
+                        ref="BusinessRelativeVoucher"
+                        class="add-report-container-update-imgs-form"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1281,8 +1361,8 @@
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">目前经济情况：</span>
-                    <el-form-item label="">
-                        <textarea v-model="BusinessRelativeMsg.economics"></textarea>
+                    <el-form-item label>
+                      <textarea v-model="BusinessRelativeMsg.economics"></textarea>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1290,8 +1370,8 @@
                 <el-row class="add-report-container-form-business-lawsuit">
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BusinessRelativeMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessRelativeMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1302,107 +1382,107 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.companyName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.companyName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">社会统一信用代码：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.creditCode"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.creditCode" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">行业属性：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.industryAttributes" />
-                        </el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.industryAttributes" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">法定代表人名称：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.legalName"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.legalName" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.legalPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.legalPhone" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人身份证号：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.legalIdCard"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.legalIdCard" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.address"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">企业联系人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.contactPerson" />
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.contactPerson" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.contactPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.contactPhone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BankRelativeMsg.obligatTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BankRelativeMsg.obligatTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.interestRate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.interestRate" />
                     </el-form-item>
                     <span>%</span>
                   </el-col>
@@ -1410,33 +1490,35 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债务笔数：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
-                        <el-date-picker align="left"
-                                    type="date"
-                                    placeholder="请选择日期"
-                                    :picker-options="pickerOptions"
-                                    v-model="BankRelativeMsg.debtTime"
-                                    value-format="yyyy-MM-dd"></el-date-picker>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择日期"
+                        :picker-options="pickerOptions"
+                        v-model="BankRelativeMsg.debtTime"
+                        value-format="yyyy-MM-dd"
+                      ></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1444,18 +1526,23 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img v-for="(item,index) in BankRelativeMsg.uploadDebtCertificate"
-                           :key="index"
-                           @click="openImgToLink(item)"
-                           :src="item"
-                           alt />
+                      <img
+                        v-for="(item,index) in BankRelativeMsg.uploadDebtCertificate"
+                        :key="index"
+                        @click="openImgToLink(item)"
+                        :src="item"
+                        alt
+                      />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="BankRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input
+                        type="file"
+                        @change="UpdateRelativeVoucher"
+                        ref="BankRelativeVoucher"
+                        value="点击上传"
+                      />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1469,18 +1556,18 @@
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">目前经济情况：</span>
-                    <el-form-item label="">
-                        <textarea v-model="BankRelativeMsg.economics"></textarea>
-                    </el-form-item>  
+                    <el-form-item label>
+                      <textarea v-model="BankRelativeMsg.economics"></textarea>
+                    </el-form-item>
                   </el-col>
                 </el-row>
                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                        <el-input v-model="BankRelativeMsg.prjectManager"></el-input>
-                    </el-form-item>  
+                    <el-form-item label>
+                      <el-input v-model="BankRelativeMsg.prjectManager" />
+                    </el-form-item>
                   </el-col>
                 </el-row>
               </template>
@@ -1490,37 +1577,31 @@
             </el-form>
           </el-collapse-item>
           <!-- 债市链 -->
-          <el-collapse-item title="债事链"
-                            name="3"
-                            v-show="false">
+          <el-collapse-item title="债事链" name="3" v-show="false">
             <!-- <el-collapse-item title="债事链" name="3" v-show='ResponseReportId'> -->
             <div class="add-report-container-debt-chain">
-              <img src="@imgs/home/DebtChain.png"
-                   alt
-                   class="add-report-container-debt-chain-img" />
+              <img src="@imgs/home/DebtChain.png" alt class="add-report-container-debt-chain-img" />
             </div>
           </el-collapse-item>
         </el-collapse>
       </div>
     </div>
     <!-- 选择推荐人 -->
-    <div class="add-report-pop-recommond"
-         v-if="IsPopRecommond">
+    <div class="add-report-pop-recommond" v-if="IsPopRecommond">
       <div class="add-report-pop-recommond-box">
         <div class="add-report-pop-recommond-box-header">
           <span>提示</span>
-          <img src="@imgs/other/error@2x.png"
-               alt
-               @click="CloseRecommond" />
+          <img src="@imgs/other/error@2x.png" alt @click="CloseRecommond" />
         </div>
         <div class="add-report-pop-recommond-box-body">
           选择录入推荐人：
-          <el-select v-model="ReferrerName"
-                     @change="getValue">
-            <el-option v-for="(item,index) in Referrer"
-                       :key="index"
-                       :label="item.personName"
-                       :value="index"></el-option>
+          <el-select v-model="ReferrerName" @change="getValue">
+            <el-option
+              v-for="(item,index) in Referrer"
+              :key="index"
+              :label="item.personName"
+              :value="index"
+            ></el-option>
           </el-select>
         </div>
         <div class="add-report-pop-recommond-box-footer">
@@ -1530,14 +1611,11 @@
       </div>
     </div>
     <!-- 提交时用户确认按钮 -->
-    <div class="add-report-pop-confirm"
-         v-if="IsUserConfirm">
+    <div class="add-report-pop-confirm" v-if="IsUserConfirm">
       <div class="add-report-pop-confirm-box">
         <div class="add-report-pop-confirm-box-header">
           <span>提示</span>
-          <img src="@imgs/other/error@2x.png"
-               alt
-               @click="CloseConfirm" />
+          <img src="@imgs/other/error@2x.png" alt @click="CloseConfirm" />
         </div>
         <div class="add-report-pop-confirm-box-body">确定提交债事录入数据？</div>
         <div class="add-report-pop-confirm-box-footer">
@@ -1551,7 +1629,7 @@
 <script>
 import { BankList } from './bank.js'
 export default {
-  data () {
+  data() {
     return {
       collapseActive: '1',
       // 是否显示推荐人弹窗
@@ -1562,7 +1640,7 @@ export default {
       // 身份证默认图片源
       IDCardDefaultSrc: {
         JustSrc: require('@imgs/home/IDcard.png'),
-        BackSrc: require('@imgs/home/IDcard-back.png'),
+        BackSrc: require('@imgs/home/IDcard-back.png')
       },
       // 推荐人名称
       ReferrerName: '',
@@ -1653,7 +1731,7 @@ export default {
         // 银行预留手机号
         bankTel: '',
         // 手机验证码
-        telCheck: '',
+        telCheck: ''
       },
 
       // 企业报备信息源
@@ -1801,7 +1879,7 @@ export default {
       // 手机号码列表
       PhoneList: {
         PersonReportPhone: '',
-        BusinessReportPhone: '',
+        BusinessReportPhone: ''
       },
       // 相对人的属性 个人/企业/银行
       RelativeProperties: 'person',
@@ -1946,7 +2024,7 @@ export default {
         // 经济状况, (原定没有该项,测试用)
         economics: '',
         agreementNo: '7969107472849373213',
-        usage: '',
+        usage: ''
       },
       // 银行相对信息
       BankRelativeMsg: {
@@ -2011,7 +2089,7 @@ export default {
         // 经济状况, (原定没有该项,测试用)
         economics: '',
         agreementNo: '7969107472849373213',
-        usage: '',
+        usage: ''
       },
       // 相对人列表数据源
       RelativeList: [],
@@ -2021,7 +2099,7 @@ export default {
       NoteCode: [
         {
           PersonReportNodeCode: '',
-          BusinessReportNodeCode: '',
+          BusinessReportNodeCode: ''
         }
       ],
       // 实名验证信息源:
@@ -2032,7 +2110,7 @@ export default {
           mobilePhone: '',
           userName: '',
           bankCard: '',
-          bank: '',
+          bank: ''
         },
         // 企业报备
         {
@@ -2040,49 +2118,49 @@ export default {
           mobilePhone: '',
           userName: '',
           bankCard: '',
-          bank: '',
-        },
+          bank: ''
+        }
       ],
       // 存储注册债务人获得reportId
       ResponseReportId: '',
       // 添加债事人是否通过实名验证标志
       IsPersonReportCertification: {
         Person: false,
-        Business: false,
+        Business: false
       },
       pickerOptions: {
-        disabledDate (time) {
+        disabledDate(time) {
           return time.getTime() > Date.now()
         },
         shortcuts: [
           {
             text: '今天',
-            onClick (picker) {
+            onClick(picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
-            onClick (picker) {
+            onClick(picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
-            onClick (picker) {
+            onClick(picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       // 债事人是否通过短信验证
       IsReportPhoneCertification: {
         Person: false,
-        Business: false,
+        Business: false
       },
       BankList: BankList,
       ruleForm: [],
@@ -2091,7 +2169,7 @@ export default {
   },
   methods: {
     // 关闭推荐人界面
-    CloseRecommond () {
+    CloseRecommond() {
       // 退回主页
       //   this.$message.error('请先选择推荐人')
       //   this.$router.push({path: 'Home'})
@@ -2099,7 +2177,7 @@ export default {
       this.$router.go(-1)
     },
     // 查询推荐人目录
-    async SearchRecommonder () {
+    async SearchRecommonder() {
       const personType = '2'
       const formData = new FormData()
       formData.append('personType', personType)
@@ -2108,54 +2186,51 @@ export default {
         url: '/api/api/pubPersonController/selectByType',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.Referrer = result.data
     },
     // 确定选择推荐人页面
-    SelectRecommonder () {
+    SelectRecommonder() {
       // 未选择推荐人, 提示错误信息
-      if (!this.PersonalReportMsg.userId)
-      {
+      if (!this.PersonalReportMsg.userId) {
         return this.$message.error('请先选择推荐人')
       }
       // 选择成功, 关闭面板, 发送选择成功信息
       this.$message({
         message: '选择推荐人成功',
-        type: 'success',
+        type: 'success'
       })
       this.IsPopRecommond = false
       console.log(this.IsPopRecommond)
       this.$forceUpdate()
     },
     // 获取报备推荐人的index及推荐人ID
-    getValue (index) {
+    getValue(index) {
       // 获取推荐人ID
       this.PersonalReportMsg.userId = this.Referrer[index].userId
       this.BusinessReportMsg.userId = this.Referrer[index].userId
       this.BankReportMsg.userId = this.Referrer[index].userId
     },
     // 获取债事人是否配合信息
-    GetIsCoordinate (value) {
+    GetIsCoordinate(value) {
       this.PersonalReportMsg.iscoordinate = value
       this.BusinessReportMsg.iscoordinate = value
       this.BankReportMsg.iscoordinate = value
     },
     // 获取报备人类型
-    GetReportType (value) {
+    GetReportType(value) {
       this.PersonalReportMsg.reportType = value
       this.BusinessReportMsg.reportType = value
       this.BankReportMsg.reportType = value
     },
     // 调用接口传入数据(个人,企业,银行)
-    async SendReporterData () {
-      if (this.ReporterProperties === 'person')
-      {
+    async SendReporterData() {
+      if (this.ReporterProperties === 'person') {
         if (!this.IsReportPhoneCertification.Person)
           return this.$message.error('请先进行个人实名验证和短信验证')
-      } else if (this.ReporterProperties === 'business')
-      {
+      } else if (this.ReporterProperties === 'business') {
         // 如果是企业报备页面
         if (!this.IsReportPhoneCertification.Business)
           return this.$message.error('请先进行法定代表人实名验证和短信验证')
@@ -2163,24 +2238,19 @@ export default {
       if (
         this.ReporterProperties === 'person' ||
         this.ReporterProperties === 'business'
-      )
-      {
+      ) {
         let tel = ''
-        if (this.ReporterProperties === 'person')
-        {
+        if (this.ReporterProperties === 'person') {
           tel = this.Certification[0].mobilePhone
-        } else
-        {
+        } else {
           // 如果是企业报备页面
           tel = this.Certification[1].mobilePhone
         }
         let checkNo = ''
-        if (this.ReporterProperties === 'person')
-        {
+        if (this.ReporterProperties === 'person') {
           // 如果是个人报备
           checkNo = this.NoteCode[0].PersonReportNodeCode
-        } else
-        {
+        } else {
           // 如果是企业报备页面
           checkNo = this.NoteCode[0].BusinessReportNodeCode
         }
@@ -2193,19 +2263,17 @@ export default {
           url: '/api/api/smsSend/checkNO',
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
-        if (result.resultCode !== '200')
-        {
+        if (result.resultCode !== '200') {
           return this.$message.error('短信验证码输入错误,请重新输入')
         }
         this.$message.success('实名验证成功')
       }
       // 报备信息登记
       let Responseresult = {}
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         // 用户个人报备
         // 是否个人实名验证信息
         if (!this.IsReportPhoneCertification.Person)
@@ -2218,8 +2286,7 @@ export default {
         this.PersonalReportMsg.bankTel = this.Certification[0].mobilePhone
         this.PersonalReportMsg.telCheck = this.NoteCode[0].PersonReportNodeCode
         const formData = new FormData()
-        for (const key in this.PersonalReportMsg)
-        {
+        for (const key in this.PersonalReportMsg) {
           formData.append(key, this.PersonalReportMsg[key])
         }
         const { data: result } = await this.$http({
@@ -2227,14 +2294,13 @@ export default {
           url: '/api/api/busReportController/insertPrivateSelective',
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Responseresult = result
 
         // 传入当前用户报备ID
-      } else if (this.ReporterProperties === 'business')
-      {
+      } else if (this.ReporterProperties === 'business') {
         // 当用户选择企业报备时
         // 查看用户是否进行企业的实名验证
         if (!this.IsReportPhoneCertification.Business)
@@ -2249,8 +2315,7 @@ export default {
         this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
         this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
         const formData = new FormData()
-        for (const key in this.BusinessReportMsg)
-        {
+        for (const key in this.BusinessReportMsg) {
           formData.append(key, this.BusinessReportMsg[key])
         }
         const { data: result } = await this.$http({
@@ -2258,19 +2323,17 @@ export default {
           url: '/api/api/busReportController/insertEterpriseSelective',
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Responseresult = result
-      } else
-      {
+      } else {
         // 当用户选择企业报备时
         this.BankReportMsg.companyId = window.sessionStorage.getItem(
           'companyId'
         )
         const formData = new FormData()
-        for (const key in this.BankReportMsg)
-        {
+        for (const key in this.BankReportMsg) {
           formData.append(key, this.BankReportMsg[key])
         }
         const { data: result } = await this.$http({
@@ -2278,14 +2341,13 @@ export default {
           url: '/api/api/busReportController/insertBankSelective',
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Responseresult = result
       }
       // 如何返回结果成功,传入报备Id
-      if (Responseresult.resultCode !== '200')
-      {
+      if (Responseresult.resultCode !== '200') {
         return this.$message.error(Responseresult.resultMessage)
       }
       this.$message.success('债事人信息登记成功')
@@ -2295,47 +2357,39 @@ export default {
     },
 
     // 上传报备正面身份证
-    async UpdateReportJustIDCard () {
+    async UpdateReportJustIDCard() {
       let file = {}
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         file = this.$refs.PersonReportJustIdCard.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BusinessReportJustIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
-        if (this.ReporterProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.ReporterProperties === 'person') {
           this.PersonalReportMsg.cardJust = result
-        } else
-        {
+        } else {
           this.BusinessReportMsg.cardJust = result
         }
       })
     },
     // 上传报备反面身份证
-    async UpdateReportBackIDCard () {
+    async UpdateReportBackIDCard() {
       let file = {}
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         file = this.$refs.PersonReportBackIdCard.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BusinessReportBackIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
-        if (this.ReporterProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.ReporterProperties === 'person') {
           this.PersonalReportMsg.cardBack = result
-        } else
-        {
+        } else {
           this.BusinessReportMsg.cardBack = result
         }
       })
     },
     // 编辑相对人
-    RelativeEdit (data) {
+    RelativeEdit(data) {
       this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(
         ','
       )
@@ -2345,125 +2399,99 @@ export default {
       this.RelativeIscoordinate = data.iscoordinate
 
       // 性质
-      if (data.reportPropert === '1')
-      {
+      if (data.reportPropert === '1') {
         this.RelativeProperties = 'person'
-      } else if (data.reportPropert === '2')
-      {
+      } else if (data.reportPropert === '2') {
         this.RelativeProperties = 'business'
-      } else
-      {
+      } else {
         this.RelativeProperties = 'bank'
       }
       this.RelativeMsg = data
     },
     // 上传相对人正面身份证
-    async UpdateRelativeJustIDCard () {
+    async UpdateRelativeJustIDCard() {
       let file = {}
-      if (this.RelativeProperties === 'person')
-      {
+      if (this.RelativeProperties === 'person') {
         file = this.$refs.PersonRelativeJustIdCard.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BusinessRelativeJustIdCard.files[0]
       }
       console.log(file)
-      this.$UpdateFile(file).then((result) => {
-        if (this.RelativeProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.RelativeProperties === 'person') {
           this.PersonalRelativeMsg.cardJust = result
-        } else
-        {
+        } else {
           this.BusinessRelativeMsg.cardJust = result
         }
       })
     },
     // 上传相对人反面身份证
-    async UpdateRelativeBackIDCard () {
+    async UpdateRelativeBackIDCard() {
       let file = {}
-      if (this.RelativeProperties === 'person')
-      {
+      if (this.RelativeProperties === 'person') {
         file = this.$refs.PersonRelativeBackIdCard.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BusinessRelativeBackIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
-        if (this.RelativeProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.RelativeProperties === 'person') {
           this.PersonalRelativeMsg.cardBack = result
-        } else
-        {
+        } else {
           this.BusinessRelativeMsg.cardBack = result
         }
       })
     },
     // 上传报备凭证
-    UpdateReportVoucher () {
+    UpdateReportVoucher() {
       let file = {}
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         file = this.$refs.PersonReportVoucher.files[0]
-      } else if (this.ReporterProperties === 'business')
-      {
+      } else if (this.ReporterProperties === 'business') {
         file = this.$refs.BusinessReportVoucher.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BankReportVoucher.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
-        if (this.ReporterProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.ReporterProperties === 'person') {
           this.PersonalReportMsg.uploadDebtCertificate.push(result)
-        } else if (this.ReporterProperties === 'business')
-        {
+        } else if (this.ReporterProperties === 'business') {
           this.BusinessReportMsg.uploadDebtCertificate.push(result)
-        } else
-        {
+        } else {
           this.BankReportMsg.uploadDebtCertificate.push(result)
         }
       })
     },
     // 上传相对人凭证
-    UpdateRelativeVoucher () {
+    UpdateRelativeVoucher() {
       let file = {}
-      if (this.RelativeProperties === 'person')
-      {
+      if (this.RelativeProperties === 'person') {
         file = this.$refs.PersonRelativeVoucher.files[0]
-      } else if (this.RelativeProperties === 'business')
-      {
+      } else if (this.RelativeProperties === 'business') {
         file = this.$refs.BusinessRelativeVoucher.files[0]
-      } else
-      {
+      } else {
         file = this.$refs.BankRelativeVoucher.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
-        if (this.RelativeProperties === 'person')
-        {
+      this.$UpdateFile(file).then(result => {
+        if (this.RelativeProperties === 'person') {
           this.PersonalRelativeMsg.uploadDebtCertificate.push(result)
-        } else if (this.RelativeProperties === 'business')
-        {
+        } else if (this.RelativeProperties === 'business') {
           this.BusinessRelativeMsg.uploadDebtCertificate.push(result)
-        } else
-        {
+        } else {
           this.BankRelativeMsg.uploadDebtCertificate.push(result)
         }
       })
     },
     // 实名认证和短信验证信息发送
-    async PhoneCheck () {
+    async PhoneCheck() {
       // 实名认证信息填写
       let RequestMsg = []
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         RequestMsg = this.Certification[0]
-      } else
-      {
+      } else {
         RequestMsg = this.Certification[1]
       }
       const CertificationformData = new FormData()
-      for (const key in RequestMsg)
-      {
+      for (const key in RequestMsg) {
         CertificationformData.append(key, RequestMsg[key])
       }
       const { data: Certificationresult } = await this.$http({
@@ -2471,20 +2499,17 @@ export default {
         url: '/api/api/safrv/safrvCheck',
         data: CertificationformData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
-      if (Certificationresult.resultCode !== '200')
-      {
+      if (Certificationresult.resultCode !== '200') {
         return this.$message.error('实名认证错误, 请重新填写信息')
       }
       // 发送短信验证码
       let tel = ''
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         tel = this.Certification[0].mobilePhone
-      } else
-      {
+      } else {
         // 如果是企业报备页面
         tel = this.Certification[1].mobilePhone
       }
@@ -2498,29 +2523,26 @@ export default {
         url: '/api/api/smsSend/sendCheckNO',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
-      if (result.resultCode === '200')
-      {
+      if (result.resultCode === '200') {
         this.$message({
           message: '手机验证码发送成功, 请填写正确的验证码',
-          type: 'success',
+          type: 'success'
         })
         // 存储发送成功的电话号码
         this.SendReportPhoneNumber = tel
       }
-      if (this.ReporterProperties === 'person')
-      {
+      if (this.ReporterProperties === 'person') {
         this.IsReportPhoneCertification.Person = true
-      } else
-      {
+      } else {
         // 如果是企业报备页面
         this.IsReportPhoneCertification.Business = true
       }
     },
     // 查询相对人信息表
-    async SearchCounterpartList () {
+    async SearchCounterpartList() {
       const formData = new FormData()
       const reportId = this.ResponseReportId
       formData.append('reportId', reportId)
@@ -2529,37 +2551,35 @@ export default {
         url: '/api/api/busRelativePersonController/selectByRepId',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       // 数据处理
       this.RelativeList = result.data || []
     },
     // 获取相对人是否配合
-    GetRelativeIscoordinate (value) {
+    GetRelativeIscoordinate(value) {
       this.PersonalRelativeMsg.iscoordinate = value
       this.BusinessRelativeMsg.iscoordinate = value
       this.BankRelativeMsg.iscoordinate = value
     },
     // 获取相对人类型
-    GetRelativeType (value) {
+    GetRelativeType(value) {
       this.PersonalRelativeMsg.reportType = value
       this.BusinessRelativeMsg.reportType = value
       this.BankRelativeMsg.reportType = value
     },
     //新增/修改相对人 传入相对人信息(个人, 企业, 银行)
-    async SendRelativeData () {
+    async SendRelativeData() {
       // if (!this.ResponseReportId) return this.$message.error('请先填写债务人信息')
       let Result = {}
       console.log(this.ResponseReportId)
-      if (this.RelativeProperties === 'person')
-      {
+      if (this.RelativeProperties === 'person') {
         // 个人用户
         this.PersonalRelativeMsg.reportId = this.ResponseReportId
         console.log(this.PersonalRelativeMsg)
         const formData = new FormData()
-        for (const key in this.PersonalRelativeMsg)
-        {
+        for (const key in this.PersonalRelativeMsg) {
           formData.append(key, this.PersonalRelativeMsg[key])
         }
         const addUrl =
@@ -2570,18 +2590,16 @@ export default {
           url: formData.relativePerId ? updateUrl : addUrl,
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Result = result
-      } else if (this.RelativeProperties === 'business')
-      {
+      } else if (this.RelativeProperties === 'business') {
         // 当用户选择企业报备时
         this.BusinessRelativeMsg.reportId = this.ResponseReportId
         console.log(this.BusinessRelativeMsg)
         const formData = new FormData()
-        for (const key in this.BusinessRelativeMsg)
-        {
+        for (const key in this.BusinessRelativeMsg) {
           formData.append(key, this.BusinessRelativeMsg[key])
         }
         const addUrl = '/api/api/busRelativePersonController/insertEnterprise'
@@ -2591,17 +2609,15 @@ export default {
           url: formData.relativePerId ? updateUrl : addUrl,
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Result = result
-      } else
-      {
+      } else {
         this.BankRelativeMsg.reportId = this.ResponseReportId
         console.log(this.BankRelativeMsg)
         const formData = new FormData()
-        for (const key in this.BankRelativeMsg)
-        {
+        for (const key in this.BankRelativeMsg) {
           formData.append(key, this.BankRelativeMsg[key])
         }
         const addUrl = '/api/api/busRelativePersonController/insertBank'
@@ -2611,8 +2627,8 @@ export default {
           url: formData.relativePerId ? updateUrl : addUrl,
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         Result = result
       }
@@ -2624,48 +2640,51 @@ export default {
       this.ClearRelativeForm()
     },
     // 关闭提交页面
-    CloseConfirm () {
+    CloseConfirm() {
       this.IsUserConfirm = false
     },
     // 确定提交按钮
-    ConfirmSubmit () {
+    ConfirmSubmit() {
       this.IsUserConfirm = false
     },
-    ClearRelativeForm () {
-      for (const key in this.PersonalRelativeMsg)
-      {
+    ClearRelativeForm() {
+      for (const key in this.PersonalRelativeMsg) {
         this.PersonalRelativeMsg[key] = ''
         this.PersonalRelativeMsg.iscoordinate = '1'
         this.PersonalRelativeMsg.reportType = '1'
         this.PersonalRelativeMsg.sex = '1'
         this.PersonalRelativeMsg.ifWork = '1'
         this.PersonalRelativeMsg.reportId = this.ResponseReportId
-        this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.PersonalRelativeMsg.uploadDebtCertificate = []
       }
-      for (const key in this.BusinessRelativeMsg)
-      {
+      for (const key in this.BusinessRelativeMsg) {
         this.BusinessRelativeMsg[key] = ''
         this.BusinessRelativeMsg.reportId = this.ResponseReportId
         this.BusinessRelativeMsg.iscoordinate = '1'
         this.BusinessRelativeMsg.reportType = '1'
-        this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.BusinessRelativeMsg.agreementNo = '111'
         this.BusinessRelativeMsg.uploadDebtCertificate = []
       }
-      for (const key in this.BankRelativeMsg)
-      {
+      for (const key in this.BankRelativeMsg) {
         this.BankRelativeMsg[key] = ''
         this.BankRelativeMsg.reportId = this.ResponseReportId
         this.BankRelativeMsg.reportType = '1'
         this.BankRelativeMsg.iscoordinate = '1'
-        this.BankRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.BankRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.BankRelativeMsg.agreementNo = '111'
         this.BankRelativeMsg.uploadDebtCertificate = []
       }
     }
   },
-  created () {
+  created() {
     // 查询推荐人信息
     this.SearchRecommonder()
     // this.SearchCounterpartList()
@@ -2674,6 +2693,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+
 .el-row {
   .el-col {
     display: flex;
@@ -2729,92 +2749,62 @@ input[type='file'] {
   &-container {
     // 信息表单填写
     &-upload-idcard {
-        margin: 20px 0;
-        img {
-          margin: 0 10px;
-          width: 358px;
-          height: 183px;
-        }
-        button {
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
-          width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          padding: px2rem(1) px2rem(2);
-        }
-        &-just {
-          width: px2rem(20);
-          height: px2rem(7);
-          position: absolute;
-          left: 350px;
-          opacity: 0;
-        }
-        &-back {
-          width: px2rem(20);
-          height: px2rem(7);
-          position: absolute;
-          left: 880px;
-          opacity: 0;
-        }
+      margin: 20px 0;
+      img {
+        margin: 0 10px;
+        width: 358px;
+        height: 183px;
+      }
+      &-just {
+        width: px2rem(20);
+        height: px2rem(7);
+        position: absolute;
+        left: 350px;
+        opacity: 0;
+      }
+      &-back {
+        width: px2rem(20);
+        height: px2rem(7);
+        position: absolute;
+        left: 880px;
+        opacity: 0;
+      }
     }
     &-update-imgs {
-        height: px2rem(20);
-        box-sizing: border-box;
-        position: relative;
-        span {
+      height: px2rem(20);
+      box-sizing: border-box;
+      position: relative;
+      span {
+        margin: 0 px2rem(2);
+      }
+      &-list {
+        border: 1px solid #e8eaec;
+        width: px2rem(180.5);
+        display: flex;
+        align-items: center;
+        height: 80px;
+        img {
           margin: 0 px2rem(2);
-        }
-        &-list {
-          border: 1px solid #e8eaec;
-          width: px2rem(180.5);
-          display: flex;
-          align-items: center;
-          height: 80px;
-          img {
-            margin: 0 px2rem(2);
-            width: px2rem(20);
-            height: px2rem(14);
-          }
-    }
-        &-form {
-          height: px2rem(7);
-          position: absolute;
-          left: 1095px;
-          opacity: 0;
-        }
-        button {
-          margin: 0 px2rem(2);
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
           width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          margin: 0 px2rem(2);
-          padding: px2rem(1) px2rem(2);
+          height: px2rem(14);
         }
+      }
     }
     &-lawsuit {
-        height: px2rem(20);
-        box-sizing: border-box;
-        span {
-          margin: 0 px2rem(2);
-        }
-        textarea {
-          border: 1px solid #e8eaec;
-          width: px2rem(177);
-          height: 80px;
-          display: flex;
-          align-items: center;
-          resize: none;
-          font-size: px2rem(3.5);
-        }
+      height: px2rem(20);
+      box-sizing: border-box;
+      span {
+        margin: 0 px2rem(2);
+      }
+      textarea {
+        border: 1px solid #e8eaec;
+        width: px2rem(177);
+        height: 80px;
+        display: flex;
+        align-items: center;
+        resize: none;
+        font-size: px2rem(3.5);
+      }
     }
     &-form {
       height: 100%;
