@@ -28,6 +28,7 @@
             class="payment-info-content-update-box-container"
             v-for="(item,index) in VoucherData.voucher"
             :key="index"
+            @click="openImgToLink(item)"
           >
             <img :src="item" alt />
           </div>
@@ -118,6 +119,9 @@ export default {
           if (StageUpdateResult.data.resultCode !== '200')
             return this.$message.error(StageUpdateResult.data.resultMessage)
           this.$message.success('进入调解阶段')
+          this.$router.push({
+                    path: '/PaymentVoucher',
+                })
         })
       })
     },

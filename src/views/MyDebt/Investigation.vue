@@ -154,6 +154,7 @@ export default {
                 'Content-Type': 'multipart/form-data',
                 },
             })
+            //result.data.agreementDate=result.data.thisTime
             this.userMsg = result.data
         },
         async SubmitInvestigation() {

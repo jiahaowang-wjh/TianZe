@@ -111,7 +111,7 @@
               <button v-if="item.status === '0' && roleId ==='7992691214771044352'" @click="CheckData(index,item)">审核</button>
               <button v-if="item.status === '3' && roleId ==='7992691295821774848'" @click="GoReportPayment(index,item)">缴费</button>
               <button
-                v-if="item.status==='1'"
+                v-if="item.status==='1' && roleId==='7992691295821774848'"
                 @click="()=>{$router.push({path:'/EditReport',query:{reportId:item.reportId}})}"
               >编辑</button>
             </span>

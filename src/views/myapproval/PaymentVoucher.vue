@@ -57,7 +57,7 @@
             <span>
               <img :src="ImgItem" v-for="(ImgItem,Imgindex) in item.voucher" :key="Imgindex" alt />
             </span>
-            <span>{{item.status}}</span>
+            <span>{{item.status === '10' ? ('未审核') : item.status === '1' ? ('审核未通过') : item.status === '2' ? ('审核已通过') : '/' }}</span>
             <span>
               <button v-show="item.status === '0'" @click="CheckPayment(index,item)">审核</button>
             </span>
