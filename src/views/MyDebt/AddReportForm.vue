@@ -1061,7 +1061,7 @@
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
-                    <span class="col-label">是负债资金使用用途：</span>
+                    <span class="col-label">资金使用用途：</span>
                     <el-form-item label="">
                         <textarea v-model="PersonalRelativeMsg.usage"></textarea>
                     </el-form-item>
@@ -1272,7 +1272,7 @@
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
-                    <span class="col-label">是负债资金使用用途：</span>
+                    <span class="col-label">资金使用用途：</span>
                     <el-form-item label="">
                         <textarea v-model="BusinessRelativeMsg.usage"></textarea>
                     </el-form-item>
@@ -1460,7 +1460,7 @@
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
-                    <span class="col-label">是负债资金使用用途：</span>
+                    <span class="col-label">资金使用用途：</span>
                     <el-form-item label="">
                         <textarea v-model="BankRelativeMsg.usage"></textarea>
                     </el-form-item>
