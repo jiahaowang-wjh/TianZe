@@ -8,6 +8,7 @@
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
+            :id="item.id"
             v-for="(item) in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
@@ -27,9 +28,10 @@
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
               <el-select v-model="SelectForm.AuditState">
-                <el-option label="审核通过" value="pass"></el-option>
-                <el-option label="审核驳回" value="reject"></el-option>
-                <el-option label="审核已提交" value="submit"></el-option>
+                <el-option label="全部" value=""></el-option>
+                <el-option label="待审核" value="0"></el-option>
+                <el-option label="审核通过" value="2"></el-option>
+                <el-option label="审核驳回" value="1"></el-option>
               </el-select>
             </el-form-item>
           </el-form>
@@ -52,7 +54,7 @@
             v-model="TimeSelect.TimeEnd"
           ></el-date-picker>
         </div>
-        <div class="my-debt-list-search-button-search">搜索</div>
+        <div class="my-debt-list-search-button-search" @click="InitData">搜索</div>
         <div class="my-debt-list-search-button-add" @click="GoAddReportForm" v-show="roleId==='7992691295821774848'" >新增录入</div>
       </div>
       <div class="my-debt-list-content">
@@ -145,18 +147,22 @@ export default {
       SelectOption: [
         {
           SelectName: '全部',
+          id:'',
           isSelect: true
         },
         {
           SelectName: '待审核',
+          id:'1',
           isSelect: false
         },
         {
           SelectName: '审核通过',
+          id:'2',
           isSelect: false
         },
         {
           SelectName: '审核驳回',
+          id:'3',
           isSelect: false
         }
       ],
@@ -167,8 +173,8 @@ export default {
       // 是否显示相对人面板
       IsShowRelativePage: true,
       TimeSelect: {
-        TimeStart: '2020-02-30',
-        TimeEnd: '2020-04-28'
+        TimeStart: '',
+        TimeEnd: ''
       },
       pickerOptions: {
         disabledDate(time) {
@@ -319,7 +325,12 @@ export default {
         pageSize: '20',
         pageNum: '1',
         companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
+        comId: window.sessionStorage.getItem('companyId'),
+        debtName:this.SelectForm.SearchName,
+        status:this.SelectForm.AuditState,
+        beginDate:this.TimeSelect.TimeStart,
+        endDate:this.TimeSelect.TimeEnd,
+        reportNo:this.SelectForm.ReportNum
       }
       for (const key in DataList) {
         formData.append(key, DataList[key])
@@ -334,10 +345,27 @@ export default {
       })
       this.MyDebtMsg = result.data.list
       console.log(this.MyDebtMsg)
-    }
+    },async AddDate() {
+      let nowDate = new Date();
+      let date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.TimeSelect.TimeEnd = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      let nowDateTime = nowDate - 3600*1000*24*7
+      nowDate.setTime(nowDateTime)
+      date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.TimeSelect.TimeStart = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+  }
   },
   created() {
     this.InitData()
+    this.AddDate()
   }
 }
 </script>

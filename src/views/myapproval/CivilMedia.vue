@@ -21,16 +21,17 @@
         <div class="civil-media-list-search-form">
           <el-form ref="form">
             <el-form-item>
-              <span>录入号：</span>
-              <el-input></el-input>
+              <span>录入编号：</span>
+              <el-input v-model="MediaSearchSrc.reportNo"></el-input>
             </el-form-item>
             <el-form-item>
-              <span>录入编号:</span>
-              <el-input v-model="SearchData.debtNo"></el-input>
+              <span>调解编号:</span>
+              <el-input v-model="MediaSearchSrc.debtNo"></el-input>
             </el-form-item>
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
-              <el-select v-model="SearchData.status">
+              <el-select v-model="MediaSearchSrc.status">
+                <el-option label="全部" value=""></el-option>
                 <el-option label="审核通过" value="1"></el-option>
                 <el-option label="审核驳回" value="2"></el-option>
                 <el-option label="审核已提交" value="3"></el-option>
@@ -45,7 +46,7 @@
             type="date"
             placeholder="请选择开始日期"
             :picker-options="pickerOptions"
-            v-model="SearchData.beginDate"
+            v-model="MediaSearchSrc.beginDate"
           ></el-date-picker>
           <span class="civil-media-list-search-time-select-separator">—</span>
           <el-date-picker
@@ -53,18 +54,18 @@
             type="date"
             placeholder="请选择结束日期"
             :picker-options="pickerOptions"
-            v-model="SearchData.endDate"
+            v-model="MediaSearchSrc.endDate"
           ></el-date-picker>
         </div>
-        <div class="civil-media-list-search-button">搜索</div>
+        <div class="civil-media-list-search-button" @click="InitCiviMedia">搜索</div>
       </div>
       <div class="civil-media-list-content">
         <!-- 正常显示模板 -->
         <template>
           <div class="civil-media-list-content-title">
             <span>序号</span>
-            <span>录入号</span>
             <span>录入编号</span>
+            <span>调解编号</span>
             <span>相对人</span>
             <span>审核状态</span>
             <span>操作</span>
@@ -76,7 +77,7 @@
               :key="index"
             >
               <span>{{index+1}}</span>
-              <span>{{item.reportId}}</span>
+              <span>{{item.reportNo}}</span>
               <span>{{item.civilno}}</span>
               <span>{{item.personName}}</span>
               <span
@@ -141,6 +142,7 @@ export default {
         pageNum: '1',
         pageSize: '10',
         debtNo: '',
+        reportNo: '',
         status: '',
         beginDate: '',
         endDate: '',
@@ -218,10 +220,27 @@ export default {
           civilId: item.civilId,
         },
       })
-    },
+    },addDate() {
+      let nowDate = new Date();
+      let date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.MediaSearchSrc.endDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      let nowDateTime = nowDate - 3600*1000*24*7
+      nowDate.setTime(nowDateTime)
+      date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.MediaSearchSrc.beginDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+  }
   },
   created() {
     this.InitCiviMedia()
+    this.addDate()
   },
 }
 </script>

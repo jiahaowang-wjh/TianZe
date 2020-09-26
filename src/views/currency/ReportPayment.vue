@@ -25,7 +25,7 @@
         上传凭证：
         <div class="payment-info-content-update-box">
           <div class="payment-info-content-update-box-container">
-            <img :src="item" v-for="(item,index) in UpdataVoucherList" :key="index" />
+            <img :src="item" v-for="(item,index) in UpdataVoucherList" :key="index" @click="openImgToLink(item)"/>
           </div>
         </div>
         <button class="payment-info-content-update-button">点击上传</button>

@@ -22,15 +22,15 @@
           <el-form ref="form">
             <el-form-item>
               <span>债事人:</span>
-              <el-input></el-input>
+              <el-input ></el-input>
             </el-form-item>
             <el-form-item>
               <span>录入编号:</span>
-              <el-input></el-input>
+              <el-input v-model="UnlockSearchSrc.debtNo"></el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="unlock-apply-list-search-button">搜索</div>
+        <div class="unlock-apply-list-search-button" @click="InitUnlockApply">搜索</div>
       </div>
       <div class="unlock-apply-list-content">
         <!-- 正常显示模板 -->

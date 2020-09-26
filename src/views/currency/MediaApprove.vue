@@ -381,7 +381,7 @@
                   <!-- <input
                     type="text"
                     :disabled="true"
-                    :value="MediaData.treatmentMethod === '1' ? '共同委托第三方处理' : ''"
+                    :value="MediaData.treatmentMethod === '1' ? '（1）自行约定还款金额、还款时间、还款方式' : MediaData.treatmentMethod === '2' ? ('（2）共同委托第三方帮助处理') : MediaData.treatmentMethod === '3' ? ('（3）债权转让第三人')"
                   />-->
                 </span>
                 <span></span>

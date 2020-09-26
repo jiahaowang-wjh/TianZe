@@ -22,11 +22,11 @@
           <el-form ref="form">
             <el-form-item>
               <span>录入编号：</span>
-              <el-input></el-input>
+              <el-input v-model="VoucherSearchSrc.debtNo"></el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="report-info-list-search-button">搜索</div>
+        <div class="report-info-list-search-button" @click="IniVoucherApply">搜索</div>
       </div>
       <div class="report-info-list-content">
         <div class="report-info-list-content-title">
@@ -57,7 +57,7 @@
             <span>
               <img :src="ImgItem" v-for="(ImgItem,Imgindex) in item.voucher" :key="Imgindex" alt />
             </span>
-            <span>{{item.status}}</span>
+            <span>{{item.status === '10' ? ('未审核') : item.status === '1' ? ('审核未通过') : item.status === '2' ? ('审核已通过') : '/' }}</span>
             <span>
               <button v-show="item.status === '0'" @click="CheckPayment(index,item)">审核</button>
             </span>

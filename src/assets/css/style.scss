@@ -1,118 +1,127 @@
 @import './dimens.scss';
 @import './reset';
 @import './colors.scss';
-html{
+
+html {
   min-width: 1650px;
 }
 
 // 文本最多两行展示
 .text-line-2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
+
 // 
-button{
+button {
   cursor: pointer;
 }
+
 .z-index-2 {
-    z-index: 2;
+  z-index: 2;
 }
 
 .z-index-max {
-    z-index: 99999;
+  z-index: 99999;
 }
 
 // 三角形
 .caret {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-top: px2rem(8) solid $mainColor;
-    border-left: px2rem(6) solid transparent;
-    border-right: px2rem(6) solid transparent;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: px2rem(8) solid $mainColor;
+  border-left: px2rem(6) solid transparent;
+  border-right: px2rem(6) solid transparent;
 }
 
 input[type='checkbox'] {
-    width: px2rem(3.8);
-    height: px2rem(3.8);
-    margin-top: 0;
-    background-color: #fff;            
-    border: 1px solid #c9c9c9;
-    border-radius: 2px;
-    color: #fff;
-    line-height: 15px;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    -ms-appearance:none;
-    -o-appearance:none;
-    appearance:none;
-    outline: none;
+  width: px2rem(3.8);
+  height: px2rem(3.8);
+  margin-top: 0;
+  background-color: #fff;
+  border: 1px solid #c9c9c9;
+  border-radius: 2px;
+  color: #fff;
+  line-height: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: none;
 }
 
 input[type='checkbox']:hover {
-    border-color: #616789;
+  border-color: #616789;
 }
 
 input[type='checkbox']:checked {
-    color: #000000;
-    background-color: #ffffff;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 input[type='checkbox']:after {
-    content: "✔";
+  content: "✔";
 }
+
 // 中间大按钮
 .middle-submit-button {
-    box-sizing: border-box;
-    border: none;
-    background: #616789;
-    color: #fff;
-    font-size: 14px;
-    width: 230px;
-    height: 35px;
-    border-radius: 4px;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  background: #616789;
+  color: #fff;
+  font-size: 14px;
+  width: 230px;
+  height: 35px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
+
 // 上传凭证按钮
 .update-voucher-button {
-    width: 90px;
-    height: 28px;
-    background-color: #616789;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+  width: 90px;
+  height: 28px;
+  background-color: #616789;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
 }
+
 // 编辑小按钮
 .mini-edit-button {
-    width: 60px;
-    height: 25px;
-    background-color:#616789;
-    border: none;
-    color: white;
-    font-size: 12px;
-    border-radius: 4px;
+  width: 60px;
+  height: 25px;
+  background-color: #616789;
+  border: none;
+  color: white;
+  font-size: 12px;
+  border-radius: 4px;
 }
+
 // 删除小按钮
 .mini-delete-button {
-    width: 60px;
-    height: 25px;
-    background-color: #FC7F89;
-    border: none;
-    color: white;
-    font-size: 12px;
-    border-radius: 4px;
+  width: 60px;
+  height: 25px;
+  background-color: #FC7F89;
+  border: none;
+  color: white;
+  font-size: 12px;
+  border-radius: 4px;
 }
+
 // 上传身份证图片大小
 .update-idcard-img {
-    width: 320px;
-    height: 150px;
-    border-radius: px2rem(8)
+  width: 320px;
+  height: 150px;
+  border-radius: px2rem(8)
 }
+
 .update-voucher-img {
-    width: 100px;
-    height: 40px;
+  width: 100px;
+  height: 40px;
 }

@@ -19,7 +19,7 @@
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">债事人是否配合：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="ReportIscoordinate"
                                placeholder="是">
                       <el-option label="是"
@@ -31,7 +31,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">类型：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="reportType"
                                placeholder="债务人">
                       <el-option label="债权人"
@@ -45,7 +45,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">性质：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="ReporterProperties"
                                placeholder="个人">
                       <el-option label="个人"
@@ -64,7 +64,7 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">是否从业：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-select v-model="PersonalReportMsg.ifWork"
                                  placeholder="是">
                         <el-option label="是"
@@ -83,21 +83,22 @@
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机号码：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalReportMsg.phone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.phone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
+                    <el-form-item label=""
+                                  prop='idCard'>
                       <el-input v-model="PersonalReportMsg.idCard"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">性别：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-select v-model="PersonalReportMsg.sex"
                                  placeholder="男">
                         <el-option label="男"
@@ -144,25 +145,28 @@
                 </el-row>
                 <h3>上传身份证</h3>
                 <el-row class="add-report-container-upload-idcard">
-                  <el-col :span='24'>
+                  <el-col :span="24">
                     <img :src="PersonalReportMsg.cardJust ? PersonalReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
                          @click="openImgToLink(PersonalReportMsg.cardJust)"
                          alt />
-                    <input type="file"
-                           @change="UpdateReportJustIDCard"
-                           ref="PersonReportJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportJustIDCard"
+                             ref="PersonReportJustIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
+
                     <img :src="PersonalReportMsg.cardBack ? PersonalReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
                          @click="openImgToLink(PersonalReportMsg.cardBack)"
                          alt />
-                    <input type="file"
-                           @change="UpdateReportBackIDCard"
-                           ref="PersonReportBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportBackIDCard"
+                             ref="PersonReportBackIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -254,12 +258,13 @@
                            :src="item"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="PersonReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportVoucher"
+                             ref="PersonReportVoucher"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -282,8 +287,8 @@
                 <el-row class="add-report-container-form-person-lawsuit">
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalReportMsg.prjectManager"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalReportMsg.prjectManager" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -317,7 +322,8 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row class="add-report-container-form-person-item-11" v-if="currentPath === 'add'">
+                <el-row class="add-report-container-form-person-item-11"
+                        v-if="currentPath === 'add'">
                   <el-col :span="8">
                     <span class="col-label">银行卡号：</span>
                     <el-form-item label="">
@@ -363,7 +369,6 @@
                     <el-form-item label="">
                       <el-input v-model="BusinessReportMsg.industryAttributes" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -389,21 +394,20 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.address"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">企业联系人：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-input v-model="BusinessReportMsg.contactPerson" />
-                      </el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.contactPhone"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.contactPhone" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -413,39 +417,41 @@
                     <img :src="BusinessReportMsg.cardJust ? BusinessReportMsg.cardJust: IDCardDefaultSrc.JustSrc"
                          @click="openImgToLink(BusinessReportMsg.cardJust)"
                          alt />
-                    <input type="file"
-                           @change="UpdateReportJustIDCard"
-                           ref="BusinessReportJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportJustIDCard"
+                             ref="BusinessReportJustIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                     <img :src="BusinessReportMsg.cardBack ? BusinessReportMsg.cardBack: IDCardDefaultSrc.BackSrc"
                          @click="openImgToLink(BusinessReportMsg.cardBack)"
                          alt />
-                    <input type="file"
-                           @change="UpdateReportBackIDCard"
-                           ref="BusinessReportBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportBackIDCard"
+                             ref="BusinessReportBackIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债权(元)：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.obligatRight"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.obligatRight" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.obligatRightNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.obligatRightNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-date-picker align="left"
                                       type="date"
                                       placeholder="请选择日期"
@@ -458,20 +464,20 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">本金：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.capital"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.capital" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利息：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.interest"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.interest" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">利率：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.interestRate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.interestRate" />
                       <span>%</span>
                     </el-form-item>
                   </el-col>
@@ -479,19 +485,19 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债务(元)：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.debt"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debt" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">债权笔数：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.debtNo"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debtNo" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">借款发生时间：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-date-picker align="left"
                                       type="date"
                                       placeholder="请选择日期"
@@ -504,8 +510,8 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">债事凭证：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.debtCertificate"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.debtCertificate" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -519,17 +525,19 @@
                            :src="item"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="BusinessReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportVoucher"
+                             ref="BusinessReportVoucher"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
                   <el-col :span="24">
                     <span class="col-label">是否诉讼及结果：</span>
+
                     <el-form-item label="">
                       <textarea v-model="BusinessReportMsg.isResult"></textarea>
                     </el-form-item>
@@ -539,8 +547,10 @@
                 <el-row class="add-report-container-form-business-lawsuit">
                   <el-col :span="8">
                     <span class="col-label">项目负责人：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BusinessReportMsg.prjectManager"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BusinessReportMsg.prjectManager" />
+
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -548,23 +558,25 @@
                 <el-row v-if="currentPath === 'add'">
                   <el-col :span="8">
                     <span class="col-label">姓名：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input v-model="Certification[1].userName"
                                 :disabled="IsReportPhoneCertification.Business" />
-                      </el-innput>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">身份证号码：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input v-model="Certification[1].identifyNum"
                                 :disabled="IsReportPhoneCertification.Business" />
-                      </el-innput>
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">选择银行：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-select v-model="Certification[1].bank"
                                  filterable
                                  :disabled="IsReportPhoneCertification.Business">
@@ -572,31 +584,39 @@
                                    :value="item.text"
                                    v-for="(item,index) in BankList"
                                    :key="index"></el-option>
+
                       </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row class="add-report-container-form-business-item-11" v-if="currentPath === 'add'">
+                <el-row class="add-report-container-form-business-item-11"
+                        v-if="currentPath === 'add'">
                   <el-col :span="8">
                     <span class="col-label">银行卡号：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input el-input
                                 v-model="Certification[1].bankCard"
-                                :disabled="IsReportPhoneCertification.Business"></el-input>
+                                :disabled="IsReportPhoneCertification.Business" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">银行预留手机：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input v-model="Certification[1].mobilePhone"
-                                :disabled="IsReportPhoneCertification.Business"></el-input>
+                                :disabled="IsReportPhoneCertification.Business" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">手机验证码：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input v-model="NoteCode[0].BusinessReportNodeCode"
-                                :disabled="!IsReportPhoneCertification.Business"></el-input>
+                                :disabled="!IsReportPhoneCertification.Business" />
+
                     </el-form-item>
                     <button @click="PhoneCheck">点击获取</button>
                   </el-col>
@@ -608,49 +628,61 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.companyName"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.companyName" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">社会统一信用代码：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.creditCode"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.creditCode" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">行业属性：</span>
-                    <el-form-item label="">
+
+                    <el-form-item label>
                       <el-input v-model="BankReportMsg.industryAttributes" />
-                      </el-input>
                     </el-form-item>
+
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">法定代表人名称：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.legalName"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalName" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人联系电话：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.legalPhone"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalPhone" />
+
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">法定代表人身份证号：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.legalIdCard"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.legalIdCard" />
+
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">注册地址：</span>
-                    <el-form-item label="">
-                      <el-input v-model="BankReportMsg.address"></el-input>
+
+                    <el-form-item label>
+                      <el-input v-model="BankReportMsg.address" />
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -756,12 +788,13 @@
                            @click="openImgToLink(item)"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateReportVoucher"
-                           ref="BankReportVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateReportVoucher"
+                             ref="BankReportVoucher"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -788,42 +821,39 @@
             </div>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
-          <el-collapse-item title="相对人基本信息表" name="2" v-show="ResponseReportId || (currentPath === 'edit')">
+          <el-collapse-item title="相对人基本信息表"
+                            name="2"
+                            v-show="ResponseReportId || (currentPath === 'edit')">
             <!-- 新增页面相对人表单 -->
             <div class="add-report-container-relative-add-button">
-                <button @click='ClearRelativeForm'>新增相对人</button>
-                <button style="margin-letf:20px"
-                        v-if="RelativeList.length"
-                        @click="SubmitDataToHeadCompany">提交至总公司</button>
+              <button @click='ClearRelativeForm'>新增相对人</button>
+              <button style="margin-letf:20px"
+                      v-if="RelativeList.length"
+                      @click="SubmitDataToHeadCompany">提交至总公司</button>
+            </div>
+            <div class="add-report-container-relative-list-title">
+              <span>序号</span>
+              <span>相对人</span>
+              <span>债事类型</span>
+              <span>债事性质</span>
+              <span>联系电话</span>
+              <span>操作</span>
+            </div>
+            <div class="add-report-container-relative-list">
+              <div class="add-report-container-relative-list-item"
+                   v-for="(item,index) in RelativeList"
+                   :key="item.id">
+                <span>{{index+1}}</span>
+                <span>{{item.personalName ? item.personalName : item.companyName}}</span>
+                <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
+                <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
+                <span>{{item.phone?item.phone : item.contactPhone}}</span>
+                <span>
+                  <button @click="RelativeEdit(item)">编辑</button>
+                  <button>删除</button>
+                </span>
               </div>
-            <template v-if="currentPath === 'add'">
-              <div class="add-report-container-relative-list-title">
-                <span>序号</span>
-                <span>相对人</span>
-                <span>债事类型</span>
-                <span>债事性质</span>
-                <span>联系电话</span>
-                <span>操作</span>
-              </div>
-              <div class="add-report-container-relative-list">
-                <div class="add-report-container-relative-list-item"
-                     v-for="(item,index) in RelativeList"
-                     :key="item.id">
-                  <span>{{index+1}}</span>
-                  <span>{{item.personalName ? item.personalName : item.companyName}}</span>
-                  <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
-                  <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
-                  <span>{{item.phone?item.phone : item.contactPhone}}</span>
-                  <span>
-                    <button @click="RelativeEdit(item)">编辑</button>
-                    <button>删除</button>
-                  </span>
-                </div>
-              </div>
-            </template>
-            <!-- 编辑页面相对人表单 -->
-            <template v-else>
-              <div class="add-report-container-relative">
+              <template v-if="currentPath === 'add'">
                 <div class="add-report-container-relative-list-title">
                   <span>序号</span>
                   <span>相对人</span>
@@ -838,24 +868,52 @@
                        :key="item.id">
                     <span>{{index+1}}</span>
                     <span>{{item.personalName ? item.personalName : item.companyName}}</span>
-                    <span>{{(item.reportType === '1')? '债权人': '债务人' }}</span>
+                    <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
                     <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
-                    <span>{{item.phone ? item.phone: item.contactPhone}}</span>
+                    <span>{{item.phone?item.phone : item.contactPhone}}</span>
                     <span>
-                      <button @click="EditRelativeDetailMsg(index)">编辑该相对人信息</button>
+                      <button @click="RelativeEdit(item)">编辑</button>
+                      <button>删除</button>
                     </span>
                   </div>
                 </div>
-              </div>
-            </template>
+              </template>
+              <!-- 编辑页面相对人表单 -->
+              <template v-else>
+                <div class="add-report-container-relative">
+                  <div class="add-report-container-relative-list-title">
+                    <span>序号</span>
+                    <span>相对人</span>
+                    <span>债事类型</span>
+                    <span>债事性质</span>
+                    <span>联系电话</span>
+                    <span>操作</span>
+                  </div>
+                  <div class="add-report-container-relative-list">
+                    <div class="add-report-container-relative-list-item"
+                         v-for="(item,index) in RelativeList"
+                         :key="item.id">
+                      <span>{{index+1}}</span>
+                      <span>{{item.personalName ? item.personalName : item.companyName}}</span>
+                      <span>{{(item.reportType === '1')? '债权人': '债务人' }}</span>
+                      <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
+                      <span>{{item.phone ? item.phone: item.contactPhone}}</span>
+                      <span>
+                        <button @click="EditRelativeDetailMsg(index)">编辑该相对人信息</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
             <h3>相对人信息登记表</h3>
             <!-- 第一行表单 -->
             <el-form ref="form"
-                     label-width="">
+                     label-width>
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">债事人是否配合：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="RelativeIscoordinate"
                                placeholder="是">
                       <el-option label="是"
@@ -867,7 +925,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">类型：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="RelativeType"
                                placeholder="债务人">
                       <el-option label="债权人"
@@ -881,7 +939,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">性质：</span>
-                  <el-form-item label="">
+                  <el-form-item label>
                     <el-select v-model="RelativeProperties"
                                placeholder="个人">
                       <el-option label="个人"
@@ -900,7 +958,7 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">是否从业：</span>
-                    <el-form-item label="">
+                    <el-form-item label>
                       <el-select v-model="PersonalRelativeMsg.ifWork"
                                  placeholder="是">
                         <el-option label="是"
@@ -972,8 +1030,8 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">可流通资产价值(元)：</span>
-                    <el-form-item label="">
-                      <el-input v-model="PersonalRelativeMsg.circulationAssets"></el-input>
+                    <el-form-item label>
+                      <el-input v-model="PersonalRelativeMsg.circulationAssets" />
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -983,21 +1041,23 @@
                     <img :src="PersonalRelativeMsg.cardJust ? PersonalRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
                          @click="openImgToLink(PersonalRelativeMsg.cardJust)"
                          alt />
-                    <input type="file"
-                           @change="UpdateRelativeJustIDCard"
-                           ref="PersonRelativeJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeJustIDCard"
+                             ref="PersonRelativeJustIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                     <img :src="PersonalRelativeMsg.cardBack ? PersonalRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
                          @click="openImgToLink(PersonalRelativeMsg.cardBack)"
                          alt />
-                    <input type="file"
-                           @change="UpdateRelativeBackIDCard"
-                           ref="PersonRelativeBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeBackIDCard"
+                             ref="PersonRelativeBackIdCard"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -1089,12 +1149,13 @@
                            :src="item"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="PersonRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeVoucher"
+                             ref="PersonRelativeVoucher"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1179,7 +1240,6 @@
                     <el-form-item label="">
                       <el-input v-model="BusinessRelativeMsg.contactPerson" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
@@ -1194,21 +1254,25 @@
                     <img :src="BusinessRelativeMsg.cardJust ? BusinessRelativeMsg.cardJust: IDCardDefaultSrc.JustSrc"
                          @click="openImgToLink(BusinessRelativeMsg.cardJust)"
                          alt />
-                    <input type="file"
-                           @change="UpdateRelativeJustIDCard"
-                           ref="BusinessRelativeJustIdCard"
-                           class="add-report-container-upload-idcard-just"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeJustIDCard"
+                             ref="BusinessRelativeJustIdCard"
+                             class="add-report-container-upload-idcard-just"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                     <img :src="BusinessRelativeMsg.cardBack ? BusinessRelativeMsg.cardBack: IDCardDefaultSrc.BackSrc"
                          @click="openImgToLink(BusinessRelativeMsg.cardBack)"
                          alt />
-                    <input type="file"
-                           @change="UpdateRelativeBackIDCard"
-                           ref="BusinessRelativeBackIdCard"
-                           class="add-report-container-upload-idcard-back"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeBackIDCard"
+                             ref="BusinessRelativeBackIdCard"
+                             class="add-report-container-upload-idcard-back"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -1300,12 +1364,14 @@
                            :src="item"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="BusinessRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeVoucher"
+                             ref="BusinessRelativeVoucher"
+                             class="add-report-container-update-imgs-form"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1390,7 +1456,6 @@
                     <el-form-item label="">
                       <el-input v-model="BankRelativeMsg.contactPerson" />
                     </el-form-item>
-                    </el-input>
                   </el-col>
                   <el-col :span="8">
                     <span class="col-label">联系电话：</span>
@@ -1488,12 +1553,13 @@
                            :src="item"
                            alt />
                     </div>
-                    <input type="file"
-                           @change="UpdateRelativeVoucher"
-                           ref="BankRelativeVoucher"
-                           class="add-report-container-update-imgs-form"
-                           value="点击上传" />
-                    <button>点击上传</button>
+                    <div class="pub-upload-box">
+                      <input type="file"
+                             @change="UpdateRelativeVoucher"
+                             ref="BankRelativeVoucher"
+                             value="点击上传" />
+                      <button>点击上传</button>
+                    </div>
                   </el-col>
                 </el-row>
                 <el-row class="add-report-container-lawsuit">
@@ -1542,7 +1608,8 @@
       </div>
     </div>
     <!-- 选择推荐人 -->
-    <div class="add-report-pop-recommond" v-if="IsPopRecommond && (currentPath === 'add')">
+    <div class="add-report-pop-recommond"
+         v-if="IsPopRecommond && (currentPath === 'add')">
       <div class="add-report-pop-recommond-box">
         <div class="add-report-pop-recommond-box-header">
           <span>提示</span>
@@ -1599,7 +1666,7 @@ export default {
       // 身份证默认图片源
       IDCardDefaultSrc: {
         JustSrc: require('@imgs/home/IDcard.png'),
-        BackSrc: require('@imgs/home/IDcard-back.png'),
+        BackSrc: require('@imgs/home/IDcard-back.png')
       },
       // 推荐人名称
       ReferrerName: '',
@@ -1692,7 +1759,7 @@ export default {
         // 银行预留手机号
         bankTel: '',
         // 手机验证码
-        telCheck: '',
+        telCheck: ''
       },
 
       // 企业报备信息源
@@ -1844,7 +1911,7 @@ export default {
       // 手机号码列表
       PhoneList: {
         PersonReportPhone: '',
-        BusinessReportPhone: '',
+        BusinessReportPhone: ''
       },
       // 相对人的属性 个人/企业/银行
       RelativeProperties: 'person',
@@ -1989,7 +2056,7 @@ export default {
         // 经济状况, (原定没有该项,测试用)
         economics: '',
         agreementNo: '7969107472849373213',
-        usage: '',
+        usage: ''
       },
       // 银行相对信息
       BankRelativeMsg: {
@@ -2054,7 +2121,7 @@ export default {
         // 经济状况, (原定没有该项,测试用)
         economics: '',
         agreementNo: '7969107472849373213',
-        usage: '',
+        usage: ''
       },
       // 相对人列表数据源
       RelativeList: [],
@@ -2064,7 +2131,7 @@ export default {
       NoteCode: [
         {
           PersonReportNodeCode: '',
-          BusinessReportNodeCode: '',
+          BusinessReportNodeCode: ''
         }
       ],
       // 实名验证信息源:
@@ -2075,7 +2142,7 @@ export default {
           mobilePhone: '',
           userName: '',
           bankCard: '',
-          bank: '',
+          bank: ''
         },
         // 企业报备
         {
@@ -2083,15 +2150,15 @@ export default {
           mobilePhone: '',
           userName: '',
           bankCard: '',
-          bank: '',
-        },
+          bank: ''
+        }
       ],
       // 存储注册债务人获得reportId
       ResponseReportId: '',
       // 添加债事人是否通过实名验证标志
       IsPersonReportCertification: {
         Person: false,
-        Business: false,
+        Business: false
       },
       pickerOptions: {
         disabledDate (time) {
@@ -2102,7 +2169,7 @@ export default {
             text: '今天',
             onClick (picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
@@ -2110,7 +2177,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
@@ -2118,14 +2185,14 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       // 债事人是否通过短信验证
       IsReportPhoneCertification: {
         Person: false,
-        Business: false,
+        Business: false
       },
       BankList: BankList,
       // element表单验证规则
@@ -2144,8 +2211,8 @@ export default {
       RelativeList: [],
       // 提交总部信息源
       ToHeadCompanyData: {
-          reportId: '',
-          status: '0'
+        reportId: '',
+        status: '0'
       }
     }
   },
@@ -2168,8 +2235,8 @@ export default {
         url: '/api/api/pubPersonController/selectByType',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.Referrer = result.data
     },
@@ -2183,7 +2250,7 @@ export default {
       // 选择成功, 关闭面板, 发送选择成功信息
       this.$message({
         message: '选择推荐人成功',
-        type: 'success',
+        type: 'success'
       })
       this.IsPopRecommond = false
       console.log(this.IsPopRecommond)
@@ -2210,211 +2277,224 @@ export default {
     },
     // 调用接口传入数据(个人,企业,银行)
     async SendReporterData () {
-        // 如果当前页面为新增页面, 进行新增处理
-        console.log(this.currentPath)
-        if (this.currentPath === 'add') {
-            if (this.ReporterProperties === 'person'){
-                if (!this.IsReportPhoneCertification.Person)
-                return this.$message.error('请先进行个人实名验证和短信验证')
-            } else if (this.ReporterProperties === 'business')
-            {
-                // 如果是企业报备页面
-                if (!this.IsReportPhoneCertification.Business)
-                return this.$message.error('请先进行法定代表人实名验证和短信验证')
-            }
-            if (
-                this.ReporterProperties === 'person' ||
-                this.ReporterProperties === 'business'
-            )
-            {
-                let tel = ''
-                if (this.ReporterProperties === 'person') {
-                    tel = this.Certification[0].mobilePhone
-                } else{
-                    // 如果是企业报备页面
-                    tel = this.Certification[1].mobilePhone
-                }
-                let checkNo = ''
-                if (this.ReporterProperties === 'person') {
-                    // 如果是个人报备
-                    checkNo = this.NoteCode[0].PersonReportNodeCode
-                } else{
-                    // 如果是企业报备页面
-                    checkNo = this.NoteCode[0].BusinessReportNodeCode
-                }
-                // 验证码
-                const formData = new FormData()
-                formData.append('tel', tel)
-                formData.append('checkNo', checkNo)
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/smsSend/checkNO',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                if (result.resultCode !== '200')
-                {
-                return this.$message.error('短信验证码输入错误,请重新输入')
-                }
-                this.$message.success('实名验证成功')
-            }
-            // 报备信息登记
-            let Responseresult = {}
-            if (this.ReporterProperties === 'person')
-            {
-                // 用户个人报备
-                // 是否个人实名验证信息
-                if (!this.IsReportPhoneCertification.Person) {
-                    return this.$message.error('请先进行个人实名验证和短信验证')
-                }
-                this.PersonalReportMsg.companyId = window.sessionStorage.getItem(
-                'companyId'
-                )
-                this.PersonalReportMsg.bank = this.Certification[0].bank
-                this.PersonalReportMsg.bankCard = this.Certification[0].bankCard
-                this.PersonalReportMsg.bankTel = this.Certification[0].mobilePhone
-                this.PersonalReportMsg.telCheck = this.NoteCode[0].PersonReportNodeCode
-                console.log(this.PersonalReportMsg)
-                const formData = new FormData()
-                    for (const key in this.PersonalReportMsg)
-                {
-                formData.append(key, this.PersonalReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/insertPrivateSelective',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Responseresult = result
+      // 如果当前页面为新增页面, 进行新增处理
+      console.log(this.currentPath)
+      if (this.currentPath === 'add')
+      {
+        if (this.ReporterProperties === 'person')
+        {
+          if (!this.IsReportPhoneCertification.Person)
+            return this.$message.error('请先进行个人实名验证和短信验证')
+        } else if (this.ReporterProperties === 'business')
+        {
+          // 如果是企业报备页面
+          if (!this.IsReportPhoneCertification.Business)
+            return this.$message.error('请先进行法定代表人实名验证和短信验证')
+        }
+        if (
+          this.ReporterProperties === 'person' ||
+          this.ReporterProperties === 'business'
+        )
+        {
+          let tel = ''
+          if (this.ReporterProperties === 'person')
+          {
+            tel = this.Certification[0].mobilePhone
+          } else
+          {
+            // 如果是企业报备页面
+            tel = this.Certification[1].mobilePhone
+          }
+          let checkNo = ''
+          if (this.ReporterProperties === 'person')
+          {
+            // 如果是个人报备
+            checkNo = this.NoteCode[0].PersonReportNodeCode
+          } else
+          {
+            // 如果是企业报备页面
+            checkNo = this.NoteCode[0].BusinessReportNodeCode
+          }
+          // 验证码
+          const formData = new FormData()
+          formData.append('tel', tel)
+          formData.append('checkNo', checkNo)
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/smsSend/checkNO',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          if (result.resultCode !== '200')
+          {
+            return this.$message.error('短信验证码输入错误,请重新输入')
+          }
+          this.$message.success('实名验证成功')
+        }
+        // 报备信息登记
+        let Responseresult = {}
+        if (this.ReporterProperties === 'person')
+        {
+          // 用户个人报备
+          // 是否个人实名验证信息
+          if (!this.IsReportPhoneCertification.Person)
+          {
+            return this.$message.error('请先进行个人实名验证和短信验证')
+          }
+          this.PersonalReportMsg.companyId = window.sessionStorage.getItem(
+            'companyId'
+          )
+          this.PersonalReportMsg.bank = this.Certification[0].bank
+          this.PersonalReportMsg.bankCard = this.Certification[0].bankCard
+          this.PersonalReportMsg.bankTel = this.Certification[0].mobilePhone
+          this.PersonalReportMsg.telCheck = this.NoteCode[0].PersonReportNodeCode
+          console.log(this.PersonalReportMsg)
+          const formData = new FormData()
+          for (const key in this.PersonalReportMsg)
+          {
+            formData.append(key, this.PersonalReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/insertPrivateSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Responseresult = result
 
-                // 传入当前用户报备ID
-            } else if (this.ReporterProperties === 'business')
-            {
-                // 当用户选择企业报备时
-                // 查看用户是否进行企业的实名验证
-                if (!this.IsReportPhoneCertification.Business)
-                return this.$message.error(
-                    '请先进行企业法定代表人的实名验证和短信验证'
-                )
-                this.BusinessReportMsg.companyId = window.sessionStorage.getItem(
-                'companyId'
-                )
-                this.BusinessReportMsg.bank = this.Certification[1].bank
-                this.BusinessReportMsg.bankCard = this.Certification[1].bankCard
-                this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
-                this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
-                const formData = new FormData()
-                for (const key in this.BusinessReportMsg)
-                {
-                formData.append(key, this.BusinessReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/insertEterpriseSelective',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Responseresult = result
-            } else
-            {
-                // 当用户选择企业报备时
-                this.BankReportMsg.companyId = window.sessionStorage.getItem(
-                'companyId'
-                )
-                const formData = new FormData()
-                for (const key in this.BankReportMsg)
-                {
-                formData.append(key, this.BankReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/insertBankSelective',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Responseresult = result
-            }
-            // 如何返回结果成功,传入报备Id
-            if (Responseresult.resultCode !== '200')
-            {
-                return this.$message.error(Responseresult.resultMessage)
-            }
-            this.$message.success('债事人信息登记成功')
-            // 将报备ID放至新增相对人信息源
-            this.ResponseReportId = Responseresult.data || ''
-            // 当返回报备ID时, 添加报备ID至提价总公司页面
-            this.ToHeadCompanyData.reportId = Responseresult.data || ''
-            this.HasSubmitDebt = true
-            this.collapseActive = '2'
+          // 传入当前用户报备ID
+        } else if (this.ReporterProperties === 'business')
+        {
+          // 当用户选择企业报备时
+          // 查看用户是否进行企业的实名验证
+          if (!this.IsReportPhoneCertification.Business)
+            return this.$message.error(
+              '请先进行企业法定代表人的实名验证和短信验证'
+            )
+          this.BusinessReportMsg.companyId = window.sessionStorage.getItem(
+            'companyId'
+          )
+          this.BusinessReportMsg.bank = this.Certification[1].bank
+          this.BusinessReportMsg.bankCard = this.Certification[1].bankCard
+          this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
+          this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
+          const formData = new FormData()
+          for (const key in this.BusinessReportMsg)
+          {
+            formData.append(key, this.BusinessReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/insertEterpriseSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Responseresult = result
+        } else
+        {
+          // 当用户选择企业报备时
+          this.BankReportMsg.companyId = window.sessionStorage.getItem(
+            'companyId'
+          )
+          const formData = new FormData()
+          for (const key in this.BankReportMsg)
+          {
+            formData.append(key, this.BankReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/insertBankSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Responseresult = result
         }
-        else { // 如果当前是编辑页面进行编辑数据的上传
-            let Responseresult = {}
-            if (this.ReporterProperties === 'person')
-            {
-                this.PersonalReportMsg.companyId = window.sessionStorage.getItem('companyId')
-                this.PersonalReportMsg.updateUserId = window.sessionStorage.getItem('userId')
-                const formData = new FormData()
-                for (const key in this.PersonalReportMsg) { 
-                    formData.append(key, this.PersonalReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busReportController/updatePrivateSelective',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Responseresult = result
-                // 传入当前用户报备ID
-            } else if (this.ReporterProperties === 'business') {
-                // 当用户选择企业报备时
-                // 查看用户是否进行企业的实名验证
-                this.BusinessReportMsg.companyId = window.sessionStorage.getItem('companyId')
-                const formData = new FormData()
-                for (const key in this.BusinessReportMsg) {
-                    formData.append(key, this.BusinessReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busReportController/updateEterpriseSelective',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Responseresult = result
-            } else {
-                // 当用户选择银行报备时
-                this.BankReportMsg.companyId = window.sessionStorage.getItem('companyId')
-                this.BankReportMsg.createTime = null
-                console.log(this.BankReportMsg)
-                const formData = new FormData()
-                for (const key in this.BankReportMsg) {
-                    formData.append(key, this.BankReportMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busReportController/updateBankSelective',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Responseresult = result
-            }
-            this.InitEditData()
-            this.$message.success('操作成功')
+        // 如何返回结果成功,传入报备Id
+        if (Responseresult.resultCode !== '200')
+        {
+          return this.$message.error(Responseresult.resultMessage)
         }
+        this.$message.success('债事人信息登记成功')
+        // 将报备ID放至新增相对人信息源
+        this.ResponseReportId = Responseresult.data || ''
+        // 当返回报备ID时, 添加报备ID至提价总公司页面
+        this.ToHeadCompanyData.reportId = Responseresult.data || ''
+        this.HasSubmitDebt = true
+        this.collapseActive = '2'
+      }
+      else
+      { // 如果当前是编辑页面进行编辑数据的上传
+        let Responseresult = {}
+        if (this.ReporterProperties === 'person')
+        {
+          this.PersonalReportMsg.companyId = window.sessionStorage.getItem('companyId')
+          this.PersonalReportMsg.updateUserId = window.sessionStorage.getItem('userId')
+          const formData = new FormData()
+          for (const key in this.PersonalReportMsg)
+          {
+            formData.append(key, this.PersonalReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/updatePrivateSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          Responseresult = result
+          // 传入当前用户报备ID
+        } else if (this.ReporterProperties === 'business')
+        {
+          // 当用户选择企业报备时
+          // 查看用户是否进行企业的实名验证
+          this.BusinessReportMsg.companyId = window.sessionStorage.getItem('companyId')
+          const formData = new FormData()
+          for (const key in this.BusinessReportMsg)
+          {
+            formData.append(key, this.BusinessReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/updateEterpriseSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          Responseresult = result
+        } else
+        {
+          // 当用户选择银行报备时
+          this.BankReportMsg.companyId = window.sessionStorage.getItem('companyId')
+          this.BankReportMsg.createTime = null
+          console.log(this.BankReportMsg)
+          const formData = new FormData()
+          for (const key in this.BankReportMsg)
+          {
+            formData.append(key, this.BankReportMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/updateBankSelective',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          Responseresult = result
+        }
+        this.InitEditData()
+        this.$message.success('操作成功')
+      }
     },
     // 上传报备正面身份证
     async UpdateReportJustIDCard () {
@@ -2426,7 +2506,7 @@ export default {
       {
         file = this.$refs.BusinessReportJustIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.ReporterProperties === 'person')
         {
           this.PersonalReportMsg.cardJust = result
@@ -2446,7 +2526,7 @@ export default {
       {
         file = this.$refs.BusinessReportBackIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.ReporterProperties === 'person')
         {
           this.PersonalReportMsg.cardBack = result
@@ -2490,7 +2570,7 @@ export default {
         file = this.$refs.BusinessRelativeJustIdCard.files[0]
       }
       console.log(file)
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.RelativeProperties === 'person')
         {
           this.PersonalRelativeMsg.cardJust = result
@@ -2510,7 +2590,7 @@ export default {
       {
         file = this.$refs.BusinessRelativeBackIdCard.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.RelativeProperties === 'person')
         {
           this.PersonalRelativeMsg.cardBack = result
@@ -2533,7 +2613,7 @@ export default {
       {
         file = this.$refs.BankReportVoucher.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.ReporterProperties === 'person')
         {
           this.PersonalReportMsg.uploadDebtCertificate.push(result)
@@ -2559,7 +2639,7 @@ export default {
       {
         file = this.$refs.BankRelativeVoucher.files[0]
       }
-      this.$UpdateFile(file).then((result) => {
+      this.$UpdateFile(file).then(result => {
         if (this.RelativeProperties === 'person')
         {
           this.PersonalRelativeMsg.uploadDebtCertificate.push(result)
@@ -2593,8 +2673,8 @@ export default {
         url: '/api/api/safrv/safrvCheck',
         data: CertificationformData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (Certificationresult.resultCode !== '200')
       {
@@ -2620,14 +2700,14 @@ export default {
         url: '/api/api/smsSend/sendCheckNO',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (result.resultCode === '200')
       {
         this.$message({
           message: '手机验证码发送成功, 请填写正确的验证码',
-          type: 'success',
+          type: 'success'
         })
         // 存储发送成功的电话号码
         this.SendReportPhoneNumber = tel
@@ -2651,8 +2731,8 @@ export default {
         url: '/api/api/busRelativePersonController/selectByRepId',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       // 数据处理
       this.RelativeList = result.data || []
@@ -2672,136 +2752,148 @@ export default {
     //新增/修改相对人 传入相对人信息(个人, 企业, 银行)
     async SendRelativeData () {
       // 当前是新增页面
-        if (this.currentPath === 'add') {
-            let Result = {}
-            console.log(this.ResponseReportId)
-            if (this.RelativeProperties === 'person') {
-                // 个人用户
-                this.PersonalRelativeMsg.reportId = this.ResponseReportId
-                console.log(this.PersonalRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.PersonalRelativeMsg)
-                {
-                formData.append(key, this.PersonalRelativeMsg[key])
-                }
-                const addUrl =
-                '/api/api/busRelativePersonController/insertPrivateSelective'
-                const updateUrl = ''
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: formData.relativePerId ? updateUrl : addUrl,
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Result = result
-            } else if (this.RelativeProperties === 'business') {
-                // 当用户选择企业报备时
-                this.BusinessRelativeMsg.reportId = this.ResponseReportId
-                console.log(this.BusinessRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.BusinessRelativeMsg)
-                {
-                formData.append(key, this.BusinessRelativeMsg[key])
-                }
-                const addUrl = '/api/api/busRelativePersonController/insertEnterprise'
-                const updateUrl = ''
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: formData.relativePerId ? updateUrl : addUrl,
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Result = result
-            } else {
-                this.BankRelativeMsg.reportId = this.ResponseReportId
-                console.log(this.BankRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.BankRelativeMsg)
-                {
-                formData.append(key, this.BankRelativeMsg[key])
-                }
-                const addUrl = '/api/api/busRelativePersonController/insertBank'
-                const updateUrl = ''
-                const { data: result } = await this.$http({
-                method: 'post',
-                url: formData.relativePerId ? updateUrl : addUrl,
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                })
-                Result = result
-            }
-            if (Result.resultCode !== '200')
-                return this.$message.error(Result.resultMessage)
-            this.$message.success('添加相对人信息成功')
-            // this.collapseActive='3';
-            this.SearchCounterpartList()
-            this.ClearRelativeForm()
+      if (this.currentPath === 'add')
+      {
+        let Result = {}
+        console.log(this.ResponseReportId)
+        if (this.RelativeProperties === 'person')
+        {
+          // 个人用户
+          this.PersonalRelativeMsg.reportId = this.ResponseReportId
+          console.log(this.PersonalRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.PersonalRelativeMsg)
+          {
+            formData.append(key, this.PersonalRelativeMsg[key])
+          }
+          const addUrl =
+            '/api/api/busRelativePersonController/insertPrivateSelective'
+          const updateUrl = ''
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: formData.relativePerId ? updateUrl : addUrl,
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Result = result
+        } else if (this.RelativeProperties === 'business')
+        {
+          // 当用户选择企业报备时
+          this.BusinessRelativeMsg.reportId = this.ResponseReportId
+          console.log(this.BusinessRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.BusinessRelativeMsg)
+          {
+            formData.append(key, this.BusinessRelativeMsg[key])
+          }
+          const addUrl = '/api/api/busRelativePersonController/insertEnterprise'
+          const updateUrl = ''
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: formData.relativePerId ? updateUrl : addUrl,
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Result = result
+        } else
+        {
+          this.BankRelativeMsg.reportId = this.ResponseReportId
+          console.log(this.BankRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.BankRelativeMsg)
+          {
+            formData.append(key, this.BankRelativeMsg[key])
+          }
+          const addUrl = '/api/api/busRelativePersonController/insertBank'
+          const updateUrl = ''
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: formData.relativePerId ? updateUrl : addUrl,
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          Result = result
         }
-        else { // 如果当前是编辑页面
-            let Result = {}
-            if (this.RelativeProperties === 'person') {
-                // 个人用户
-                console.log(this.PersonalRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.PersonalRelativeMsg) {
-                    formData.append(key, this.PersonalRelativeMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busRelativePersonController/updatePrivate',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Result = result
-            } 
-            else if (this.RelativeProperties === 'business') {
-                // 当用户选择企业报备时
-                console.log(this.BusinessRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.BusinessRelativeMsg) {
-                    formData.append(key, this.BusinessRelativeMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busRelativePersonController/updateEnterprise',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Result = result
-            } 
-            else {
-                console.log(this.BankRelativeMsg)
-                const formData = new FormData()
-                for (const key in this.BankRelativeMsg) {
-                    formData.append(key, this.BankRelativeMsg[key])
-                }
-                const { data: result } = await this.$http({
-                    method: 'post',
-                    url: '/api/api/busRelativePersonController/updateEnterprise',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                Result = result
+        if (Result.resultCode !== '200')
+          return this.$message.error(Result.resultMessage)
+        this.$message.success('添加相对人信息成功')
+        // this.collapseActive='3';
+        this.SearchCounterpartList()
+        this.ClearRelativeForm()
+      }
+      else
+      { // 如果当前是编辑页面
+        let Result = {}
+        if (this.RelativeProperties === 'person')
+        {
+          // 个人用户
+          console.log(this.PersonalRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.PersonalRelativeMsg)
+          {
+            formData.append(key, this.PersonalRelativeMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busRelativePersonController/updatePrivate',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
             }
-            console.log(Result)
-            if (Result.resultCode === '200') {
-                this.$message.success('相对人数据修改成功')
-            }
-            // 刷新数据
-            this.InitEditData()
+          })
+          Result = result
         }
+        else if (this.RelativeProperties === 'business')
+        {
+          // 当用户选择企业报备时
+          console.log(this.BusinessRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.BusinessRelativeMsg)
+          {
+            formData.append(key, this.BusinessRelativeMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busRelativePersonController/updateEnterprise',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          Result = result
+        }
+        else
+        {
+          console.log(this.BankRelativeMsg)
+          const formData = new FormData()
+          for (const key in this.BankRelativeMsg)
+          {
+            formData.append(key, this.BankRelativeMsg[key])
+          }
+          const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busRelativePersonController/updateEnterprise',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          Result = result
+        }
+        console.log(Result)
+        if (Result.resultCode === '200')
+        {
+          this.$message.success('相对人数据修改成功')
+        }
+        // 刷新数据
+        this.InitEditData()
+      }
     },
     // 关闭提交页面
     CloseConfirm () {
@@ -2820,7 +2912,9 @@ export default {
         this.PersonalRelativeMsg.sex = '1'
         this.PersonalRelativeMsg.ifWork = '1'
         this.PersonalRelativeMsg.reportId = this.ResponseReportId
-        this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.PersonalRelativeMsg.uploadDebtCertificate = []
       }
       for (const key in this.BusinessRelativeMsg)
@@ -2829,7 +2923,9 @@ export default {
         this.BusinessRelativeMsg.reportId = this.ResponseReportId
         this.BusinessRelativeMsg.iscoordinate = '1'
         this.BusinessRelativeMsg.reportType = '1'
-        this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.BusinessRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.BusinessRelativeMsg.agreementNo = '111'
         this.BusinessRelativeMsg.uploadDebtCertificate = []
       }
@@ -2839,123 +2935,137 @@ export default {
         this.BankRelativeMsg.reportId = this.ResponseReportId
         this.BankRelativeMsg.reportType = '1'
         this.BankRelativeMsg.iscoordinate = '1'
-        this.BankRelativeMsg.createUserId = window.sessionStorage.getItem('userId')
+        this.BankRelativeMsg.createUserId = window.sessionStorage.getItem(
+          'userId'
+        )
         this.BankRelativeMsg.agreementNo = '111'
         this.BankRelativeMsg.uploadDebtCertificate = []
       }
     },
     async InitEditData () {
-        // 判断当前路由是新增路由还是修改路由
-        const path = this.$route.path
-        // 如果当前路由为
-        if (path === '/AddReportForm') {
-            this.currentPath = 'add'
-        } else {
-            this.currentPath = 'edit'
-            // 如果当前是编辑页面, 获取数据
-            const reportId = this.$route.query.reportId
-            // 获取债事人信息
-            const formData = new FormData()
-            formData.append('reportId', reportId)
-            const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/selectByPrimaryKey',
-                data: formData,
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                }
-            })
-            const Result = result.data
-            // ','分隔的字符串 因此需要用split分割
-            if (Result.uploadDebtCertificate.indexOf(',') !== -1) {
-                Result.uploadDebtCertificate = Result.uploadDebtCertificate.split(',')
-            }
-            // 判断初始化时,  当前用户的属于哪种属性, 给相应的赋值
-            if(result.data.reportPropert === '1') {
-                this.PersonalReportMsg = Result
-                delete this.PersonalReportMsg.createTime
-                delete this.PersonalReportMsg.updateTime
-            } else if (result.data.reportPropert === '2') {
-                this.BusinessReportMsg = Result
-                delete this.BusinessReportMsg.createTime
-                delete this.BusinessReportMsg.updateTime
-            } else {
-                this.BankReportMsg = Result
-                delete this.BankReportMsg.createTime
-                delete this.BankReportMsg.updateTime
-            }
-            // 无论当用户类型是哪种, 都将报备ID赋值给页面更新的报备ID赋值给个人/企业/银行
-            // 主要用户修改提交时, 可能修改用户
-            this.PersonalReportMsg.reportId = Result.reportId
-            this.BusinessReportMsg.reportId = Result.reportId
-            this.BankReportMsg.reportId = Result.reportId
-            this.$forceUpdate()
-            // 获取相对人信息
-            const { data: RelativeListresult } = await this.$http({
-                method: 'post',
-                url: '/api/api/busRelativePersonController/selectByRepId',
-                data: formData,
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                }
-            })
-            this.RelativeList = RelativeListresult.data
-            // 提交总部报备ID
-            this.ToHeadCompanyData.reportId = reportId
+      // 判断当前路由是新增路由还是修改路由
+      const path = this.$route.path
+      // 如果当前路由为
+      if (path === '/AddReportForm')
+      {
+        this.currentPath = 'add'
+      } else
+      {
+        this.currentPath = 'edit'
+        // 如果当前是编辑页面, 获取数据
+        const reportId = this.$route.query.reportId
+        // 获取债事人信息
+        const formData = new FormData()
+        formData.append('reportId', reportId)
+        const { data: result } = await this.$http({
+          method: 'post',
+          url: '/api/api/busReportController/selectByPrimaryKey',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+        const Result = result.data
+        // ','分隔的字符串 因此需要用split分割
+        if (Result.uploadDebtCertificate.indexOf(',') !== -1)
+        {
+          Result.uploadDebtCertificate = Result.uploadDebtCertificate.split(',')
         }
+        // 判断初始化时,  当前用户的属于哪种属性, 给相应的赋值
+        if (result.data.reportPropert === '1')
+        {
+          this.PersonalReportMsg = Result
+          delete this.PersonalReportMsg.createTime
+          delete this.PersonalReportMsg.updateTime
+        } else if (result.data.reportPropert === '2')
+        {
+          this.BusinessReportMsg = Result
+          delete this.BusinessReportMsg.createTime
+          delete this.BusinessReportMsg.updateTime
+        } else
+        {
+          this.BankReportMsg = Result
+          delete this.BankReportMsg.createTime
+          delete this.BankReportMsg.updateTime
+        }
+        // 无论当用户类型是哪种, 都将报备ID赋值给页面更新的报备ID赋值给个人/企业/银行
+        // 主要用户修改提交时, 可能修改用户
+        this.PersonalReportMsg.reportId = Result.reportId
+        this.BusinessReportMsg.reportId = Result.reportId
+        this.BankReportMsg.reportId = Result.reportId
+        this.$forceUpdate()
+        // 获取相对人信息
+        const { data: RelativeListresult } = await this.$http({
+          method: 'post',
+          url: '/api/api/busRelativePersonController/selectByRepId',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+        this.RelativeList = RelativeListresult.data
+        // 提交总部报备ID
+        this.ToHeadCompanyData.reportId = reportId
+      }
     },
     EditRelativeDetailMsg (index) {
-        // 处理债事凭证
-        // 首次点击为','分隔的字符串 因此需要用split分割, 再次点击时此时已为数组, 因此不需要处理
-        if (this.RelativeList[index].uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeList[index].uploadDebtCertificate instanceof Array))) {
-            this.RelativeList[index].uploadDebtCertificate = this.RelativeList[index].uploadDebtCertificate.split(',')
-        }
-        // 页面显示
-        if(this.RelativeList[index].reportPropert === '1') {
-            this.PersonalRelativeMsg = this.RelativeList[index]
-            this.RelativeProperties = 'person'
-            delete this.PersonalRelativeMsg.createTime
-            delete this.PersonalRelativeMsg.updateTime
-        } else if (this.RelativeList[index].reportPropert === '2') {
-            this.BusinessRelativeMsg = this.RelativeList[index]
-            this.RelativeProperties = 'business'
-            delete this.BusinessRelativeMsg.createTime
-            delete this.BusinessRelativeMsg.updateTime
-        } else {
-            this.BankRelativeMsg = this.RelativeList[index]
-            this.RelativeProperties = 'bank'
-            delete this.BankRelativeMsg.createTime 
-            delete this.BankRelativeMsg.updateTime
-        }
+      // 处理债事凭证
+      // 首次点击为','分隔的字符串 因此需要用split分割, 再次点击时此时已为数组, 因此不需要处理
+      if (this.RelativeList[index].uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeList[index].uploadDebtCertificate instanceof Array)))
+      {
+        this.RelativeList[index].uploadDebtCertificate = this.RelativeList[index].uploadDebtCertificate.split(',')
+      }
+      // 页面显示
+      if (this.RelativeList[index].reportPropert === '1')
+      {
+        this.PersonalRelativeMsg = this.RelativeList[index]
+        this.RelativeProperties = 'person'
+        delete this.PersonalRelativeMsg.createTime
+        delete this.PersonalRelativeMsg.updateTime
+      } else if (this.RelativeList[index].reportPropert === '2')
+      {
+        this.BusinessRelativeMsg = this.RelativeList[index]
+        this.RelativeProperties = 'business'
+        delete this.BusinessRelativeMsg.createTime
+        delete this.BusinessRelativeMsg.updateTime
+      } else
+      {
+        this.BankRelativeMsg = this.RelativeList[index]
+        this.RelativeProperties = 'bank'
+        delete this.BankRelativeMsg.createTime
+        delete this.BankRelativeMsg.updateTime
+      }
     },
     async SubmitDataToHeadCompany () {
-        if (!this.ToHeadCompanyData.reportId) return this.$message.error('债事人信息不能为空')
-        const formData = new FormData()
-        for (const key in this.ToHeadCompanyData) {
-            formData.append(key, this.ToHeadCompanyData[key])
+      if (!this.ToHeadCompanyData.reportId) return this.$message.error('债事人信息不能为空')
+      const formData = new FormData()
+      for (const key in this.ToHeadCompanyData)
+      {
+        formData.append(key, this.ToHeadCompanyData[key])
+      }
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/busReportController/updateStatus',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         }
-        const { data: result } = await this.$http({
-            method: 'post',
-            url: '/api/api/busReportController/updateStatus',
-            data: formData,
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            }
-        })
-        this.$message.success('提交至总公司成功')
-        this.$router.push({path: '/MyDebt'})
+      })
+      this.$message.success('提交至总公司成功')
+      this.$router.push({ path: '/MyDebt' })
     }
   },
   created () {
     // 查询推荐人信息
     this.SearchRecommonder(),
-    this.InitEditData()
+      this.InitEditData()
     // this.SearchCounterpartList()
   }
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+
 .el-row {
   .el-col {
     display: flex;
@@ -3016,17 +3126,6 @@ input[type='file'] {
         width: 358px;
         height: 183px;
       }
-      button {
-        border: none;
-        background: #616789;
-        color: #fff;
-        font-size: px2rem(3.4);
-        width: px2rem(20);
-        height: px2rem(7);
-        border-radius: px2rem(1);
-        box-sizing: border-box;
-        padding: px2rem(1) px2rem(2);
-      }
       &-just {
         width: px2rem(20);
         height: px2rem(7);
@@ -3060,25 +3159,6 @@ input[type='file'] {
           width: px2rem(20);
           height: px2rem(14);
         }
-      }
-      &-form {
-        height: px2rem(7);
-        position: absolute;
-        left: 1095px;
-        opacity: 0;
-      }
-      button {
-        margin: 0 px2rem(2);
-        border: none;
-        background: #616789;
-        color: #fff;
-        font-size: px2rem(3.4);
-        width: px2rem(20);
-        height: px2rem(7);
-        border-radius: px2rem(1);
-        box-sizing: border-box;
-        margin: 0 px2rem(2);
-        padding: px2rem(1) px2rem(2);
       }
     }
     &-lawsuit {
