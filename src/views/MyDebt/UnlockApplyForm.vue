@@ -203,26 +203,31 @@
             </el-form>
           </el-collapse-item>
           <el-collapse-item title="债权处理方式" name="2">
-            <div class="unlock-apply-container-form-relative-3">
-              <div>
-                债权处理类型：
-                <el-select v-model="SubmitData.debtType" placeholder="请选择">
-                  <el-option label="一次性提取转让债权等额资产" value="1"></el-option>
-                  <el-option label="第三方商贸公司代理销售" value="2"></el-option>
-                  <el-option label="第三方电子商务公司线上代理销售" value="3"></el-option>
-                  <el-option label="其他" value="4"></el-option>
-                </el-select>
-              </div>
-              <div>
-                债权处理年限：
-                <el-select v-model="SubmitData.debtYaer" placeholder="请选择">
-                  <el-option label="一年" value="1"></el-option>
-                  <el-option label="二年" value="2"></el-option>
-                  <el-option label="三年" value="3"></el-option>
-                </el-select>
-              </div>
-              <div></div>
-            </div>
+            <el-form label-width="">
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">债权处理类型：</span>
+                        <el-form-item label="">
+                            <el-select v-model="SubmitData.debtType" placeholder="请选择">
+                                <el-option label="一次性提取转让债权等额资产" value="1"></el-option>
+                                <el-option label="第三方商贸公司代理销售" value="2"></el-option>
+                                <el-option label="第三方电子商务公司线上代理销售" value="3"></el-option>
+                                <el-option label="其他" value="4"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">债权处理年限：</span>
+                        <el-form-item label="">
+                            <el-select v-model="SubmitData.debtYaer" placeholder="请选择">
+                                <el-option label="一年" value="1"></el-option>
+                                <el-option label="二年" value="2"></el-option>
+                                <el-option label="三年" value="3"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+              </el-form>
           </el-collapse-item>
           <!-- 债事咨询服务协议 -->
           <el-collapse-item title="咨询服务协议" name="3">
@@ -403,62 +408,53 @@
                             <input type="file"
                             @change="UpdateVoucher"
                             ref="UpdateMaterialVoucher"
-                            class="add-report-container-update-imgs-form"
                             value="点击上传" />
-                            <button>点击上传</button>
+                            <button class='update-voucher-button'>点击上传</button>
                         </div>
                     </el-col>
                 </el-row>
             </el-form>
+            <div class="unlock-apply-container-form-determine3">
+              <button @click="SubmitMessage">确定</button>
+            </div>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
-          <el-collapse-item title="策划方案服务协义" name="4">
+          <el-collapse-item title="策划方案服务协议" name="4">
             <div class="unlock-apply-container-form-plan-agreement">
-              <div class="unlock-apply-container-form-plan-agreement-title">策划方案服务协义</div>
+              <div class="unlock-apply-container-form-plan-agreement-title">策划方案服务协议</div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-a">
                 <div>
-                  甲方(委托方)：
-                  <input
-                    type="text"
-                    placeholder="债权人"
-                    disabled
-                    :value="UnlockUserMsg.debtName"
-                  />
+                    <span>协议编号：</span>
+                    <input type="text" :disabled='true'>
                 </div>
                 <div>
-                  身份证号码统一社会信用代码：
-                  <input
-                    type="text"
-                    placeholder="债权人身份证号码"
-                    disabled
-                    :value="UnlockUserMsg.debtIdCardCode"
-                  />
+                  <span>甲方(委托方)：</span>
+                  <input type="text" placeholder="债权人" disabled />
                 </div>
                 <div>
-                  法定联系地址：
-                  <input
-                    type="text"
-                    placeholder="债权人报备时填的地址"
-                    disabled
-                    :value="UnlockUserMsg.debtAdd"
-                  />
+                  <span>身份证号码/统一社会信用代码：</span>
+                  <input type="text" placeholder="债权人身份证号码" disabled />
                 </div>
                 <div>
-                  联系电话：
-                  <input
-                    type="text"
-                    placeholder="债权人电话号码"
-                    disabled
-                    :value="UnlockUserMsg.debtPhone"
-                  />
+                  <span>通讯地址：</span>
+                  <input type="text" placeholder="债权人身份证地址" disabled />
+                </div>
+                <div>
+                  <span>联系人：</span>
+                  <input type="text" placeholder="债权人姓名" disabled />
+                </div>
+                <div>
+                  <span>联系电话：</span>
+                  <input type="text" placeholder="债权人电话号码" disabled />
                 </div>
               </div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-b">
                 乙方(受托方)：山东盛世天泽公关顾问有限公司
                 <br />统一社会信用代码：91371100MA3TA2E083
-                <br />联系地址：日照市经济开发区天津路99号五楼501室
-                <br />联系电话：15523336111
-                <br />
+                <br />联系地址：山东省日照市经济开发区贵阳路以东上海路以南（山东纳义斯汽车配件有限公司三楼302）
+                <br />联系人：蒋莎莉
+                <br />联系电话：023-60946399
+                <br />鉴于：
               </div>
               <div>甲方因无法解决自身债权债务,自愿委托乙方为其提供处理债权债务方案咨询服务,依据《中华人民共和国合同法》和国家有关法律、法规,甲乙双方经友好协商,签订本合同以共同遵守。</div>
               <div>
@@ -467,7 +463,7 @@
                 <br />1.3债权人:特指本协议中确定的具体债权债务关系中享有债权的一方
                 <br />1.4债务人:特指本协议中确定的具体债权债务关系中负有债务的一方。
                 <br />
-                <h3>第二条委托事项</h3>2.1甲方身份属于下列第1种情况
+                <h3>第二条委托事项</h3>2.1甲方身份属于下列第<input type="text"/>种情况
                 <br />(1)债权人,无法收回本协议确定的债权
                 <br />(2)债务人,无法清偿自身所欠债务
                 <br />2.2甲方因无法解决自身债权债务,在完全知晓和认可乙方处理债权债务咨询方式的情况下,委托乙方提供处理债权债务的咨询意见并支付策划方案服务费。为保障甲方策划方案服务费款的安全,乙方愿意就甲方策划方案服务费款项提供等额担保供甲方选择,甲方选择如下第
@@ -633,7 +629,7 @@
               </div>
             </div>
             <div class="unlock-apply-container-form-determine3">
-              <button @click="SubmitMessage" :disabled="!IsSendPhoneCheckMsg">确定</button>
+              <button @click="SubmitPlanMessage" :disabled="!IsSendPhoneCheckMsg">确定</button>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -759,7 +755,9 @@ export default {
         // 本次策划方案服务费
         thisPlanMoney: '',
         // 1.易购卡2.否
-        debtApply: ''
+        debtApply: '',
+        // 附件上传
+        uploadAnnex: []
       },
       // 民事调解书数据源
       MediaSrc: [],
@@ -773,7 +771,9 @@ export default {
         tel: '',
         checkNo: ''
       },
-      IsSendPhoneCheckMsg: false
+      IsSendPhoneCheckMsg: false,
+      // 是否提交了解债信息
+      HasSubmitDebtMsg: false
     }
   },
   methods: {
@@ -884,9 +884,8 @@ export default {
       }).then(StageUpdateResult => {
         if (StageUpdateResult.data.resultCode !== '200')
           return this.$message.error(StageUpdateResult.data.resultMessage)
-        this.$message.success('进入债权处理阶段')
+        this.$message.success('进入债权处理阶段,请填写策划方案协议')
       })
-      this.$message.error(result.resultMessage)
     },
     CloseRelativeList() {
       // 退回主页
@@ -1013,7 +1012,9 @@ export default {
       // 存储发送成功的电话号码
       this.SendPhoneAndChekno.tel = tel
       this.IsSendPhoneCheckMsg = true
-    }
+    },
+    // 提交策划方案服务协议
+    SubmitPlanMessage () {}
   },
   created() {
     this.SearchConciliation()
@@ -1047,12 +1048,30 @@ export default {
   }
 }
 .update-img-list {
-    width: 500px;
-    height: 100px;
+    width: 800px;
+    height: 80px;
     border: 1px solid #E8EAEC;
     margin-left: 20px;
+    img {
+        float: left;
+        height: 75px;
+        width: 100px;
+    }
+    margin-right: 10px;
 }
-
+.update-img-button {
+    position: relative;
+    width: 90px;
+    height: 28px;
+    input[type=file] {
+        width: 90px;
+        height: 28px;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+    }
+}
 
 .unlock-apply {
   display: flex;
@@ -1099,7 +1118,7 @@ export default {
         border-radius: px2rem(1);
         height: px2rem(6);
         padding-left: px2rem(2);
-        margin: px2rem(2);
+        margin: px2rem(1);
       }
       &-new {
         width: 100%;
@@ -1215,98 +1234,6 @@ export default {
       }
       h3 {
         margin: px2rem(2) 0;
-      }
-      &-debtor-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(50);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(60);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(58);
-          }
-        }
-      }
-      &-debtor-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
-      }
-      &-relative-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(50);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(60);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(58);
-          }
-        }
-      }
-      &-relative-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
-      }
-      &-relative-3 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1),
-        :nth-child(2) {
-          .el-select {
-            width: px2rem(71);
-          }
-        }
-        :nth-child(3) {
-          .el-select {
-            width: px2rem(49);
-            margin: 0 px2rem(2);
-          }
-        }
       }
       &-new-guarantor {
         button {
@@ -1493,224 +1420,6 @@ export default {
         }
       }
       // form2 债事咨询服务协议
-      &-serve-agreement-debtor-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(64);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(44);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(67.5);
-          }
-        }
-      }
-      &-serve-agreement-debtor-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
-      }
-      &-serve-agreement-relative-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(64);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(44);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(67.5);
-          }
-        }
-      }
-      &-serve-agreement-relative-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
-      }
-      &-serve-agreement-commitment-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(67.5);
-          }
-        }
-        :nth-child(2) {
-          box-sizing: border-box;
-          padding-right: px2rem(3.5);
-          font-size: px2rem(3);
-          height: px2rem(8);
-          line-height: px2rem(8);
-          input {
-            width: px2rem(44);
-          }
-        }
-        :nth-child(3) {
-          .el-select {
-            width: px2rem(58.5);
-          }
-        }
-      }
-      &-serve-agreement-commitment-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(67.5);
-          }
-        }
-        :nth-child(2) {
-          box-sizing: border-box;
-          padding-right: px2rem(3.5);
-          font-size: px2rem(3);
-          height: px2rem(8);
-          line-height: px2rem(8);
-          input {
-            width: px2rem(44);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(67.5);
-          }
-        }
-      }
-      &-serve-agreement-commitment-3 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(42);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(42);
-          }
-        }
-      }
-      &-serve-agreement-service-charge-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(60.3);
-          }
-        }
-        :nth-child(2),
-        :nth-child(3) {
-          input {
-            width: px2rem(45.7);
-          }
-        }
-      }
-      &-serve-agreement-service-charge-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(54.5);
-          }
-        }
-        :nth-child(2),
-        :nth-child(3) {
-          input {
-            width: px2rem(58.5);
-          }
-        }
-      }
-      &-serve-agreement-mailing-address-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(60.5);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(58.5);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(55.5);
-          }
-        }
-      }
-      &-serve-agreement-mailing-address-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(60.5);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(58.5);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(55.5);
-          }
-        }
-      }
       &-updata {
         button {
           width: px2rem(18);
@@ -1811,49 +1520,24 @@ export default {
           width: px2rem(20) !important;
         }
         &-title {
-          border-top: 1px solid #f2f2f2;
-          text-align: center;
-          font-size: px2rem(4);
-          height: px2rem(20);
-          line-height: px2rem(20);
-          font-weight: 600;
+            border-top: 1px solid #f2f2f2;
+            text-align: center;
+            font-size: px2rem(4);
+            height: px2rem(20);
+            line-height: px2rem(20);
+            font-weight: 600;
         }
-        &-introduce-part-a {
-          input::-ms-input-placeholder {
-            text-align: left !important;
-          }
-          input::-webkit-input-placeholder {
-            text-align: left !important;
-          }
-          height: px2rem(42);
-          line-height: px2rem(10);
-          margin-bottom: px2rem(4);
-          input {
-            margin: px2rem(1);
-          }
-          div:nth-child(1) {
+        &-introduce-part-a>div {
+            display: flex;
+            width: 500px;
             input {
-              width: px2rem(80);
+                width: 100%;
             }
-          }
-          div:nth-child(2) {
-            input {
-              width: px2rem(56.5);
+            span {
+                flex-shrink: 0;
             }
-          }
-          div:nth-child(3) {
-            input {
-              width: px2rem(78.8);
-            }
-          }
-          div:nth-child(4) {
-            input {
-              width: px2rem(85.2);
-            }
-          }
         }
         &-introduce-part-b {
-          height: px2rem(22);
           line-height: px2rem(5);
         }
         &-address {
