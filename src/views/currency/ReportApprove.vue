@@ -77,8 +77,8 @@
                             </div>
                             <h3>身份证信息</h3>
                             <div class='report-approve-container-form-person-upload-idcard'>
-                                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust : IDCardDefaultSrc.JustSrc" alt="">
-                                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack : IDCardDefaultSrc.JustSrc" alt="">
+                                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust : IDCardDefaultSrc.JustSrc" alt="" @click="openImgToLink(ReportMsg.cardJust)">
+                                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack : IDCardDefaultSrc.JustSrc" alt="" @click="openImgToLink(ReportMsg.cardBack)">
                             </div>
                             <div class='report-approve-container-form-person-item-5'>
                                 <div>
@@ -129,7 +129,7 @@
                             <div class='report-approve-container-form-person-update-imgs'>
                                 <span>债事凭证信息：</span>
                                 <div class='report-approve-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                 </div>
                             </div>
                             <div class='report-approve-container-form-person-lawsuit'>
@@ -193,8 +193,8 @@
                             </div>
                             <h3>身份证信息</h3>
                             <div class='report-approve-container-form-business-upload-idcard'>
-                                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust:IDCardDefaultSrc.JustSrc" alt="">
-                                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack:IDCardDefaultSrc.BackSrc" alt="">
+                                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust:IDCardDefaultSrc.JustSrc" alt=""  @click="openImgToLink(ReportMsg.cardJust)">
+                                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack:IDCardDefaultSrc.BackSrc" alt=""  @click="openImgToLink(ReportMsg.cardBack)">
                             </div>
                             <div class='report-approve-container-form-business-item-5'>
                                 <div>
@@ -245,7 +245,7 @@
                             <div class='report-approve-container-form-business-update-imgs'>
                                 <span>债事凭证信息：</span>
                                 <div class='report-approve-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                 </div>
                             </div>
                             <div class='report-approve-container-form-business-lawsuit'>
@@ -352,7 +352,7 @@
                             <div class='report-approve-container-form-bank-update-imgs'>
                                 <span>债事凭证信息：</span>
                                 <div class='report-approve-container-form-person-update-imgs-list'>
-                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                    <img v-for='(item,index) in ReportMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                 </div>
                             </div>
                             <div class='report-approve-container-form-bank-lawsuit'>
@@ -456,8 +456,8 @@
                                 </div>
                                 <h3>上传身份证</h3>
                                 <div class='report-approve-container-relative-form-person-upload-idcard'>
-                                    <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"  alt="">
-                                    <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc" alt="">
+                                    <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"  alt=""  @click="openImgToLink(RelativeMsg.cardJust)">
+                                    <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc" alt=""  @click="openImgToLink(RelativeMsg.cardBack)">
                                 </div>
                                 <div class='report-approve-container-relative-form-person-item-5'>
                                     <div>
@@ -508,7 +508,7 @@
                                 <div class='report-approve-container-relative-form-person-update-imgs'>
                                     <span>债事凭证信息：</span>
                                     <div class='report-approve-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-person-lawsuit'>
@@ -572,8 +572,8 @@
                                 </div>
                                 <h3>上传身份证</h3>
                                 <div class='report-approve-container-relative-form-business-upload-idcard'>
-                                    <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"  alt="">
-                                    <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc" alt="">
+                                    <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"  alt="" @click="openImgToLink(RelativeMsg.cardJust)">
+                                    <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc" alt="" @click="openImgToLink(RelativeMsg.cardBack)">
                                 </div>
                                 <div class='report-approve-container-relative-form-business-item-5'>
                                     <div>
@@ -624,7 +624,7 @@
                                 <div class='report-approve-container-relative-form-business-update-imgs'>
                                     <span>债事凭证信息：</span>
                                     <div class='report-approve-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                     </div>
 
                                 </div>
@@ -732,7 +732,7 @@
                                 <div class='report-approve-container-relative-form-bank-update-imgs'>
                                     <span>债事凭证信息：</span>
                                     <div class='report-approve-container-form-person-update-imgs-list'>
-                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="">
+                                        <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-bank-lawsuit'>

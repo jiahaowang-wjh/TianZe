@@ -184,7 +184,9 @@
                                 <span>债事人自愿放弃的内容：<input type="text" v-model='SubmitData.abandonContent'></span>
                                 <span>债务处理方式：
                                     <el-select v-model="DebtTreatment" placeholder="请选择">
-                                        <el-option label="共同委托第三方处理" value="third-party"></el-option>
+                                        <el-option label="（1）自行约定还款金额、还款时间、还款方式" value="1"></el-option>
+                                        <el-option label="（2）共同委托第三方帮助处理" value="2"></el-option>
+                                        <el-option label="（3）债权转让第三人" value="3"></el-option>
                                     </el-select>
                                 </span>
                                 <span></span>
@@ -241,7 +243,7 @@
                         <div class='civil-media-container-form-update-imgs'>
                             <span>上传凭证：</span>
                             <div class='civil-media-container-form-update-imgs-list'>
-                                <img v-for='(item,index) in VoucherList' :key='index' :src="item" alt="">
+                                <img v-for='(item,index) in VoucherList' :key='index' :src="item" alt="" @click="openImgToLink(item)">
                             </div>
                             <input type="file" @change="UpdateVoucher" ref="Voucher" class='civil-media-container-form-update-imgs-form' value='点击上传'>
                             <button>点击上传</button>
@@ -671,6 +673,9 @@ export default {
                 if (StatusUpdateResult.resultCode === '200') {
                     this.GetMediaHistory()
                     return this.$message.success('新增调解信息成功')
+                    this.$router.push({
+                        path: '/MyDebt',
+                    })
                 } else {
                     return this.$message.error('新增调解信息状态失败')
                 }

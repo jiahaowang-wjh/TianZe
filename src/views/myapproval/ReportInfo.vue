@@ -31,6 +31,7 @@
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
               <el-select v-model="SearchForm.status">
+                <el-option label="全部" value=""></el-option>
                 <el-option label="审核通过" value="2"></el-option>
                 <el-option label="审核驳回" value="1"></el-option>
                 <el-option label="审核已提交" value="0"></el-option>
@@ -81,7 +82,7 @@
             <span>{{index+1}}</span>
             <div>
               <ul>
-                <li>录入编号: {{item.reportNo ? item.reportId : '/'}}</li>
+                <li>录入编号: {{item.reportNo ? item.reportNo : '/'}}</li>
                 <li>债事人: {{item.debtName ? item.debtName : '/'}}</li>
                 <li>相对人: {{item.busRelativeCount ? item.busRelativeCount : '/'}}</li>
                 <li>录入人: {{item.inputName ? item.inputName : '/'}}</li>
@@ -259,11 +260,28 @@ export default {
     },
     Search() {
       this.InitData()
-    },
+    },addDate() {
+      let nowDate = new Date();
+      let date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.SearchForm.endDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      let nowDateTime = nowDate - 3600*1000*24*7
+      nowDate.setTime(nowDateTime)
+      date = {
+          year: nowDate.getFullYear(),
+          month: nowDate.getMonth() + 1,
+          date: nowDate.getDate(),
+      }
+      this.SearchForm.beginDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+  }
   },
   created() {
     this.InitData()
-  },
+    this.addDate()
+  }
 }
 </script>
 <style lang='scss' scoped>

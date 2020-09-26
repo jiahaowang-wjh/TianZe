@@ -22,11 +22,11 @@
           <el-form ref="form">
             <el-form-item>
               <span>录入编号：</span>
-              <el-input></el-input>
+              <el-input v-model="VoucherSearchSrc.debtNo"></el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="report-info-list-search-button">搜索</div>
+        <div class="report-info-list-search-button" @click="IniVoucherApply">搜索</div>
       </div>
       <div class="report-info-list-content">
         <div class="report-info-list-content-title">

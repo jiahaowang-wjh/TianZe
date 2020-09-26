@@ -8,6 +8,7 @@
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
+            :id="item.id"
             v-for="(item) in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
@@ -146,18 +147,22 @@ export default {
       SelectOption: [
         {
           SelectName: '全部',
+          id:'',
           isSelect: true
         },
         {
           SelectName: '待审核',
+          id:'1',
           isSelect: false
         },
         {
           SelectName: '审核通过',
+          id:'2',
           isSelect: false
         },
         {
           SelectName: '审核驳回',
+          id:'3',
           isSelect: false
         }
       ],
