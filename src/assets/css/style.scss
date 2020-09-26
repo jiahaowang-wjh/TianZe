@@ -125,3 +125,32 @@ input[type='checkbox']:after {
   width: 100px;
   height: 40px;
 }
+
+// 全局得上传按钮布局
+.pub-upload-box {
+  width: px2rem(20);
+  height: px2rem(6);
+  position: relative; 
+  input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+
+  }
+
+  button { 
+    width: 100%;
+    height: 100%;
+    line-height: px2rem(3);
+    border: none;
+    background: #616789;
+    color: #fff;
+    font-size: px2rem(3.4);
+    border-radius: px2rem(1);
+    box-sizing: border-box;
+    padding: px2rem(2) px2rem(2);
+  }
+}
