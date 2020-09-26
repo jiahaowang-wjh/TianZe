@@ -512,8 +512,8 @@
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-person-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债经济使用用途：</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <div class='report-approve-container-relative-form-person-economic'>
                                     <span>目前经济情况：</span>
@@ -629,8 +629,8 @@
 
                                 </div>
                                 <div class='report-approve-container-relative-form-business-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债经济使用用途：</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                                 <div class='report-approve-container-relative-form-business-item-9'>
@@ -736,8 +736,8 @@
                                     </div>
                                 </div>
                                 <div class='report-approve-container-relative-form-bank-lawsuit'>
-                                    <span>是否诉讼及结果：</span>
-                                    <textarea disabled='true' :value='RelativeMsg.isResult'></textarea>
+                                    <span>是负债经济使用用途</span>
+                                    <textarea disabled='true' :value='RelativeMsg.usage'></textarea>
                                 </div>
                                 <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
                                 <div class='report-approve-container-relative-form-bank-item-9'>
@@ -807,6 +807,7 @@ export default {
                 }
             })
             this.ReportMsg = result.data
+            console.log(this.ReportMsg)
             // 处理债事凭证信息
             this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(',')
             if (this.ReportMsg.reportPropert === '1') {
@@ -828,9 +829,11 @@ export default {
             this.RelativeList = RelativeListresult.data
         },
         async GetDetailMsg (index) {
-            console.log(index)
             this.RelativeMsg = this.RelativeList[index]
-            this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(',')
+            // 首次点击为','分隔的字符串 因此需要用split分割, 再次点击时此时已为数组, 因此不需要处理
+            if (this.RelativeMsg.uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeMsg.uploadDebtCertificate instanceof Array))) {
+                this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(',')
+            }
             if (this.RelativeMsg.reportPropert === '1') {
                 this.RelativeProperties = 'person'
             } else if (this.RelativeMsg.reportPropert === '2') {
@@ -843,12 +846,12 @@ export default {
             if (!this.CommitApproveData.checkReason) return this.$message.error('请先填写审核原因')
             this.CommitApproveData.status = '1'
             this.UpdateCheckStatus()
-            this.$emit('onChangeFragment', 'ReportInfo')
+            this.$router.push({path: 'ReportInfo'})
         },
         PassCheck () {
             this.CommitApproveData.status = '2'
             this.UpdateCheckStatus()
-            this.$emit('onChangeFragment', 'ReportInfo')
+            this.$router.push({path: 'ReportInfo'})
         },
         // 调用报备状态更改接口
         async UpdateCheckStatus () {

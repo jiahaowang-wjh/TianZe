@@ -285,7 +285,7 @@ export default {
       }
       // 登录按钮
       &-button {
-        margin-top: px2rem(10);
+        margin-top: 30PX;
         background-color: #fc7f89;
         border: none;
         color: #ffffff;

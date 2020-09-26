@@ -52,74 +52,78 @@
                 ></el-option>
               </el-select>
             </div>
-            <h3>债事人信息</h3>
-            <div class="unlock-apply-container-form-debtor-1">
-              <div>
-                甲方（债事人名称/姓名）：
-                <input type="text" :value="UnlockUserMsg.debtName" :disabled="true" />
-              </div>
-              <div>
-                法定代表人/负责人：
-                <input type="text" :value="UnlockUserMsg.debtLegalName" :disabled="true" />
-              </div>
-              <div>
-                身份证号码/信用代码：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.debtIdCardCode"
-                  :disabled="true"
-                />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-debtor-2">
-              <div>
-                所住地：：
-                <input type="text" :value="UnlockUserMsg.debtAdd" :disabled="true" />
-              </div>
-              <div>
-                联系电话：
-                <input type="text" :value="UnlockUserMsg.debtPhone" :disabled="true" />
-              </div>
-              <div></div>
-            </div>
-            <h3>相对人信息</h3>
-            <div class="unlock-apply-container-form-relative-1">
-              <div>
-                乙方（相对人名称/姓名）：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.personalName"
-                  :disabled="true"
-                />
-              </div>
-              <div>
-                法定代表人/负责人：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.personalLegalName"
-                  :disabled="true"
-                />
-              </div>
-              <div>
-                身份证号码/信用代码：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.personalIdCardCode"
-                  :disabled="true"
-                />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-relative-2">
-              <div>
-                所住地：：
-                <input type="text" :value="UnlockUserMsg.personalAdd" :disabled="true" />
-              </div>
-              <div>
-                联系电话：
-                <input type="text" :value="UnlockUserMsg.personalPhone" :disabled="true" />
-              </div>
-              <div></div>
-            </div>
+            <el-form label-width="">
+                <h3>债事人信息</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">甲方（债事人名称/姓名）：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtName" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">法定代表人/负责人：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtLegalName" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">身份证号码/信用代码：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtIdCardCode" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">所住地：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtAdd" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">联系电话：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtPhone" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>相对人信息</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">乙方（相对人名称/姓名）：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalName" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">法定代表人/负责人：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalLegalName" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">身份证号码/信用代码：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalIdCardCode" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">所住地：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalAdd" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">联系电话：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalPhone" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
             <h3>担保人信息</h3>
             <!-- 表单2 担保人表单 -->
             <div class="unlock-apply-container-form-table-2-title">
@@ -147,7 +151,6 @@
             <!-- 手机号码验证 -->
             <!-- 本次债权处理信息 -->
             <h3>本次债权处理信息</h3>
-
             <el-form label-width="0" class="pub-row-box page-row-box1"  :model="SubmitData"   >
               <el-row>
                 <el-col :span="8">
@@ -163,7 +166,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">本次申请转让债权金额（小写）：</span>
@@ -174,7 +176,7 @@
                 <el-col :span="8">
                   <span class="col-label">本次申请转让债权金额（大写）：</span>
                   <el-form-item>
-                    <el-input type="text" :disabled="true" v-model="Uppercase" />
+                    <el-input type="text" :disabled="true" v-model="SubmitData.amountThis | Uppercase" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -190,11 +192,11 @@
                     <el-input type="text" v-input-num maxlength="11" v-model="PhoneNumber" />
                   </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="8">
                   <span class="col-label">手机验证码：</span>
                   <el-form-item>
                     <el-input maxlength="4" v-model="SendPhoneAndChekno.checkNo"></el-input>
-                    <el-button @click="SendPhoneCheck" class="getVcode" style size="medium" type="primary">点击获取</el-button>
+                    <el-button @click="SendPhoneCheck" class="getVcode" style size="mini" type="primary">点击获取</el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -224,171 +226,190 @@
           </el-collapse-item>
           <!-- 债事咨询服务协议 -->
           <el-collapse-item title="咨询服务协议" name="3">
-            <h3>甲方信息</h3>
-            <div class="unlock-apply-container-form-serve-agreement-debtor-1">
-              <div>
-                甲方（债权人）：
-                <input type="text" :value="UnlockUserMsg.debtName" :disabled="true" />
-              </div>
-              <div>
-                身份证号码/统一社会信用代码：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.debtIdCardCode"
-                  :disabled="true"
-                />
-              </div>
-              <div>
-                法定/联系地址：
-                <input type="text" :value="UnlockUserMsg.debtAdd" :disabled="true" />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-serve-agreement-debtor-2">
-              <div>
-                联系电话：
-                <input type="text" :value="UnlockUserMsg.debtPhone" :disabled="true" />
-              </div>
-              <div></div>
-              <div></div>
-            </div>
-            <h3>乙方信息</h3>
-            <div class="unlock-apply-container-form-serve-agreement-relative-1">
-              <div>
-                乙方（债务人）：
-                <input type="text" :value="UnlockUserMsg.personalName" :disabled="true" />
-              </div>
-              <div>
-                身份证号码/统一社会信用代码：
-                <input
-                  type="text"
-                  :value="UnlockUserMsg.personalIdCardCode"
-                  :disabled="true"
-                />
-              </div>
-              <div>
-                法定/联系地址：
-                <input type="text" :value="UnlockUserMsg.personalAdd" :disabled="true" />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-serve-agreement-relative-2">
-              <div>
-                联系电话：
-                <input type="text" :value="UnlockUserMsg.personalPhone" :disabled="true" />
-              </div>
-              <div></div>
-              <div></div>
-            </div>
-            <h3>委托事项</h3>
-            <div class="unlock-apply-container-form-serve-agreement-commitment-1">
-              <div>
-                甲方身份情况：
-                <input type="text" v-model="SubmitData.partyaIdentity" placeholder="债权人" />
-              </div>
-              <div>(1)债权人，无法收回确定的债权; (2)债务人，无法清偿自身所欠债务</div>
-              <div>
-                债权处理申请：
-                <el-select v-model="SubmitData.servicePlan" placeholder="请选择">
-                  <el-option label="易物卡" :value="1"></el-option>
-                  <el-option label="否" :value="2"></el-option>
-                </el-select>
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-serve-agreement-commitment-2">
-              <div>
-                乙方身份情况：
-                <input type="text" v-model="SubmitData.partybIdentity" placeholder="债务人" />
-              </div>
-              <div>(1)债权人，无法收回确定的债权; (2)债务人，无法清偿自身所欠债务</div>
-              <div></div>
-            </div>
-            <div class="unlock-apply-container-form-serve-agreement-commitment-3">
-              <div>
-                本次债权处理申请金额（小写）：
-                <input type="text" v-model="SubmitData.amountThis" />
-              </div>
-              <div>
-                本次债权处理申请金额（大写）：
-                <input
-                  type="text"
-                  :value="SubmitData.amountThis | Uppercase"
-                  :disabled="true"
-                />
-              </div>
-              <div></div>
-            </div>
-            <h3>三方约定策划方案服务费</h3>
-            <div class="unlock-apply-container-form-serve-agreement-service-charge-1">
-              <div>
-                策划方案服务费率：
-                <input type="text" v-model="SubmitData.serviceInterest" />
-              </div>
-              <div>
-                本次策划方案服务费（小写）：
-                <input type="text" v-model="SubmitData.servicePrincipal" />
-              </div>
-              <div>
-                本次策划方案服务费（大写）：
-                <input
-                  type="text"
-                  :value="SubmitData.servicePrincipal | Uppercase"
-                  :disabled="true"
-                />
-              </div>
-            </div>
-            <h3>其他约定事项</h3>
-            <div class="unlock-apply-container-form-serve-agreement-mailing-address-1">
-              <div>
-                甲方确认送达地址：
-                <input type="text" v-model="SubmitData.partyaAddr" />
-              </div>
-              <div>
-                甲方确认送达联系人：
-                <input type="text" v-model="SubmitData.partyaPerson" />
-              </div>
-              <div>
-                甲方确认送达联系电话：
-                <input type="text" v-model="SubmitData.partyaTel" />
-              </div>
-            </div>
-            <div class="unlock-apply-container-form-serve-agreement-mailing-address-2">
-              <div>
-                乙方确认送达地址：
-                <input type="text" v-model="SubmitData.partybAddr" />
-              </div>
-              <div>
-                乙方确认送达联系人：
-                <input type="text" v-model="SubmitData.partybPerson" />
-              </div>
-              <div>
-                乙方确认送达联系电话：
-                <input type="text" v-model="SubmitData.partybTel" />
-              </div>
-            </div>
-            <h3>附件信息</h3>
-            <div class="unlock-apply-container-form-updata">
-              <button>点击上传</button>
-            </div>
-            <!-- 上传信息 -->
-            <div class="unlock-apply-container-form-table-3-title">
-              <span>序号</span>
-              <span>文件名称</span>
-              <span>文件地址</span>
-              <span>操作</span>
-            </div>
-            <div class="unlock-apply-container-form-table-3">
-              <div
-                class="unlock-apply-container-form-table-3-item"
-                v-for="(item,index) in UpdataMsg"
-                :key="index"
-              >
-                <span>{{index+1}}</span>
-                <span>{{item.FileName}}</span>
-                <span>{{item.FileAddress}}</span>
-                <span>
-                  <button>删除</button>
-                </span>
-              </div>
-            </div>
+            <el-form label-width="">
+                <h3>甲方信息</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">甲方（债权人）：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtName" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">身份证号码/统一社会信用代码：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtIdCardCode" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                    <span class="col-label">法定/联系地址：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtAdd" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">联系电话：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.debtPhone" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>乙方信息</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">乙方（债务人）：</span>
+                        <el-form-item label="">
+                            <el-input v-model="UnlockUserMsg.personalName" :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">身份证号码/统一社会信用代码：</span>
+                        <el-form-item label="">
+                            <el-input v-model="UnlockUserMsg.personalIdCardCode" :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">法定/联系地址：</span>
+                        <el-form-item label="">
+                            <el-input v-model="UnlockUserMsg.personalAdd" :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                    <span class="col-label">联系电话：</span>
+                    <el-form-item label="">
+                        <el-input v-model="UnlockUserMsg.personalPhone" :disabled="true"></el-input>
+                    </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>委托事项</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">甲方身份情况：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partyaIdentity" placeholder="债权人"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        (1)债权人，无法收回确定的债权; (2)债务人，无法清偿自身所欠债务
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">债权处理申请：</span>
+                        <el-form-item label="">
+                            <el-select v-model="SubmitData.servicePlan" placeholder="请选择">
+                                <el-option label="易物卡" :value="1"></el-option>
+                                <el-option label="否" :value="2"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">乙方身份情况：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partybIdentity" placeholder="债权人"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        (1)债权人，无法收回确定的债权; (2)债务人，无法清偿自身所欠债务
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">本次债权处理申请金额（小写）：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.amountThis"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">本次债权处理申请金额（大写）：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.amountThis | Uppercase" :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>三方约定策划方案服务费</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">策划方案服务费率：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partyaIdentity"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">本次策划方案服务费（小写）：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.serviceInterest"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">本次策划方案服务费（大写）：</span>
+                        <el-form-item label="">
+                            <el-input v-model='SubmitData.servicePrincipal | Uppercase'></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>其他约定事项</h3>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">甲方确认送达地址：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partyaAddr"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">甲方确认送达联系人：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partyaPerson"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">甲方确认送达联系电话：</span>
+                        <el-form-item label="">
+                            <el-input v-model='SubmitData.partyaTel'></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="24">
+                    <el-col :span="8">
+                        <span class="col-label">乙方确认送达地址：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partybAddr"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">乙方确认送达联系人：</span>
+                        <el-form-item label="">
+                            <el-input v-model="SubmitData.partybPerson"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">乙方确认送达联系电话：</span>
+                        <el-form-item label="">
+                            <el-input v-model='SubmitData.partybTel'></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <h3>上传资料：</h3>
+                <el-row :gutter="24">
+                    <el-col :span="16">
+                        <div class='update-img-list'>
+                            <img src="" alt="">
+                        </div>
+                        <div class='update-img-button'>
+                            <input type="file"
+                            @change="UpdateVoucher"
+                            ref="UpdateMaterialVoucher"
+                            class="add-report-container-update-imgs-form"
+                            value="点击上传" />
+                            <button>点击上传</button>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-form>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
           <el-collapse-item title="策划方案服务协义" name="4">
@@ -648,27 +669,6 @@ export default {
       GuarantorMsg: [],
       // 相对人数据源
       RelativeList: [
-        {
-          Id: '1',
-          Name: '姓名1',
-          DebtType: '相对人',
-          DebtNature: '个人',
-          Phone: '15121221443'
-        },
-        {
-          Id: '2',
-          Name: '姓名2',
-          DebtType: '相对人',
-          DebtNature: '个人',
-          Phone: '15121221443'
-        },
-        {
-          Id: '3',
-          Name: '姓名3',
-          DebtType: '相对人',
-          DebtNature: '个人',
-          Phone: '15121221443'
-        }
       ],
       // 确定选用正常模板还是多选模板
       isNormal: false,
@@ -714,21 +714,6 @@ export default {
       // 债事化解咨询服务方案：
       ServicePlan: '',
       UpdataMsg: [
-        {
-          Id: '1',
-          FileName: '文件名1',
-          FileAddress: '地址1'
-        },
-        {
-          Id: '2',
-          FileName: '文件名2',
-          FileAddress: '地址2'
-        },
-        {
-          Id: '3',
-          FileName: '文件名3',
-          FileAddress: '地址3'
-        }
       ],
       Uppercase:'',
       IsPopSelectiveList: true,
@@ -751,10 +736,6 @@ export default {
         debtType: '',
         // 解债年份
         debtYaer: '',
-        // 是否黄金做质押
-        isPledge: '1',
-        // 债事化解咨询服务方案
-        servicePlan: '',
         // 甲方确认送达地址
         partyaAddr: '',
         // 甲方确认送达联系人
@@ -767,40 +748,18 @@ export default {
         partybPerson: '',
         // 乙方确认送达联系电话
         partybTel: '',
-        // 策划方案服务本金
-        servicePrincipal: '',
-        // 策划方案服务利息
-        serviceInterest: '',
-        // 甲方受权代表人
-        partyaDeputy: '',
-        // 甲方印章
-        partyaSeal: '',
-        // 甲方签约日期
-        partyaDate: '',
-        // 乙方受权代表人
-        partybDeputy: '',
-        // 乙方印章
-        partybSeal: '',
-        // 乙方签约日期
-        partybDate: '',
-        // 合同签约地点
-        contractPlace: '',
         // 状态
         status: '0',
-        // 审核原因
-        checkReason: '无',
-        // 审核时间
-        checkDate: '2020-03-04',
         // 甲方身份
         partyaIdentity: '',
         // 乙方身份
         partybIdentity: '',
-        // 甲方地址
-        partyaAddrInfo: '',
-        // 甲方联系人
-        partyaPersonInfo: '',
-        // 甲方电话
-        partyaTelInfo: ''
+        // 公司ID
+        comId: '',
+        // 本次策划方案服务费
+        thisPlanMoney: '',
+        // 1.易购卡2.否
+        debtApply: ''
       },
       // 民事调解书数据源
       MediaSrc: [],
@@ -821,29 +780,20 @@ export default {
     SelectMore() {
       this.isNormal = !this.isNormal
     },
-    async UpdateFile(file) {
-      const formData = new FormData()
-      formData.append('file', file)
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/fileUploading/uploading',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      return 'http://113.204.236.218:8989/' + result.data.split('\\')[3]
-    },
     UpdatePartASeal() {
-      this.UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
-        this.SubmitData.partyaSeal = result
-      })
+    //   this.$UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
+    //     this.SubmitData.partyaSeal = result
+    //   })
     },
     UpdatePartBSeal() {
-      this.UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
-        console.log(result)
-        this.SubmitData.partybSeal = result
-      })
+    //   this.$UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
+    //     this.SubmitData.partybSeal = result
+    //   })
+    },
+    UpdateVoucher () {
+        this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(result => {
+            this.SubmitData.partybSeal = result
+        })
     },
     ViewContract() {
       this.$router.push({ name: 'PledgedContract' })
@@ -1035,6 +985,7 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
+      console.log(this.UnlockApplyMsg)
       this.UnlockApplyMsg = result.data
     },
     async SendPhoneCheck() {
@@ -1072,19 +1023,35 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
-
-.page-row-box1 {
+.el-row {
   .el-col {
-    padding-right: px2rem(12);
-  }
-  .getVcode {
-    position: absolute;
-    top: 0;
-    right: 0;
+    display: flex;
+    padding: 0 20px;
+    .col-label {
+      flex-shrink: 0;
+      line-height: 30px;
+      height: 30px;
+    }
+    /deep/.el-form-item {
+      width: 100%;
+      .el-select {
+        width: 100%;
+      }
+      .el-input {
+        width: 100%;
+      }
+      .el-date-editor {
+        width: 100%;
+      }
+    }
   }
 }
-
-
+.update-img-list {
+    width: 500px;
+    height: 100px;
+    border: 1px solid #E8EAEC;
+    margin-left: 20px;
+}
 
 
 .unlock-apply {

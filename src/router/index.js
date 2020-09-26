@@ -119,13 +119,12 @@ const routes = [{
                     leftMenu: '/Password',
                 }
             },
-
             { //调查报告
                 path: '/ExamineReportForm',
                 name: 'ExamineReportForm',
                 component: () => import('@/views/MyDebt/ExamineReportForm'),
                 meta: {
-                    leftMenu: '/ExamineReportForm',
+                    leftMenu: '/MyDebt',
                 }
             },
             { //信息分析暨尽调协议
@@ -133,7 +132,7 @@ const routes = [{
                 name: 'Investigation',
                 component: () => import('@/views/MyDebt/Investigation'),
                 meta: {
-                    leftMenu: '/Investigation',
+                    leftMenu: '/MyDebt',
                 }
             },
             { //债权处理
@@ -188,7 +187,7 @@ const routes = [{
                         name: 'AddReportForm',
                         component: () => import('@/views/MyDebt/AddReportForm'),
                         meta: {
-                            leftMenu: '/ReportInfo',
+                            leftMenu: '/MyDebt',
                         }
                     },
                     { //调解信息
@@ -220,7 +219,7 @@ const routes = [{
                         name: 'ReportVoucherApprove',
                         component: () => import('@/views/currency/ReportVoucherApprove'),
                         meta: {
-                            leftMenu: '/myapproval',
+                            leftMenu: '/PaymentVoucher',
                         }
                     },
                     { // 调解审批
@@ -250,20 +249,27 @@ const routes = [{
                         name: 'UnlockPaymentApprove',
                         component: () => import('@/views/currency/UnlockPaymentApprove'),
                         meta: {
-                            leftMenu: '/myapproval',
+                            leftMenu: '/PaymentVoucher',
                         }
                     },
                     { // 重新编辑报备页面
                         path: '/EditReport',
                         name: 'EditReport',
-                        component: () => import('@/views/currency/EditReport'),
+                        component: () => import('@/views/MyDebt/AddReportForm'),
                         meta: {
-                            leftMenu: '/ReportInfo',
+                            leftMenu: '/MyDebt',
                         }
                     },
+                    { // 重新编辑报备缴费页面
+                        path: '/EditReportPayment',
+                        name: 'EditReportPayment',
+                        component: () => import('@/views/EditMsg/EditReportPayment'),
+                        meta: {
+                            leftMenu: '/ReportInfo'
+                        }
+                    }
                 ]
             },
-
             { //"辅助债务信息
                 path: '/DebtDownload',
                 name: 'DebtDownload',
@@ -283,7 +289,7 @@ const routes = [{
                 name: 'ReportApprove',
                 component: () => import('@/views/currency/ReportApprove'),
                 meta: {
-                    leftMenu: '/ReportApprove',
+                    leftMenu: '/ReportInfo',
                 }
             },
 

@@ -305,10 +305,12 @@ export default {
       this.IsShowRelativePage = false
     },
     EditMsg(index) {
-      this.$router.push({
-        path: '/EditReport',
-        query: { reportId: this.MyDebtMsg[index].reportId }
-      })
+        if (this.MyDebtMsg[index].status === '1') {
+            this.$router.push({
+                path: '/EditReport',
+                query: { reportId: this.MyDebtMsg[index].reportId }
+            })
+        }
     },
     // 页面初始化
     async InitData() {
