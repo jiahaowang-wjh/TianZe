@@ -831,28 +831,6 @@
                       v-if="RelativeList.length"
                       @click="SubmitDataToHeadCompany">提交至总公司</button>
             </div>
-            <div class="add-report-container-relative-list-title">
-              <span>序号</span>
-              <span>相对人</span>
-              <span>债事类型</span>
-              <span>债事性质</span>
-              <span>联系电话</span>
-              <span>操作</span>
-            </div>
-            <div class="add-report-container-relative-list">
-              <div class="add-report-container-relative-list-item"
-                   v-for="(item,index) in RelativeList"
-                   :key="item.id">
-                <span>{{index+1}}</span>
-                <span>{{item.personalName ? item.personalName : item.companyName}}</span>
-                <span>{{(item.reportType === '1')? ('债权人'): (item.reportType === '2')?('债务人'): ''}}</span>
-                <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
-                <span>{{item.phone?item.phone : item.contactPhone}}</span>
-                <span>
-                  <button @click="RelativeEdit(item)">编辑</button>
-                  <button>删除</button>
-                </span>
-              </div>
               <template v-if="currentPath === 'add'">
                 <div class="add-report-container-relative-list-title">
                   <span>序号</span>
@@ -905,7 +883,6 @@
                   </div>
                 </div>
               </template>
-            </div>
             <h3>相对人信息登记表</h3>
             <!-- 第一行表单 -->
             <el-form ref="form"
