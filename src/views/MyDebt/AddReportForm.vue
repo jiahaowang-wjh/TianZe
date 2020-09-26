@@ -1722,7 +1722,7 @@ export default {
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
-        status: '0',
+        status: '',
         // 阶段
         stage: '1',
         // 创建人Id(录入人)
@@ -1804,7 +1804,7 @@ export default {
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
-        status: '0',
+        status: '',
         // 阶段
         stage: '1',
         // 经济状况, (原定没有该项,测试用)
@@ -1879,7 +1879,7 @@ export default {
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
-        status: '0',
+        status: '',
         // 阶段
         stage: '1',
         // 经济状况, (原定没有该项,测试用)
@@ -2027,7 +2027,7 @@ export default {
         // 项目责任人
         prjectManager: '',
         // 状态(1.正常2.异常)
-        status: '1',
+        status: '0',
         // 阶段
         stage: '0',
         // 经济状况, (原定没有该项,测试用)

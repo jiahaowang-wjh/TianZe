@@ -116,7 +116,7 @@
               <button @click="GoUnlockApplyForm(index)" v-show="item.stage === '3' && roleId==='7992691295821774848'">债权处理</button>
               <button @click="dialogTableVisible = true" v-show="item.status === '5'">下载</button>
               <button v-show="item.status === '2' || item.status === '4'">查看</button>
-              <button v-show="(item.status === '1' || item.status === '6') && roleId==='7992691295821774848'" @click="EditMsg(index)">编辑</button>
+              <button v-show="(item.status === '1' || item.status === '' || item.status === '6') && roleId==='7992691295821774848'" @click="EditMsg(index)">编辑</button>
             </span>
           </div>
         </div>
@@ -313,7 +313,7 @@ export default {
       this.IsShowRelativePage = false
     },
     EditMsg(index) {
-        if (this.MyDebtMsg[index].status === '1') {
+        if (this.MyDebtMsg[index].status === '1' || this.MyDebtMsg[index].status === '') {
             this.$router.push({
                 path: '/EditReport',
                 query: { reportId: this.MyDebtMsg[index].reportId }
