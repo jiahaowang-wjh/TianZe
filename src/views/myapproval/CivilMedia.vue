@@ -47,6 +47,7 @@
             placeholder="请选择开始日期"
             :picker-options="pickerOptions"
             v-model="MediaSearchSrc.beginDate"
+            value-format="yyyy-MM-dd"
           ></el-date-picker>
           <span class="civil-media-list-search-time-select-separator">—</span>
           <el-date-picker
@@ -55,6 +56,7 @@
             placeholder="请选择结束日期"
             :picker-options="pickerOptions"
             v-model="MediaSearchSrc.endDate"
+            value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
         <div class="civil-media-list-search-button" @click="InitCiviMedia">搜索</div>
@@ -227,7 +229,7 @@ export default {
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.MediaSearchSrc.endDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      this.MediaSearchSrc.endDate = date.year + '-' +  date.month + '-'  + date.date;
       let nowDateTime = nowDate - 3600*1000*24*7
       nowDate.setTime(nowDateTime)
       date = {
@@ -235,7 +237,7 @@ export default {
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.MediaSearchSrc.beginDate = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      this.MediaSearchSrc.beginDate = date.year + '-' +  date.month + '-'  + date.date;
   }
   },
   created() {

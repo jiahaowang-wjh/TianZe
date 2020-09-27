@@ -44,6 +44,7 @@
             placeholder="请选择开始日期"
             :picker-options="pickerOptions"
             v-model="TimeSelect.TimeStart"
+            value-format="yyyy-MM-dd"
           ></el-date-picker>
           <span class="my-debt-list-search-time-select-separator">—</span>
           <el-date-picker
@@ -52,6 +53,7 @@
             placeholder="请选择结束日期"
             :picker-options="pickerOptions"
             v-model="TimeSelect.TimeEnd"
+            value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
         <div class="my-debt-list-search-button-search" @click="InitData">搜索</div>
@@ -352,7 +354,7 @@ export default {
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.TimeSelect.TimeEnd = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      this.TimeSelect.TimeEnd = date.year + '-' +  date.month + '-' +  date.date;
       let nowDateTime = nowDate - 3600*1000*24*7
       nowDate.setTime(nowDateTime)
       date = {
@@ -360,12 +362,12 @@ export default {
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.TimeSelect.TimeStart = date.year + '-' + 0 + date.month + '-' + 0 + date.date;
+      this.TimeSelect.TimeStart = date.year + '-' +  date.month + '-' +  date.date;
   }
   },
   created() {
-    this.InitData()
     this.AddDate()
+    this.InitData()
   }
 }
 </script>
