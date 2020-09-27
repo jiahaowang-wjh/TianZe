@@ -7,8 +7,8 @@
       <span class="report-info-title-go2">支付凭证</span>
     </div>
     <div class="report-info-list">
-       <div class="public-tabs"> 
-        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+      <div class="public-tabs">
+        <el-tabs v-model="activeTabs" @tab-click="()=>null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
@@ -22,11 +22,11 @@
           <el-form ref="form">
             <el-form-item>
               <span>录入编号：</span>
-              <el-input v-model="VoucherSearchSrc.debtNo"></el-input>
+              <el-input v-model="tableQuery.debtNo"></el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="report-info-list-search-button" @click="IniVoucherApply">搜索</div>
+        <div class="report-info-list-search-button" @click="searchTbaleData()">搜索</div>
       </div>
       <div class="report-info-list-content">
         <div class="report-info-list-content-title">
@@ -64,6 +64,15 @@
           </div>
         </div>
       </div>
+
+      <div style="text-align: right;margin-top:25px">
+        <el-pagination
+          background
+          @current-change="searchTbaleData"
+          layout="prev, pager, next"
+          :total="tablePage.total"
+        ></el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -73,25 +82,37 @@ export default {
   data() {
     return {
       // 分页器结构数据源
-      activeTabs:'全部',
+      activeTabs: '全部',
+      //表格分页
+      tablePage: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0
+      },
+      //表格查询
+      tableQuery: {
+        debtNo: '',
+        companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
+      },
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
-          isSelect: true,
+          isSelect: true
         },
         {
           SelectName: '待审核',
-          isSelect: false,
+          isSelect: false
         },
         {
           SelectName: '审核通过',
-          isSelect: false,
+          isSelect: false
         },
         {
           SelectName: '审核驳回',
-          isSelect: false,
-        },
+          isSelect: false
+        }
       ],
       // 支付信息信息列表数据源
       PaymentMsg: [],
@@ -99,7 +120,7 @@ export default {
       isNormal: false,
       TimeSelect: {
         TimeStart: '2020-02-30',
-        TimeEnd: '2020-04-28',
+        TimeEnd: '2020-04-28'
       },
       pickerOptions: {
         disabledDate(time) {
@@ -110,7 +131,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
@@ -118,7 +139,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
@@ -126,16 +147,9 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
-      },
-      VoucherSearchSrc: {
-        pageNum: '1',
-        pageSize: '30',
-        debtNo: '',
-        companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
+            }
+          }
+        ]
       }
     }
   },
@@ -144,34 +158,39 @@ export default {
       this.isNormal = !this.isNormal
     },
     HandleSelect(item) {
-      this.SelectOption.forEach((v) => {
+      this.SelectOption.forEach(v => {
         v.isSelect = false
       })
       item.isSelect = true
     },
-    async IniVoucherApply() {
+
+    // 搜索表格数据
+    async searchTbaleData(page) {
+      this.tablePage.pageNum = page || 1
+      const queryData = Object.assign(this.tableQuery, this.tablePage)
       const formData = new FormData()
-      for (const key in this.VoucherSearchSrc) {
-        formData.append(key, this.VoucherSearchSrc[key])
+      for (const key in queryData) {
+        formData.append(key, queryData[key])
       }
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/busPayDetailController/selectPayInfoList',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.PaymentMsg = result.data.list
-      this.PaymentMsg.map((v) => {
+      this.PaymentMsg.map(v => {
         v.voucher = v.voucher.split(',')
       })
       console.log(this.PaymentMsg)
     },
+
     CheckPayment(index, item) {
       let queryData = {
         payId: item.payId,
-        reportId: item.reportId,
+        reportId: item.reportId
       }
       if (item.stage === '1') {
         this.$router.push({ path: '/ReportVoucherApprove', query: queryData })
@@ -179,11 +198,11 @@ export default {
         queryData.debtId = item.debtId || ''
         this.$router.push({ path: '/UnlockPaymentApprove', query: queryData })
       }
-    },
+    }
   },
   created() {
-    this.IniVoucherApply()
-  },
+    this.searchTbaleData()
+  }
 }
 </script>
 <style lang='scss' scoped>

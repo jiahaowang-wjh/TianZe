@@ -26,11 +26,11 @@
             </el-form-item>
             <el-form-item>
               <span>录入编号:</span>
-              <el-input v-model="UnlockSearchSrc.debtNo"></el-input>
+              <el-input v-model="tableQuery.debtNo"></el-input>
             </el-form-item>
           </el-form>
         </div>
-        <div class="unlock-apply-list-search-button" @click="InitUnlockApply">搜索</div>
+        <div class="unlock-apply-list-search-button" @click="searchTbaleData()">搜索</div>
       </div>
       <div class="unlock-apply-list-content">
         <!-- 正常显示模板 -->
@@ -69,6 +69,16 @@
           </div>
         </template>
       </div>
+
+       <div style="text-align: right;margin-top:25px">
+          <el-pagination
+            background
+            @current-change="searchTbaleData"
+            layout="prev, pager, next"
+            :total="tablePage.total"
+          >
+          </el-pagination>
+        </div>
     </div>
   </div>
 </template>
@@ -78,6 +88,19 @@ export default {
   data() {
     return {
       activeTabs:'全部',
+       //表格分页
+      tablePage: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0
+      },
+      //表格查询
+      tableQuery: {
+          debtNo: '',
+        debtId: '',
+        companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
+      },
       // 选项卡
       SelectOption: [
         {
@@ -131,14 +154,7 @@ export default {
           },
         ],
       },
-      UnlockSearchSrc: {
-        pageNum: '1',
-        pageSize: '10',
-        debtNo: '',
-        debtId: '',
-        companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
-      },
+     
     }
   },
   methods: {
@@ -148,10 +164,14 @@ export default {
       })
       item.isSelect = true
     },
-    async InitUnlockApply() {
-      const formData = new FormData()
-      for (const key in this.UnlockSearchSrc) {
-        formData.append(key, this.UnlockSearchSrc[key])
+
+ // 搜索表格数据
+    async searchTbaleData(page) {
+      this.tablePage.pageNum = page || 1
+      const queryData = Object.assign(this.tableQuery, this.tablePage)
+ const formData = new FormData()
+      for (const key in queryData) {
+        formData.append(key, queryData[key])
       }
       const { data: result } = await this.$http({
         method: 'post',
@@ -163,7 +183,9 @@ export default {
       })
       this.UnlockMsg = result.data.list
       console.log(this.UnlockMsg)
+
     },
+   
     // 调查报告审批
     CheckData(index, item) {
       this.$router.push({
@@ -198,7 +220,7 @@ export default {
     },
   },
   created() {
-    this.InitUnlockApply()
+    this.searchTbaleData()
   },
 }
 </script>

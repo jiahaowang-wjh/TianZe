@@ -3,8 +3,8 @@
   <div class="my-debt">
     <div class="my-debt-title">我的债行</div>
     <div class="my-debt-list">
-      <div class="public-tabs"> 
-        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+      <div class="public-tabs">
+        <el-tabs v-model="activeTabs" @tab-click="()=>null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
@@ -28,7 +28,7 @@
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
               <el-select v-model="SelectForm.AuditState">
-                <el-option label="全部" value=""></el-option>
+                <el-option label="全部" value></el-option>
                 <el-option label="待审核" value="0"></el-option>
                 <el-option label="审核通过" value="2"></el-option>
                 <el-option label="审核驳回" value="1"></el-option>
@@ -56,8 +56,12 @@
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
-        <div class="my-debt-list-search-button-search" @click="InitData">搜索</div>
-        <div class="my-debt-list-search-button-add" @click="GoAddReportForm" v-show="roleId==='7992691295821774848'" >新增录入</div>
+        <div class="my-debt-list-search-button-search" @click="searchTbaleData()">搜索</div>
+        <div
+          class="my-debt-list-search-button-add"
+          @click="GoAddReportForm"
+          v-show="roleId==='7992691295821774848'"
+        >新增录入</div>
       </div>
       <div class="my-debt-list-content">
         <!-- 正常显示模板 -->
@@ -108,17 +112,35 @@
               >{{item.status === '0' ? ('录入数据未审核') : item.status === '1' ? ('录入数据审核未通过') : item.status === '2' ? ('录入数据审核通过') : item.status === '3' ? (' 请缴费'): item.status === '4' ? ('财务信息未审核') : item.status === '5' ? ('进入调解阶段') : item.status === '6' ? ('财务信息审核未通过') : '/'}}</span>
             </div>
             <span>
-              <button @click.stop="GoCivilMediaForm(index)" v-show="item.stage === '2' && roleId==='7992691295821774848'">调解</button>
+              <button
+                @click.stop="GoCivilMediaForm(index)"
+                v-show="item.stage === '2' && roleId==='7992691295821774848'"
+              >调解</button>
               <button
                 @click="GoInvestigation(index)"
                 v-show="item.status === '2'&& item.stage === '1' && roleId==='7992691295821774848'"
               >暨尽调协议</button>
-              <button @click="GoUnlockApplyForm(index)" v-show="item.stage === '3' && roleId==='7992691295821774848'">债权处理</button>
+              <button
+                @click="GoUnlockApplyForm(index)"
+                v-show="item.stage === '3' && roleId==='7992691295821774848'"
+              >债权处理</button>
               <button @click="dialogTableVisible = true" v-show="item.status === '5'">下载</button>
               <button v-show="item.status === '2' || item.status === '4'">查看</button>
-              <button v-show="(item.status === '1' || item.status === '') && roleId==='7992691295821774848'" @click="EditMsg(index)">编辑</button>
+              <button
+                v-show="(item.status === '1' || item.status === '') && roleId==='7992691295821774848'"
+                @click="EditMsg(index)"
+              >编辑</button>
             </span>
           </div>
+        </div>
+
+        <div style="text-align: right;margin-top:25px">
+          <el-pagination
+            background
+            @current-change="searchTbaleData"
+            layout="prev, pager, next"
+            :total="tablePage.total"
+          ></el-pagination>
         </div>
       </div>
     </div>
@@ -144,27 +166,34 @@ export default {
     return {
       // 分页器结构数据源
       bgc: true,
-      roleId:window.sessionStorage.getItem('roleId'),
+      activeTabs:'全部',
+      roleId: window.sessionStorage.getItem('roleId'),
+         //表格分页
+      tablePage: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0
+      },
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
-          id:'',
+          id: '',
           isSelect: true
         },
         {
           SelectName: '待审核',
-          id:'1',
+          id: '1',
           isSelect: false
         },
         {
           SelectName: '审核通过',
-          id:'2',
+          id: '2',
           isSelect: false
         },
         {
           SelectName: '审核驳回',
-          id:'3',
+          id: '3',
           isSelect: false
         }
       ],
@@ -313,29 +342,34 @@ export default {
       this.IsShowRelativePage = false
     },
     EditMsg(index) {
-        if (this.MyDebtMsg[index].status === '1' || this.MyDebtMsg[index].status === '') {
-            this.$router.push({
-                path: '/EditReport',
-                query: { reportId: this.MyDebtMsg[index].reportId }
-            })
-        }
+      if (
+        this.MyDebtMsg[index].status === '1' ||
+        this.MyDebtMsg[index].status === ''
+      ) {
+        this.$router.push({
+          path: '/EditReport',
+          query: { reportId: this.MyDebtMsg[index].reportId }
+        })
+      }
     },
-    // 页面初始化
-    async InitData() {
+
+    // 搜索表格数据
+    async searchTbaleData(page) {
+      this.tablePage.pageNum = page || 1
+
       const formData = new FormData()
       const DataList = {
-        pageSize: '20',
-        pageNum: '1',
         companyType: window.sessionStorage.getItem('companyType'),
         comId: window.sessionStorage.getItem('companyId'),
-        debtName:this.SelectForm.SearchName,
-        status:this.SelectForm.AuditState,
-        beginDate:this.TimeSelect.TimeStart,
-        endDate:this.TimeSelect.TimeEnd,
-        reportNo:this.SelectForm.ReportNum
+        debtName: this.SelectForm.SearchName,
+        status: this.SelectForm.AuditState,
+        beginDate: this.TimeSelect.TimeStart,
+        endDate: this.TimeSelect.TimeEnd,
+        reportNo: this.SelectForm.ReportNum
       }
-      for (const key in DataList) {
-        formData.append(key, DataList[key])
+      const queryData = Object.assign(DataList, this.tablePage)
+      for (const key in queryData) {
+        formData.append(key, queryData[key])
       }
       const { data: result } = await this.$http({
         method: 'post',
@@ -347,27 +381,30 @@ export default {
       })
       this.MyDebtMsg = result.data.list
       console.log(this.MyDebtMsg)
-    },async AddDate() {
-      let nowDate = new Date();
+    },
+
+    
+    async AddDate() {
+      let nowDate = new Date()
       let date = {
-          year: nowDate.getFullYear(),
-          month: nowDate.getMonth() + 1,
-          date: nowDate.getDate(),
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate()
       }
-      this.TimeSelect.TimeEnd = date.year + '-' +  date.month + '-' +  date.date;
-      let nowDateTime = nowDate - 3600*1000*24*7
+      this.TimeSelect.TimeEnd = date.year + '-' + date.month + '-' + date.date
+      let nowDateTime = nowDate - 3600 * 1000 * 24 * 7
       nowDate.setTime(nowDateTime)
       date = {
-          year: nowDate.getFullYear(),
-          month: nowDate.getMonth() + 1,
-          date: nowDate.getDate(),
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate()
       }
-      this.TimeSelect.TimeStart = date.year + '-' +  date.month + '-' +  date.date;
-  }
+      this.TimeSelect.TimeStart = date.year + '-' + date.month + '-' + date.date
+    }
   },
   created() {
     this.AddDate()
-    this.InitData()
+    this.searchTbaleData()
   }
 }
 </script>

@@ -7,8 +7,8 @@
       <span class="report-info-title-go2">录入信息</span>
     </div>
     <div class="report-info-list">
-        <div class="public-tabs"> 
-        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+      <div class="public-tabs">
+        <el-tabs v-model="activeTabs" @tab-click="()=>null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
@@ -22,16 +22,16 @@
           <el-form ref="form">
             <el-form-item class="report-info-list-search-form-item1">
               <span>债权人/债务人：</span>
-              <el-input v-model="SearchForm.debtName"></el-input>
+              <el-input v-model="tableQuery.debtName"></el-input>
             </el-form-item>
             <el-form-item>
               <span>录入编号:</span>
-              <el-input v-model="SearchForm.reportNo"></el-input>
+              <el-input v-model="tableQuery.reportNo"></el-input>
             </el-form-item>
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
-              <el-select v-model="SearchForm.status">
-                <el-option label="全部" value=""></el-option>
+              <el-select v-model="tableQuery.status">
+                <el-option label="全部" value></el-option>
                 <el-option label="审核通过" value="2"></el-option>
                 <el-option label="审核驳回" value="1"></el-option>
                 <el-option label="审核已提交" value="0"></el-option>
@@ -46,7 +46,7 @@
             type="date"
             placeholder="请选择开始日期"
             :picker-options="pickerOptions"
-            v-model="SearchForm.beginDate"
+            v-model="tableQuery.beginDate"
             value-format="yyyy-MM-dd"
           ></el-date-picker>
           <span class="report-info-list-search-time-select-separator">—</span>
@@ -55,11 +55,11 @@
             type="date"
             placeholder="请选择结束日期"
             :picker-options="pickerOptions"
-            v-model="SearchForm.endDate"
+            v-model="tableQuery.endDate"
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
-        <div class="report-info-list-search-button-search" @click="Search">搜索</div>
+        <div class="report-info-list-search-button-search" @click="searchTbaleData()">搜索</div>
       </div>
       <div class="report-info-list-content">
         <!-- 正常显示模板 -->
@@ -111,14 +111,29 @@
               >{{item.status === '0'?('未审核'):item.status === '1'?('审核未通过'):item.status === '2'?('审核通过'):item.status === '3'?('暨尽调协议'): item.status === '4'?('财务未审核'):item.status === '5'?('财务审核通过'):'财务审核未通过'}}</span>
             </div>
             <span>
-              <button v-if="item.status === '0' && roleId ==='7992691214771044352'" @click="CheckData(index,item)">审核</button>
-              <button v-if="item.status === '3' && roleId ==='7992691295821774848'" @click="GoReportPayment(index,item)">缴费</button>
+              <button
+                v-if="item.status === '0' && roleId ==='7992691214771044352'"
+                @click="CheckData(index,item)"
+              >审核</button>
+              <button
+                v-if="item.status === '3' && roleId ==='7992691295821774848'"
+                @click="GoReportPayment(index,item)"
+              >缴费</button>
               <button
                 v-if="item.status==='1' && roleId==='7992691295821774848'"
                 @click="()=>{$router.push({path:'/EditReport',query:{reportId:item.reportId}})}"
               >编辑</button>
             </span>
           </div>
+        </div>
+
+        <div style="text-align: right;margin-top:25px">
+          <el-pagination
+            background
+            @current-change="searchTbaleData"
+            layout="prev, pager, next"
+            :total="tablePage.total"
+          ></el-pagination>
         </div>
       </div>
     </div>
@@ -131,6 +146,22 @@ export default {
     return {
       // 调解信息列表数据源
       ReportInfoMsg: [],
+       //表格分页
+      tablePage: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0
+      },
+      //表格查询
+      tableQuery: {
+  debtName: '',
+        beginDate: '',
+        endDate: '',
+        reportNo: '',
+        status: '',
+        companyType: window.sessionStorage.getItem('companyType'),
+        comId: window.sessionStorage.getItem('companyId')
+      },
       // 确定选用正常模板还是多选模板
       isNormal: false,
       roleId:window.sessionStorage.getItem('roleId'),
@@ -164,18 +195,7 @@ export default {
         ],
       },
       dialogTableVisible: false,
-      // 选择表单的数据源
-      SearchForm: {
-        pageNum: '1',
-        pageSize: '10',
-        debtName: '',
-        beginDate: '',
-        endDate: '',
-        reportNo: '',
-        status: '',
-        companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
-      },
+     
       activeTabs:'全部',
       SelectOption: [
         {
@@ -214,11 +234,14 @@ export default {
       })
       item.isSelect = true
     },
-    // 页面初始化
-    async InitData() {
-      const formData = new FormData()
-      for (const key in this.SearchForm) {
-        formData.append(key, this.SearchForm[key])
+
+    // 搜索表格数据
+    async searchTbaleData(page) {
+      this.tablePage.pageNum = page || 1
+      const queryData = Object.assign(this.tableQuery, this.tablePage)
+  const formData = new FormData()
+      for (const key in queryData) {
+        formData.append(key, queryData[key])
       }
       const { data: result } = await this.$http({
         method: 'post',
@@ -229,7 +252,9 @@ export default {
         },
       })
       this.ReportInfoMsg = result.data.list
+
     },
+    
     CheckData(index, item) {
       const { stage, status } = item
       // 如果当前用户处于报备待审批状态 status === '0', stage === '1'
@@ -260,16 +285,14 @@ export default {
         query: { debtId: item.debtId, reportId: item.reportId },
       })
     },
-    Search() {
-      this.InitData()
-    },addDate() {
+     addDate() {
       let nowDate = new Date();
       let date = {
           year: nowDate.getFullYear(),
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.SearchForm.endDate = date.year + '-' +  date.month + '-'  + date.date;
+      this.tableQuery.endDate = date.year + '-' +  date.month + '-'  + date.date;
       let nowDateTime = nowDate - 3600*1000*24*7
       nowDate.setTime(nowDateTime)
       date = {
@@ -277,11 +300,11 @@ export default {
           month: nowDate.getMonth() + 1,
           date: nowDate.getDate(),
       }
-      this.SearchForm.beginDate = date.year + '-' +  date.month + '-'  + date.date;
+      this.tableQuery.beginDate = date.year + '-' +  date.month + '-'  + date.date;
   }
   },
   created() {
-    this.InitData()
+    this.searchTbaleData()
     this.addDate()
   }
 }
