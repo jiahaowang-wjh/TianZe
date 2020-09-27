@@ -12,8 +12,7 @@
                     <!-- 调查报告 -->
                     <el-collapse-item title="调查报告" name="1">
                         <div class='examine-report-container-form-title'>
-                            <div>XXXXXXX有限公司</div>
-                            <div>调查报告</div>
+                            <h3>调查报告</h3>
                         </div>
                         <div class='examine-report-container-form-header'>
                            <span>申请单位名称：</span>
@@ -208,7 +207,7 @@
                             <div>
                                 （2）房产<input type="text" v-model="SubmitDataMsg.houseProperty">
                                 平方米、房产性质:
-                                住宅<input type="radio" name="result9" value='1' v-model="SubmitDataMsg.residence">是<input type="residence" name="result9" value='2' v-model="SubmitDataMsg.residence">否、
+                                住宅<input type="radio" name="result9" value='1' v-model="SubmitDataMsg.residence">是<input type="radio" name="result9" value='2' v-model="SubmitDataMsg.residence">否、
 
                                 商业<input type="radio" name="busines" value='1' v-model="SubmitDataMsg.busines">是<input type="radio" name="busines" value='2' v-model="SubmitDataMsg.busines">否、
 
@@ -303,7 +302,7 @@
                         <h3>十二、调查报告的真实性调查人保证</h3>
                         <div>保证调查报告内容的真实、准确、完整，不存在虚假记载、误导性陈述或重大遗漏，并承担连带法律责任。</div>
                         <div class='examine-report-container-form-sign-1'>
-                            <h3>调查人：由网点盖章确认</h3>
+                            调查人：<el-input v-model='SubmitDataMsg.investigationPerson'></el-input>
                         </div>
                         <div class='examine-report-container-form-sign-2'>
                             <el-date-picker
@@ -762,6 +761,9 @@ export default {
                     margin-left: 0;
                     width: px2rem(80);
                 }
+                .el-date-editor {
+                    width: px2rem(82);
+                }
             }
             &-item-1 {
                 h3 {
@@ -804,21 +806,18 @@ export default {
                 }
             }
             &-sign-1 {
-                margin-top: px2rem(14);
-                h3 {
-                    display: inline-block;
-                    height: px2rem(6);
-                    line-height: px2rem(6);
-                    margin-left: px2rem(240);
+                margin-top:px2rem(14);
+                margin-bottom: 20px;
+                margin-left: 1000px;
+                .el-input {
+                    width: 300px;
                 }
             }
             &-sign-2 {
-                margin-bottom: px2rem(14);
-                margin-left: px2rem(240);
-                h3 {
-                    height: px2rem(6);
-                    line-height: px2rem(6);
-                    display: inline-block;
+                margin-bottom: px2rem(20);
+                margin-left: 1000px;
+                .el-date-editor {
+                    width: 365px;
                 }
             }
             &-submit {

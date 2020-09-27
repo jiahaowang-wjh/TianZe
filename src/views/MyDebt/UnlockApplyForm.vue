@@ -20,7 +20,7 @@
               <span>民事调解协议号</span>
               <span>服务协议ID</span>
               <span>服务协议号</span>
-              <span>债务人</span>
+              <span>相对人</span>
               <span>操作</span>
             </div>
             <div class="unlock-apply-container-form-table-1">
@@ -156,13 +156,13 @@
                 <el-col :span="8">
                   <span class="col-label">债权总金额：</span>
                   <el-form-item  :rules="[  { required: true, message: '请输入债权总金额', trigger: 'blur' }]" prop="amountTotal" >
-                    <el-input type="text" v-model="SubmitData.amountTotal" />
+                    <el-input type="text" v-model="UnlockUserMsg.amountTotal" :disabled='true' />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">累计已转让债权金额：</span>
                   <el-form-item>
-                    <el-input type="text" v-model="SubmitData.amountCumulative" />
+                    <el-input type="text" v-model="transfeAmount" :disabled='true' />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -421,7 +421,7 @@
             </div>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
-          <el-collapse-item title="策划方案服务协议" name="4" v-show='HasSubmitDebtMsg'>
+          <el-collapse-item title="策划方案服务协议" name="4" v-show='HasSubmitDebtMsg'><!--  -->
             <div class="unlock-apply-container-form-plan-agreement">
               <div class="unlock-apply-container-form-plan-agreement-title">策划方案服务协议</div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-a">
@@ -466,7 +466,11 @@
                 <br />(四)债务人:特指本协议中确定的具体债权债务关系中负有债务的一方。
                 <br />
                 <h3>第二条委托事项</h3>
-                （一）甲方身份属于下列第<input type="text"/>种情况
+                （一）甲方身份属于下列第
+                <el-select v-model="SubmitPlanData.matters" >
+                    <el-option :label="`(1)债权人`" :value="1" ></el-option>
+                    <el-option :label="`(2)债务人`" :value="2" ></el-option>
+                </el-select>种情况
                 <br />(1)债权人,无法收回本协议确定的债权
                 <br />(2)债务人,无法清偿自身所欠债务
                 <br />（二）甲方因无法解决自身债权债务，在完全知晓和认可乙方处理债权债务咨询方式的情况下，委托乙方提供处理债权债务的咨询意见并支付策划方案服务费。
@@ -644,13 +648,6 @@ export default {
       // 相对人数据源
       RelativeList: [
       ],
-      // 确定选用正常模板还是多选模板
-      isNormal: false,
-      TimeSelect: {
-        TimeStart: '',
-        TimeEnd: '',
-        ClosingTime: ''
-      },
       DebtTreatment: '',
       pickerOptions: {
         disabledDate(time) {
@@ -739,9 +736,12 @@ export default {
       },
       // 提交策划方案服务协议数据源
       SubmitPlanData: {
+          // 身份
           matters: '',
           serviceNo: '',
+          // 本金
           servicePrincipal: '',
+          // 利息
           serviceInterest: '',
           contractDate: '',
           debtId: ''
@@ -808,7 +808,6 @@ export default {
       for (const key in this.SendPhoneAndChekno) {
         PhoneCheckFormData.append(key, this.SendPhoneAndChekno[key])
       }
-
       const { data: PhoneCheckResult } = await this.$http({
         method: 'post',
         url: '/api/api/smsSend/checkNO',
@@ -817,13 +816,19 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      if (PhoneCheckResult.resultCode !== '200')
+      if (PhoneCheckResult.resultCode !== '200') {
         return this.$message.error('短信验证码输入错误,请重新输入')
+      }
       // 数据提交
       this.SubmitData.reportId = this.$route.query.reportId
       this.SubmitData.relativePerId = this.relativePerId
       this.SubmitData.thisPlanMoney = this.thisPlanMoney
       this.SubmitData.debtApply = this.SubmitData.debtType
+      // 总金额
+      this.SubmitData.amountTotal = this.UnlockUserMsg.amountTotal
+      //  累计化解金额
+      this.SubmitData.amountCumulative = this.transfeAmount
+
       this.SubmitData.comId = window.sessionStorage.getItem('companyId')
       console.log(this.SubmitData)
       const formData = new FormData()
@@ -839,7 +844,6 @@ export default {
         }
       })
       this.ResponseDebtID = result.data
-      console.log(this.ResponseDebtID)
       if (result.resultCode === '200') {
         // 调用status改变接口
         const StatusUpdateformData = new FormData()
@@ -977,12 +981,27 @@ export default {
       this.IsSendPhoneCheckMsg = true
     },
     // 提交策划方案服务协议
-    SubmitPlanMessage () {
+    async SubmitPlanMessage () {
         const formData = new FormData()
         this.SubmitPlanData.debtId = this.PlanInitData.debtId
         this.SubmitPlanData.contractDate = this.PlanInitData.contractDate
         this.SubmitPlanData.serviceNo = this.PlanInitData.serviceNo
         this.SubmitPlanData.matters = this.PlanInitData.reportPropert
+        for(const key in this.SubmitPlanData) {
+            formData.append(key, this.SubmitPlanData[key])
+        }
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/pubDebtController/insertPlanInfo',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        })
+        console.log(result)
+        if (result.resultCode === '200') {
+            this.$message.success('新增策划方案服务协议信息成功')
+        }
     },
     // 初始化策划方案服务协议 
     async InitPlanData () {
@@ -1014,11 +1033,15 @@ export default {
         },
         // 甲方身份加工
         party1Identity: function () {
-            return `(${this.SubmitData.partyaIdentity})`
+            return `(${this.SubmitData.partyaIdentity})债权人`
         },
         // 乙方身份加工
         party2Identity: function () {
-            return `(${this.SubmitData.partybIdentity})`
+            return `(${this.SubmitData.partybIdentity})债务人`
+        },
+        // 累计已转让债权金额：
+        transfeAmount: function () {
+            return Number(this.UnlockUserMsg.amountCumulative) + Number(this.SubmitData.amountThis)
         }
   },
 }
@@ -1063,6 +1086,7 @@ export default {
     img {
         float: left;
         height: 75px;
+        margin: 0 6px;
         width: 100px;
     }
     margin-right: 10px;
