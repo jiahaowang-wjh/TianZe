@@ -35,49 +35,79 @@
                         <h3>新增调解</h3>
                         <div>选择化解方式：双方化解</div>
                         <h3>债权人信息</h3>
-                        <div class='civil-media-container-form-debtor-1'>
-                            <div>
-                                甲方（债权人名称/姓名）：<input type="text" disabled='true' :value='MediaUserMsg.debtName'>
-                            </div>
-                            <div>
-                                法定代表人/负责人：<input type="text" disabled='true' :value='MediaUserMsg.debtLegalName'>
-                            </div>
-                            <div>
-                                身份证号码/信用代码：<input type="text" disabled='true' :value='MediaUserMsg.debtIdCardCode'>
-                            </div>
-                        </div>
-                        <div class='civil-media-container-form-debtor-2'>
-                            <div>
-                                所住地：：<input type="text" disabled='true' :value='MediaUserMsg.debtAdd'>
-                            </div>
-                            <div>
-                                联系电话：<input type="text" disabled='true' :value='MediaUserMsg.debtPhone'>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
+                        <el-form ref="form" label-width>
+                            <el-row>
+                                <el-col :span="8">
+                                    <span class="col-label">甲方（债权人名称/姓名）：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.debtName" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">法定代表人/负责人：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.debtLegalName" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">身份证号码/信用代码：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.debtIdCardCode" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="8">
+                                    <span class="col-label">所住地：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.debtAdd" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">联系电话：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.debtPhone" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </el-form>
                         <h3>债务人信息</h3>
-                        <div class='civil-media-container-form-relative-1'>
-                            <div>
-                                乙方（债务人名称/姓名）：<input type="text" disabled='true' :value='MediaUserMsg.personalName'>
-                            </div>
-                            <div>
-                                法定代表人/负责人：<input type="text" disabled='true' :value='MediaUserMsg.personalLegalName'>
-                            </div>
-                            <div>
-                                身份证号码/信用代码：<input type="text" disabled='true' :value='MediaUserMsg.personalIdCardCode'>
-                            </div>
-                        </div>
-                        <div class='civil-media-container-form-relative-2'>
-                            <div>
-                                所住地：<input type="text" disabled='true' :value='MediaUserMsg.personalAdd'>
-                            </div>
-                            <div>
-                                联系电话：<input type="text" disabled='true' :value='MediaUserMsg.personalPhone'>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
+                        <el-form ref="form" label-width>
+                            <el-row>
+                                <el-col :span="8">
+                                    <span class="col-label">乙方（债务人名称/姓名）：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.personalName" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">法定代表人/负责人：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.personalLegalName" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">身份证号码/信用代码：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.personalIdCardCode" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="8">
+                                    <span class="col-label">所住地：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.personalAdd" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <span class="col-label">联系电话：</span>
+                                    <el-form-item label>
+                                        <el-input :disabled="true" :value="MediaUserMsg.personalPhone" ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </el-form>
                         <h3>担保人信息</h3>
                         <div class='civil-media-container-form-new-guarantor'>
                             <button @click='AddGuarantee'>新增担保人</button>
@@ -107,17 +137,17 @@
                         </div>
                         <h3>甲方、乙方、担保人共同对债权债务类型、本息的确认</h3>
                         <div>债券债务类型:
-                            <label for="debt-type">
-                                <input type="radio" name="debt-type" id='debt-type' value='1' v-model="SubmitData.civilType">借款
+                            <label for="1">
+                                <input type="radio" name="debt-type" id='1' value='1' v-model="SubmitData.civilType">借款
                             </label>
-                            <label for="debt-type">
-                                <input type="radio" name="debt-type" id='debt-type' value='2' v-model="SubmitData.civilType">贷款
+                            <label for="2">
+                                <input type="radio" name="debt-type" id='2' value='2' v-model="SubmitData.civilType">贷款
                             </label>
-                            <label for="debt-type">
-                                <input type="radio" name="debt-type" id='debt-type' value='3' v-model="SubmitData.civilType">工程款
+                            <label for="3">
+                                <input type="radio" name="debt-type" id='3' value='3' v-model="SubmitData.civilType">工程款
                             </label>
-                            <label for="debt-type">
-                                <input type="radio" name="debt-type" id='debt-type' value='4' v-model="SubmitData.civilType">其他款项
+                            <label for="4">
+                                <input type="radio" name="debt-type" id='4' value='4' v-model="SubmitData.civilType">其他款项
                             </label>
                         </div>
                         <h3>乙方尚欠甲方款项金额：</h3>
@@ -143,20 +173,50 @@
                         <!-- 支付利息 -->
                         <h3>乙方向甲方支付款利息：</h3>
                         <div class='civil-media-container-form-interest'>
-                            <div class='civil-media-container-form-interest-row1'>
-                                <span>约定月利率标准：<input type="text" v-model='SubmitData.monthInterest'> </span>
-                                <span>时间段：
-                                    <el-date-picker align="left" type="date" placeholder="请选择开始日期" :picker-options="pickerOptions" v-model="SubmitData.starDate" value-format="yyyy-MM-dd"></el-date-picker>
-                                    <span class='civil-media-container-form-interest-row1-separator'>—</span>
-                                    <el-date-picker align="left" type="date" placeholder="请选择结束日期"  v-model="SubmitData.endDate"  :picker-options="pickerOptions1" value-format="yyyy-MM-dd"></el-date-picker>
-                                </span>
-                                <span>利息：<input type="text" v-model='SubmitData.interest'> </span>
-                            </div>
-                            <div class='civil-media-container-form-interest-row2'>
-                                <span>已支付利息：<input type="text" v-model='SubmitData.interestPayment'></span>
-                                <span>违约截止时间：<el-date-picker align="left" type="date" placeholder="请选择结束日期"  v-model="SubmitData.breachDate" :picker-options="pickerOptions1" value-format="yyyy-MM-dd"></el-date-picker></span>
-                                <span>已支付违约金额：<input type="text" v-model='SubmitData.breachMoney'></span>
-                            </div>
+                            <el-form ref="form" label-width>
+                                <el-row>
+                                    <el-col :span="8">
+                                        <span class="col-label">约定月利率标准：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SubmitData.monthInterest' ></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">时间段：</span>
+                                        <el-form-item label>
+                                            <el-date-picker align="left" type="date" placeholder="请选择开始日期" :picker-options="pickerOptions" v-model="SubmitData.starDate" value-format="yyyy-MM-dd"></el-date-picker>
+                                            <span>—</span>
+                                            <el-date-picker align="left" type="date" placeholder="请选择结束日期"  v-model="SubmitData.endDate"  :picker-options="pickerOptions1" value-format="yyyy-MM-dd"></el-date-picker>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">利息：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SubmitData.interest' ></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="8">
+                                        <span class="col-label">已支付利息：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SubmitData.interestPayment' ></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">违约截止时间：</span>
+                                        <el-form-item label>
+                                            <el-date-picker align="left" type="date" placeholder="请选择开始日期" :picker-options="pickerOptions1" v-model="SubmitData.breachDate" value-format="yyyy-MM-dd"></el-date-picker>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">已支付违约金额</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SubmitData.breachMoney' ></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
                         </div>
                         <!-- 担保人担保方式： -->
                         <div>
@@ -194,31 +254,39 @@
                         </div>
                         <!-- 双方短信验证 -->
                         <h3>手机验证码认证</h3>
-                        <div class='civil-media-container-form-phonecheck'>
-                            <div>
-                                <span>债权人手机号码：</span>
-                                <el-input v-input-num maxlength="11" v-model='PhoneNumber[0]'></el-input>
-                            </div>
-                            <div>
-                                <span>手机验证码：</span>
-                                <el-input maxlength="4" v-model='SendPhoneAndChekno[0].checkNo'></el-input>
-                                <button @click='SendCreditorPhoneCheck'>点击获取</button>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
-                        <div class='civil-media-container-form-phonecheck'>
-                            <div>
-                                <span>债务人手机号码：</span>
-                                <el-input v-input-num maxlength="11" v-model='PhoneNumber[1]'></el-input>
-                            </div>
-                            <div>
-                                <span>手机验证码：</span>
-                                <el-input maxlength="4" v-model='SendPhoneAndChekno[1].checkNo'></el-input>
-                                <button @click='SendDebtorPhoneCheck'>点击获取</button>
-                            </div>
-                            <div>
-                            </div>
+                        <div>
+                            <el-form ref="form" label-width>
+                                <el-row>
+                                    <el-col :span="8">
+                                        <span class="col-label">债权人手机号码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='PhoneNumber[0]'></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">手机验证码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SendPhoneAndChekno[0].checkNo'  maxlength="4"></el-input>
+                                        </el-form-item>
+                                        <el-button class='phonecheck-button' @click='SendCreditorPhoneCheck'>点击获取</el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="8">
+                                        <span class="col-label">债务人手机号码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='PhoneNumber[1]'></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">手机验证码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SendPhoneAndChekno[1].checkNo'  maxlength="4"></el-input>
+                                        </el-form-item>
+                                        <el-button class='phonecheck-button' @click='SendDebtorPhoneCheck'>点击获取</el-button>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
                         </div>
                         <h3>选择调解员</h3>
                         <div class='civil-media-container-form-add-conciliator'>
@@ -350,8 +418,8 @@
                 </div>
                 <div class='civil-media-pop-relative-box-body'>
                     选择对应相对人：
-                    <el-select v-model='RelativeName' @change="getValue">
-                        <el-option v-for='(item,index) in RelativeList' :key='index' :label="item.personalName" :value="index"></el-option>
+                    <el-select v-model='relativePerId'  >
+                        <el-option v-for='(item,index) in RelativeList' :key='index' :label="item.personalName" :value="item.relativePerId"></el-option>
                     </el-select>
                 </div>
                 <div class='civil-media-pop-relative-box-footer'>
@@ -500,7 +568,9 @@ export default {
                 // 审核原因
                 checkReason: '审核原因',
                 // 调解员UserID列表
-                longs: []
+                longs: [],
+                // 凭证信息
+                certificate: []
             },
             // 相对人名称
             RelativeName: '',
@@ -554,9 +624,6 @@ export default {
             this.$router.push({path: '/MyDebt'})
             this.IsPopSelectiveList = false
         },
-        SelectMore () {
-            this.isNormal = !this.isNormal
-        },
         // 新增调解员
         OpenAddConciliator () {
             this.IsSelect = true
@@ -584,7 +651,7 @@ export default {
             this.IsAddConciliatorContent = true
         },
         GetMediator (index) {
-            this.MediaIndex = index
+            this.MediaIndex = index;
         },
         // 调解信息初始化
         async InitData (relativePerId) {
@@ -683,11 +750,7 @@ export default {
                 this.$message.error(result.resultMessage)
             }
         },
-        // 获取相对人的index及相对人ID
-        getValue (index) {
-            // 获取推荐人ID
-            this.relativePerId = this.RelativeList[index].relativePerId
-        },
+       
         // 确定选择相对人页面 并 通过relativePerId查询得到报备人及相对人信息
         SelectRelative () {
             // 未选择相对人, 提示错误信息
@@ -776,7 +839,7 @@ export default {
             this.SendPhoneAndChekno[0].tel = tel
             this.IsSendPhoneCheckMsg[0] = true
         },
-        // 发送债权人短信
+        // 发送债务人短信
         async SendDebtorPhoneCheck () {
             // 发送短信验证码
             const tel = this.PhoneNumber[1]
@@ -806,6 +869,7 @@ export default {
             const file = this.$refs.Voucher.files[0]
             this.$UpdateFile(file).then(result => {
                 this.VoucherList.push(result)
+                this.SubmitData.certificate.push(result)
             })
         },
         // 获取民事调解记录
@@ -820,7 +884,6 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            console.log(result)
             this.MediateMsg = result.data
         }
     },
@@ -834,6 +897,29 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+.el-row {
+  .el-col {
+    display: flex;
+    padding: 0 20px;
+    .col-label {
+      flex-shrink: 0;
+      line-height: 30px;
+      height: 30px;
+    }
+    /deep/.el-form-item {
+      width: 100%;
+      .el-select {
+        width: 100%;
+      }
+      .el-input {
+        width: 100%;
+      }
+      .el-date-editor {
+        width: 100%;
+      }
+    }
+  }
+}
 .civil-media {
     display: flex;
     flex-direction: column;
@@ -966,80 +1052,6 @@ export default {
             h3 {
                 margin: px2rem(2) 0;
             }
-            &-debtor-1 {
-                display: flex;
-                div {
-                    flex: 1
-                }
-                :nth-child(1) {
-                    input {
-                        width: px2rem(50);
-                    }
-                }
-                :nth-child(2) {
-                    input {
-                        width: px2rem(60);
-                    }
-                }
-                :nth-child(3) {
-                    input {
-                        width: px2rem(58);
-                    }
-                }
-            }
-            &-debtor-2 {
-                display: flex;
-                div {
-                    flex: 1
-                }
-                :nth-child(1) {
-                    input {
-                        width: px2rem(73.7);
-                    }
-                }
-                :nth-child(2) {
-                    input {
-                        width: px2rem(74);
-                    }
-                }
-            }
-            &-relative-1 {
-                display: flex;
-                div {
-                    flex: 1
-                }
-                :nth-child(1) {
-                    input {
-                        width: px2rem(50);
-                    }
-                }
-                :nth-child(2) {
-                    input {
-                        width: px2rem(60);
-                    }
-                }
-                :nth-child(3) {
-                    input {
-                        width: px2rem(58);
-                    }
-                }
-            }
-            &-relative-2 {
-                display: flex;
-                div {
-                    flex: 1
-                }
-                :nth-child(1) {
-                    input {
-                        width: px2rem(77);
-                    }
-                }
-                :nth-child(2) {
-                    input {
-                        width: px2rem(74);
-                    }
-                }
-            }
             &-new-guarantor {
                 button {
                     border: none;
@@ -1153,45 +1165,6 @@ export default {
                     }
                 }
             }
-            &-interest {
-                &-row1 {
-                    display: flex;
-                    span {
-                        flex: 1;
-                    }
-                    span:nth-child(1) {
-                        input {
-                            width: px2rem(65);
-                        }
-                    }
-                    span:nth-child(3) {
-                        input {
-                            width: px2rem(80);
-                        }
-                    }
-                }
-                &-row2 {
-                    display: flex;
-                    span {
-                        flex: 1
-                    }
-                    span:nth-child(1) {
-                        input {
-                            width: px2rem(71.3);
-                        }
-                    }
-                    span:nth-child(2) {
-                        input {
-                            width: px2rem(68.3);
-                        }
-                    }
-                    span:nth-child(3) {
-                        input {
-                            width: px2rem(64);
-                        }
-                    }
-                }
-            }
             &-appoint {
                 &-row1 {
                     display: flex;
@@ -1225,54 +1198,13 @@ export default {
                     }
                 }
             }
-            &-phonecheck {
-                margin: px2rem(2) 0;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                font-size: px2rem(3);
+            .phonecheck-button {
                 height: px2rem(8);
-                position: relative;
-                input {
-                    border: 1px solid #E8EAEC;
-                }
-                div {
-                    flex: 1;
-                }
-                span {
-                    display: inline-block;
-                    width: px2rem(18);
-                    margin-right: px2rem(2)
-                }
-                :nth-child(1) {
-                    span {
-                        width: px2rem(26);
-                    }
-                    .el-input {
-                        width: px2rem(66);
-                    }
-                }
-                :nth-child(2) {
-                    span {
-                        width: px2rem(18);
-                    }
-                    .el-input {
-                        width: px2rem(77);
-                    }
-                    button {
-                        left: px2rem(179.5);
-                        position: absolute;
-                        height: px2rem(8);
-                        margin-left: px2rem(2);
-                        background-color: #616789;
-                        border: none;
-                        border-radius: px2rem(1);
-                        color: #fff;
-                        font-size: px2rem(3.2);
-                    }
-                }
-                :nth-child(3) {
-                }
+                background-color: #616789;
+                border: none;
+                border-radius: px2rem(1);
+                color: #fff;
+                font-size: px2rem(3.2);
             }
             &-add-conciliator {
                 button {
