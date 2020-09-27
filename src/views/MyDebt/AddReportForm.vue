@@ -958,7 +958,7 @@
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">是否从业：</span>
-                    <el-form-item label>
+                    <el-form-item label >
                       <el-select v-model="PersonalRelativeMsg.ifWork"
                                  placeholder="是">
                         <el-option label="是"

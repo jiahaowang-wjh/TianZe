@@ -25,7 +25,9 @@
                         </div>
                         <div class='examine-report-container-form-header'>
                             <span>报告完成日期：</span>
-                            <input type="text" v-model='SubmitDataMsg.reportFinashDate'>
+                            <el-date-picker align="left" type="date" placeholder="请选择日期" :picker-options="pickerOptions"  v-model="SubmitDataMsg.reportFinashDate"
+                            value-format="yyyy-MM-dd"
+                            ></el-date-picker>
                         </div>
                         <div class='examine-report-container-form-item-1'>
                             <h3>一、申请客户名称：</h3>
@@ -38,7 +40,9 @@
                             </div>
                             <div>
                                 <span>（2）成立时间：</span>
-                                <input type="text" class='examine-report-container-form-input200' v-model='SubmitDataMsg.foundTime'>
+                                <el-date-picker align="left" type="date" placeholder="请选择日期" :picker-options="pickerOptions"  v-model="SubmitDataMsg.foundTime"
+                                value-format="yyyy-MM-dd"
+                                ></el-date-picker>
                             </div>
                             <div>
                                 （3）经营地址：<input type="text" v-model='SubmitDataMsg.managementAddr'  class='examine-report-container-form-input200'>
@@ -57,7 +61,7 @@
                                 学历：<input type="text" v-model='SubmitDataMsg.legalpersonEdu'>
                                 婚否：<input type="text" v-model='SubmitDataMsg.legalpersonMirr'>
                                 电话：<input type="text" v-model='SubmitDataMsg.legalpersonTel'>
-                                公司占股：<input type="text">
+                                公司占股：<input type="text" v-model='SubmitDataMsg.legalpersonStock'>
                             </div>
                             <div>
                                 股东：<input type="text" v-model='SubmitDataMsg.stockName'>
@@ -79,7 +83,7 @@
                             </div>
                             <div>（6）债务构成：</div>
                             <div>公司总负债<input type="text" v-model='SubmitDataMsg.companyTotalLiab'>元人民币、总负债率<input type="text" v-model='SubmitDataMsg.totalLiabRate'>%</div>
-                            <div>合计银行<input type="text" v-model='SubmitDataMsg.companyTotalLiab'>元</div>
+                            <div>合计银行<input type="text" v-model='SubmitDataMsg.totalBank'>元</div>
                             <div>
                                 其中<input type="text" class='examine-report-container-form-input200' v-model='SubmitDataMsg.bank1'>银行
                                 <input type="text" v-model='SubmitDataMsg.amount1'>元、
@@ -95,11 +99,10 @@
                                 其中小贷公司
                                 <input type="text" v-model='SubmitDataMsg.smallCompany'>元、
                                 担保公司<input type="text" v-model='SubmitDataMsg.guaranteeCompany'>元、
-                                投资公司<input type="text" v-model='SubmitDataMsg.fundCompany'>元、
-                                基金公司<input type="text" v-model='SubmitDataMsg.toloanCount'>元；
+                                基金公司<input type="text" v-model='SubmitDataMsg.fundCompany'>元；
                             </div>
                             <div>
-                                民间借贷合计<input type="text" v-model='SubmitDataMsg.guaranteeCompany'>元人民币：
+                                民间借贷合计<input type="text" v-model='SubmitDataMsg.toloanCount'>元人民币：
                                 <input type="radio" name="isIllFund" value='1' v-model='SubmitDataMsg.isIllFund'>是
                                 <input type="radio" name="isIllFund" value='2' v-model='SubmitDataMsg.isIllFund'>否 
                                 涉及非法集资；
@@ -147,9 +150,11 @@
                                 <input type="text" v-model='SubmitDataMsg.managModelYear1'>年
                                 <input type="text" v-model='SubmitDataMsg.managModelMoney1'>元、
                                 产品毛利<input type="text" v-model='SubmitDataMsg.prodousGrossprofit1'>%
+                                纯利<input type="text" v-model='SubmitDataMsg.netprofit1'>
                                 <input type="text" v-model='SubmitDataMsg.managModelYear2'>年
                                 <input type="text" v-model='SubmitDataMsg.managModelMoney2'>元、
                                 产品毛利<input type="text" v-model='SubmitDataMsg.prodousGrossprofit2'>%；
+                                纯利<input type="text" v-model='SubmitDataMsg.netprofit2'>
                             </div>
                             <div>（3）主要产品行业：</div>
                             <div>
@@ -196,14 +201,14 @@
                                 <input type="radio" name="priceIsjudicial" value='1' v-model="SubmitDataMsg.priceIsjudicial">是
                                 <input type="radio" name="priceIsjudicial" value='2' v-model="SubmitDataMsg.priceIsjudicial">否、
                                 是否进入查封
-                                <input type="radio" name="priceIsseizure" v-model="SubmitDataMsg.priceIsseizure">是
-                                <input type="radio" name="priceIsseizure" v-model="SubmitDataMsg.priceIsseizure">否；
+                                <input type="radio" name="priceIsseizure" value='1' v-model="SubmitDataMsg.priceIsseizure">是
+                                <input type="radio" name="priceIsseizure" value='2' v-model="SubmitDataMsg.priceIsseizure">否；
                             </div>
                             <div>详细地址:<input type="text" class='examine-report-container-form-input450' v-model="SubmitDataMsg.priceAddr"></div>
                             <div>
                                 （2）房产<input type="text" v-model="SubmitDataMsg.houseProperty">
                                 平方米、房产性质:
-                                住宅<input type="radio" name="residence" v-model="SubmitDataMsg.residence">是<input type="residence" name="result9" v-model="SubmitDataMsg.residence">否、
+                                住宅<input type="radio" name="result9" value='1' v-model="SubmitDataMsg.residence">是<input type="residence" name="result9" value='2' v-model="SubmitDataMsg.residence">否、
 
                                 商业<input type="radio" name="busines" value='1' v-model="SubmitDataMsg.busines">是<input type="radio" name="busines" value='2' v-model="SubmitDataMsg.busines">否、
 
@@ -286,7 +291,8 @@
                         <h3>九、你对债事人评价</h3>
                             <input type="radio" name="debtorEvaluate" value='1' v-model='SubmitDataMsg.debtorEvaluate'>诚信
                             <input type="radio" name="debtorEvaluate" value='2' v-model='SubmitDataMsg.debtorEvaluate'>精明会经营
-                            <input type="radio" name="debtorEvaluate" value='3'>能干懂管理<input type="text" class='examine-report-container-form-item-9-input' value='1' v-model='SubmitDataMsg.debtorEvaluate'>
+                            <input type="radio" name="debtorEvaluate" value='3'>能干懂管理
+                            <input type="text" class='examine-report-container-form-item-9-input' value='1' v-model='SubmitDataMsg.debtorEvaluate'>
                         <h3>十、其它补充情况</h3>
                         <textarea name="textarea1" v-model='SubmitDataMsg.otherSupplement'></textarea>
                         <h3>十一、调查结论</h3>
@@ -321,27 +327,6 @@
 export default {
     data () {
         return {
-            // 分页器结构数据源
-            bgc: true,
-            queryInfo: {
-                pageSize: 10
-            },
-            UserMsg: [
-                {
-                    IsCoordinate: 'true',
-                    Type: 'debtor',
-                    Properties: 'person'
-                }
-            ],
-            RelativeMsg: [
-                {
-                    IsCoordinate: 'true',
-                    Type: 'debtor',
-                    Properties: 'person'
-                }
-            ],
-            // 确定选用正常模板还是多选模板
-            isNormal: false,
             pickerOptions: {
                 disabledDate(time) {
                 return time.getTime() > Date.now()
@@ -658,6 +643,7 @@ export default {
         },
         async SubmitData () {
             const formData = new FormData()
+            this.SubmitDataMsg.debtId = this.$route.query.debtId
             for (const key in this.SubmitDataMsg) {
                 formData.append(key, this.SubmitDataMsg[key])
             }
@@ -744,7 +730,8 @@ export default {
                 resize: none;
                 line-height: px2rem(5);
                 font-size: px2rem(3.5);
-                width: px2rem(300);
+                width: 1200px;
+                border: 1px solid #E8EAEC;
             }
             input[type=radio] {
                 width: px2rem(4)!important;
@@ -805,7 +792,7 @@ export default {
                 }
             }
             &-item-9-input {
-                width: px2rem(240)!important;
+                width: 900px!important;
             }
             &-item-11{
                 display: flex;

@@ -31,7 +31,7 @@
               >
                 <span>{{index+1}}</span>
                 <span>{{item.reportNo}}</span>
-                <span>{{item.civilno||'TZ651321132132132165'}}</span>
+                <span>{{item.civilno}}</span>
                 <span>{{item.debtId}}</span>
                 <span>{{item.debtNo}}</span>
                 <span>{{item.personName}}</span>
@@ -176,7 +176,7 @@
                 <el-col :span="8">
                   <span class="col-label">本次申请转让债权金额（大写）：</span>
                   <el-form-item>
-                    <el-input type="text" :disabled="true" v-model="SubmitData.amountThis | Uppercase" />
+                    <el-input type="text" class='mini-fontsize' :disabled="true" :value="SubmitData.amountThis | Uppercase" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -189,7 +189,7 @@
                 <el-col :span="8">
                   <span class="col-label">手机号码：</span>
                   <el-form-item>
-                    <el-input type="text" v-input-num maxlength="11" v-model="PhoneNumber" />
+                    <el-input type="text" maxlength="11" v-model="PhoneNumber" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -295,7 +295,7 @@
                     <el-col :span="8">
                         <span class="col-label">甲方身份情况：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaIdentity" placeholder="债权人"></el-input>
+                            <el-input v-model="party1Identity" placeholder="债权人" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -304,9 +304,11 @@
                     <el-col :span="8">
                         <span class="col-label">债权处理申请：</span>
                         <el-form-item label="">
-                            <el-select v-model="SubmitData.servicePlan" placeholder="请选择">
-                                <el-option label="易物卡" :value="1"></el-option>
-                                <el-option label="否" :value="2"></el-option>
+                            <el-select :value="SubmitData.debtType" :disabled='true'>
+                                <el-option label="一次性提取转让债权等额资产" value="1"></el-option>
+                                <el-option label="第三方商贸公司代理销售" value="2"></el-option>
+                                <el-option label="第三方电子商务公司线上代理销售" value="3"></el-option>
+                                <el-option label="其他" value="4"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
@@ -315,7 +317,7 @@
                     <el-col :span="8">
                         <span class="col-label">乙方身份情况：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partybIdentity" placeholder="债权人"></el-input>
+                            <el-input v-model="party2Identity" placeholder="债权人" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -326,13 +328,13 @@
                     <el-col :span="8">
                         <span class="col-label">本次债权处理申请金额（小写）：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.amountThis"></el-input>
+                            <el-input v-model="SubmitData.amountThis" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">本次债权处理申请金额（大写）：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.amountThis | Uppercase" :disabled="true"></el-input>
+                            <el-input class='mini-fontsize' :value="SubmitData.amountThis | Uppercase" :disabled="true"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -341,19 +343,19 @@
                     <el-col :span="8">
                         <span class="col-label">策划方案服务费率：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaIdentity"></el-input>
+                            <el-input :value="'10%'" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">本次策划方案服务费（小写）：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.serviceInterest"></el-input>
+                            <el-input v-model="thisPlanMoney" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">本次策划方案服务费（大写）：</span>
                         <el-form-item label="">
-                            <el-input v-model='SubmitData.servicePrincipal | Uppercase'></el-input>
+                            <el-input class='mini-fontsize' :value='thisPlanMoney | Uppercase' :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -402,7 +404,7 @@
                 <el-row :gutter="24">
                     <el-col :span="16">
                         <div class='update-img-list'>
-                            <img src="" alt="">
+                            <img :src="item" alt="" v-for='(item, index) in SubmitData.uploadAnnex' :key='index'>
                         </div>
                         <div class='update-img-button'>
                             <input type="file"
@@ -415,37 +417,37 @@
                 </el-row>
             </el-form>
             <div class="unlock-apply-container-form-determine3">
-              <button @click="SubmitMessage">确定</button>
+              <button @click="SubmitMessage" :disabled='HasSubmitDebtMsg'>确定</button>
             </div>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
-          <el-collapse-item title="策划方案服务协议" name="4">
+          <el-collapse-item title="策划方案服务协议" name="4" v-show='HasSubmitDebtMsg'>
             <div class="unlock-apply-container-form-plan-agreement">
               <div class="unlock-apply-container-form-plan-agreement-title">策划方案服务协议</div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-a">
                 <div>
                     <span>协议编号：</span>
-                    <input type="text" :disabled='true'>
+                    <input type="text" :disabled='true' :value='PlanInitData.serviceNo'>
                 </div>
                 <div>
                   <span>甲方(委托方)：</span>
-                  <input type="text" placeholder="债权人" disabled />
+                  <input type="text" placeholder="债权人" :value='PlanInitData.debtName' disabled />
                 </div>
                 <div>
                   <span>身份证号码/统一社会信用代码：</span>
-                  <input type="text" placeholder="债权人身份证号码" disabled />
+                  <input type="text" placeholder="债权人身份证号码" disabled :value='PlanInitData.personCard' />
                 </div>
                 <div>
                   <span>通讯地址：</span>
-                  <input type="text" placeholder="债权人身份证地址" disabled />
+                  <input type="text" placeholder="债权人身份证地址" disabled :value='PlanInitData.priAdd' />
                 </div>
                 <div>
                   <span>联系人：</span>
-                  <input type="text" placeholder="债权人姓名" disabled />
+                  <input type="text" placeholder="债权人姓名" disabled :value='PlanInitData.debtName' />
                 </div>
                 <div>
                   <span>联系电话：</span>
-                  <input type="text" placeholder="债权人电话号码" disabled />
+                  <input type="text" placeholder="债权人电话号码" disabled :value='PlanInitData.priPhone' />
                 </div>
               </div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-b">
@@ -458,178 +460,154 @@
               </div>
               <div>甲方因无法解决自身债权债务,自愿委托乙方为其提供处理债权债务方案咨询服务,依据《中华人民共和国合同法》和国家有关法律、法规,甲乙双方经友好协商,签订本合同以共同遵守。</div>
               <div>
-                <h3>第一条释义</h3>1.1债事:是指基于合法的原因产生的债权债务关系,在不同的语境中可能特指债权或债务或债权债务。
-                <br />1.2处理债权债务咨询:是指乙方企业经营范围许可的经营活动,主要针对具有合法债权债务的客户群体进行调解安抚,结合其实际情况给予分析判断,提供具有建议性、可操作性、合法合理性的咨询方案
-                <br />1.3债权人:特指本协议中确定的具体债权债务关系中享有债权的一方
-                <br />1.4债务人:特指本协议中确定的具体债权债务关系中负有债务的一方。
+                <h3>第一条释义</h3>(一)债事:是指基于合法的原因产生的债权债务关系,在不同的语境中可能特指债权或债务或债权债务。
+                <br />(二)处理债权债务咨询:是指乙方企业经营范围许可的经营活动,主要针对具有合法债权债务的客户群体进行调解安抚,结合其实际情况给予分析判断,提供具有建议性、可操作性、合法合理性的咨询方案
+                <br />(三)债权人:特指本协议中确定的具体债权债务关系中享有债权的一方
+                <br />(四)债务人:特指本协议中确定的具体债权债务关系中负有债务的一方。
                 <br />
-                <h3>第二条委托事项</h3>2.1甲方身份属于下列第<input type="text"/>种情况
+                <h3>第二条委托事项</h3>
+                （一）甲方身份属于下列第<input type="text"/>种情况
                 <br />(1)债权人,无法收回本协议确定的债权
                 <br />(2)债务人,无法清偿自身所欠债务
-                <br />2.2甲方因无法解决自身债权债务,在完全知晓和认可乙方处理债权债务咨询方式的情况下,委托乙方提供处理债权债务的咨询意见并支付策划方案服务费。为保障甲方策划方案服务费款的安全,乙方愿意就甲方策划方案服务费款项提供等额担保供甲方选择,甲方选择如下第
-                <input
-                  type="text"
-                />种方式：
-                <br />（1）无需担保
-                <br />（2）同等价值资产包质押
-                <br />若甲方选择（2）,乙方有权向甲方额外收取3%的服务费。
-                <br />选择（2）同等价值资产包质押具体细节详见《服务费担保合同》
+                <br />（二）甲方因无法解决自身债权债务，在完全知晓和认可乙方处理债权债务咨询方式的情况下，委托乙方提供处理债权债务的咨询意见并支付策划方案服务费。
                 <br />2.3甲方本次咨询乙方进行处理的债权债务金额
-                <input
-                  type="text"
-                  placeholder="解锁金额小写"
-                  :value="SubmitData.amountThis"
+                <input type="text"  placeholder="解锁金额小写"  :disabled='true' :value='PlanInitData.amountThis'
                 /> 元,（大写：
-                <input
-                  type="text"
-                  placeholder="解锁金额大写"
-                  :value="SubmitData.amountThis | Uppercase"
+                <input type="text" placeholder="解锁金额大写" :value="PlanInitData.amountThisMax" :disabled='true'
+                  class='mini-fontsize'
                 /> 元整）。其中包括本金
-                <input type="text" />元,利息
-                <input type="text" />元；
-                <br />2.4乙方接受甲方委托,为甲方提供处理债权债务咨询服务(以下简称“本项目”),具体包括；
-                <br />(1)收集、查阅本项目相关的借款协议、担保协议等协议文件,以及交易凭证、担保登记凭证等
-                <br />(2)在分析本项目相关协议文件及各类凭证资料的基础上,就甲方本次债事咨询提供处置方案
-                <br />(3)与本协议确定的债权债务关系相对人沟通债事处置服务方案:如甲方系债务人,相对方债权人不接受该方案,本协议自动终止:如甲方系债权人,相对方债务人不接受该方案的,不影响本协议的履行:
-                <br />(4)对本项目相关的其他债事问题,解答甲方的咨询,向甲方提供有关协助。
+                <input type="text" v-model='SubmitPlanData.servicePrincipal' />元,利息
+                <input type="text" v-model='SubmitPlanData.serviceInterest' />元；
+                <br />1.收集、查阅本项目相关的买卖合同、服务合同、借款协议及担保协议等协议文件,以及交易凭证、担保登记凭证等。
+                <br />2.在分析本项目相关协议文件及各类凭证资料的基础上，就甲方本次债事咨询提供处置服务方案。
+                <br />3.与本协议确定的债权债务关系相对人沟通债事处置服务方案：如甲方系债务人，相对方债权人不接受该方案，本协议自动终止；如甲方系债权人，相对方债务人不接受该方案的,不影响本协议的履行。
+                <br />4.对本项目相关的其他债权债务问题，解答甲方的咨询，向甲方提供有关协助。
                 <br />
-                <h3>第三条策划方案服务费及支付方式</h3>3.1甲方按照本协议2.3条约定的处理债权债务金额
-                <input
-                  type="text"
-                  placeholder="解锁金额小写"
-                  :value="SubmitData.amountThis"
-                /> 整,大写
-                <input
-                  type="text"
-                  placeholder="解锁金额大写"
-                  :value="SubmitData.amountThis | Uppercase"
-                /> 圆整）的10%向乙方支付策划方案服务费,策划方案服务费
-                <input type="text" placeholder="人民币小写" />元（大写：
-                <input type="text" placeholder="人民币大写" />圆整）。
-                <br />3.2甲方须将策划方案服务费支付至乙方指定的银行账户:
+                <h3>三、策划方案服务费及支付方式</h3>
+                (一)甲方按照本协议约定的处理债权债务金额的10%向乙方支付策划方案服务费，策划方案服务费总额为人民币
+                <input type="text" :disabled='true' :value='PlanInitData.thisPlanMoney' />元（大写：
+                <input type="text" :disabled='true' :value='PlanInitData.thisPlanMoneyMax' />圆整）。
+                <br />(二)甲方须将策划方案服务费支付至乙方指定的银行账户:
                 <br />户名：山东盛世天泽公关顾问有限公司
                 <br />账号：810101201421046328
                 <br />开户行：日照银行股份有限公司银海支行
-                <br />3.3支付时间:本协议签订之日,甲方一次性支付
-                <br />3.4乙方收到策划方案服务费后须向甲方开具合法发票服务项目工作要求
+                <br />(三)支付时间:本协议签订之日,甲方一次性支付
+                <br />(四)乙方收到策划方案服务费后须向甲方开具合法发票服务项目工作要求
                 <br />
-                <h3>第四条 服务项目工作要求</h3>4.1乙方应按照甲方委托合理安排工作步骤,以完成甲方的委托事务。
-                <br />4.2为确保本项目顺利进行,甲方须全力配合乙方工作,包括及时向乙方提供本项目相关的协议文件和凭证资料,并给予乙方必要的工作时间等
-                <br />4.3乙方向甲方提供本项目咨询服务方案,或以书面、邮件等方式为甲方提供本项目服务方案咨询视为乙方己完成本协议约定的服务内容,甲方不得以任何理由要求乙方退还策划方案服务费。
-                <br />
-                <h3>第五条双方的陈述和保证</h3>5.1甲方的陈述和保证
-                <br />(1)完全知晓和认可乙方咨询服务方式,自愿将本项目全权委托给乙方提供咨询服务:
-                <br />(2)本协议内容乙方已向甲方充分告知、说明并与甲方协商一致,甲方已充分理解并同意本协议的全部内容,愿意遵守各项规则及本协议的所有内容
-                <br />(3)本协议述及的债权债务关系真实且合法
-                <br />(4)本项目咨询服务指定乙方作为其唯一咨询服务方,不得再委托他人:
-                <br />(5)与乙方诚信合作,为乙方开展工作提供便利,向乙方提供与服务事项相关的情况和资料,并保证其真实、合法、有效
-                <br />(6)如本项目有关的情况和事实发生变化,应及时告知乙方:
-                <br />(7)按照本协议约定支付策划方案服务费
-                <br />(8)对本项目相关的全部内容保密,不得向任何第三方透露
-                <br />5.2乙方的陈述和保证
-                <br />(1)遵守职业道德和执业纪律
-                <br />(2)勤勉尽职,依法在协议约定范围内为甲方提供咨询服务
-                <br />(3)对本项目相关的全部内容保密,不得向任何第三方透露
-                <br />
-                <h3>第六条协议的变更和解除</h3>6.1本协议履行期间,发生特殊情况时,任何一方需变更本协议的,要求变更一方应及时书面通知对方,征得对方同意后,双方签订书面变更协议,该协议将成为本合同不可分割的部分。未经双方签署书面文件,任何一方无权变更本协议,否则由此造成对方的经济损失,由责任方承担
-                <br />6.2因客观情况发生变化,甲乙双方可协商解除本协议
-                <br />6.3甲方自本协议签订后,应当积极配合乙方工作,不得阻碍或拒绝履行协议,否则乙方有权单方解除本协议,且策划方案服务费不予退还
-                <br />6.4甲方未依照本协议约定支付策划方案服务费,逾期超过一个月的,乙方有权解除本协议,并依据本协议7.1条的约定主张违约金
+                <h3>第四条 服务项目工作要求</h3>
+                （一）乙方应按照甲方委托合理安排工作步骤,以完成甲方的委托事务。
+                <br />（二）为确保本项目顺利进行，甲方须全力配合乙方工作，包括及时向乙方提供本项目相关的协议文件和凭证资料，并给予乙方必要的工作时间等。
+                <br />（三）乙方向甲方提供本项目咨询服务方案，或以书面、邮件等方式为甲方提供本项目服务方案咨询视为乙方已完成本协议约定的服务内容，甲方不得以任何理由要求乙方退还策划方案服务费。
+
+                <h3>第五条双方的陈述和保证</h3>
+                （一）甲方的陈述和保证
+                <br />1.完全知晓和认可乙方咨询服务方式，自愿将本项目全权委托给乙方提供咨询服务；
+                <br />2.本协议内容乙方已向甲方充分告知、说明并与甲方协商一致，甲方已充分理解并同意本协议的全部内容，愿意遵守<br />各项规则及本协议的所有内容；
+                <br />3.本协议述及的债权债务关系真实且合法；
+                <br />4.与乙方诚信合作，为乙方开展工作提供便利，向乙方提供与服务事项相关的情况和资料，并保证其真实、合法、有效；
+                <br />5.如本项目有关的情况和事实发生变化，应及时告知乙方；
+                <br />6.按照本协议约定支付策划方案服务费；
+                <br />7.对本项目相关的全部内容保密,不得向任何第三方透露。
+                <br />（二）乙方的陈述和保证
+                <br />1.遵守职业道德和执业纪律；
+                <br />2.勤勉尽职，依法在协议约定范围内为甲方提供咨询服务；
+                <br />3.对本项目相关的全部内容保密，不得向任何第三方透露。
+                <h3>第六条协议的变更和解除</h3>
+                （一）本协议履行期间，发生特殊情况时，任何一方需变更本协议的，要求变更一方应及时书面通知对方，征得对方同意后，双方签订书面变更协议，该变更协议将成为本协议不可分割的部分。未经双方签署书面文件，任何一方无权变更本协议，否则由此造成相对方的经济损失，由责任方承担。
+                <br />（二）因客观情况发生变化，甲乙双方可协商解除本协议。
+                <br />（三）甲方自本协议签订后，应当积极配合乙方工作，不得阻碍或拒绝履行协议，否则乙方有权单方解除本协议，且策划方案服务费不予退还。
+                <br />（四）甲方未依照本协议约定支付策划方案服务费，逾期超过一个月的，乙方有权解除本协议，并依据本协议的约定主张违约金。
                 <h3>第七条违约责任</h3>7.1任何一方违约的,违约方按照策划方案服务费金额的10%向守约方支付违约金。
                 <br />
-                <h3>第八条其他事项</h3>
+                <h3>八、通知与送达</h3>
                 <div>
-                  8.1为联络和送达方便,双方确认送达地址如下:
-                  <br />
-                  <div class="unlock-apply-container-form-plan-agreement-address">
-                    <div>
-                      甲方地址:
-                      <input type="text" v-model="SubmitData.partyaAddrInfo" />
-                    </div>
-                    <div>
-                      联系人:
-                      <input type="text" v-model="SubmitData.partyaPersonInfo" />
-                    </div>
-                    <div>
-                      联系电话:
-                      <input type="text" v-model="SubmitData.partyaTelInfo" />
-                    </div>
-                  </div>乙方地址: 日照市经济开发区天津路99号5路501室
-                  <br />联系人: 黄希
-                  <br />联系电话: 15523336111
-                  <br />按上述地址送达均视为有效送达,地址发生变更的的一方应在变更后五日内书面通知对方,否则依上述地址的送达仍为有效送达
-                  <br />8.2甲乙双方如发生争执,应当友好协商解决,协商不成的双方同意向乙方住所地人民法院提起诉讼
-                  <br />8.3本协议未尽事宜,由甲乙双方另行签订补充协议,补充协议与本协议具有同等的法律效力
-                  <br />8.4本协议自双方签字盖章之日起生效,本协议壹式叁份,甲方留存壹份,乙方留存贰份,具有同等的法律效力
-                  <br />8.5其他约定事项: 无
-                  <br />
+                  （一）甲乙双方一致确认，本协议首部注明的通讯地址、联系人和联系电话为双方的有效送达地址，其适用范围包括：甲乙双方之间发出的任何通知、联络或争议进入民事诉讼程序后的一审程序、二审程序和执行程序有关司法文书的通知或送达。<br />
+                    （二）对于任何通知、联络或司法文书，甲乙双方约定如下日期为正式送达日期：<br />
+                    1.直接交付的，在交付时视为送达。<br />
+                    2.以短信、微信方式发出的，以发件方发送后系统显示的时间视为送达。<br />
+                3.以邮政快递形式发出的，在收件人拒收或者因送达地址、联系人和联系电话错误或不详而被退回时视为送达。<br />
+                （三）甲乙双方的送达地址、联系人和联系电话如有变更的，须在变更前十日以书面形式通知相对方，在书面变更通知送达对方之前，视为送达地址、联系人和联系电话未变更。<br />
                 </div>
+                <h3>九、其他事项</h3>
+                （一）因本协议发生争议，甲乙双方应当友好协商解决；协商不成的可向本协议签订地人民法院起诉。<br />
+                （二）本协议未尽事宜,由甲乙双方另行签订补充协议,补充协议与本协议具有同等法律效力。<br />
+                （三）本协议自甲乙双方签字或盖章后生效。本协议壹式叁份,甲方留存壹份,乙方留存貳份,具有同等法律效力。<br />
               </div>
-              <div class="unlock-apply-container-form-plan-agreement-sign">
-                <div class="unlock-apply-container-form-plan-agreement-sign-left">
-                  <div>
-                    授权代表人：
-                    <input type="text" v-model="SubmitData.partyaDeputy" />
-                  </div>
-                  <div>
-                    甲方(签字盖章捺印)：
-                    <button>上传电子章</button>
-                    <input
-                      type="file"
-                      ref="PartASeal"
-                      @change="UpdatePartASeal"
-                      class="unlock-apply-container-form-plan-agreement-sign-left-seal"
-                    />
-                  </div>
-                  <div>
-                    签约日期：
-                    <el-date-picker
-                      align="left"
-                      type="date"
-                      placeholder="请选择日期"
-                      :picker-options="pickerOptions"
-                      v-model="SubmitData.partyaDate"
-                      value-format="yyyy-MM-dd"
-                    ></el-date-picker>
-                  </div>
-                  <img :src="SubmitData.partyaSeal? SubmitData.partyaSeal : SealSrc" alt />
-                </div>
-                <div class="unlock-apply-container-form-plan-agreement-sign-right">
-                  <div>
-                    授权代表人：
-                    <input type="text" v-model="SubmitData.partybDeputy" />
-                  </div>
-                  <div>
-                    乙方(签字盖章捺印)：
-                    <button @click="UpdatePartBSeal">上传电子章</button>
-                    <input
-                      type="file"
-                      ref="PartBSeal"
-                      @change="UpdatePartBSeal"
-                      class="unlock-apply-container-form-plan-agreement-sign-right-seal"
-                    />
-                  </div>
-                  <div>
-                    签约日期：
-                    <el-date-picker
-                      align="left"
-                      type="date"
-                      placeholder="请选择日期"
-                      :picker-options="pickerOptions"
-                      v-model="SubmitData.partybDate"
-                      value-format="yyyy-MM-dd"
-                    ></el-date-picker>
-                  </div>
-                  <div>
-                    合同签约地：
-                    <input type="text" v-model="SubmitData.contractPlace" />
-                  </div>
-                  <img :src="SubmitData.partybSeal? SubmitData.partybSeal : SealSrc" alt />
-                </div>
+              <div class='middle-message'>
+                  <span>(以下无正文,为签署页)</span>
               </div>
+                <el-form label-width="">
+                    <el-row :gutter="24">
+                        <el-col :span="8">
+                            <span class="col-label">甲方：</span>
+                            <el-form-item label="">
+                                <el-input :value="PlanInitData.debtName" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">乙方：</span>
+                            <el-form-item label="">
+                                <el-input :value="'山东盛世天泽公关顾问有限公司'" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="24">
+                        <el-col :span="8">
+                            <span class="col-label">日期：</span>
+                            <el-form-item label="">
+                                <el-date-picker
+                                align="left"
+                                type="date"
+                                placeholder="请选择日期"
+                                :picker-options="pickerOptions"
+                                :value="PlanInitData.contractDate"
+                                :disabled='true'
+                                value-format="yyyy-MM-dd"
+                                ></el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">乙方(签字盖章捺印)：</span>
+                            <el-form-item label="">
+                                <button @click="UpdatePartBSeal" class='update-voucher-button'>上传电子章</button>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="24">
+                        <el-col :span="8">
+                            <p></p>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">日期：</span>
+                            <el-form-item label="">
+                                <el-date-picker
+                                align="left"
+                                type="date"
+                                placeholder="请选择日期"
+                                :value="PlanInitData.contractDate"
+                                :disabled='true'
+                                :picker-options="pickerOptions"
+                                value-format="yyyy-MM-dd"
+                                ></el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="24">
+                        <el-col :span="8">
+                            <p></p>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">合同签约地：</span>
+                            <el-form-item label="">
+                                <el-input type="text" :value="'重庆市渝中区'" :disabled='true'/></el-form-item>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+              <div
             </div>
             <div class="unlock-apply-container-form-determine3">
-              <button @click="SubmitPlanMessage" :disabled="!IsSendPhoneCheckMsg">确定</button>
+              <button @click="SubmitPlanMessage">确定</button>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -747,9 +725,9 @@ export default {
         // 状态
         status: '0',
         // 甲方身份
-        partyaIdentity: '',
+        partyaIdentity: '1',
         // 乙方身份
-        partybIdentity: '',
+        partybIdentity: '2',
         // 公司ID
         comId: '',
         // 本次策划方案服务费
@@ -759,21 +737,33 @@ export default {
         // 附件上传
         uploadAnnex: []
       },
+      // 提交策划方案服务协议数据源
+      SubmitPlanData: {
+          matters: '',
+          serviceNo: '',
+          servicePrincipal: '',
+          serviceInterest: '',
+          contractDate: '',
+          debtId: ''
+      },
       // 民事调解书数据源
       MediaSrc: [],
       // 当前用户选择的民事调解书
       MediaIndex: 0,
-      //
       IsSendUnlockPhonecheck: false,
       // 发送验证的手机号码
       PhoneNumber: '',
+      // 获取提交解债信息返回的解债ID
+      ResponseDebtID: '',
       SendPhoneAndChekno: {
         tel: '',
         checkNo: ''
       },
       IsSendPhoneCheckMsg: false,
       // 是否提交了解债信息
-      HasSubmitDebtMsg: false
+      HasSubmitDebtMsg: false,
+      // 策划方案服务协议初始化数据源
+      PlanInitData: []
     }
   },
   methods: {
@@ -790,13 +780,11 @@ export default {
     //     this.SubmitData.partybSeal = result
     //   })
     },
+    // 上传资料
     UpdateVoucher () {
         this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(result => {
-            this.SubmitData.partybSeal = result
+            this.SubmitData.uploadAnnex.push(result)
         })
-    },
-    ViewContract() {
-      this.$router.push({ name: 'PledgedContract' })
     },
     // 解债申请信息初始化
     async InitData(relativePerId) {
@@ -811,10 +799,11 @@ export default {
         }
       })
       this.UnlockUserMsg = result.data
+      console.log(this.UnlockUserMsg)
     },
     // 提交解债信息
     async SubmitMessage() {
-      //
+      // 短信验证
       const PhoneCheckFormData = new FormData()
       for (const key in this.SendPhoneAndChekno) {
         PhoneCheckFormData.append(key, this.SendPhoneAndChekno[key])
@@ -833,11 +822,14 @@ export default {
       // 数据提交
       this.SubmitData.reportId = this.$route.query.reportId
       this.SubmitData.relativePerId = this.relativePerId
+      this.SubmitData.thisPlanMoney = this.thisPlanMoney
+      this.SubmitData.debtApply = this.SubmitData.debtType
+      this.SubmitData.comId = window.sessionStorage.getItem('companyId')
+      console.log(this.SubmitData)
       const formData = new FormData()
       for (const key in this.SubmitData) {
         formData.append(key, this.SubmitData[key])
       }
-      formData.append('comId', sessionStorage.getItem('companyId'))
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/pubDebtController/insertSelective',
@@ -846,6 +838,8 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
+      this.ResponseDebtID = result.data
+      console.log(this.ResponseDebtID)
       if (result.resultCode === '200') {
         // 调用status改变接口
         const StatusUpdateformData = new FormData()
@@ -864,7 +858,11 @@ export default {
           }
         })
         if (StatusUpdateResult.resultCode === '200') {
-          this.GetMsgList()
+            // 初始化和显示策划方案协议页面
+            this.InitPlanData()
+            this.HasSubmitDebtMsg = true
+            // 重新获取调解记录列表
+            this.GetMsgList()
           return this.$message.success('新增解债信息成功')
         } else {
           return this.$message.error('修改调解信息状态失败')
@@ -881,39 +879,18 @@ export default {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(StageUpdateResult => {
-        if (StageUpdateResult.data.resultCode !== '200')
-          return this.$message.error(StageUpdateResult.data.resultMessage)
-        this.$message.success('进入债权处理阶段,请填写策划方案协议')
+      }).then(() => {
+            this.$message.success('进入债权处理阶段,请填写策划方案协议')
       })
-    },
-    CloseRelativeList() {
-      // 退回主页
-      this.$message.error('请先选择相对人')
-      this.$router.push({ path: '/MyDebt' })
-      this.IsPopSelectiveList = false
-    },
-    // 确定选择相对人页面 并 通过relativePerId查询得到报备人及相对人信息
-    SelectRelative() {
-      // 未选择相对人, 提示错误信息
-      if (!this.relativePerId) {
-        return this.$message.error('请先选择相对人')
-      }
-      // 选择成功, 关闭面板, 发送选择成功信息
-      this.$message({
-        message: '选择相对人成功',
-        type: 'success'
-      })
-      this.InitData(this.relativePerId)
-      this.IsPopSelectiveList = false
     },
     // 获取相对人的index及相对人ID
     GetMediaMsg(index) {
-      // 获取推荐人ID
+      // 获取相对人ID
       this.relativePerId = this.MediaSrc[this.MediaIndex].relativePerId
       this.InitData(this.relativePerId)
       const civilId = this.MediaSrc[this.MediaIndex].civilId
       this.SubmitData.civilId = this.MediaSrc[this.MediaIndex].civilId
+      // 获取担保人信息列表
       this.Getguarantor(civilId)
     },
     // 进入调查报告页面
@@ -956,20 +933,6 @@ export default {
         // v.overViewContent = ``
       })
       this.GetMediaMsg(this.MediaIndex)
-      console.log(this.MediaSrc)
-      // this.RelativeList = result.data
-      // 策划方案数据获取
-      const AgreemenFormData = new FormData()
-      AgreemenFormData.append('reportId', reportId)
-      const { data: AgreemenResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/busCivilController/initializePlan',
-        data: AgreemenFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      console.log(AgreemenResult)
     },
     // 获取解债信息列表
     async GetMsgList() {
@@ -984,8 +947,8 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      console.log(this.UnlockApplyMsg)
       this.UnlockApplyMsg = result.data
+      console.log(this.UnlockApplyMsg)
     },
     async SendPhoneCheck() {
       // 发送短信验证码
@@ -1014,16 +977,61 @@ export default {
       this.IsSendPhoneCheckMsg = true
     },
     // 提交策划方案服务协议
-    SubmitPlanMessage () {}
+    SubmitPlanMessage () {
+        const formData = new FormData()
+        this.SubmitPlanData.debtId = this.PlanInitData.debtId
+        this.SubmitPlanData.contractDate = this.PlanInitData.contractDate
+        this.SubmitPlanData.serviceNo = this.PlanInitData.serviceNo
+        this.SubmitPlanData.matters = this.PlanInitData.reportPropert
+    },
+    // 初始化策划方案服务协议 
+    async InitPlanData () {
+        const formData = new FormData()
+        formData.append('debtId', this.ResponseDebtID)
+        formData.append('comId', window.sessionStorage.getItem('companyId'))
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/pubDebtController/initializePlan',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        })
+        this.PlanInitData = result.data
+        console.log('InitPlanData', result)
+    }
   },
   created() {
     this.SearchConciliation()
     this.GetMsgList()
-  }
+  },
+  computed: {
+        thisPlanMoney: function () {
+            if (Number(this.SubmitData.amountThis)) {
+                return (Number(this.SubmitData.amountThis) * 0.1).toFixed(2)
+            }
+            return ''
+        },
+        // 甲方身份加工
+        party1Identity: function () {
+            return `(${this.SubmitData.partyaIdentity})`
+        },
+        // 乙方身份加工
+        party2Identity: function () {
+            return `(${this.SubmitData.partybIdentity})`
+        }
+  },
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+.mini-fontsize {
+    font-size: 12px;
+}
+.middle-message {
+    text-align: center;
+    margin: 50px 0;
+}
 .el-row {
   .el-col {
     display: flex;
@@ -1072,7 +1080,6 @@ export default {
         opacity: 0;
     }
 }
-
 .unlock-apply {
   display: flex;
   flex-direction: column;
