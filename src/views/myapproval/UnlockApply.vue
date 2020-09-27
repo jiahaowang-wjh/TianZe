@@ -58,7 +58,7 @@
               <span>{{item.debtNo}}</span>
               <span
                 :class="[item.status === '2' || item.status === '6' || item.status === '9'? ('pass') : item.status === '1' || item.status === '4' || item.status === '7'? 'unpass': 'hassubmit']"
-              >{{item.status === '0' ? '调查报告未审核' : item.status === '1' ? '调查报告审核未通过' : item.status === '2' ? '调查报告审批通过,债权信息未审核' : item.status === '3' ? '置换信息审核未通过' : item.status === '4' ? '置换信息审核通过': item.status === '5' ? '置换信息审核通过': item.status === '7' ? '财务未审核': item.status === '8' ? '财务审核未通过' : '财务审核通过'}}</span>
+              >{{item.status === '0' ? '调查报告未审核' : item.status === '1' ? '调查报告审核未通过' : item.status === '2' ? '调查报告审批通过,债权信息未审核' : item.status === '3' ? '置换信息审核未通过' : item.status === '4' ? '置换信息审核通过': item.status === '5' ? '债权处理信息审核通过': item.status === '6' ? '债权处理信息通过,开始缴费' : item.status === '7' ? '财务未审核': item.status === '8' ? '财务审核未通过' : '财务审核通过'}}</span>
               <span>{{item.personName}}</span>
               <span>
                 <button v-show="item.status === '6' && roleId ==='7992691295821774848'" @click="GoUnlockPayment(index,item)">缴费</button>
@@ -181,6 +181,7 @@ export default {
         query: {
           debtId: item.debtId,
           reportId: item.reportId,
+          relativePerId: item.relativePerId
         },
       })
     },

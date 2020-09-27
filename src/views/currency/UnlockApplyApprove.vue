@@ -36,18 +36,6 @@
                 <span>{{item.personName}}</span>
               </div>
             </div>
-            <h3>调解书信息</h3>
-            <div class="unlock-apply-container-form-select">
-              选择调解书：
-              <el-select v-model="MediaIndex" @change="GetMediaMsg">
-                <el-option
-                  :label="`${item.civilno} 债务人: ${item.personName}`"
-                  :value="item.value"
-                  v-for="(item,index) in MediaSrc"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </div>
             <el-form label-width="">
                 <h3>债事人信息</h3>
                 <el-row :gutter="24">
@@ -166,7 +154,7 @@
                 <el-col :span="8">
                   <span class="col-label">本次申请转让债权金额（小写）：</span>
                   <el-form-item>
-                    <el-input type="text" v-model="SubmitData.amountThis" />
+                    <el-input type="text" v-model="SubmitData.amountThis" :disabled='true'/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -188,7 +176,7 @@
                     <el-col :span="8">
                         <span class="col-label">债权处理类型：</span>
                         <el-form-item label="">
-                            <el-select v-model="SubmitData.debtType" placeholder="请选择">
+                            <el-select v-model="SubmitData.debtType" placeholder="请选择" :disabled='true'>
                                 <el-option label="一次性提取转让债权等额资产" value="1"></el-option>
                                 <el-option label="第三方商贸公司代理销售" value="2"></el-option>
                                 <el-option label="第三方电子商务公司线上代理销售" value="3"></el-option>
@@ -199,7 +187,7 @@
                     <el-col :span="8">
                         <span class="col-label">债权处理年限：</span>
                         <el-form-item label="">
-                            <el-select v-model="SubmitData.debtYaer" placeholder="请选择">
+                            <el-select v-model="SubmitData.debtYaer" placeholder="请选择" :disabled='true'>
                                 <el-option label="一年" value="1"></el-option>
                                 <el-option label="二年" value="2"></el-option>
                                 <el-option label="三年" value="3"></el-option>
@@ -344,19 +332,19 @@
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达地址：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaAddr"></el-input>
+                            <el-input v-model="SubmitData.partyaAddr" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达联系人：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaPerson"></el-input>
+                            <el-input v-model="SubmitData.partyaPerson" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达联系电话：</span>
                         <el-form-item label="">
-                            <el-input v-model='SubmitData.partyaTel'></el-input>
+                            <el-input v-model='SubmitData.partyaTel' :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -364,19 +352,19 @@
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达地址：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partybAddr"></el-input>
+                            <el-input v-model="SubmitData.partybAddr" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达联系人：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partybPerson"></el-input>
+                            <el-input v-model="SubmitData.partybPerson" :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达联系电话：</span>
                         <el-form-item label="">
-                            <el-input v-model='SubmitData.partybTel'></el-input>
+                            <el-input v-model='SubmitData.partybTel' :disabled='true'></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -385,12 +373,6 @@
                     <el-col :span="16">
                         <div class='update-img-list'>
                             <img :src="item" alt="" v-for='(item, index) in SubmitData.uploadAnnex' :key='index'>
-                        </div>
-                        <div class='update-img-button'>
-                            <input type="file"
-                            @change="UpdateVoucher"
-                            ref="UpdateMaterialVoucher"
-                            value="点击上传" />
                         </div>
                     </el-col>
                 </el-row>
@@ -750,7 +732,7 @@ export default {
     // 解债申请信息初始化
     async InitData(relativePerId) {
         const formData = new FormData()
-        formData.append('relativePerId', relativePerId) // relativePerId
+        formData.append('relativePerId', this.$route.query.relativePerId) // relativePerId
         const { data: result } = await this.$http({
             method: 'post',
             url: '/api/api/busRelativePersonController/selectByRelativePerId',
@@ -765,13 +747,14 @@ export default {
         DebtFormData.append('debtId', this.$route.query.debtId)
         const { data: DebtResult } = await this.$http({
             method: 'post',
-            url: '/api/api/busRelativePersonController/selectByRelativePerId',
+            url: '/api/api/pubDebtController/selectByPrimaryKey',
             data: DebtFormData,
             headers: {
             'Content-Type': 'multipart/form-data'
             }
         })
-        console.log('DebtResult', DebtResult)
+        this.SubmitData = DebtResult.data
+        this.SubmitData.uploadAnnex = this.SubmitData.uploadAnnex.split(',')
     },
     // 获取相对人的index及相对人ID
     GetMediaMsg(index) {
@@ -859,9 +842,11 @@ export default {
       if (!this.SubmitApproveData.checkReason)
         return this.$message.error('请先填写审核原因')
       this.UpdateCheckStatus('5')
+      this.$router.push({path: 'UnlockApply'})
     },
     PassCheck() {
       this.UpdateCheckStatus('6')
+      this.$router.push({path: 'UnlockApply'})
     },
     // 提交审批状态
     async UpdateCheckStatus(status) {

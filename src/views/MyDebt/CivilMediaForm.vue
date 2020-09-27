@@ -271,6 +271,21 @@
                                         <el-button class='phonecheck-button' @click='SendCreditorPhoneCheck'>点击获取</el-button>
                                     </el-col>
                                 </el-row>
+                                <el-row>
+                                    <el-col :span="8">
+                                        <span class="col-label">债务人手机号码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='PhoneNumber[1]'></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <span class="col-label">手机验证码：</span>
+                                        <el-form-item label>
+                                            <el-input v-model='SendPhoneAndChekno[1].checkNo'  maxlength="4"></el-input>
+                                        </el-form-item>
+                                        <el-button class='phonecheck-button' @click='SendDebtorPhoneCheck'>点击获取</el-button>
+                                    </el-col>
+                                </el-row>
                             </el-form>
                         </div>
                         <h3>选择调解员</h3>
@@ -403,8 +418,8 @@
                 </div>
                 <div class='civil-media-pop-relative-box-body'>
                     选择对应相对人：
-                    <el-select v-model='RelativeName' @change="getValue">
-                        <el-option v-for='(item,index) in RelativeList' :key='index' :label="item.personalName" :value="index"></el-option>
+                    <el-select v-model='relativePerId'  >
+                        <el-option v-for='(item,index) in RelativeList' :key='index' :label="item.personalName" :value="item.relativePerId"></el-option>
                     </el-select>
                 </div>
                 <div class='civil-media-pop-relative-box-footer'>
@@ -636,7 +651,7 @@ export default {
             this.IsAddConciliatorContent = true
         },
         GetMediator (index) {
-            this.MediaIndex = index
+            this.MediaIndex = index;
         },
         // 调解信息初始化
         async InitData (relativePerId) {
@@ -735,11 +750,7 @@ export default {
                 this.$message.error(result.resultMessage)
             }
         },
-        // 获取相对人的index及相对人ID
-        getValue (index) {
-            // 获取推荐人ID
-            this.relativePerId = this.RelativeList[index].relativePerId
-        },
+       
         // 确定选择相对人页面 并 通过relativePerId查询得到报备人及相对人信息
         SelectRelative () {
             // 未选择相对人, 提示错误信息
@@ -828,7 +839,7 @@ export default {
             this.SendPhoneAndChekno[0].tel = tel
             this.IsSendPhoneCheckMsg[0] = true
         },
-        // 发送债权人短信
+        // 发送债务人短信
         async SendDebtorPhoneCheck () {
             // 发送短信验证码
             const tel = this.PhoneNumber[1]
