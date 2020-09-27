@@ -210,10 +210,6 @@ export default {
       this.MediateMsg = result.data.list
     },
     CheckMediaMsg(index, item) {
-      window.sessionStorage.setItem(
-        'relativePerId',
-        this.MediateMsg[index].relativePerId
-      )
       this.$router.push({
         path: '/MediaApprove',
         query: {
@@ -222,7 +218,8 @@ export default {
           civilId: item.civilId,
         },
       })
-    },addDate() {
+    },
+    addDate () {
       let nowDate = new Date();
       let date = {
           year: nowDate.getFullYear(),

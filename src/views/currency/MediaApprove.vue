@@ -39,69 +39,80 @@
             <h3>调解审核</h3>
             <div>选择化解方式：双方化解</div>
             <h3>债权人信息</h3>
-            <div class="civil-media-container-form-debtor-1">
-              <div>
-                甲方（债权人名称/姓名）：
-                <input type="text" :disabled="true" :value="MediaUserMsg.debtName" />
-              </div>
-              <div>
-                法定代表人/负责人：
-                <input type="text" :disabled="true" :value="MediaUserMsg.debtLegalName" />
-              </div>
-              <div>
-                身份证号码/信用代码：
-                <input type="text" :disabled="true" :value="MediaUserMsg.debtIdCardCode" />
-              </div>
-            </div>
-            <div class="civil-media-container-form-debtor-2">
-              <div>
-                所住地：：
-                <input type="text" :disabled="true" :value="MediaUserMsg.debtAdd" />
-              </div>
-              <div>
-                联系电话：
-                <input type="text" :disabled="true" :value="MediaUserMsg.debtPhone" />
-              </div>
-              <div></div>
-            </div>
+            <el-form ref="form" label-width>
+                <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">甲方（债权人名称/姓名）：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.debtName" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">法定代表人/负责人：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.debtLegalName" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">身份证号码/信用代码：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.debtIdCardCode" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">所住地：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.debtAdd" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">联系电话：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.debtPhone" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
             <h3>债务人信息</h3>
-            <div class="civil-media-container-form-relative-1">
-              <div>
-                乙方（债务人名称/姓名）：
-                <input type="text" :disabled="true" :value="MediaUserMsg.personalName" />
-              </div>
-              <div>
-                法定代表人/负责人：
-                <input
-                  type="text"
-                  :disabled="true"
-                  :value="MediaUserMsg.personalLegalName"
-                />
-              </div>
-              <div>
-                身份证号码/信用代码：
-                <input
-                  type="text"
-                  :disabled="true"
-                  :value="MediaUserMsg.personalIdCardCode"
-                />
-              </div>
-            </div>
-            <div class="civil-media-container-form-relative-2">
-              <div>
-                所住地：
-                <input type="text" :disabled="true" :value="MediaUserMsg.personalAdd" />
-              </div>
-              <div>
-                联系电话：
-                <input type="text" :disabled="true" :value="MediaUserMsg.personalPhone" />
-              </div>
-              <div></div>
-            </div>
+            <el-form ref="form" label-width>
+                <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">乙方（债务人名称/姓名）：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.personalName" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">法定代表人/负责人：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.personalLegalName" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">身份证号码/信用代码：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.personalIdCardCode" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">所住地：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.personalAdd" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">联系电话：</span>
+                        <el-form-item label>
+                            <el-input :disabled="true" :value="MediaUserMsg.personalPhone" ></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
             <h3>担保人信息</h3>
-            <div class="civil-media-container-form-new-guarantor">
-              <!-- <button>新增担保人</button> -->
-            </div>
             <!-- 表单2 担保人表单 -->
             <div class="civil-media-container-form-table-2-title">
               <span>序号</span>
@@ -110,7 +121,6 @@
               <span>身份证号码/信用代码</span>
               <span>联系电话</span>
               <span>所住地</span>
-              <span>操作</span>
             </div>
             <div class="civil-media-container-form-table-2">
               <div
@@ -130,42 +140,16 @@
             <div>
               债券债务类型:
               <label for="1">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="1-1"
-                  value="1-1"
-                  :disabled="true"
-                  v-model="civilType"
+                <input type="radio" name="debt-type" id="1" value="1" :disabled="true" v-model="MediaData.civilType"
                 />借款
               </label>
-
               <label for="2">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="2"
-                  :disabled="true"
-                  :value="MediaData.civilType"
+                <input type="radio" name="debt-type" id="2" value='2' :disabled="true" :value="MediaData.civilType"
                 />贷款
               </label>
-              <label for="3">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="3"
-                  :disabled="true"
-                  :value="MediaData.civilType"
-                />工程款
+              <label for="3"> <input type="radio" name="debt-type" id="3" value="3" :disabled="true" :value="MediaData.civilType" />工程款
               </label>
-              <label for="4">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="4"
-                  :disabled="true"
-                  :value="MediaData.civilType"
-                />其他款项
+              <label for="4"> <input type="radio" name="debt-type" id="4"  value="4":disabled="true" :value="MediaData.civilType" />其他款项
               </label>
             </div>
             <h3>乙方尚欠甲方款项金额：</h3>
@@ -255,18 +239,16 @@
                     align="left"
                     type="date"
                     placeholder="请选择开始日期"
-                    :picker-options="pickerOptions"
                     v-model="MediaData.starDate"
                     value-format="yyyy-MM-dd hh-mm-ss"
                   ></el-date-picker>
-                  <span class="civil-media-container-form-interest-row1-separator">—</span>
+                  —
                   <el-date-picker
                     :disabled="true"
                     align="left"
                     type="date"
                     placeholder="请选择结束日期"
                     v-model="MediaData.endDate"
-                    :picker-options="pickerOptions1"
                     value-format="yyyy-MM-dd hh-mm-ss"
                   ></el-date-picker>
                 </span>
@@ -288,7 +270,6 @@
                     type="date"
                     placeholder="请选择结束日期"
                     v-model="MediaData.breachDate"
-                    :picker-options="pickerOptions1"
                     value-format="yyyy-MM-dd hh-mm-ss"
                   ></el-date-picker>
                 </span>
@@ -302,44 +283,16 @@
             <div>
               担保人担保方式：
               <label for="1">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="1"
-                  value="1"
-                  :disabled="true"
-                  v-model="MediaData.guaranteeMeth"
-                />保证
+                   <input type="radio" name="guarantee-type" id="1" value="1" :disabled="true" v-model="MediaData.guaranteeMeth"/>保证
               </label>
               <label for="2">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="2"
-                  value="2"
-                  :disabled="true"
-                  v-model="MediaData.guaranteeMeth"
-                />质押
+                <input type="radio" name="guarantee-type" id="2" value="2" :disabled="true" v-model="MediaData.guaranteeMeth" />质押
               </label>
               <label for="3">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="3"
-                  :disabled="true"
-                  value="3"
-                  v-model="MediaData.guaranteeMeth"
-                />留置
+                <input type="radio" name="guarantee-type" id="3" :disabled="true" value="3" v-model="MediaData.guaranteeMeth"/>留置
               </label>
               <label for="4">
-                <input
-                  type="radio"
-                  name="debt-type"
-                  id="4"
-                  :disabled="true"
-                  value="4"
-                  v-model="MediaData.guaranteeMeth"
-                />定金
+                <input type="radio" name="guarantee-type" id="4" :disabled="true" value="4" v-model="MediaData.guaranteeMeth"/>定金
               </label>
             </div>
             <h3>甲方、乙方、担保人经协商一致约定信息</h3>
@@ -387,47 +340,29 @@
                 <span></span>
               </div>
             </div>
-            <!-- <h3>选择调解员</h3>
-                        <div class='civil-media-container-form-add-conciliator'>
-                            <button>新增调解员</button>
-            </div>-->
+            <h3>调解员信息</h3>
             <!-- 新增调解员表格 -->
-            <!-- <div class='civil-media-container-form-table-3-title'>
-                            <span>序号</span>
-                            <span>民事调解员</span>
-                            <span>操作</span>
-                        </div>
-                        <div class='civil-media-container-form-table-3'>
-                            <div class='civil-media-container-form-table-3-item' v-for='(item,index) in ConciliatorMsg' :key='index'>
-                                <span>{{index+1}}</span>
-                                <span>{{item}}</span>
-                                <span>
-                                    <button>删除</button>
-                                </span>
-                            </div>
-            </div>-->
+            <div class='civil-media-container-form-table-3-title'>
+                    <span>序号</span>
+                    <span>民事调解员</span>
+                    <span>操作</span>
+                </div>
+                <div class='civil-media-container-form-table-3'>
+                    <div class='civil-media-container-form-table-3-item' v-for='(item,index) in ConciliatorMsg' :key='index'>
+                        <span>{{index+1}}</span>
+                        <span>{{item}}</span>
+                        <span>
+                            <button>删除</button>
+                        </span>
+                    </div>
+            </div>
             <!-- 上传凭证 -->
-            <!-- <div class='civil-media-container-form-update-imgs'>
-                            <span>上传凭证：</span>
-                            <div class='civil-media-container-form-update-imgs-list'>
-                                <img src="@imgs/home/baidu.png" alt="">
-                                <img src="@imgs/home/baidu.png" alt="">
-                                <img src="@imgs/home/baidu.png" alt="">
-                                <img src="@imgs/home/baidu.png" alt="">
-                            </div>
-                            <button>点击上传</button>
-            </div>-->
-            <!-- 上传录音： -->
-            <!-- <div class='civil-media-container-form-update-audio'>
-                            <span>上传凭证：</span>
-                            <div class='civil-media-container-form-update-audio-list'>
-                                <span><img src="@imgs/home/audio.png" alt=""></span>
-                                <span><img src="@imgs/home/audio.png" alt=""></span>
-                                <span><img src="@imgs/home/audio.png" alt=""></span>
-                                <span><img src="@imgs/home/audio.png" alt=""></span>
-                            </div>
-                            <button>点击上传</button>
-            </div>-->
+            <div class='civil-media-container-form-update-imgs'>
+                <span>上传凭证：</span>
+                <div class='civil-media-container-form-update-imgs-list'>
+                    <img src="@imgs/home/baidu.png" alt="">
+                </div>
+            </div>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -451,22 +386,7 @@ export default {
     return {
       // 是否展示选择相对人列表
       IsPopSelectiveList: true,
-      //         <!-- （1）。
-      // （2）
-      //                   （3）债权转让第三人。-->
       handleTypeList: [
-        {
-          label: '自行约定还款金额、还款时间、还款方式',
-          value: '1',
-        },
-        {
-          label: '共同委托第三方帮助处理。',
-          value: '2',
-        },
-        {
-          label: '债权转让第三人。',
-          value: '3',
-        },
       ],
       UserMsg: [
         {
@@ -476,18 +396,6 @@ export default {
         },
       ],
       MediatorList: [
-        {
-          name: '民事调解员',
-          value: '1',
-        },
-        {
-          name: '债事处理专家',
-          value: '2',
-        },
-        {
-          name: '律师',
-          value: '3',
-        },
       ],
       IsSelect: false,
       RelativeMsg: [
@@ -498,24 +406,9 @@ export default {
         },
       ],
       MediateMsg: [
-        // {
-        //   Id: '1',
-        //   ReportNum: 'Lzbb22020125',
-        //   AgreementNum: '1232a121dss121',
-        //   Debtor: '莫莫',
-        //   ExamineStatus: '报备数据审核通过',
-        // },
       ],
       // 担保人信息
       GuarantorMsg: [
-        {
-          Id: '1',
-          Type: '类型1',
-          GuarantorName: '默默',
-          IDcard: '4212102122020210012',
-          Phone: '12332123432',
-          Address: '地址1',
-        },
       ],
       // 相对人数据源
       RelativeList: [],
@@ -528,64 +421,8 @@ export default {
         ClosingTime: '',
       },
       DebtTreatment: '',
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now()
-        },
-        shortcuts: [
-          {
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date())
-            },
-          },
-          {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            },
-          },
-          {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            },
-          },
-        ],
-      },
-      // 没有限制一定要之前时间
-      pickerOptions1: {
-        shortcuts: [
-          {
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date())
-            },
-          },
-          {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            },
-          },
-          {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date()
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            },
-          },
-        ],
-      },
       // 调解员信息
-      ConciliatorMsg: ['调解员类型1', '调解员类型2'],
+      ConciliatorMsg: [],
       // 新增民事调解信息源
       MediaData: {
         civilType: '1',
@@ -604,9 +441,6 @@ export default {
         checkReason: '',
       },
     }
-  },
-  created() {
-    this.InitData()
   },
   methods: {
     // 选择调解员
@@ -628,7 +462,7 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(result)
+      console.log('this.MediaUserMsg', result)
       this.MediaUserMsg = result.data
 
       // 民事调解信息初始化
@@ -642,13 +476,21 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-
-      !MsgResult.data.treatmentMetho
-        ? (MsgResult.data.treatmentMetho = '1')
-        : ''
+      !MsgResult.data.treatmentMetho ? (MsgResult.data.treatmentMetho = '1') : ''
       this.MediaData = MsgResult.data
-
       // this.$set(this.MediaData, 'civilType', 1)
+
+      // 获取担保人信息
+      const { data: GuaranteeResult } = await this.$http({
+        method: 'post',
+        url: '/api/api/busGuaranteeController/selectByPrimaryKey',
+        data: MsgFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      this.GuarantorMsg = GuaranteeResult.data
+      console.log(this.GuarantorMsg)
       this.$set(this.MediaData, 'guaranteeMeth', 1)
     },
     RejectCheck() {
@@ -703,10 +545,36 @@ export default {
       }
     },
   },
+  created() {
+      this.InitData()
+  }
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+.el-row {
+  .el-col {
+    display: flex;
+    padding: 0 20px;
+    .col-label {
+      flex-shrink: 0;
+      line-height: 30px;
+      height: 30px;
+    }
+    /deep/.el-form-item {
+      width: 100%;
+      .el-select {
+        width: 100%;
+      }
+      .el-input {
+        width: 100%;
+      }
+      .el-date-editor {
+        width: 100%;
+      }
+    }
+  }
+}
 .civil-media {
   display: flex;
   flex-direction: column;
@@ -745,7 +613,7 @@ export default {
       input {
         border: 1px solid #e8eaec;
         border-radius: px2rem(1);
-        height: px2rem(6);
+        height: 40px;
         padding-left: px2rem(2);
         margin: px2rem(2);
       }
@@ -839,80 +707,6 @@ export default {
       }
       h3 {
         margin: px2rem(2) 0;
-      }
-      &-debtor-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(50);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(60);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(58);
-          }
-        }
-      }
-      &-debtor-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
-      }
-      &-relative-1 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(50);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(60);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(58);
-          }
-        }
-      }
-      &-relative-2 {
-        display: flex;
-        div {
-          flex: 1;
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(73.7);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(74);
-          }
-        }
       }
       &-new-guarantor {
         button {
@@ -1038,7 +832,7 @@ export default {
       &-interest {
         &-row1 {
           display: flex;
-          span {
+          span{
             flex: 1;
           }
           span:nth-child(1) {
@@ -1049,6 +843,12 @@ export default {
           span:nth-child(3) {
             input {
               width: px2rem(80);
+            }
+          }
+          span:nth-child(2) {
+            .el-date-editor {
+                width: 180px;
+                margin: 0 5px;
             }
           }
         }
