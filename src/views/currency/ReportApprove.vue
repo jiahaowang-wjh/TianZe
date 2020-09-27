@@ -636,7 +636,7 @@
                 </div>
                 <div class='report-approve-container-relative-form-person-lawsuit'>
 
-                  <span>是负债经济使用用途：</span>
+                  <span>经济使用用途：</span>
 
                   <textarea disabled='true'
                             :value='RelativeMsg.usage'></textarea>
@@ -785,7 +785,7 @@
                 </div>
                 <div class='report-approve-container-relative-form-business-lawsuit'>
 
-                  <span>是负债经济使用用途：</span>
+                  <span>经济使用用途：</span>
 
                   <textarea disabled='true'
                             :value='RelativeMsg.usage'></textarea>
@@ -919,7 +919,7 @@
                 </div>
                 <div class='report-approve-container-relative-form-bank-lawsuit'>
 
-                  <span>是负债经济使用用途</span>
+                  <span>经济使用用途</span>
 
                   <textarea disabled='true'
                             :value='RelativeMsg.usage'></textarea>
@@ -1024,6 +1024,10 @@ export default {
       if (this.RelativeMsg.uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeMsg.uploadDebtCertificate instanceof Array)))
       {
         this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(',')
+      }else{
+        const pase = this.RelativeMsg.uploadDebtCertificate;
+        this.RelativeMsg.uploadDebtCertificate=[]
+        this.RelativeMsg.uploadDebtCertificate.push(pase)
       }
       if (this.RelativeMsg.reportPropert === '1')
       {

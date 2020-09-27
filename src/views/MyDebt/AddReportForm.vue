@@ -2947,6 +2947,10 @@ export default {
         if (Result.uploadDebtCertificate.indexOf(',') !== -1)
         {
           Result.uploadDebtCertificate = Result.uploadDebtCertificate.split(',')
+        }else{
+          const pase = Result.uploadDebtCertificate;
+          Result.uploadDebtCertificate=[]
+          Result.uploadDebtCertificate.push(pase)
         }
         // 判断初始化时,  当前用户的属于哪种属性, 给相应的赋值
         if (result.data.reportPropert === '1')
@@ -2991,6 +2995,10 @@ export default {
       if (this.RelativeList[index].uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeList[index].uploadDebtCertificate instanceof Array)))
       {
         this.RelativeList[index].uploadDebtCertificate = this.RelativeList[index].uploadDebtCertificate.split(',')
+      }else{
+        const pase = this.RelativeList[index].uploadDebtCertificate;
+        this.RelativeList[index].uploadDebtCertificate=[]
+        this.RelativeList[index].uploadDebtCertificate.push(pase)
       }
       // 页面显示
       if (this.RelativeList[index].reportPropert === '1')
