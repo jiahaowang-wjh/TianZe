@@ -36,7 +36,7 @@
                 <span>{{item.debtNo}}</span>
                 <span>{{item.personName}}</span>
                 <span>
-                  <button @click="GoInvestigationReport(index,item)">填写调查报告</button>
+                  <button type='button' @click="GoInvestigationReport(index,item)">填写调查报告</button>
                 </span>
               </div>
             </div>
@@ -411,13 +411,13 @@
                             @change="UpdateVoucher"
                             ref="UpdateMaterialVoucher"
                             value="点击上传" />
-                            <button class='update-voucher-button'>点击上传</button>
+                            <button type='button' class='update-voucher-button'>点击上传</button>
                         </div>
                     </el-col>
                 </el-row>
             </el-form>
             <div class="unlock-apply-container-form-determine3">
-              <button @click="SubmitMessage" :disabled='HasSubmitDebtMsg'>确定</button>
+              <button type='button' @click="SubmitMessage" :disabled='HasSubmitDebtMsg'>确定</button>
             </div>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
@@ -573,7 +573,7 @@
                         <el-col :span="8">
                             <span class="col-label">乙方(签字盖章捺印)：</span>
                             <el-form-item label="">
-                                <button @click="UpdatePartBSeal" class='update-voucher-button'>上传电子章</button>
+                                <button type='button' @click="UpdatePartBSeal" class='update-voucher-button'>上传电子章</button>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -611,7 +611,7 @@
               <div
             </div>
             <div class="unlock-apply-container-form-determine3">
-              <button @click="SubmitPlanMessage">确定</button>
+              <button type='button' @click="SubmitPlanMessage">确定</button>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -631,23 +631,22 @@ export default {
         {
           IsCoordinate: 'true',
           Type: 'debtor',
-          Properties: 'person'
-        }
+          Properties: 'person',
+        },
       ],
       RelativeMsg: [
         {
           IsCoordinate: 'true',
           Type: 'debtor',
-          Properties: 'person'
-        }
+          Properties: 'person',
+        },
       ],
       // 解债表单 1数据源,
       UnlockApplyMsg: [],
       // 担保人信息
       GuarantorMsg: [],
       // 相对人数据源
-      RelativeList: [
-      ],
+      RelativeList: [],
       DebtTreatment: '',
       pickerOptions: {
         disabledDate(time) {
@@ -658,7 +657,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            }
+            },
           },
           {
             text: '昨天',
@@ -666,7 +665,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            }
+            },
           },
           {
             text: '一周前',
@@ -674,9 +673,9 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       // 解债年份：
       DebtReliefYear: '',
@@ -684,9 +683,8 @@ export default {
       DebtReliefType: '',
       // 债事化解咨询服务方案：
       ServicePlan: '',
-      UpdataMsg: [
-      ],
-      Uppercase:'',
+      UpdataMsg: [],
+      Uppercase: '',
       IsPopSelectiveList: true,
       UnlockUserMsg: {},
       // 提交解债表单
@@ -732,19 +730,19 @@ export default {
         // 1.易购卡2.否
         debtApply: '',
         // 附件上传
-        uploadAnnex: []
+        uploadAnnex: [],
       },
       // 提交策划方案服务协议数据源
       SubmitPlanData: {
-          // 身份
-          matters: '',
-          serviceNo: '',
-          // 本金
-          servicePrincipal: '',
-          // 利息
-          serviceInterest: '',
-          contractDate: '',
-          debtId: ''
+        // 身份
+        matters: '',
+        serviceNo: '',
+        // 本金
+        servicePrincipal: '',
+        // 利息
+        serviceInterest: '',
+        contractDate: '',
+        debtId: '',
       },
       // 民事调解书数据源
       MediaSrc: [],
@@ -757,13 +755,13 @@ export default {
       ResponseDebtID: '',
       SendPhoneAndChekno: {
         tel: '',
-        checkNo: ''
+        checkNo: '',
       },
       IsSendPhoneCheckMsg: false,
       // 是否提交了解债信息
       HasSubmitDebtMsg: false,
       // 策划方案服务协议初始化数据源
-      PlanInitData: []
+      PlanInitData: [],
     }
   },
   methods: {
@@ -771,20 +769,22 @@ export default {
       this.isNormal = !this.isNormal
     },
     UpdatePartASeal() {
-    //   this.$UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
-    //     this.SubmitData.partyaSeal = result
-    //   })
+      //   this.$UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
+      //     this.SubmitData.partyaSeal = result
+      //   })
     },
     UpdatePartBSeal() {
-    //   this.$UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
-    //     this.SubmitData.partybSeal = result
-    //   })
+      //   this.$UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
+      //     this.SubmitData.partybSeal = result
+      //   })
     },
     // 上传资料
-    UpdateVoucher () {
-        this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(result => {
-            this.SubmitData.uploadAnnex.push(result)
-        })
+    UpdateVoucher() {
+      this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(
+        (result) => {
+          this.SubmitData.uploadAnnex.push(result)
+        }
+      )
     },
     // 解债申请信息初始化
     async InitData(relativePerId) {
@@ -795,8 +795,8 @@ export default {
         url: '/api/api/busRelativePersonController/selectByRelativePerId',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.UnlockUserMsg = result.data
       console.log(this.UnlockUserMsg)
@@ -813,8 +813,8 @@ export default {
         url: '/api/api/smsSend/checkNO',
         data: PhoneCheckFormData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       if (PhoneCheckResult.resultCode !== '200') {
         return this.$message.error('短信验证码输入错误,请重新输入')
@@ -840,8 +840,8 @@ export default {
         url: '/api/api/pubDebtController/insertSelective',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.ResponseDebtID = result.data
       if (result.resultCode === '200') {
@@ -858,15 +858,15 @@ export default {
           url: '/api/api/pubDebtController/updateStatus',
           data: StatusUpdateformData,
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+            'Content-Type': 'multipart/form-data',
+          },
         })
         if (StatusUpdateResult.resultCode === '200') {
-            // 初始化和显示策划方案协议页面
-            this.InitPlanData()
-            this.HasSubmitDebtMsg = true
-            // 重新获取调解记录列表
-            this.GetMsgList()
+          // 初始化和显示策划方案协议页面
+          this.InitPlanData()
+          this.HasSubmitDebtMsg = true
+          // 重新获取调解记录列表
+          this.GetMsgList()
           return this.$message.success('新增解债信息成功')
         } else {
           return this.$message.error('修改调解信息状态失败')
@@ -881,10 +881,10 @@ export default {
         url: '/api/api/busReportController/updateDebtStage',
         data: StageUpdateformData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       }).then(() => {
-            this.$message.success('进入债权处理阶段,请填写策划方案协议')
+        this.$message.success('进入债权处理阶段,请填写策划方案协议')
       })
     },
     // 获取相对人的index及相对人ID
@@ -901,7 +901,7 @@ export default {
     GoInvestigationReport(index, item) {
       this.$router.push({
         path: '/ExamineReportForm',
-        query: { debtId: item.debtId }
+        query: { debtId: item.debtId },
       })
     },
     // 查询担保人信息
@@ -913,8 +913,8 @@ export default {
         url: '/api/api/busGuaranteeController/selectByPrimaryKey',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.GuarantorMsg = result.data
     },
@@ -928,8 +928,8 @@ export default {
         url: '/api/api/busCivilController/selectCivi',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.MediaSrc = result.data
       this.MediaSrc.forEach((v, i) => {
@@ -948,8 +948,8 @@ export default {
         url: '/api/api/pubDebtController/selectByReportIds',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.UnlockApplyMsg = result.data
       console.log(this.UnlockApplyMsg)
@@ -967,93 +967,96 @@ export default {
         url: '/api/api/smsSend/sendCheckNO',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       if (result.resultCode !== '200')
         this.$message.error('手机验证失败, 请重试')
       this.$message({
         message: '手机验证码发送成功, 请填写正确的验证码',
-        type: 'success'
+        type: 'success',
       })
       // 存储发送成功的电话号码
       this.SendPhoneAndChekno.tel = tel
       this.IsSendPhoneCheckMsg = true
     },
     // 提交策划方案服务协议
-    async SubmitPlanMessage () {
-        const formData = new FormData()
-        this.SubmitPlanData.debtId = this.PlanInitData.debtId
-        this.SubmitPlanData.contractDate = this.PlanInitData.contractDate
-        this.SubmitPlanData.serviceNo = this.PlanInitData.serviceNo
-        this.SubmitPlanData.matters = this.PlanInitData.reportPropert
-        for(const key in this.SubmitPlanData) {
-            formData.append(key, this.SubmitPlanData[key])
-        }
-        const { data: result } = await this.$http({
-            method: 'post',
-            url: '/api/api/pubDebtController/insertPlanInfo',
-            data: formData,
-            headers: {
-            'Content-Type': 'multipart/form-data'
-            }
-        })
-        console.log(result)
-        if (result.resultCode === '200') {
-            this.$message.success('新增策划方案服务协议信息成功')
-        }
+    async SubmitPlanMessage() {
+      const formData = new FormData()
+      this.SubmitPlanData.debtId = this.PlanInitData.debtId
+      this.SubmitPlanData.contractDate = this.PlanInitData.contractDate
+      this.SubmitPlanData.serviceNo = this.PlanInitData.serviceNo
+      this.SubmitPlanData.matters = this.PlanInitData.reportPropert
+      for (const key in this.SubmitPlanData) {
+        formData.append(key, this.SubmitPlanData[key])
+      }
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubDebtController/insertPlanInfo',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(result)
+      if (result.resultCode === '200') {
+        this.$message.success('新增策划方案服务协议信息成功')
+      }
     },
-    // 初始化策划方案服务协议 
-    async InitPlanData () {
-        const formData = new FormData()
-        formData.append('debtId', this.ResponseDebtID)
-        formData.append('comId', window.sessionStorage.getItem('companyId'))
-        const { data: result } = await this.$http({
-            method: 'post',
-            url: '/api/api/pubDebtController/initializePlan',
-            data: formData,
-            headers: {
-            'Content-Type': 'multipart/form-data'
-            }
-        })
-        this.PlanInitData = result.data
-        console.log('InitPlanData', result)
-    }
+    // 初始化策划方案服务协议
+    async InitPlanData() {
+      const formData = new FormData()
+      formData.append('debtId', this.ResponseDebtID)
+      formData.append('comId', window.sessionStorage.getItem('companyId'))
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubDebtController/initializePlan',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      this.PlanInitData = result.data
+      console.log('InitPlanData', result)
+    },
   },
   created() {
     this.SearchConciliation()
     this.GetMsgList()
   },
   computed: {
-        thisPlanMoney: function () {
-            if (Number(this.SubmitData.amountThis)) {
-                return (Number(this.SubmitData.amountThis) * 0.1).toFixed(2)
-            }
-            return ''
-        },
-        // 甲方身份加工
-        party1Identity: function () {
-            return `(${this.SubmitData.partyaIdentity})债权人`
-        },
-        // 乙方身份加工
-        party2Identity: function () {
-            return `(${this.SubmitData.partybIdentity})债务人`
-        },
-        // 累计已转让债权金额：
-        transfeAmount: function () {
-            return Number(this.UnlockUserMsg.amountCumulative) + Number(this.SubmitData.amountThis)
-        }
+    thisPlanMoney: function () {
+      if (Number(this.SubmitData.amountThis)) {
+        return (Number(this.SubmitData.amountThis) * 0.1).toFixed(2)
+      }
+      return ''
+    },
+    // 甲方身份加工
+    party1Identity: function () {
+      return `(${this.SubmitData.partyaIdentity})债权人`
+    },
+    // 乙方身份加工
+    party2Identity: function () {
+      return `(${this.SubmitData.partybIdentity})债务人`
+    },
+    // 累计已转让债权金额：
+    transfeAmount: function () {
+      return (
+        Number(this.UnlockUserMsg.amountCumulative) +
+        Number(this.SubmitData.amountThis)
+      )
+    },
   },
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
 .mini-fontsize {
-    font-size: 12px;
+  font-size: 12px;
 }
 .middle-message {
-    text-align: center;
-    margin: 50px 0;
+  text-align: center;
+  margin: 50px 0;
 }
 .el-row {
   .el-col {
@@ -1079,30 +1082,30 @@ export default {
   }
 }
 .update-img-list {
-    width: 800px;
-    height: 80px;
-    border: 1px solid #E8EAEC;
-    margin-left: 20px;
-    img {
-        float: left;
-        height: 75px;
-        margin: 0 6px;
-        width: 100px;
-    }
-    margin-right: 10px;
+  width: 800px;
+  height: 80px;
+  border: 1px solid #e8eaec;
+  margin-left: 20px;
+  img {
+    float: left;
+    height: 75px;
+    margin: 0 6px;
+    width: 100px;
+  }
+  margin-right: 10px;
 }
 .update-img-button {
-    position: relative;
+  position: relative;
+  width: 90px;
+  height: 28px;
+  input[type='file'] {
     width: 90px;
     height: 28px;
-    input[type=file] {
-        width: 90px;
-        height: 28px;
-        position: absolute;
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-    }
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+  }
 }
 .unlock-apply {
   display: flex;
@@ -1551,22 +1554,22 @@ export default {
           width: px2rem(20) !important;
         }
         &-title {
-            border-top: 1px solid #f2f2f2;
-            text-align: center;
-            font-size: px2rem(4);
-            height: px2rem(20);
-            line-height: px2rem(20);
-            font-weight: 600;
+          border-top: 1px solid #f2f2f2;
+          text-align: center;
+          font-size: px2rem(4);
+          height: px2rem(20);
+          line-height: px2rem(20);
+          font-weight: 600;
         }
-        &-introduce-part-a>div {
-            display: flex;
-            width: 500px;
-            input {
-                width: 100%;
-            }
-            span {
-                flex-shrink: 0;
-            }
+        &-introduce-part-a > div {
+          display: flex;
+          width: 500px;
+          input {
+            width: 100%;
+          }
+          span {
+            flex-shrink: 0;
+          }
         }
         &-introduce-part-b {
           line-height: px2rem(5);

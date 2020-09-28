@@ -7,12 +7,12 @@
       <span class="unlock-apply-title-go2">债权处理</span>
     </div>
     <div class="unlock-apply-list">
-       <div class="public-tabs"> 
-        <el-tabs v-model="activeTabs" @tab-click="()=>null" >
+      <div class="public-tabs">
+        <el-tabs v-model="activeTabs" @tab-click="() => null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
-            v-for="(item) in SelectOption"
+            v-for="item in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
         </el-tabs>
@@ -22,7 +22,7 @@
           <el-form ref="form">
             <el-form-item>
               <span>债事人:</span>
-              <el-input ></el-input>
+              <el-input></el-input>
             </el-form-item>
             <el-form-item>
               <span>录入编号:</span>
@@ -30,7 +30,9 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="unlock-apply-list-search-button" @click="searchTbaleData()">搜索</div>
+        <div class="unlock-apply-list-search-button" @click="searchTbaleData()">
+          搜索
+        </div>
       </div>
       <div class="unlock-apply-list-content">
         <!-- 正常显示模板 -->
@@ -48,37 +50,92 @@
           <div class="unlock-apply-list-content-tab">
             <div
               class="unlock-apply-list-content-tab-item"
-              v-for="(item,index) in UnlockMsg"
+              v-for="(item, index) in UnlockMsg"
               :key="index"
             >
-              <span>{{index+1}}</span>
-              <span>{{item.reportId}}</span>
-              <span>{{item.reportNo}}</span>
-              <span>{{item.debtId}}</span>
-              <span>{{item.debtNo}}</span>
+              <span>{{ index + 1 }}</span>
+              <span>{{ item.reportId }}</span>
+              <span>{{ item.reportNo }}</span>
+              <span>{{ item.debtId }}</span>
+              <span>{{ item.debtNo }}</span>
               <span
-                :class="[item.status === '2' || item.status === '6' || item.status === '9'? ('pass') : item.status === '1' || item.status === '4' || item.status === '7'? 'unpass': 'hassubmit']"
-              >{{item.status === '0' ? '调查报告未审核' : item.status === '1' ? '调查报告审核未通过' : item.status === '2' ? '调查报告审批通过,债权信息未审核' : item.status === '3' ? '置换信息审核未通过' : item.status === '4' ? '置换信息审核通过': item.status === '5' ? '债权处理信息审核通过': item.status === '6' ? '债权处理信息通过,开始缴费' : item.status === '7' ? '财务未审核': item.status === '8' ? '财务审核未通过' : '财务审核通过'}}</span>
-              <span>{{item.personName}}</span>
+                :class="[
+                  item.status === '2' ||
+                  item.status === '6' ||
+                  item.status === '9'
+                    ? 'pass'
+                    : item.status === '1' ||
+                      item.status === '4' ||
+                      item.status === '7'
+                    ? 'unpass'
+                    : 'hassubmit',
+                ]"
+                >{{
+                  item.status === '0'
+                    ? '调查报告未审核'
+                    : item.status === '1'
+                    ? '调查报告审核未通过'
+                    : item.status === '2'
+                    ? '调查报告审批通过,债权信息未审核'
+                    : item.status === '3'
+                    ? '置换信息审核未通过'
+                    : item.status === '4'
+                    ? '置换信息审核通过'
+                    : item.status === '5'
+                    ? '债权处理信息审核通过'
+                    : item.status === '6'
+                    ? '债权处理信息通过,开始缴费'
+                    : item.status === '7'
+                    ? '财务未审核'
+                    : item.status === '8'
+                    ? '财务审核未通过'
+                    : '财务审核通过'
+                }}</span
+              >
+              <span>{{ item.personName }}</span>
               <span>
-                <button v-show="item.status === '6' && roleId ==='7992691295821774848'" @click="GoUnlockPayment(index,item)">缴费</button>
-                <button v-show="item.status === '0' && roleId ==='7992691214771044352'" @click="CheckData(index,item)">调查报告审批</button>
-                <button v-show="item.status === '4' && roleId ==='7992691214771044352'" @click="CheckUnlockData(index,item)">债权信息审核</button>
+                <button
+                  type="button"
+                  v-show="
+                    item.status === '6' && roleId === '7992691295821774848'
+                  "
+                  @click="GoUnlockPayment(index, item)"
+                >
+                  缴费
+                </button>
+                <button
+                  type="button"
+                  v-show="
+                    item.status === '0' && roleId === '7992691214771044352'
+                  "
+                  @click="CheckData(index, item)"
+                >
+                  调查报告审批
+                </button>
+                <button
+                  type="button"
+                  v-show="
+                    item.status === '4' && roleId === '7992691214771044352'
+                  "
+                  @click="CheckUnlockData(index, item)"
+                >
+                  债权信息审核
+                </button>
               </span>
             </div>
           </div>
         </template>
       </div>
 
-       <div style="text-align: right;margin-top:25px">
-          <el-pagination
-            background
-            @current-change="searchTbaleData"
-            layout="prev, pager, next"
-            :total="tablePage.total"
-          >
-          </el-pagination>
-        </div>
+      <div style="text-align: right; margin-top: 25px">
+        <el-pagination
+          background
+          @current-change="searchTbaleData"
+          layout="prev, pager, next"
+          :total="tablePage.total"
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -87,19 +144,19 @@
 export default {
   data() {
     return {
-      activeTabs:'全部',
-       //表格分页
+      activeTabs: '全部',
+      //表格分页
       tablePage: {
         pageSize: 10,
         pageNum: 1,
-        total: 0
+        total: 0,
       },
       //表格查询
       tableQuery: {
-          debtNo: '',
+        debtNo: '',
         debtId: '',
         companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
+        comId: window.sessionStorage.getItem('companyId'),
       },
       // 选项卡
       SelectOption: [
@@ -124,7 +181,7 @@ export default {
       UnlockMsg: [],
       // 确定选用正常模板还是多选模板
       isNormal: false,
-      roleId:window.sessionStorage.getItem('roleId'),
+      roleId: window.sessionStorage.getItem('roleId'),
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now()
@@ -154,7 +211,6 @@ export default {
           },
         ],
       },
-     
     }
   },
   methods: {
@@ -165,11 +221,11 @@ export default {
       item.isSelect = true
     },
 
- // 搜索表格数据
+    // 搜索表格数据
     async searchTbaleData(page) {
       this.tablePage.pageNum = page || 1
       const queryData = Object.assign(this.tableQuery, this.tablePage)
- const formData = new FormData()
+      const formData = new FormData()
       for (const key in queryData) {
         formData.append(key, queryData[key])
       }
@@ -183,9 +239,8 @@ export default {
       })
       this.UnlockMsg = result.data.list
       console.log(this.UnlockMsg)
-
     },
-   
+
     // 调查报告审批
     CheckData(index, item) {
       this.$router.push({
@@ -203,7 +258,7 @@ export default {
         query: {
           debtId: item.debtId,
           reportId: item.reportId,
-          relativePerId: item.relativePerId
+          relativePerId: item.relativePerId,
         },
       })
     },

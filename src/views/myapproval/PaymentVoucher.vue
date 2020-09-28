@@ -8,11 +8,11 @@
     </div>
     <div class="report-info-list">
       <div class="public-tabs">
-        <el-tabs v-model="activeTabs" @tab-click="()=>null">
+        <el-tabs v-model="activeTabs" @tab-click="() => null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
-            v-for="(item) in SelectOption"
+            v-for="item in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
         </el-tabs>
@@ -26,7 +26,9 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="report-info-list-search-button" @click="searchTbaleData()">搜索</div>
+        <div class="report-info-list-search-button" @click="searchTbaleData()">
+          搜索
+        </div>
       </div>
       <div class="report-info-list-content">
         <div class="report-info-list-content-title">
@@ -44,28 +46,47 @@
         <div class="report-info-list-content-tab">
           <div
             class="report-info-list-content-tab-item"
-            v-for="(item,index) in PaymentMsg"
+            v-for="(item, index) in PaymentMsg"
             :key="index"
           >
-            <span>{{index+1}}</span>
-            <span>{{item.reportNo}}</span>
-            <span>{{item.payertName}}</span>
-            <span>{{item.contractName}}</span>
-            <span>{{item.payType}}</span>
-            <span>{{item.payNo}}</span>
-            <span>{{item.cost}}</span>
+            <span>{{ index + 1 }}</span>
+            <span>{{ item.reportNo }}</span>
+            <span>{{ item.payertName }}</span>
+            <span>{{ item.contractName }}</span>
+            <span>{{ item.payType }}</span>
+            <span>{{ item.payNo }}</span>
+            <span>{{ item.cost }}</span>
             <span>
-              <img :src="ImgItem" v-for="(ImgItem,Imgindex) in item.voucher" :key="Imgindex" alt />
+              <img
+                :src="ImgItem"
+                v-for="(ImgItem, Imgindex) in item.voucher"
+                :key="Imgindex"
+                alt
+              />
             </span>
-            <span>{{item.status === '10' ? ('未审核') : item.status === '1' ? ('审核未通过') : item.status === '2' ? ('审核已通过') : '/' }}</span>
+            <span>{{
+              item.status === '10'
+                ? '未审核'
+                : item.status === '1'
+                ? '审核未通过'
+                : item.status === '2'
+                ? '审核已通过'
+                : '/'
+            }}</span>
             <span>
-              <button v-show="item.status === '0'" @click="CheckPayment(index,item)">审核</button>
+              <button
+                type="button"
+                v-show="item.status === '0'"
+                @click="CheckPayment(index, item)"
+              >
+                审核
+              </button>
             </span>
           </div>
         </div>
       </div>
 
-      <div style="text-align: right;margin-top:25px">
+      <div style="text-align: right; margin-top: 25px">
         <el-pagination
           background
           @current-change="searchTbaleData"
@@ -87,32 +108,32 @@ export default {
       tablePage: {
         pageSize: 10,
         pageNum: 1,
-        total: 0
+        total: 0,
       },
       //表格查询
       tableQuery: {
         debtNo: '',
         companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
+        comId: window.sessionStorage.getItem('companyId'),
       },
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
-          isSelect: true
+          isSelect: true,
         },
         {
           SelectName: '待审核',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核通过',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核驳回',
-          isSelect: false
-        }
+          isSelect: false,
+        },
       ],
       // 支付信息信息列表数据源
       PaymentMsg: [],
@@ -120,7 +141,7 @@ export default {
       isNormal: false,
       TimeSelect: {
         TimeStart: '2020-02-30',
-        TimeEnd: '2020-04-28'
+        TimeEnd: '2020-04-28',
       },
       pickerOptions: {
         disabledDate(time) {
@@ -131,7 +152,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            }
+            },
           },
           {
             text: '昨天',
@@ -139,7 +160,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            }
+            },
           },
           {
             text: '一周前',
@@ -147,10 +168,10 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     }
   },
   methods: {
@@ -158,7 +179,7 @@ export default {
       this.isNormal = !this.isNormal
     },
     HandleSelect(item) {
-      this.SelectOption.forEach(v => {
+      this.SelectOption.forEach((v) => {
         v.isSelect = false
       })
       item.isSelect = true
@@ -177,11 +198,11 @@ export default {
         url: '/api/api/busPayDetailController/selectPayInfoList',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.PaymentMsg = result.data.list
-      this.PaymentMsg.map(v => {
+      this.PaymentMsg.map((v) => {
         v.voucher = v.voucher.split(',')
       })
       console.log(this.PaymentMsg)
@@ -190,7 +211,7 @@ export default {
     CheckPayment(index, item) {
       let queryData = {
         payId: item.payId,
-        reportId: item.reportId
+        reportId: item.reportId,
       }
       if (item.stage === '1') {
         this.$router.push({ path: '/ReportVoucherApprove', query: queryData })
@@ -198,11 +219,11 @@ export default {
         queryData.debtId = item.debtId || ''
         this.$router.push({ path: '/UnlockPaymentApprove', query: queryData })
       }
-    }
+    },
   },
   created() {
     this.searchTbaleData()
-  }
+  },
 }
 </script>
 <style lang='scss' scoped>

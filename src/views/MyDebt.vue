@@ -4,12 +4,12 @@
     <div class="my-debt-title">我的债行</div>
     <div class="my-debt-list">
       <div class="public-tabs">
-        <el-tabs v-model="activeTabs" @tab-click="()=>null">
+        <el-tabs v-model="activeTabs" @tab-click="() => null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
             :id="item.id"
-            v-for="(item) in SelectOption"
+            v-for="item in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
         </el-tabs>
@@ -56,12 +56,19 @@
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
-        <div class="my-debt-list-search-button-search" @click="searchTbaleData()">搜索</div>
+        <div
+          class="my-debt-list-search-button-search"
+          @click="searchTbaleData()"
+        >
+          搜索
+        </div>
         <div
           class="my-debt-list-search-button-add"
           @click="GoAddReportForm"
-          v-show="roleId==='7992691295821774848'"
-        >新增录入</div>
+          v-show="roleId === '7992691295821774848'"
+        >
+          新增录入
+        </div>
       </div>
       <div class="my-debt-list-content">
         <!-- 正常显示模板 -->
@@ -79,62 +86,127 @@
           <span>操作</span>
         </div>
         <div class="my-debt-list-content-tab">
-          <div class="my-debt-list-content-tab-item" v-for="(item,index) in MyDebtMsg" :key="index">
-            <span>{{index+1}}</span>
+          <div
+            class="my-debt-list-content-tab-item"
+            v-for="(item, index) in MyDebtMsg"
+            :key="index"
+          >
+            <span>{{ index + 1 }}</span>
             <div>
               <ul>
-                <li>录入编号: {{item.reportNo}}</li>
-                <li>债事人: {{item.debtName}}</li>
-                <li>相对人数: {{item.busRelativeCount}}</li>
-                <li>录入人: {{item.inputName}}</li>
-                <li>推荐人: {{item.recommendName}}</li>
+                <li>录入编号: {{ item.reportNo }}</li>
+                <li>债事人: {{ item.debtName }}</li>
+                <li>相对人数: {{ item.busRelativeCount }}</li>
+                <li>录入人: {{ item.inputName }}</li>
+                <li>推荐人: {{ item.recommendName }}</li>
               </ul>
             </div>
-            <span>{{item.resolveCount ? item.resolveCount : '/'}}</span>
-            <span>{{item.resolveNum ? item.resolveNum : '/'}}</span>
-            <span>{{item.cumulativeSum ? item.cumulativeSum : '/'}}</span>
+            <span>{{ item.resolveCount ? item.resolveCount : '/' }}</span>
+            <span>{{ item.resolveNum ? item.resolveNum : '/' }}</span>
+            <span>{{ item.cumulativeSum ? item.cumulativeSum : '/' }}</span>
             <div>
-              <span>{{item.submitDate ? item.submitDate : '/'}}</span>
+              <span>{{ item.submitDate ? item.submitDate : '/' }}</span>
             </div>
             <div>
-              <span>{{item.checkDate ? item.checkDate : '/'}}</span>
+              <span>{{ item.checkDate ? item.checkDate : '/' }}</span>
             </div>
             <div>
-              <span>{{item.checkReason ? item.checkReason : '/'}}</span>
+              <span>{{ item.checkReason ? item.checkReason : '/' }}</span>
             </div>
             <div>
-              <span>{{item.stage === '1' ? ('录入阶段') : item.stage === '2' ? ('调解阶段') : item.stage === '3' ? ('债权处理阶段') : item.stage === '3' ? ('债权处理阶段'): item.stage === '4' ? ('资产处理阶段') : '/' }}</span>
+              <span>{{
+                item.stage === '1'
+                  ? '录入阶段'
+                  : item.stage === '2'
+                  ? '调解阶段'
+                  : item.stage === '3'
+                  ? '债权处理阶段'
+                  : item.stage === '3'
+                  ? '债权处理阶段'
+                  : item.stage === '4'
+                  ? '资产处理阶段'
+                  : '/'
+              }}</span>
             </div>
             <div>
               <span
-                :class="[item.status === '2' || item.status === '5'? ('pass') : item.status === '1' || item.status === '6'? 'unpass': 'hassubmit']"
+                :class="[
+                  item.status === '2' || item.status === '5'
+                    ? 'pass'
+                    : item.status === '1' || item.status === '6'
+                    ? 'unpass'
+                    : 'hassubmit',
+                ]"
                 v-if="item.stage === '1'"
-              >{{item.status === '0' ? ('录入数据未审核') : item.status === '1' ? ('录入数据审核未通过') : item.status === '2' ? ('录入数据审核通过') : item.status === '3' ? (' 请缴费'): item.status === '4' ? ('财务信息未审核') : item.status === '5' ? ('进入调解阶段') : item.status === '6' ? ('财务信息审核未通过') : '/'}}</span>
+                >{{
+                  item.status === '0'
+                    ? '录入数据未审核'
+                    : item.status === '1'
+                    ? '录入数据审核未通过'
+                    : item.status === '2'
+                    ? '录入数据审核通过'
+                    : item.status === '3'
+                    ? ' 请缴费'
+                    : item.status === '4'
+                    ? '财务信息未审核'
+                    : item.status === '5'
+                    ? '进入调解阶段'
+                    : item.status === '6'
+                    ? '财务信息审核未通过'
+                    : '/'
+                }}</span
+              >
             </div>
             <span>
               <button
                 @click.stop="GoCivilMediaForm(index)"
-                v-show="item.stage === '2' && roleId==='7992691295821774848'"
-              >调解</button>
+                v-show="item.stage === '2' && roleId === '7992691295821774848'"
+              >
+                调解
+              </button>
               <button
                 @click="GoInvestigation(index)"
-                v-show="item.status === '2'&& item.stage === '1' && roleId==='7992691295821774848'"
-              >暨尽调协议</button>
+                v-show="
+                  item.status === '2' &&
+                  item.stage === '1' &&
+                  roleId === '7992691295821774848'
+                "
+              >
+                暨尽调协议
+              </button>
               <button
                 @click="GoUnlockApplyForm(index)"
-                v-show="item.stage === '3' && roleId==='7992691295821774848'"
-              >债权处理</button>
-              <button @click="dialogTableVisible = true" v-show="item.status === '5'">下载</button>
-              <button v-show="item.status === '2' || item.status === '4'">查看</button>
+                v-show="item.stage === '3' && roleId === '7992691295821774848'"
+              >
+                债权处理
+              </button>
               <button
-                v-show="(item.status === '1' || item.status === '') && roleId==='7992691295821774848'"
+                type="button"
+                @click="dialogTableVisible = true"
+                v-show="item.status === '5'"
+              >
+                下载
+              </button>
+              <button
+                type="button"
+                v-show="item.status === '2' || item.status === '4'"
+              >
+                查看
+              </button>
+              <button
+                v-show="
+                  (item.status === '1' || item.status === '') &&
+                  roleId === '7992691295821774848'
+                "
                 @click="EditMsg(index)"
-              >编辑</button>
+              >
+                编辑
+              </button>
             </span>
           </div>
         </div>
 
-        <div style="text-align: right;margin-top:25px">
+        <div style="text-align: right; margin-top: 25px">
           <el-pagination
             background
             @current-change="searchTbaleData"
@@ -166,36 +238,36 @@ export default {
     return {
       // 分页器结构数据源
       bgc: true,
-      activeTabs:'全部',
+      activeTabs: '全部',
       roleId: window.sessionStorage.getItem('roleId'),
-         //表格分页
+      //表格分页
       tablePage: {
         pageSize: 10,
         pageNum: 1,
-        total: 0
+        total: 0,
       },
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
           id: '',
-          isSelect: true
+          isSelect: true,
         },
         {
           SelectName: '待审核',
           id: '1',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核通过',
           id: '2',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核驳回',
           id: '3',
-          isSelect: false
-        }
+          isSelect: false,
+        },
       ],
       // 调解信息列表数据源
       MyDebtMsg: [],
@@ -205,7 +277,7 @@ export default {
       IsShowRelativePage: true,
       TimeSelect: {
         TimeStart: '',
-        TimeEnd: ''
+        TimeEnd: '',
       },
       pickerOptions: {
         disabledDate(time) {
@@ -216,7 +288,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            }
+            },
           },
           {
             text: '昨天',
@@ -224,7 +296,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            }
+            },
           },
           {
             text: '一周前',
@@ -232,62 +304,62 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       // 下载弹出窗的数据源
       gridData: [
         {
           Order: '1',
           WordName: '《债务人基本信息登记表》',
-          WordType: 'word'
+          WordType: 'word',
         },
         {
           Order: '2',
           WordName: '《附件》',
-          WordType: 'excel'
+          WordType: 'excel',
         },
         {
           Order: '3',
           WordName: '《债务人身份证正面附件》',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '4',
           WordName: '《债务人身份证反面附件》',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '5',
           WordName: '王小虎',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '6',
           WordName: '王小虎',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '7',
           WordName: '王小虎',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '8',
           WordName: '王小虎',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '9',
           WordName: '王小虎',
-          WordType: 'mp3'
+          WordType: 'mp3',
         },
         {
           Order: '10',
           WordName: '王小虎',
-          WordType: 'mp3'
-        }
+          WordType: 'mp3',
+        },
       ],
       dialogTableVisible: false,
       // 选择表单的数据源
@@ -299,15 +371,15 @@ export default {
         // 选择相对人
         Relevant: '',
         // 录入编号
-        ReportNum: ''
-      }
+        ReportNum: '',
+      },
     }
   },
   methods: {
     EnterContract() {
       this.$router.push({
         path: '/Assignment',
-        query: { reportId: this.MyDebtMsg[index].reportId }
+        query: { reportId: this.MyDebtMsg[index].reportId },
       })
     },
     // 前往新增报备
@@ -318,20 +390,20 @@ export default {
     GoUnlockApplyForm(index) {
       this.$router.push({
         path: '/UnlockApplyForm',
-        query: { reportId: this.MyDebtMsg[index].reportId }
+        query: { reportId: this.MyDebtMsg[index].reportId },
       })
     },
     // 前往民事调解界面
     GoCivilMediaForm(index) {
       this.$router.push({
         path: '/CivilMediaForm',
-        query: { reportId: this.MyDebtMsg[index].reportId }
+        query: { reportId: this.MyDebtMsg[index].reportId },
       })
     },
     GoInvestigation(index) {
       this.$router.push({
         path: '/Investigation',
-        query: { reportId: this.MyDebtMsg[index].reportId }
+        query: { reportId: this.MyDebtMsg[index].reportId },
       })
     },
     SelectRelative() {
@@ -348,7 +420,7 @@ export default {
       ) {
         this.$router.push({
           path: '/EditReport',
-          query: { reportId: this.MyDebtMsg[index].reportId }
+          query: { reportId: this.MyDebtMsg[index].reportId },
         })
       }
     },
@@ -365,7 +437,7 @@ export default {
         status: this.SelectForm.AuditState,
         beginDate: this.TimeSelect.TimeStart,
         endDate: this.TimeSelect.TimeEnd,
-        reportNo: this.SelectForm.ReportNum
+        reportNo: this.SelectForm.ReportNum,
       }
       const queryData = Object.assign(DataList, this.tablePage)
       for (const key in queryData) {
@@ -376,20 +448,19 @@ export default {
         url: '/api/api/busReportController/selectDebtInfos',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.MyDebtMsg = result.data.list
       console.log(this.MyDebtMsg)
     },
 
-    
     async AddDate() {
       let nowDate = new Date()
       let date = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
-        date: nowDate.getDate()
+        date: nowDate.getDate(),
       }
       this.TimeSelect.TimeEnd = date.year + '-' + date.month + '-' + date.date
       let nowDateTime = nowDate - 3600 * 1000 * 24 * 7
@@ -397,15 +468,15 @@ export default {
       date = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
-        date: nowDate.getDate()
+        date: nowDate.getDate(),
       }
       this.TimeSelect.TimeStart = date.year + '-' + date.month + '-' + date.date
-    }
+    },
   },
   created() {
     this.AddDate()
     this.searchTbaleData()
-  }
+  },
 }
 </script>
 <style lang='scss' scoped>

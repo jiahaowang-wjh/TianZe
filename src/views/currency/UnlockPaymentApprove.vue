@@ -27,7 +27,9 @@
             <img :src="SubmitData.voucher" alt />
           </div>
         </div>
-        <button class="payment-civil-content-update-button">点击上传</button>
+        <button type="button" class="payment-civil-content-update-button">
+          点击上传
+        </button>
       </div>
       <div class="payment-civil-content-payer">
         合同人姓名：
@@ -41,11 +43,14 @@
     <div class="payment-civil-check">
       <div class="payment-civil-check-reason">
         <span>审批原因</span>
-        <textarea maxlength="141" v-model="SubmitApproveData.checkReason"></textarea>
+        <textarea
+          maxlength="141"
+          v-model="SubmitApproveData.checkReason"
+        ></textarea>
       </div>
       <div class="payment-civil-check-button">
-        <button @click="RejectCheck">审核驳回</button>
-        <button @click="PassCheck">审核通过</button>
+        <button type="button" @click="RejectCheck">审核驳回</button>
+        <button type="button" @click="PassCheck">审核通过</button>
       </div>
     </div>
   </div>

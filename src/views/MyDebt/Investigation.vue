@@ -97,7 +97,7 @@
             </el-form>
         </div>
         <div class="investigation-container-form-submit">
-          <button @click="SubmitInvestigation">提交</button>
+          <button type='button' @click="SubmitInvestigation">提交</button>
         </div>
       </div>
     </div>
@@ -123,80 +123,80 @@ export default {
         partyA: '',
         partyB: '',
         agreementDate: '',
-        agreementNo: ''
+        agreementNo: '',
       },
     }
   },
   created() {
     this.InitData()
   },
-    methods: {
-        SelectMore() {
-        this.isNormal = !this.isNormal
+  methods: {
+    SelectMore() {
+      this.isNormal = !this.isNormal
+    },
+    HandleSelect(item) {
+      this.SelectOption.forEach((v) => {
+        v.isSelect = false
+      })
+      item.isSelect = true
+    },
+    async InitData() {
+      const formData = new FormData()
+      const reportId = this.$route.query.reportId
+      const comId = window.sessionStorage.getItem('companyId')
+      formData.append('reportId', reportId)
+      formData.append('comId', comId)
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/busCivilController/initialize',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
-        HandleSelect(item) {
-        this.SelectOption.forEach((v) => {
-            v.isSelect = false
+      })
+      //result.data.agreementDate=result.data.thisTime
+      this.userMsg = result.data
+    },
+    async SubmitInvestigation() {
+      // 协议信息提交,生成协议编号
+      this.SubmitData.reportId = this.$route.query.reportId
+      this.SubmitData.agreementDate = this.userMsg.agreementDate
+      this.SubmitData.partyA = this.userMsg.debtName
+      this.SubmitData.partyB = '山东盛世天泽公关顾问有限公司'
+      this.SubmitData.agreementNo = this.userMsg.agreementNo
+      const formData = new FormData()
+      for (const key in this.SubmitData) {
+        formData.append(key, this.SubmitData[key])
+      }
+      const { data: AddResult } = await this.$http({
+        method: 'post',
+        url: '/api/api/busReportController/addAgreementNo',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (AddResult.resultCode === '200' && AddResult.data !== '0')
+        this.$message.success('生成协议编号成功')
+      // 调用状态更改接口
+      formData.append('status', '3')
+      const { data: StatusChangeResult } = await this.$http({
+        method: 'post',
+        url: '/api/api/busReportController/updateStatus',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (
+        StatusChangeResult.resultCode === '200' &&
+        StatusChangeResult.data === 1
+      )
+        this.$router.push({
+          path: '/Mydebt',
         })
-        item.isSelect = true
-        },
-        async InitData() {
-            const formData = new FormData()
-            const reportId = this.$route.query.reportId
-            const comId = window.sessionStorage.getItem('companyId')
-            formData.append('reportId', reportId)
-            formData.append('comId', comId)
-            const { data: result } = await this.$http({
-                method: 'post',
-                url: '/api/api/busCivilController/initialize',
-                data: formData,
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                },
-            })
-            //result.data.agreementDate=result.data.thisTime
-            this.userMsg = result.data
-        },
-        async SubmitInvestigation() {
-            // 协议信息提交,生成协议编号
-            this.SubmitData.reportId = this.$route.query.reportId
-            this.SubmitData.agreementDate = this.userMsg.agreementDate
-            this.SubmitData.partyA = this.userMsg.debtName
-            this.SubmitData.partyB = '山东盛世天泽公关顾问有限公司'
-            this.SubmitData.agreementNo = this.userMsg.agreementNo
-            const formData = new FormData()
-            for (const key in this.SubmitData) {
-                formData.append(key, this.SubmitData[key])
-            }
-            const { data: AddResult } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/addAgreementNo',
-                data: formData,
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                },
-            })
-            if (AddResult.resultCode === '200' && AddResult.data !== '0')
-                this.$message.success('生成协议编号成功')
-            // 调用状态更改接口
-            formData.append('status', '3')
-            const { data: StatusChangeResult } = await this.$http({
-                method: 'post',
-                url: '/api/api/busReportController/updateStatus',
-                data: formData,
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                },
-            })
-            if (
-                StatusChangeResult.resultCode === '200' &&
-                StatusChangeResult.data === 1
-            )
-            this.$router.push({
-                path: '/Mydebt',
-            })
-        },
-    }
+    },
+  },
 }
 </script>
 <style lang='scss' scoped>
@@ -226,107 +226,107 @@ export default {
   }
 }
 .investigation {
-    display: flex;
-    flex-direction: column;
-    background-color: #e9f0f5;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    padding: px2rem(4);
-    &-title {
-        font-size: px2rem(4);
-        color: #fc7f89;
-        &-go1 {
-        color: #616789;
-        }
-        &-separator {
-        color: #616789;
-        }
+  display: flex;
+  flex-direction: column;
+  background-color: #e9f0f5;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: px2rem(4);
+  &-title {
+    font-size: px2rem(4);
+    color: #fc7f89;
+    &-go1 {
+      color: #616789;
     }
+    &-separator {
+      color: #616789;
+    }
+  }
 
-    &-container {
-        margin-top: px2rem(4);
-        border-radius: px2rem(2);
-        &-form {
-            &-header {
-                height: px2rem(14);
-                line-height: px2rem(14);
-                background-color: #fff;
-                display: flex;
-                align-items: center;
-                border-bottom: 0.5px solid #d9d9d9;
-                span {
-                font-size: px2rem(5);
-                font-weight: 600;
-                margin-left: px2rem(4);
-                }
-            }
-            border-radius: px2rem(2);
-            background-color: #fff;
-            padding: px2rem(2) px2rem(6);
-            font-size: px2rem(3.2);
-            // 统一的表单样式,宽度自定
-            input {
-                border: 1px solid #e8eaec;
-                border-radius: px2rem(1);
-                height: px2rem(7);
-                padding-left: px2rem(2);
-                margin: px2rem(2);
-                width: px2rem(20);
-            }
-            input:disabled {
-                background-color: #f2f6f9;
-                color: #272727;
-            }
-            // 长表单200
-            &-input200 {
-                width: px2rem(40) !important;
-            }
-            // 特殊表单450
-            &-input450 {
-                width: px2rem(80) !important;
-            }
-            &-tab {
-                margin-top: 100px;
-            }
-            textarea {
-                height: px2rem(15);
-                resize: none;
-                line-height: px2rem(5);
-                font-size: px2rem(3.5);
-                width: px2rem(300);
-            }
-            input[type='radio'] {
-                width: px2rem(4) !important;
-                height: px2rem(4) !important;
-                line-height: px2rem(4) !important;
-                margin: px2rem(1) !important;
-                vertical-align: middle;
-                background-color: #fff;
-            }
-            &-title {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: px2rem(24);
-                font-size: px2rem(3.8);
-                font-weight: 600;
-            }
-            &-submit {
-                text-align: center;
-                margin-bottom: px2rem(20);
-                button {
-                    font-size: px2rem(3.5);
-                    width: px2rem(50);
-                    height: px2rem(8);
-                    background-color: #616789;
-                    color: #fff;
-                    border: none;
-                    border-radius: px2rem(1);
-                }
-            }
+  &-container {
+    margin-top: px2rem(4);
+    border-radius: px2rem(2);
+    &-form {
+      &-header {
+        height: px2rem(14);
+        line-height: px2rem(14);
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        border-bottom: 0.5px solid #d9d9d9;
+        span {
+          font-size: px2rem(5);
+          font-weight: 600;
+          margin-left: px2rem(4);
         }
+      }
+      border-radius: px2rem(2);
+      background-color: #fff;
+      padding: px2rem(2) px2rem(6);
+      font-size: px2rem(3.2);
+      // 统一的表单样式,宽度自定
+      input {
+        border: 1px solid #e8eaec;
+        border-radius: px2rem(1);
+        height: px2rem(7);
+        padding-left: px2rem(2);
+        margin: px2rem(2);
+        width: px2rem(20);
+      }
+      input:disabled {
+        background-color: #f2f6f9;
+        color: #272727;
+      }
+      // 长表单200
+      &-input200 {
+        width: px2rem(40) !important;
+      }
+      // 特殊表单450
+      &-input450 {
+        width: px2rem(80) !important;
+      }
+      &-tab {
+        margin-top: 100px;
+      }
+      textarea {
+        height: px2rem(15);
+        resize: none;
+        line-height: px2rem(5);
+        font-size: px2rem(3.5);
+        width: px2rem(300);
+      }
+      input[type='radio'] {
+        width: px2rem(4) !important;
+        height: px2rem(4) !important;
+        line-height: px2rem(4) !important;
+        margin: px2rem(1) !important;
+        vertical-align: middle;
+        background-color: #fff;
+      }
+      &-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: px2rem(24);
+        font-size: px2rem(3.8);
+        font-weight: 600;
+      }
+      &-submit {
+        text-align: center;
+        margin-bottom: px2rem(20);
+        button {
+          font-size: px2rem(3.5);
+          width: px2rem(50);
+          height: px2rem(8);
+          background-color: #616789;
+          color: #fff;
+          border: none;
+          border-radius: px2rem(1);
+        }
+      }
     }
+  }
 }
 </style>

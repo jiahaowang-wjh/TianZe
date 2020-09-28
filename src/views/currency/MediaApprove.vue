@@ -11,7 +11,10 @@
         <el-collapse>
           <!-- 调查报告 -->
           <el-collapse-item title="调解资料" name="1">
-            <div class="civil-media-container-form-table-1-title" v-show="false">
+            <div
+              class="civil-media-container-form-table-1-title"
+              v-show="false"
+            >
               <span>序号</span>
               <span>录入号</span>
               <span>调解协议号</span>
@@ -22,14 +25,14 @@
             <div class="civil-media-container-form-table-1">
               <div
                 class="civil-media-container-form-table-1-item"
-                v-for="(item,index) in MediateMsg"
+                v-for="(item, index) in MediateMsg"
                 :key="item.Id"
               >
-                <span>{{index+1}}</span>
-                <span>{{item.ReportNum}}</span>
-                <span>{{item.AgreementNum}}</span>
-                <span>{{item.Debtor}}</span>
-                <span>{{item.ExamineStatus}}</span>
+                <span>{{ index + 1 }}</span>
+                <span>{{ item.ReportNum }}</span>
+                <span>{{ item.AgreementNum }}</span>
+                <span>{{ item.Debtor }}</span>
+                <span>{{ item.ExamineStatus }}</span>
                 <span>
                   <button>审核</button>
                 </span>
@@ -40,77 +43,107 @@
             <div>选择化解方式：双方化解</div>
             <h3>债权人信息</h3>
             <el-form ref="form" label-width>
-                <el-row>
-                    <el-col :span="8">
-                        <span class="col-label">甲方（债权人名称/姓名）：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.debtName" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">法定代表人/负责人：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.debtLegalName" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">身份证号码/信用代码：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.debtIdCardCode" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="8">
-                        <span class="col-label">所住地：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.debtAdd" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">联系电话：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.debtPhone" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">甲方（债权人名称/姓名）：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.debtName"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">法定代表人/负责人：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.debtLegalName"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">身份证号码/信用代码：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.debtIdCardCode"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">所住地：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.debtAdd"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">联系电话：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.debtPhone"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-form>
             <h3>债务人信息</h3>
             <el-form ref="form" label-width>
-                <el-row>
-                    <el-col :span="8">
-                        <span class="col-label">乙方（债务人名称/姓名）：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.personalName" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">法定代表人/负责人：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.personalLegalName" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">身份证号码/信用代码：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.personalIdCardCode" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="8">
-                        <span class="col-label">所住地：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.personalAdd" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <span class="col-label">联系电话：</span>
-                        <el-form-item label>
-                            <el-input :disabled="true" :value="MediaUserMsg.personalPhone" ></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">乙方（债务人名称/姓名）：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.personalName"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">法定代表人/负责人：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.personalLegalName"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">身份证号码/信用代码：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.personalIdCardCode"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <span class="col-label">所住地：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.personalAdd"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <span class="col-label">联系电话：</span>
+                  <el-form-item label>
+                    <el-input
+                      :disabled="true"
+                      :value="MediaUserMsg.personalPhone"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-form>
             <h3>担保人信息</h3>
             <!-- 表单2 担保人表单 -->
@@ -125,15 +158,15 @@
             <div class="civil-media-container-form-table-2">
               <div
                 class="civil-media-container-form-table-2-item"
-                v-for="(item,index) in GuarantorMsg"
+                v-for="(item, index) in GuarantorMsg"
                 :key="index"
               >
-                <span>{{index+1}}</span>
-                <span>{{item.unitType}}</span>
-                <span>{{item.authname}}</span>
-                <span>{{item.card}}</span>
-                <span>{{item.tel}}</span>
-                <span>{{item.address}}</span>
+                <span>{{ index + 1 }}</span>
+                <span>{{ item.unitType }}</span>
+                <span>{{ item.authname }}</span>
+                <span>{{ item.card }}</span>
+                <span>{{ item.tel }}</span>
+                <span>{{ item.address }}</span>
               </div>
             </div>
             <h3>甲方、乙方、担保人共同对债权债务类型、本息的确认</h3>
@@ -141,16 +174,44 @@
               债券债务类型:
               <!-- 单选框 -->
               <label for="debt-1">
-                <input type="radio" name="debt-type" id="debt-1" :disabled="true" value="1" v-model.trim="MediaData.civilType"
+                <input
+                  type="radio"
+                  name="debt-type"
+                  id="debt-1"
+                  :disabled="true"
+                  value="1"
+                  v-model.trim="MediaData.civilType"
                 />借款
               </label>
               <label for="debt-2">
-                <input type="radio" name="debt-type" id="debt-2" :disabled="true" value="2" v-model.trim="MediaData.civilType"
+                <input
+                  type="radio"
+                  name="debt-type"
+                  id="debt-2"
+                  :disabled="true"
+                  value="2"
+                  v-model.trim="MediaData.civilType"
                 />贷款
               </label>
-              <label for="debt-3"> <input type="radio" name="debt-type" id="debt-3" value="3" :disabled="true" v-model.trim="MediaData.civilType" />工程款
+              <label for="debt-3">
+                <input
+                  type="radio"
+                  name="debt-type"
+                  id="debt-3"
+                  value="3"
+                  :disabled="true"
+                  v-model.trim="MediaData.civilType"
+                />工程款
               </label>
-              <label for="debt-4"> <input type="radio" name="debt-type" id="debt-4"  value="4" :disabled="true" v-model.trim="MediaData.civilType" />其他款项
+              <label for="debt-4">
+                <input
+                  type="radio"
+                  name="debt-type"
+                  id="debt-4"
+                  value="4"
+                  :disabled="true"
+                  v-model.trim="MediaData.civilType"
+                />其他款项
               </label>
             </div>
             <h3>乙方尚欠甲方款项金额：</h3>
@@ -159,7 +220,11 @@
               <div class="civil-media-container-form-own-amount-item-1">
                 <span>
                   欠款总额（小写）：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.amountTotal" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.amountTotal"
+                  />
                 </span>
                 <span>
                   欠款总额（大写）：
@@ -231,7 +296,11 @@
               <div class="civil-media-container-form-interest-row1">
                 <span>
                   约定月利率标准：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.monthInterest" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.monthInterest"
+                  />
                 </span>
                 <span>
                   时间段：
@@ -255,13 +324,21 @@
                 </span>
                 <span>
                   利息：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.interest" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.interest"
+                  />
                 </span>
               </div>
               <div class="civil-media-container-form-interest-row2">
                 <span>
                   已支付利息：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.interestPayment" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.interestPayment"
+                  />
                 </span>
                 <span>
                   违约截止时间：
@@ -276,25 +353,57 @@
                 </span>
                 <span>
                   已支付违约金额：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.breachMoney" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.breachMoney"
+                  />
                 </span>
               </div>
             </div>
             <!-- 担保人担保方式： -->
             <div>
               担保人担保方式：
-               <!-- 单选框 -->
+              <!-- 单选框 -->
               <label for="guarantee-1">
-                   <input type="radio" name="guarantee-type" id="guarantee-1" value="1" :disabled="true" v-model.trim="MediaData.guaranteeMeth"/>保证
+                <input
+                  type="radio"
+                  name="guarantee-type"
+                  id="guarantee-1"
+                  value="1"
+                  :disabled="true"
+                  v-model.trim="MediaData.guaranteeMeth"
+                />保证
               </label>
               <label for="guarantee-2">
-                <input type="radio" name="guarantee-type" id="guarantee-2" value="2" :disabled="true" v-model.trim="MediaData.guaranteeMeth" />质押
+                <input
+                  type="radio"
+                  name="guarantee-type"
+                  id="guarantee-2"
+                  value="2"
+                  :disabled="true"
+                  v-model.trim="MediaData.guaranteeMeth"
+                />质押
               </label>
               <label for="guarantee-3">
-                <input type="radio" name="guarantee-type" id="guarantee-3" :disabled="true" value="3" v-model.trim="MediaData.guaranteeMeth"/>留置
+                <input
+                  type="radio"
+                  name="guarantee-type"
+                  id="guarantee-3"
+                  :disabled="true"
+                  value="3"
+                  v-model.trim="MediaData.guaranteeMeth"
+                />留置
               </label>
               <label for="guarantee-4">
-                <input type="radio" name="guarantee-type" id="guarantee-4" :disabled="true" value="4" v-model.trim="MediaData.guaranteeMeth"/>定金
+                <input
+                  type="radio"
+                  name="guarantee-type"
+                  id="guarantee-4"
+                  :disabled="true"
+                  value="4"
+                  v-model.trim="MediaData.guaranteeMeth"
+                />定金
               </label>
             </div>
             <h3>甲方、乙方、担保人经协商一致约定信息</h3>
@@ -320,11 +429,19 @@
               <div class="civil-media-container-form-appoint-row2">
                 <span>
                   债事人自愿放弃的内容：
-                  <input type="text" :disabled="true" v-model.trim="MediaData.abandonContent" />
+                  <input
+                    type="text"
+                    :disabled="true"
+                    v-model.trim="MediaData.abandonContent"
+                  />
                 </span>
                 <span>
                   债务处理方式：
-                  <el-select v-model.trim="MediaData.treatmentMetho" placeholder="请选择" :disabled="true">
+                  <el-select
+                    v-model.trim="MediaData.treatmentMetho"
+                    placeholder="请选择"
+                    :disabled="true"
+                  >
                     <el-option
                       v-for="item in handleTypeList"
                       :key="item.value"
@@ -344,22 +461,31 @@
             </div>
             <h3>调解员信息</h3>
             <!-- 新增调解员表格 -->
-            <div class='civil-media-container-form-table-3-title'>
-                    <span>序号</span>
-                    <span>民事调解员</span>
-                </div>
-                <div class='civil-media-container-form-table-3'>
-                    <div class='civil-media-container-form-table-3-item' v-for='(item,index) in ConciliatorMsg' :key='index'>
-                        <span>{{index+1}}</span>
-                        <span>{{item}}</span>
-                    </div>
+            <div class="civil-media-container-form-table-3-title">
+              <span>序号</span>
+              <span>民事调解员</span>
+            </div>
+            <div class="civil-media-container-form-table-3">
+              <div
+                class="civil-media-container-form-table-3-item"
+                v-for="(item, index) in ConciliatorMsg"
+                :key="index"
+              >
+                <span>{{ index + 1 }}</span>
+                <span>{{ item }}</span>
+              </div>
             </div>
             <!-- 上传凭证 -->
-            <div class='civil-media-container-form-update-imgs'>
-                <span>上传凭证：</span>
-                <div class='civil-media-container-form-update-imgs-list'>
-                    <img :src="item" alt="" v-for='(item,index) in this.MediaData.certificate' :key='index'>
-                </div>
+            <div class="civil-media-container-form-update-imgs">
+              <span>上传凭证：</span>
+              <div class="civil-media-container-form-update-imgs-list">
+                <img
+                  :src="item"
+                  alt=""
+                  v-for="(item, index) in this.MediaData.certificate"
+                  :key="index"
+                />
+              </div>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -368,11 +494,14 @@
     <div class="civil-media-check">
       <div class="civil-media-check-reason">
         <span>审批原因</span>
-        <textarea maxlength="141" v-model.trim="CommitApproveData.checkReason"></textarea>
+        <textarea
+          maxlength="141"
+          v-model.trim="CommitApproveData.checkReason"
+        ></textarea>
       </div>
       <div class="civil-media-check-button">
-        <button @click="RejectCheck">审核驳回</button>
-        <button @click="PassCheck">审核通过</button>
+        <button type="button" @click="RejectCheck">审核驳回</button>
+        <button type="button" @click="PassCheck">审核通过</button>
       </div>
     </div>
   </div>
@@ -384,8 +513,7 @@ export default {
     return {
       // 是否展示选择相对人列表
       IsPopSelectiveList: true,
-      handleTypeList: [
-      ],
+      handleTypeList: [],
       UserMsg: [
         {
           IsCoordinate: 'true',
@@ -393,8 +521,7 @@ export default {
           Properties: 'person',
         },
       ],
-      MediatorList: [
-      ],
+      MediatorList: [],
       IsSelect: false,
       RelativeMsg: [
         {
@@ -403,8 +530,7 @@ export default {
           Properties: 'person',
         },
       ],
-      MediateMsg: [
-      ],
+      MediateMsg: [],
       // 担保人信息
       GuarantorMsg: [],
       // 相对人数据源
@@ -472,10 +598,12 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-      !MsgResult.data.treatmentMetho ? (MsgResult.data.treatmentMetho = '1') : ''
+      !MsgResult.data.treatmentMetho
+        ? (MsgResult.data.treatmentMetho = '1')
+        : ''
       this.MediaData = MsgResult.data
       if (this.MediaData.certificate.indexOf(',') !== -1) {
-          this.MediaData.certificate = this.MediaData.certificate.split(',')
+        this.MediaData.certificate = this.MediaData.certificate.split(',')
       }
       this.ConciliatorMsg = this.MediaData.userName.split(',')
       // this.$set(this.MediaData, 'civilType', 1)
@@ -545,8 +673,8 @@ export default {
     },
   },
   created() {
-      this.InitData()
-  }
+    this.InitData()
+  },
 }
 </script>
 <style lang='scss' scoped>
@@ -831,7 +959,7 @@ export default {
       &-interest {
         &-row1 {
           display: flex;
-          span{
+          span {
             flex: 1;
           }
           span:nth-child(1) {
@@ -846,8 +974,8 @@ export default {
           }
           span:nth-child(2) {
             .el-date-editor {
-                width: 180px;
-                margin: 0 5px;
+              width: 180px;
+              margin: 0 5px;
             }
           }
         }

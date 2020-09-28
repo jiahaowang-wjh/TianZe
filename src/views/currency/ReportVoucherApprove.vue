@@ -7,7 +7,9 @@
       <span class="payment-info-title-go2">录入缴费</span>
     </div>
     <div class="payment-info-content">
-      <div class="payment-info-content-title">您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。</div>
+      <div class="payment-info-content-title">
+        您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。
+      </div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
@@ -26,7 +28,7 @@
         <div class="payment-info-content-update-box">
           <div
             class="payment-info-content-update-box-container"
-            v-for="(item,index) in VoucherData.voucher"
+            v-for="(item, index) in VoucherData.voucher"
             :key="index"
             @click="openImgToLink(item)"
           >
@@ -47,8 +49,8 @@
         <textarea v-model="SubmitData.CheckReason"></textarea>
       </div>
       <div class="payment-info-content-submit">
-        <button @click="RejectPayment">审批驳回</button>
-        <button @click="PassPayment">审批通过</button>
+        <button type="button" @click="RejectPayment">审批驳回</button>
+        <button type="button" @click="PassPayment">审批通过</button>
       </div>
     </div>
   </div>
@@ -120,8 +122,8 @@ export default {
             return this.$message.error(StageUpdateResult.data.resultMessage)
           this.$message.success('进入调解阶段')
           this.$router.push({
-                    path: '/PaymentVoucher',
-                })
+            path: '/PaymentVoucher',
+          })
         })
       })
     },

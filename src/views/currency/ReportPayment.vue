@@ -7,7 +7,9 @@
       <span class="payment-info-title-go2">录入缴费</span>
     </div>
     <div class="payment-info-content">
-      <div class="payment-info-content-title">您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。</div>
+      <div class="payment-info-content-title">
+        您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。
+      </div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
@@ -25,21 +27,42 @@
         上传凭证：
         <div class="payment-info-content-update-box">
           <div class="payment-info-content-update-box-container">
-            <img :src="item" v-for="(item,index) in UpdataVoucherList" :key="index" @click="openImgToLink(item)"/>
+            <img
+              :src="item"
+              v-for="(item, index) in UpdataVoucherList"
+              :key="index"
+              @click="openImgToLink(item)"
+            />
           </div>
         </div>
-        <button class="payment-info-content-update-button">点击上传</button>
+        <button type="button" class="payment-info-content-update-button">
+          点击上传
+        </button>
         <input @change="UpdataVoucher" type="file" ref="Voucher" />
       </div>
       <div class="payment-info-content-payer">
         合同人姓名：
-        <input type="text" placeholder="请输入" v-model="SubmitData.contractName" />
+        <input
+          type="text"
+          placeholder="请输入"
+          v-model="SubmitData.contractName"
+        />
       </div>
       <div class="payment-info-content-payer">
         打款人姓名：
-        <input type="text" placeholder="请输入" v-model="SubmitData.payertName" />
+        <input
+          type="text"
+          placeholder="请输入"
+          v-model="SubmitData.payertName"
+        />
       </div>
-      <button class="payment-info-content-submit" @click="SubmitPayment">提交</button>
+      <button
+        type="button"
+        class="payment-info-content-submit"
+        @click="SubmitPayment"
+      >
+        提交
+      </button>
     </div>
   </div>
 </template>

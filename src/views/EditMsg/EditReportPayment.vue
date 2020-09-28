@@ -7,7 +7,9 @@
       <span class="payment-info-title-go2">录入缴费编辑</span>
     </div>
     <div class="payment-info-content">
-      <div class="payment-info-content-title">您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。</div>
+      <div class="payment-info-content-title">
+        您新增的录入信息总部公司已经审核通过，请根据下面所给信息线下支付录入费用。
+      </div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
@@ -25,21 +27,41 @@
         上传凭证：
         <div class="payment-info-content-update-box">
           <div class="payment-info-content-update-box-container">
-            <img :src="item" v-for="(item,index) in UpdataVoucherList" :key="index" />
+            <img
+              :src="item"
+              v-for="(item, index) in UpdataVoucherList"
+              :key="index"
+            />
           </div>
         </div>
-        <button class="payment-info-content-update-button">点击上传</button>
+        <button type="button" class="payment-info-content-update-button">
+          点击上传
+        </button>
         <input @change="UpdataVoucher" type="file" ref="Voucher" />
       </div>
       <div class="payment-info-content-payer">
         合同人姓名：
-        <input type="text" placeholder="请输入" v-model="SubmitData.contractName" />
+        <input
+          type="text"
+          placeholder="请输入"
+          v-model="SubmitData.contractName"
+        />
       </div>
       <div class="payment-info-content-payer">
         打款人姓名：
-        <input type="text" placeholder="请输入" v-model="SubmitData.payertName" />
+        <input
+          type="text"
+          placeholder="请输入"
+          v-model="SubmitData.payertName"
+        />
       </div>
-      <button class="payment-info-content-submit" @click="SubmitPayment">提交</button>
+      <button
+        type="button"
+        class="payment-info-content-submit"
+        @click="SubmitPayment"
+      >
+        提交
+      </button>
     </div>
   </div>
 </template>
@@ -66,69 +88,69 @@ export default {
         voucher: [],
         cost: '880',
         flag: '1',
-        status: 0
+        status: 0,
       },
       UpdataVoucherList: [],
     }
   },
   methods: {
-    async InitData () {
-        const reportId = this.$route.query.reportId
-        //   根据报备ID获取用于提交的信息
-        const formData = new FormData()
-        formData.append('reportId', reportId)
-        const { data: result } = await this.$http({
-            method: 'post',
-            url: '/api/api/busPayDetailController/selectByReportId',
-            data: formData,
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            }
-        })
-        this.SubmitData.contractName = result.data[0].contractName
-        this.SubmitData.payertName = result.data[0].payertName
-        this.SubmitData.reportId = this.$route.query.reportId
-        this.UpdataVoucherList = result.data[0].voucher.split(',')
+    async InitData() {
+      const reportId = this.$route.query.reportId
+      //   根据报备ID获取用于提交的信息
+      const formData = new FormData()
+      formData.append('reportId', reportId)
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/busPayDetailController/selectByReportId',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      this.SubmitData.contractName = result.data[0].contractName
+      this.SubmitData.payertName = result.data[0].payertName
+      this.SubmitData.reportId = this.$route.query.reportId
+      this.UpdataVoucherList = result.data[0].voucher.split(',')
     },
     async SubmitPayment() {
       // 更新缴费信息
-        this.SubmitData.voucher = this.UpdataVoucherList
-        const formData = new FormData()
-        console.log(this.SubmitData)
-        for (const key in this.SubmitData) {
-            formData.append(key, this.SubmitData[key])
-        }
-        const { data: result } = await this.$http({
-            method: 'post',
-            url: '/api/api/busPayDetailController/updateByPrimaryKeySelective',
-            data: formData,
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            },
-        })
-        //  根据返回payId修改缴费状态
+      this.SubmitData.voucher = this.UpdataVoucherList
+      const formData = new FormData()
+      console.log(this.SubmitData)
+      for (const key in this.SubmitData) {
+        formData.append(key, this.SubmitData[key])
+      }
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/busPayDetailController/updateByPrimaryKeySelective',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      //  根据返回payId修改缴费状态
       console.log(result)
-        // if (result.resultCode !== '200') {
-        //     return this.$message.error(result.resultMessage)
-        // }
-        // this.UpdatePayStatus(0, result.data)
-        // // 调用状态改变接口
-        // const UpdateStatusFormData = new FormData()
-        // UpdateStatusFormData.append('reportId', this.SubmitData.reportId)
-        // UpdateStatusFormData.append('status', '4')
-        // const { data: StatusResult } = await this.$http({
-        //     method: 'post',
-        //     url: '/api/api/busReportController/updateStatus',
-        //     data: UpdateStatusFormData,
-        //     headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        // if (StatusResult.resultCode !== '200'){
-        //     return this.$message.error(StatusResult.resultMessage)
-        // }
-        // this.$message.success(StatusResult.resultMessage)
-        // this.$router.push('/MyDebt')
+      // if (result.resultCode !== '200') {
+      //     return this.$message.error(result.resultMessage)
+      // }
+      // this.UpdatePayStatus(0, result.data)
+      // // 调用状态改变接口
+      // const UpdateStatusFormData = new FormData()
+      // UpdateStatusFormData.append('reportId', this.SubmitData.reportId)
+      // UpdateStatusFormData.append('status', '4')
+      // const { data: StatusResult } = await this.$http({
+      //     method: 'post',
+      //     url: '/api/api/busReportController/updateStatus',
+      //     data: UpdateStatusFormData,
+      //     headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //     },
+      // })
+      // if (StatusResult.resultCode !== '200'){
+      //     return this.$message.error(StatusResult.resultMessage)
+      // }
+      // this.$message.success(StatusResult.resultMessage)
+      // this.$router.push('/MyDebt')
     },
     UpdataVoucher() {
       const file = this.$refs.Voucher.files[0]

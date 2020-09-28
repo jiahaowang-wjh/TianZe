@@ -13,7 +13,7 @@
       <!-- 登录表单区域 -->
       <el-form
         label-width="0px"
-        @submit.prevent="()=>false"
+        @submit.prevent="() => false"
         @submit.native.prevent
         class="login-box-form"
         :model="loginForm"
@@ -22,18 +22,31 @@
       >
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户账号"></el-input>
+          <el-input
+            v-model="loginForm.username"
+            placeholder="请输入用户账号"
+          ></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" placeholder="请输入用户密码"></el-input>
+          <el-input
+            v-model="loginForm.password"
+            placeholder="请输入用户密码"
+          ></el-input>
         </el-form-item>
         <!-- 验证码 -->
         <el-form-item class="login-box-form-code" prop="name">
-          <el-input placeholder="验证码" v-model="loginForm.randomStr"></el-input>
+          <el-input
+            placeholder="验证码"
+            v-model="loginForm.randomStr"
+          ></el-input>
           <!-- 验证码形成的图片 -->
           <div class="login-box-form-code-img" @click="GetRandomImg">
-            <img class="login-box-form-code-img-img" :src="testingCodeImg" alt />
+            <img
+              class="login-box-form-code-img-img"
+              :src="testingCodeImg"
+              alt
+            />
           </div>
         </el-form-item>
         <!-- 忘记密码 -->
@@ -41,7 +54,13 @@
           <span>忘记密码</span>
         </div>
         <!-- 登录按钮 -->
-        <button @click.prevent="login" class="login-box-form-button">登录</button>
+        <button
+          type="button"
+          @click.prevent="login"
+          class="login-box-form-button"
+        >
+          登录
+        </button>
       </el-form>
     </div>
   </div>
@@ -108,9 +127,8 @@ export default {
     },
     // 获取验证码图片地址
     GetRandomImg() {
-  
-        this.testingCodeImg = '/api/verificationCode/verifyCode?random_str='+Math.random();
-    
+      this.testingCodeImg =
+        '/api/verificationCode/verifyCode?random_str=' + Math.random()
     },
     login() {
       // 验证表单是否通过
@@ -178,7 +196,10 @@ export default {
         store.dispatch('userMenus').then(() => {
           console.log(this.userMenuTree)
           this.$router.push({
-            path: this.userMenuTree[0].menuUrl+"?menuId="+this.userMenuTree[0].menuId,
+            path:
+              this.userMenuTree[0].menuUrl +
+              '?menuId=' +
+              this.userMenuTree[0].menuId,
             query: {
               username: result.data.additionalInformation.userNickname,
             },
@@ -285,7 +306,7 @@ export default {
       }
       // 登录按钮
       &-button {
-        margin-top: 30PX;
+        margin-top: 30px;
         background-color: #fc7f89;
         border: none;
         color: #ffffff;

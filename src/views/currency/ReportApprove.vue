@@ -1,465 +1,657 @@
 <!--  -->
 <template>
-  <div class='report-approve'>
-    <div class='report-approve-title'>
-      <span class='report-approve-title-go1'>我的审批</span>
-      <span class='report-approve-title-separator'> / </span>
-      <span class='report-approve-title-go2'>录入审核</span>
+  <div class="report-approve">
+    <div class="report-approve-title">
+      <span class="report-approve-title-go1">我的审批</span>
+      <span class="report-approve-title-separator"> / </span>
+      <span class="report-approve-title-go2">录入审核</span>
     </div>
-    <div class='report-approve-container'>
-      <div class='report-approve-container-form'>
+    <div class="report-approve-container">
+      <div class="report-approve-container-form">
         <el-collapse>
           <!-- 债务人基本信息登记表 -->
-          <el-collapse-item title="债权人基本信息登记表"
-                            name="1">
+          <el-collapse-item title="债权人基本信息登记表" name="1">
             <!-- 第一行表单 -->
-            <div class='report-approve-container-form-first'>
-              <div class='report-approve-container-form-first-item'>
+            <div class="report-approve-container-form-first">
+              <div class="report-approve-container-form-first-item">
                 <span>债事人是否配合：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.iscoordinate === '1' ? ('是') : ReportMsg.iscoordinate === '2' ? ('否') : ' ' "></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="
+                    ReportMsg.iscoordinate === '1'
+                      ? '是'
+                      : ReportMsg.iscoordinate === '2'
+                      ? '否'
+                      : ' '
+                  "
+                ></el-input>
               </div>
-              <div class='report-approve-container-form-first-item'>
+              <div class="report-approve-container-form-first-item">
                 <span>类型：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.reportType === '1' ? ('债权人'): ReportMsg.reportType === '2' ? ('债务人'): ReportMsg.reportType === '3' ?('债权债务人'): ' '"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="
+                    ReportMsg.reportType === '1'
+                      ? '债权人'
+                      : ReportMsg.reportType === '2'
+                      ? '债务人'
+                      : ReportMsg.reportType === '3'
+                      ? '债权债务人'
+                      : ' '
+                  "
+                ></el-input>
               </div>
-              <div class='report-approve-container-form-first-item'>
+              <div class="report-approve-container-form-first-item">
                 <span>性质：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.reportPropert === '1' ? ('个人'): ReportMsg.reportPropert === '2' ? ('企业'): ReportMsg.reportPropert === '3' ?('银行'): ' '"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="
+                    ReportMsg.reportPropert === '1'
+                      ? '个人'
+                      : ReportMsg.reportPropert === '2'
+                      ? '企业'
+                      : ReportMsg.reportPropert === '3'
+                      ? '银行'
+                      : ' '
+                  "
+                ></el-input>
               </div>
             </div>
             <!-- 个人 -->
             <template v-if="ReporterProperties === 'person'">
               <h3>个人:</h3>
-              <div class='report-approve-container-form-person-item-1'>
+              <div class="report-approve-container-form-person-item-1">
                 <div>
                   <span>是否从业：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.ifWork === '1' ? '是': ReportMsg.ifWork === '1' ? '否':''"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="
+                      ReportMsg.ifWork === '1'
+                        ? '是'
+                        : ReportMsg.ifWork === '1'
+                        ? '否'
+                        : ''
+                    "
+                  ></el-input>
                 </div>
                 <div>
                   <span>姓名：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.personalName"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.personalName"
+                  ></el-input>
                 </div>
                 <div>
                   <span>手机号码：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.phone"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.phone"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-2'>
+              <div class="report-approve-container-form-person-item-2">
                 <div>
                   <span>身份证号码：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.idCard"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.idCard"
+                  ></el-input>
                 </div>
                 <div>
                   <span>性别：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.sex === '1' ? '男': '女'"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.sex === '1' ? '男' : '女'"
+                  ></el-input>
                 </div>
                 <div>
                   <span>所在地区：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.area"></el-input>
+                  <el-input :disabled="true" :value="ReportMsg.area"></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-3'>
+              <div class="report-approve-container-form-person-item-3">
                 <div>
                   <span>电子邮箱：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.email"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.email"
+                  ></el-input>
                 </div>
                 <div>
                   <span>资产总价值（元）：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.assets"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.assets"
+                  ></el-input>
                 </div>
                 <div>
                   <span>资产项数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.assetsNumber"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.assetsNumber"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-4'>
+              <div class="report-approve-container-form-person-item-4">
                 <span>可流通资产价值(元)：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.circulationAssets"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.circulationAssets"
+                ></el-input>
               </div>
               <h3>身份证信息</h3>
-              <div class='report-approve-container-form-person-upload-idcard'>
-                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust : IDCardDefaultSrc.JustSrc"
-                     alt=""
-                     @click="openImgToLink(ReportMsg.cardJust)">
-                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack : IDCardDefaultSrc.JustSrc"
-                     alt=""
-                     @click="openImgToLink(ReportMsg.cardBack)">
+              <div class="report-approve-container-form-person-upload-idcard">
+                <img
+                  :src="
+                    ReportMsg.cardJust
+                      ? ReportMsg.cardJust
+                      : IDCardDefaultSrc.JustSrc
+                  "
+                  alt=""
+                  @click="openImgToLink(ReportMsg.cardJust)"
+                />
+                <img
+                  :src="
+                    ReportMsg.cardBack
+                      ? ReportMsg.cardBack
+                      : IDCardDefaultSrc.JustSrc
+                  "
+                  alt=""
+                  @click="openImgToLink(ReportMsg.cardBack)"
+                />
               </div>
-              <div class='report-approve-container-form-person-item-5'>
+              <div class="report-approve-container-form-person-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRight"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRight"
+                  ></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRightNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRightNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-6'>
+              <div class="report-approve-container-form-person-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.capital"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.capital"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interest"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interest"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interestRate"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interestRate"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-7'>
+              <div class="report-approve-container-form-person-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debt"></el-input>
+                  <el-input :disabled="true" :value="ReportMsg.debt"></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-person-item-8'>
+              <div class="report-approve-container-form-person-item-8">
                 <span>债事凭证：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.debtCertificate"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.debtCertificate"
+                ></el-input>
               </div>
-              <div class='report-approve-container-form-person-update-imgs'>
+              <div class="report-approve-container-form-person-update-imgs">
                 <span>债事凭证信息：</span>
-                <div class='report-approve-container-form-person-update-imgs-list'>
-                  <img v-for='(item,index) in ReportMsg.uploadDebtCertificate'
-                       :key='index'
-                       :src="item"
-                       alt=""
-                       @click="openImgToLink(item)">
+                <div
+                  class="report-approve-container-form-person-update-imgs-list"
+                >
+                  <img
+                    v-for="(item, index) in ReportMsg.uploadDebtCertificate"
+                    :key="index"
+                    :src="item"
+                    alt=""
+                    @click="openImgToLink(item)"
+                  />
                 </div>
               </div>
-              <div class='report-approve-container-form-person-lawsuit'>
+              <div class="report-approve-container-form-person-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <textarea disabled='true'
-                          :value="ReportMsg.isResult"></textarea>
+                <textarea
+                  disabled="true"
+                  :value="ReportMsg.isResult"
+                ></textarea>
               </div>
-              <div class='report-approve-container-form-person-economic'>
+              <div class="report-approve-container-form-person-economic">
                 <span>目前经济情况：</span>
-                <textarea disabled='true'
-                          :value="ReportMsg.economics"></textarea>
+                <textarea
+                  disabled="true"
+                  :value="ReportMsg.economics"
+                ></textarea>
               </div>
-              <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-              <div class='report-approve-container-form-person-item-9'>
+              <h3>
+                本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+              </h3>
+              <div class="report-approve-container-form-person-item-9">
                 <span>项目负责人：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.prjectManager"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.prjectManager"
+                ></el-input>
               </div>
             </template>
             <!-- 企业 -->
             <template v-else-if="ReporterProperties === 'business'">
               <h3>企业:</h3>
-              <div class='report-approve-container-form-business-item-1'>
+              <div class="report-approve-container-form-business-item-1">
                 <div>
                   <span>企业名称：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.CompanyName"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.CompanyName"
+                  ></el-input>
                 </div>
                 <div>
                   <span>社会统一信用代码：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.CreditCode"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.CreditCode"
+                  ></el-input>
                 </div>
                 <div>
                   <span>行业属性：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.industryAttributes"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.industryAttributes"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-business-item-2'>
+              <div class="report-approve-container-form-business-item-2">
                 <div>
                   <span>法定代表人名称：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.LegalName"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.LegalName"
+                  ></el-input>
                 </div>
                 <div>
                   <span>法定代表人联系电话：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.LegalPhone"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.LegalPhone"
+                  ></el-input>
                 </div>
                 <div>
                   <span>法定代表人身份证号：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.LegalIdCard"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.LegalIdCard"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-business-item-3'>
+              <div class="report-approve-container-form-business-item-3">
                 <div>
                   <span>注册地址：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.address"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.address"
+                  ></el-input>
                 </div>
                 <div>
                   <span>企业联系人：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.ContactPerson"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.ContactPerson"
+                  ></el-input>
                 </div>
                 <div>
                   <span>联系电话：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.ContactPhone"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.ContactPhone"
+                  ></el-input>
                 </div>
               </div>
               <h3>身份证信息</h3>
-              <div class='report-approve-container-form-business-upload-idcard'>
-                <img :src="ReportMsg.cardJust ? ReportMsg.cardJust:IDCardDefaultSrc.JustSrc"
-                     alt=""
-                     @click="openImgToLink(ReportMsg.cardJust)">
-                <img :src="ReportMsg.cardBack ? ReportMsg.cardBack:IDCardDefaultSrc.BackSrc"
-                     alt=""
-                     @click="openImgToLink(ReportMsg.cardBack)">
+              <div class="report-approve-container-form-business-upload-idcard">
+                <img
+                  :src="
+                    ReportMsg.cardJust
+                      ? ReportMsg.cardJust
+                      : IDCardDefaultSrc.JustSrc
+                  "
+                  alt=""
+                  @click="openImgToLink(ReportMsg.cardJust)"
+                />
+                <img
+                  :src="
+                    ReportMsg.cardBack
+                      ? ReportMsg.cardBack
+                      : IDCardDefaultSrc.BackSrc
+                  "
+                  alt=""
+                  @click="openImgToLink(ReportMsg.cardBack)"
+                />
               </div>
-              <div class='report-approve-container-form-business-item-5'>
+              <div class="report-approve-container-form-business-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRight"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRight"
+                  ></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRightNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRightNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-business-item-6'>
+              <div class="report-approve-container-form-business-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.capital"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.capital"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interest"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interest"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interestRate"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interestRate"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-business-item-7'>
+              <div class="report-approve-container-form-business-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debt"></el-input>
+                  <el-input :disabled="true" :value="ReportMsg.debt"></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-business-item-8'>
+              <div class="report-approve-container-form-business-item-8">
                 <span>债事凭证：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.debtCertificate"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.debtCertificate"
+                ></el-input>
               </div>
-              <div class='report-approve-container-form-business-update-imgs'>
+              <div class="report-approve-container-form-business-update-imgs">
                 <span>债事凭证信息：</span>
-                <div class='report-approve-container-form-person-update-imgs-list'>
-                  <img v-for='(item,index) in ReportMsg.uploadDebtCertificate'
-                       :key='index'
-                       :src="item"
-                       alt=""
-                       @click="openImgToLink(item)">
+                <div
+                  class="report-approve-container-form-person-update-imgs-list"
+                >
+                  <img
+                    v-for="(item, index) in ReportMsg.uploadDebtCertificate"
+                    :key="index"
+                    :src="item"
+                    alt=""
+                    @click="openImgToLink(item)"
+                  />
                 </div>
               </div>
-              <div class='report-approve-container-form-business-lawsuit'>
+              <div class="report-approve-container-form-business-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.isResult"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.isResult"
+                ></el-input>
               </div>
-              <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-              <div class='report-approve-container-form-business-item-9'>
+              <h3>
+                本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+              </h3>
+              <div class="report-approve-container-form-business-item-9">
                 <span>项目负责人：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.prjectManager"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.prjectManager"
+                ></el-input>
               </div>
             </template>
             <!-- 银行 -->
             <template v-else>
               <h3>银行:</h3>
-              <div class='report-approve-container-form-bank-item-1'>
+              <div class="report-approve-container-form-bank-item-1">
                 <div>
                   <span>企业名称：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.companyName"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.companyName"
+                  ></el-input>
                 </div>
                 <div>
                   <span>社会统一信用代码：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.creditCode"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.creditCode"
+                  ></el-input>
                 </div>
                 <div>
                   <span>行业属性：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.industryAttributes"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.industryAttributes"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-2'>
+              <div class="report-approve-container-form-bank-item-2">
                 <div>
                   <span>法定代表人名称：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.legalName"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.legalName"
+                  ></el-input>
                 </div>
                 <div>
                   <span>法定代表人联系电话：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.legalPhone"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.legalPhone"
+                  ></el-input>
                 </div>
                 <div>
                   <span>法定代表人身份证号：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.legalIdCard"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.legalIdCard"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-3'>
+              <div class="report-approve-container-form-bank-item-3">
                 <div>
                   <span>注册地址：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.address"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.address"
+                  ></el-input>
                 </div>
                 <div>
                   <span>企业联系人：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.contactPerson"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.contactPerson"
+                  ></el-input>
                 </div>
                 <div>
                   <span>联系电话：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.contactPhone"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.contactPhone"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-5'>
+              <div class="report-approve-container-form-bank-item-5">
                 <div>
                   <span>债权(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRight"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRight"
+                  ></el-input>
                 </div>
                 <div>
                   <span>债权笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatRightNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatRightNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.obligatTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.obligatTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-6'>
+              <div class="report-approve-container-form-bank-item-6">
                 <div>
                   <span>本金：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.capital"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.capital"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利息：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interest"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interest"
+                  ></el-input>
                 </div>
                 <div>
                   <span>利率：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.interestRate"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.interestRate"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-7'>
+              <div class="report-approve-container-form-bank-item-7">
                 <div>
                   <span>债务(元)：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debt"></el-input>
+                  <el-input :disabled="true" :value="ReportMsg.debt"></el-input>
                 </div>
                 <div>
                   <span>债务笔数：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtNo"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtNo"
+                  ></el-input>
                 </div>
                 <div>
                   <span>借款发生时间：</span>
-                  <el-input :disabled="true"
-                            :value="ReportMsg.debtTime"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="ReportMsg.debtTime"
+                  ></el-input>
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-item-8'>
+              <div class="report-approve-container-form-bank-item-8">
                 <span>债事凭证：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.debtCertificate"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.debtCertificate"
+                ></el-input>
               </div>
-              <div class='report-approve-container-form-bank-update-imgs'>
+              <div class="report-approve-container-form-bank-update-imgs">
                 <span>债事凭证信息：</span>
-                <div class='report-approve-container-form-person-update-imgs-list'>
-                  <img v-for='(item,index) in ReportMsg.uploadDebtCertificate'
-                       :key='index'
-                       :src="item"
-                       alt=""
-                       @click="openImgToLink(item)">
+                <div
+                  class="report-approve-container-form-person-update-imgs-list"
+                >
+                  <img
+                    v-for="(item, index) in ReportMsg.uploadDebtCertificate"
+                    :key="index"
+                    :src="item"
+                    alt=""
+                    @click="openImgToLink(item)"
+                  />
                 </div>
               </div>
-              <div class='report-approve-container-form-bank-lawsuit'>
+              <div class="report-approve-container-form-bank-lawsuit">
                 <span>是否诉讼及结果：</span>
-                <textarea disabled='true'
-                          :value='ReportMsg.isResult'></textarea>
+                <textarea
+                  disabled="true"
+                  :value="ReportMsg.isResult"
+                ></textarea>
               </div>
-              <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-              <div class='report-approve-container-form-bank-item-9'>
+              <h3>
+                本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+              </h3>
+              <div class="report-approve-container-form-bank-item-9">
                 <span>项目负责人：</span>
-                <el-input :disabled="true"
-                          :value="ReportMsg.prjectManager"></el-input>
+                <el-input
+                  :disabled="true"
+                  :value="ReportMsg.prjectManager"
+                ></el-input>
               </div>
             </template>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
-          <el-collapse-item title="相对人基本信息表"
-                            name="2">
-            <div class='report-approve-container-relative'>
-              <div class='report-approve-container-relative-list-title'>
+          <el-collapse-item title="相对人基本信息表" name="2">
+            <div class="report-approve-container-relative">
+              <div class="report-approve-container-relative-list-title">
                 <span>序号</span>
                 <span>相对人</span>
                 <span>债事类型</span>
@@ -467,468 +659,744 @@
                 <span>联系电话</span>
                 <span>操作</span>
               </div>
-              <div class='report-approve-container-relative-list'>
-                <div class='report-approve-container-relative-list-item'
-                     v-for='(item,index) in RelativeList'
-                     :key='item.id'>
-                  <span>{{index+1}}</span>
-                  <span>{{item.personalName ? item.personalName : item.companyName}}</span>
-                  <span>{{(item.reportType === '债权人')? ('个人'): (item.reportType === '2')?('债务人'):('债权债务人')}}</span>
-                  <span>{{(item.reportPropert === '1')? ('个人'): (item.reportPropert === '2')?('企业'):('银行')}}</span>
-                  <span>{{item.phone ? item.phone: item.contactPhone}}</span>
+              <div class="report-approve-container-relative-list">
+                <div
+                  class="report-approve-container-relative-list-item"
+                  v-for="(item, index) in RelativeList"
+                  :key="item.id"
+                >
+                  <span>{{ index + 1 }}</span>
+                  <span>{{
+                    item.personalName ? item.personalName : item.companyName
+                  }}</span>
+                  <span>{{
+                    item.reportType === '债权人'
+                      ? '个人'
+                      : item.reportType === '2'
+                      ? '债务人'
+                      : '债权债务人'
+                  }}</span>
+                  <span>{{
+                    item.reportPropert === '1'
+                      ? '个人'
+                      : item.reportPropert === '2'
+                      ? '企业'
+                      : '银行'
+                  }}</span>
+                  <span>{{ item.phone ? item.phone : item.contactPhone }}</span>
                   <span>
-                    <button @click='GetDetailMsg(index)'>查看详细信息</button>
+                    <button type="button" @click="GetDetailMsg(index)">
+                      查看详细信息
+                    </button>
                   </span>
                 </div>
               </div>
               <h3>相对人信息登记表</h3>
               <!-- 第一行表单 -->
-              <div class='report-approve-container-relative-form-first'>
-                <div class='report-approve-container-form-first-item'>
+              <div class="report-approve-container-relative-form-first">
+                <div class="report-approve-container-form-first-item">
                   <span>债事人是否配合：</span>
-                  <el-input :disabled="true"
-                            :value="RelativeMsg.iscoordinate === '1' ? ('是') : RelativeMsg.iscoordinate === '2' ? ('否') : ' ' "></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="
+                      RelativeMsg.iscoordinate === '1'
+                        ? '是'
+                        : RelativeMsg.iscoordinate === '2'
+                        ? '否'
+                        : ' '
+                    "
+                  ></el-input>
                 </div>
-                <div class='report-approve-container-form-first-item'>
+                <div class="report-approve-container-form-first-item">
                   <span>类型：</span>
-                  <el-input :disabled="true"
-                            :value="RelativeMsg.reportType === '1' ? ('债权人'): RelativeMsg.reportType === '2' ? ('债务人'): RelativeMsg.reportType === '3' ?('债权债务人'): ' '"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="
+                      RelativeMsg.reportType === '1'
+                        ? '债权人'
+                        : RelativeMsg.reportType === '2'
+                        ? '债务人'
+                        : RelativeMsg.reportType === '3'
+                        ? '债权债务人'
+                        : ' '
+                    "
+                  ></el-input>
                 </div>
-                <div class='report-approve-container-form-first-item'>
+                <div class="report-approve-container-form-first-item">
                   <span>性质：</span>
-                  <el-input :disabled="true"
-                            :value="RelativeMsg.reportPropert === '1' ? ('个人'): RelativeMsg.reportPropert === '2' ? ('企业'): RelativeMsg.reportPropert === '3' ?('银行'): ' '"></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="
+                      RelativeMsg.reportPropert === '1'
+                        ? '个人'
+                        : RelativeMsg.reportPropert === '2'
+                        ? '企业'
+                        : RelativeMsg.reportPropert === '3'
+                        ? '银行'
+                        : ' '
+                    "
+                  ></el-input>
                 </div>
               </div>
               <!-- 个人 -->
               <template v-if="RelativeProperties === 'person'">
                 <h3>个人:</h3>
-                <div class='report-approve-container-relative-form-person-item-1'>
+                <div
+                  class="report-approve-container-relative-form-person-item-1"
+                >
                   <div>
                     <span>是否从业：</span>
-                    <el-input :disabled="true"
-                              :value="RelativeMsg.ifWork === '1' ? ('是') : RelativeMsg.ifWork === '2' ? ('否') : ' ' "></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="
+                        RelativeMsg.ifWork === '1'
+                          ? '是'
+                          : RelativeMsg.ifWork === '2'
+                          ? '否'
+                          : ' '
+                      "
+                    ></el-input>
                   </div>
                   <div>
                     <span>姓名：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.personalName'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.personalName"
+                    ></el-input>
                   </div>
                   <div>
                     <span>手机号码：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.phone'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.phone"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-2'>
+                <div
+                  class="report-approve-container-relative-form-person-item-2"
+                >
                   <div>
                     <span>身份证号码：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.idCard'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.idCard"
+                    ></el-input>
                   </div>
                   <div>
                     <span>性别：</span>
-                    <el-input :disabled="true"
-                              :value="RelativeMsg.sex === '1' ? ('男') : RelativeMsg.ifWork === '2' ? ('女') : ' ' "></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="
+                        RelativeMsg.sex === '1'
+                          ? '男'
+                          : RelativeMsg.ifWork === '2'
+                          ? '女'
+                          : ' '
+                      "
+                    ></el-input>
                   </div>
                   <div>
                     <span>所在地区：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.area'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.area"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-3'>
+                <div
+                  class="report-approve-container-relative-form-person-item-3"
+                >
                   <div>
                     <span>电子邮箱：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.email'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.email"
+                    ></el-input>
                   </div>
                   <div>
                     <span>资产总价值（元）：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.assets'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.assets"
+                    ></el-input>
                   </div>
                   <div>
                     <span>资产项数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.assetsNumber'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.assetsNumber"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-4'>
+                <div
+                  class="report-approve-container-relative-form-person-item-4"
+                >
                   <span>可流通资产价值(元)：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.circulationAssets'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.circulationAssets"
+                  ></el-input>
                 </div>
                 <h3>上传身份证</h3>
-                <div class='report-approve-container-relative-form-person-upload-idcard'>
-                  <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"
-                       alt=""
-                       @click="openImgToLink(RelativeMsg.cardJust)">
-                  <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc"
-                       alt=""
-                       @click="openImgToLink(RelativeMsg.cardBack)">
+                <div
+                  class="report-approve-container-relative-form-person-upload-idcard"
+                >
+                  <img
+                    :src="
+                      RelativeMsg.cardJust
+                        ? RelativeMsg.cardJust
+                        : IDCardDefaultSrc.JustSrc
+                    "
+                    alt=""
+                    @click="openImgToLink(RelativeMsg.cardJust)"
+                  />
+                  <img
+                    :src="
+                      RelativeMsg.cardBack
+                        ? RelativeMsg.cardBack
+                        : IDCardDefaultSrc.BackSrc
+                    "
+                    alt=""
+                    @click="openImgToLink(RelativeMsg.cardBack)"
+                  />
                 </div>
-                <div class='report-approve-container-relative-form-person-item-5'>
+                <div
+                  class="report-approve-container-relative-form-person-item-5"
+                >
                   <div>
                     <span>债权(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRight'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRight"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRightNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRightNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-6'>
+                <div
+                  class="report-approve-container-relative-form-person-item-6"
+                >
                   <div>
                     <span>本金：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.capital'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.capital"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interest'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interest"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interestRate'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interestRate"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-7'>
+                <div
+                  class="report-approve-container-relative-form-person-item-7"
+                >
                   <div>
                     <span>债务(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debt'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debt"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-item-8'>
+                <div
+                  class="report-approve-container-relative-form-person-item-8"
+                >
                   <span>债事凭证：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.debtCertificate'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.debtCertificate"
+                  ></el-input>
                 </div>
-                <div class='report-approve-container-relative-form-person-update-imgs'>
+                <div
+                  class="report-approve-container-relative-form-person-update-imgs"
+                >
                   <span>债事凭证信息：</span>
-                  <div class='report-approve-container-form-person-update-imgs-list'>
-                    <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate'
-                         :key='index'
-                         :src="item"
-                         alt=""
-                         @click="openImgToLink(item)">
+                  <div
+                    class="report-approve-container-form-person-update-imgs-list"
+                  >
+                    <img
+                      v-for="(item, index) in RelativeMsg.uploadDebtCertificate"
+                      :key="index"
+                      :src="item"
+                      alt=""
+                      @click="openImgToLink(item)"
+                    />
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-person-lawsuit'>
-
+                <div
+                  class="report-approve-container-relative-form-person-lawsuit"
+                >
                   <span>经济使用用途：</span>
 
-                  <textarea disabled='true'
-                            :value='RelativeMsg.usage'></textarea>
+                  <textarea
+                    disabled="true"
+                    :value="RelativeMsg.usage"
+                  ></textarea>
                 </div>
-                <div class='report-approve-container-relative-form-person-economic'>
+                <div
+                  class="report-approve-container-relative-form-person-economic"
+                >
                   <span>目前经济情况：</span>
-                  <textarea disabled='true'
-                            :value='RelativeMsg.economics'></textarea>
+                  <textarea
+                    disabled="true"
+                    :value="RelativeMsg.economics"
+                  ></textarea>
                 </div>
-                <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-                <div class='report-approve-container-form-person-item-9'>
+                <h3>
+                  本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+                </h3>
+                <div class="report-approve-container-form-person-item-9">
                   <span>项目负责人：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.prjectManager'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.prjectManager"
+                  ></el-input>
                 </div>
               </template>
               <!-- 企业 -->
               <template v-else-if="RelativeProperties === 'business'">
                 <h3>企业:</h3>
-                <div class='report-approve-container-relative-form-business-item-1'>
+                <div
+                  class="report-approve-container-relative-form-business-item-1"
+                >
                   <div>
                     <span>企业名称：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.companyName'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.companyName"
+                    ></el-input>
                   </div>
                   <div>
                     <span>社会统一信用代码：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.creditCode'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.creditCode"
+                    ></el-input>
                   </div>
                   <div>
                     <span>行业属性：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.industryAttributes'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.industryAttributes"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-business-item-2'>
+                <div
+                  class="report-approve-container-relative-form-business-item-2"
+                >
                   <div>
                     <span>法定代表人名称：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalName'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalName"
+                    ></el-input>
                   </div>
                   <div>
                     <span>法定代表人联系电话：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalPhone'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalPhone"
+                    ></el-input>
                   </div>
                   <div>
                     <span>法定代表人身份证号：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalIdCard'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalIdCard"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-business-item-3'>
+                <div
+                  class="report-approve-container-relative-form-business-item-3"
+                >
                   <div>
                     <span>注册地址：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.address'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.address"
+                    ></el-input>
                   </div>
                   <div>
                     <span>企业联系人：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.contactPerson'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.contactPerson"
+                    ></el-input>
                   </div>
                   <div>
                     <span>联系电话：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.contactPhone'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.contactPhone"
+                    ></el-input>
                   </div>
                 </div>
                 <h3>上传身份证</h3>
-                <div class='report-approve-container-relative-form-business-upload-idcard'>
-                  <img :src="RelativeMsg.cardJust ? RelativeMsg.cardJust : IDCardDefaultSrc.JustSrc"
-                       alt=""
-                       @click="openImgToLink(RelativeMsg.cardJust)">
-                  <img :src="RelativeMsg.cardBack ? RelativeMsg.cardBack : IDCardDefaultSrc.BackSrc"
-                       alt=""
-                       @click="openImgToLink(RelativeMsg.cardBack)">
+                <div
+                  class="report-approve-container-relative-form-business-upload-idcard"
+                >
+                  <img
+                    :src="
+                      RelativeMsg.cardJust
+                        ? RelativeMsg.cardJust
+                        : IDCardDefaultSrc.JustSrc
+                    "
+                    alt=""
+                    @click="openImgToLink(RelativeMsg.cardJust)"
+                  />
+                  <img
+                    :src="
+                      RelativeMsg.cardBack
+                        ? RelativeMsg.cardBack
+                        : IDCardDefaultSrc.BackSrc
+                    "
+                    alt=""
+                    @click="openImgToLink(RelativeMsg.cardBack)"
+                  />
                 </div>
-                <div class='report-approve-container-relative-form-business-item-5'>
+                <div
+                  class="report-approve-container-relative-form-business-item-5"
+                >
                   <div>
                     <span>债权(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRight'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRight"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRightNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRightNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-business-item-6'>
+                <div
+                  class="report-approve-container-relative-form-business-item-6"
+                >
                   <div>
                     <span>本金：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.capital'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.capital"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interest'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interest"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interestRate'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interestRate"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-business-item-7'>
+                <div
+                  class="report-approve-container-relative-form-business-item-7"
+                >
                   <div>
                     <span>债务(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debt'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debt"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-business-item-8'>
+                <div
+                  class="report-approve-container-relative-form-business-item-8"
+                >
                   <span>债事凭证：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.debtCertificate'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.debtCertificate"
+                  ></el-input>
                 </div>
-                <div class='report-approve-container-relative-form-business-update-imgs'>
+                <div
+                  class="report-approve-container-relative-form-business-update-imgs"
+                >
                   <span>债事凭证信息：</span>
-                  <div class='report-approve-container-form-person-update-imgs-list'>
-                    <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate'
-                         :key='index'
-                         :src="item"
-                         alt=""
-                         @click="openImgToLink(item)">
+                  <div
+                    class="report-approve-container-form-person-update-imgs-list"
+                  >
+                    <img
+                      v-for="(item, index) in RelativeMsg.uploadDebtCertificate"
+                      :key="index"
+                      :src="item"
+                      alt=""
+                      @click="openImgToLink(item)"
+                    />
                   </div>
-
                 </div>
-                <div class='report-approve-container-relative-form-business-lawsuit'>
-
+                <div
+                  class="report-approve-container-relative-form-business-lawsuit"
+                >
                   <span>经济使用用途：</span>
 
-                  <textarea disabled='true'
-                            :value='RelativeMsg.usage'></textarea>
+                  <textarea
+                    disabled="true"
+                    :value="RelativeMsg.usage"
+                  ></textarea>
                 </div>
-                <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-                <div class='report-approve-container-relative-form-business-item-9'>
+                <h3>
+                  本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+                </h3>
+                <div
+                  class="report-approve-container-relative-form-business-item-9"
+                >
                   <span>项目负责人：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.prjectManager'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.prjectManager"
+                  ></el-input>
                 </div>
               </template>
               <!-- 银行 -->
               <template v-else>
                 <h3>银行:</h3>
-                <div class='report-approve-container-relative-form-bank-item-1'>
+                <div class="report-approve-container-relative-form-bank-item-1">
                   <div>
                     <span>企业名称：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.companyName'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.companyName"
+                    ></el-input>
                   </div>
                   <div>
                     <span>社会统一信用代码：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.creditCode'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.creditCode"
+                    ></el-input>
                   </div>
                   <div>
                     <span>行业属性：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.industryAttributes'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.industryAttributes"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-2'>
+                <div class="report-approve-container-relative-form-bank-item-2">
                   <div>
                     <span>法定代表人名称：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalName'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalName"
+                    ></el-input>
                   </div>
                   <div>
                     <span>法定代表人联系电话：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalPhone'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalPhone"
+                    ></el-input>
                   </div>
                   <div>
                     <span>法定代表人身份证号：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.legalIdCard'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.legalIdCard"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-3'>
+                <div class="report-approve-container-relative-form-bank-item-3">
                   <div>
                     <span>注册地址：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.address'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.address"
+                    ></el-input>
                   </div>
                   <div>
                     <span>企业联系人：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.contactPerson'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.contactPerson"
+                    ></el-input>
                   </div>
                   <div>
                     <span>联系电话：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.contactPhone'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.contactPhone"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-5'>
+                <div class="report-approve-container-relative-form-bank-item-5">
                   <div>
                     <span>债权(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRight'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRight"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债权笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatRightNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatRightNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.obligatTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.obligatTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-6'>
+                <div class="report-approve-container-relative-form-bank-item-6">
                   <div>
                     <span>本金：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.capital'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.capital"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利息：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interest'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interest"
+                    ></el-input>
                   </div>
                   <div>
                     <span>利率：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.interestRate'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.interestRate"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-7'>
+                <div class="report-approve-container-relative-form-bank-item-7">
                   <div>
                     <span>债务(元)：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debt'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debt"
+                    ></el-input>
                   </div>
                   <div>
                     <span>债务笔数：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtNo'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtNo"
+                    ></el-input>
                   </div>
                   <div>
                     <span>借款发生时间：</span>
-                    <el-input :disabled="true"
-                              :value='RelativeMsg.debtTime'></el-input>
+                    <el-input
+                      :disabled="true"
+                      :value="RelativeMsg.debtTime"
+                    ></el-input>
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-item-8'>
+                <div class="report-approve-container-relative-form-bank-item-8">
                   <span>债事凭证：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.debtCertificate'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.debtCertificate"
+                  ></el-input>
                 </div>
-                <div class='report-approve-container-relative-form-bank-update-imgs'>
+                <div
+                  class="report-approve-container-relative-form-bank-update-imgs"
+                >
                   <span>债事凭证信息：</span>
-                  <div class='report-approve-container-form-person-update-imgs-list'>
-                    <img v-for='(item,index) in RelativeMsg.uploadDebtCertificate'
-                         :key='index'
-                         :src="item"
-                         alt=""
-                         @click="openImgToLink(item)">
+                  <div
+                    class="report-approve-container-form-person-update-imgs-list"
+                  >
+                    <img
+                      v-for="(item, index) in RelativeMsg.uploadDebtCertificate"
+                      :key="index"
+                      :src="item"
+                      alt=""
+                      @click="openImgToLink(item)"
+                    />
                   </div>
                 </div>
-                <div class='report-approve-container-relative-form-bank-lawsuit'>
-
+                <div
+                  class="report-approve-container-relative-form-bank-lawsuit"
+                >
                   <span>经济使用用途</span>
 
-                  <textarea disabled='true'
-                            :value='RelativeMsg.usage'></textarea>
+                  <textarea
+                    disabled="true"
+                    :value="RelativeMsg.usage"
+                  ></textarea>
                 </div>
-                <h3>本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。</h3>
-                <div class='report-approve-container-relative-form-bank-item-9'>
+                <h3>
+                  本人认真履行了对该债事的尽职调查义务，以上所填报信息真实、有效、并愿意承担相应责任。
+                </h3>
+                <div class="report-approve-container-relative-form-bank-item-9">
                   <span>项目负责人：</span>
-                  <el-input :disabled="true"
-                            :value='RelativeMsg.prjectManager'></el-input>
+                  <el-input
+                    :disabled="true"
+                    :value="RelativeMsg.prjectManager"
+                  ></el-input>
                 </div>
               </template>
             </div>
@@ -936,15 +1404,17 @@
         </el-collapse>
       </div>
     </div>
-    <div class='report-approve-check'>
-      <div class='report-approve-check-reason'>
+    <div class="report-approve-check">
+      <div class="report-approve-check-reason">
         <span>审批原因</span>
-        <textarea maxlength='141'
-                  v-model='CommitApproveData.checkReason'></textarea>
+        <textarea
+          maxlength="141"
+          v-model="CommitApproveData.checkReason"
+        ></textarea>
       </div>
-      <div class='report-approve-check-button'>
-        <button @click='RejectCheck'>审核驳回</button>
-        <button @click='PassCheck'>审核通过</button>
+      <div class="report-approve-check-button">
+        <button type="button" @click="RejectCheck">审核驳回</button>
+        <button type="button" @click="PassCheck">审核通过</button>
       </div>
     </div>
   </div>
@@ -952,12 +1422,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       // 身份证默认图片源
       IDCardDefaultSrc: {
         JustSrc: require('@imgs/home/IDcard.png'),
-        BackSrc: require('@imgs/home/IDcard-back.png')
+        BackSrc: require('@imgs/home/IDcard-back.png'),
       },
       // 报备人的属性 个人/企业/银行
       ReporterProperties: '',
@@ -972,15 +1442,15 @@ export default {
       CommitApproveData: {
         reportId: '',
         status: '',
-        checkReason: ''
-      }
+        checkReason: '',
+      },
     }
   },
   methods: {
     // 初始化债事人, 相对人信息列表
-    async InitData () {
+    async InitData() {
       // 获取当前用户的reportId
-      this.CommitApproveData.reportId = this.$route.query.reportId;
+      this.CommitApproveData.reportId = this.$route.query.reportId
       const reportId = this.CommitApproveData.reportId
       // 获取债事人信息
       const formData = new FormData()
@@ -990,21 +1460,20 @@ export default {
         url: '/api/api/busReportController/selectByPrimaryKey',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.ReportMsg = result.data
       console.log(this.ReportMsg)
       // 处理债事凭证信息
-      this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(',')
-      if (this.ReportMsg.reportPropert === '1')
-      {
+      this.ReportMsg.uploadDebtCertificate = this.ReportMsg.uploadDebtCertificate.split(
+        ','
+      )
+      if (this.ReportMsg.reportPropert === '1') {
         this.ReporterProperties = 'person'
-      } else if (this.ReportMsg.reportPropert === '2')
-      {
+      } else if (this.ReportMsg.reportPropert === '2') {
         this.ReporterProperties = 'business'
-      } else
-      {
+      } else {
         this.ReporterProperties = 'bank'
       }
       // 通过报备ID查询相对人信息列表
@@ -1013,50 +1482,51 @@ export default {
         url: '/api/api/busRelativePersonController/selectByRepId',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       this.RelativeList = RelativeListresult.data
     },
-    async GetDetailMsg (index) {
+    async GetDetailMsg(index) {
       this.RelativeMsg = this.RelativeList[index]
       // 首次点击为','分隔的字符串 因此需要用split分割, 再次点击时此时已为数组, 因此不需要处理
-      if (this.RelativeMsg.uploadDebtCertificate.indexOf(',') !== -1 && (!(this.RelativeMsg.uploadDebtCertificate instanceof Array)))
-      {
-        this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(',')
-      }else{
-        const pase = this.RelativeMsg.uploadDebtCertificate;
-        this.RelativeMsg.uploadDebtCertificate=[]
+      if (
+        this.RelativeMsg.uploadDebtCertificate.indexOf(',') !== -1 &&
+        !(this.RelativeMsg.uploadDebtCertificate instanceof Array)
+      ) {
+        this.RelativeMsg.uploadDebtCertificate = this.RelativeMsg.uploadDebtCertificate.split(
+          ','
+        )
+      } else {
+        const pase = this.RelativeMsg.uploadDebtCertificate
+        this.RelativeMsg.uploadDebtCertificate = []
         this.RelativeMsg.uploadDebtCertificate.push(pase)
       }
-      if (this.RelativeMsg.reportPropert === '1')
-      {
+      if (this.RelativeMsg.reportPropert === '1') {
         this.RelativeProperties = 'person'
-      } else if (this.RelativeMsg.reportPropert === '2')
-      {
+      } else if (this.RelativeMsg.reportPropert === '2') {
         this.RelativeProperties = 'business'
-      } else
-      {
+      } else {
         this.RelativeProperties = 'bank'
       }
     },
-    RejectCheck () {
-      if (!this.CommitApproveData.checkReason) return this.$message.error('请先填写审核原因')
+    RejectCheck() {
+      if (!this.CommitApproveData.checkReason)
+        return this.$message.error('请先填写审核原因')
       this.CommitApproveData.status = '1'
       this.UpdateCheckStatus()
       this.$router.push({ path: 'ReportInfo' })
     },
-    PassCheck () {
+    PassCheck() {
       this.CommitApproveData.status = '2'
       this.UpdateCheckStatus()
       this.$router.push({ path: 'ReportInfo' })
     },
     // 调用报备状态更改接口
-    async UpdateCheckStatus () {
+    async UpdateCheckStatus() {
       const formData = new FormData()
       const CommitApproveData = this.CommitApproveData
-      for (const key in CommitApproveData)
-      {
+      for (const key in CommitApproveData) {
         formData.append(key, CommitApproveData[key])
       }
       const { data: result } = await this.$http({
@@ -1064,26 +1534,23 @@ export default {
         url: '/api/api/busReportController/updateStatus',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      if (result.data !== '0' && result.resultCode === '200')
-      {
+      if (result.data !== '0' && result.resultCode === '200') {
         this.$message.success(result.resultMessage)
         this.$router.push({
           path: '/ReportInfo',
         })
-      } else
-      {
+      } else {
         this.$message.error('操作失败, 请重试')
       }
-    }
+    },
   },
-  created () {
+  created() {
     this.InitData()
-  }
+  },
 }
-
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';

@@ -7,7 +7,9 @@
       <span class="payment-civil-title-go2">债权处理信息缴费</span>
     </div>
     <div class="payment-civil-content">
-      <div class="payment-civil-content-title">您提交的债权处理信息缴费总部公司已经审核通过，请根据下面所给信息线下支付咨询服务费用。</div>
+      <div class="payment-civil-content-title">
+        您提交的债权处理信息缴费总部公司已经审核通过，请根据下面所给信息线下支付咨询服务费用。
+      </div>
       <div>汇款账户：</div>
       <div>
         <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
@@ -25,10 +27,16 @@
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img :src="item" v-for="(item,index) in SubmitData.voucher" :key="index" />
+            <img
+              :src="item"
+              v-for="(item, index) in SubmitData.voucher"
+              :key="index"
+            />
           </div>
         </div>
-        <button class="payment-civil-content-update-button">点击上传</button>
+        <button type="button" class="payment-civil-content-update-button">
+          点击上传
+        </button>
         <input @change="UpdataVoucher" type="file" ref="Voucher" />
       </div>
       <div class="payment-civil-content-payer">
@@ -37,9 +45,19 @@
       </div>
       <div class="payment-civil-content-payer">
         打款人姓名：
-        <input type="text" placeholder="请输入" v-model="SubmitData.payertName" />
+        <input
+          type="text"
+          placeholder="请输入"
+          v-model="SubmitData.payertName"
+        />
       </div>
-      <button class="payment-civil-content-submit" @click="SubmitPayment">提交</button>
+      <button
+        type="button"
+        class="payment-civil-content-submit"
+        @click="SubmitPayment"
+      >
+        提交
+      </button>
     </div>
   </div>
 </template>
