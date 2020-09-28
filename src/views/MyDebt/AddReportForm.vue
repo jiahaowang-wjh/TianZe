@@ -3611,11 +3611,8 @@ export default {
         }
       })
     },
-    PhoneCheck() {
-      console.log('发送验证码')
-    },
     // 实名认证和短信验证信息发送
-    async PhoneCheck_1() {
+    async PhoneCheck() {
       // 实名认证信息填写
       let RequestMsg = []
       if (this.ReporterProperties === 'person') {
