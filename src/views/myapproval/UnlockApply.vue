@@ -238,6 +238,7 @@ export default {
         },
       })
       this.UnlockMsg = result.data.list
+      this.tablePage.total = result.data.total
       console.log(this.UnlockMsg)
     },
 

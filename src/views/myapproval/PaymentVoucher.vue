@@ -206,6 +206,7 @@ export default {
         v.voucher = v.voucher.split(',')
       })
       console.log(this.PaymentMsg)
+      this.tablePage.total = result.data.total
     },
 
     CheckPayment(index, item) {

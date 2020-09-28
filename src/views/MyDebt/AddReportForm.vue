@@ -3259,8 +3259,30 @@ export default {
       this.BusinessReportMsg.reportType = value
       this.BankReportMsg.reportType = value
     },
+    //报备请求完成-回调方法
+    reqReportCompleteCallback(Responseresult) {
+      //
+      if (this.currentPath !== 'add') {
+        this.InitEditData()
+        this.$message.success('操作成功')
+        this.collapseActive = '2'
+        return
+      }
+      if (Responseresult.resultCode !== '200') {
+        return this.$message.error(Responseresult.resultMessage)
+      }
+      this.$message.success('债事人信息登记成功')
+      // 将报备ID放至新增相对人信息源
+      this.ResponseReportId = Responseresult.data || ''
+      // 当返回报备ID时, 添加报备ID至提价总公司页面
+      this.ToHeadCompanyData.reportId = Responseresult.data || ''
+      this.HasSubmitDebt = true
+      this.collapseActive = '2'
+    },
     // 调用接口传入数据(个人,企业,银行)
     async SendReporterData() {
+      // 如何返回结果成功,传入报备Id
+
       // 如果当前页面为新增页面, 进行新增处理
       console.log(this.currentPath)
       if (this.currentPath === 'add') {
@@ -3339,6 +3361,7 @@ export default {
               },
             })
             Responseresult = result
+            this.reqReportCompleteCallback(Responseresult)
           })
 
           // 传入当前用户报备ID
@@ -3371,6 +3394,7 @@ export default {
               },
             })
             Responseresult = result
+            this.reqReportCompleteCallback(Responseresult)
           })
         } else {
           this.$refs['BankReportMsg'].validate(async (valid) => {
@@ -3391,19 +3415,9 @@ export default {
               },
             })
             Responseresult = result
+            this.reqReportCompleteCallback(Responseresult)
           })
         }
-        // 如何返回结果成功,传入报备Id
-        if (Responseresult.resultCode !== '200') {
-          return this.$message.error(Responseresult.resultMessage)
-        }
-        this.$message.success('债事人信息登记成功')
-        // 将报备ID放至新增相对人信息源
-        this.ResponseReportId = Responseresult.data || ''
-        // 当返回报备ID时, 添加报备ID至提价总公司页面
-        this.ToHeadCompanyData.reportId = Responseresult.data || ''
-        this.HasSubmitDebt = true
-        this.collapseActive = '2'
       } else {
         //如果是编辑，调用编辑的处理方法
         this.editReportSubmitHandle()
@@ -3435,6 +3449,7 @@ export default {
             },
           })
           Responseresult = result
+          this.reqReportCompleteCallback(Responseresult)
         })
 
         // 传入当前用户报备ID
@@ -3458,6 +3473,7 @@ export default {
             },
           })
           Responseresult = result
+          this.reqReportCompleteCallback(Responseresult)
         })
       } else {
         this.$refs['BankReportMsg'].validate(async (valid) => {
@@ -3480,10 +3496,9 @@ export default {
             },
           })
           Responseresult = result
+          this.reqReportCompleteCallback(Responseresult)
         })
       }
-      this.InitEditData()
-      this.$message.success('操作成功')
     },
 
     // 上传报备正面身份证

@@ -8,11 +8,11 @@
     </div>
     <div class="report-info-list">
       <div class="public-tabs">
-        <el-tabs v-model="activeTabs" @tab-click="()=>null">
+        <el-tabs v-model="activeTabs" @tab-click="() => null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
-            v-for="(item) in SelectOption"
+            v-for="item in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
         </el-tabs>
@@ -59,7 +59,12 @@
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
-        <div class="report-info-list-search-button-search" @click="searchTbaleData()">搜索</div>
+        <div
+          class="report-info-list-search-button-search"
+          @click="searchTbaleData()"
+        >
+          搜索
+        </div>
       </div>
       <div class="report-info-list-content">
         <!-- 正常显示模板 -->
@@ -78,56 +83,95 @@
         <div class="report-info-list-content-tab">
           <div
             class="report-info-list-content-tab-item"
-            v-for="(item,index) in ReportInfoMsg"
+            v-for="(item, index) in ReportInfoMsg"
             :key="index"
           >
-            <span>{{index+1}}</span>
+            <span>{{ index + 1 }}</span>
             <div>
               <ul>
-                <li>录入编号: {{item.reportNo ? item.reportNo : '/'}}</li>
-                <li>债事人: {{item.debtName ? item.debtName : '/'}}</li>
-                <li>相对人: {{item.busRelativeCount ? item.busRelativeCount : '/'}}</li>
-                <li>录入人: {{item.inputName ? item.inputName : '/'}}</li>
-                <li>推荐人: {{item.recommendName ? item.recommendName : '/'}}</li>
+                <li>录入编号: {{ item.reportNo ? item.reportNo : '/' }}</li>
+                <li>债事人: {{ item.debtName ? item.debtName : '/' }}</li>
+                <li>
+                  相对人:
+                  {{ item.busRelativeCount ? item.busRelativeCount : '/' }}
+                </li>
+                <li>录入人: {{ item.inputName ? item.inputName : '/' }}</li>
+                <li>
+                  推荐人: {{ item.recommendName ? item.recommendName : '/' }}
+                </li>
               </ul>
             </div>
-            <span>{{item.MeltTimes ? item.MeltTimes : '/'}}</span>
-            <span>{{item.MeltNumber ? item.MeltNumber : '/'}}</span>
-            <span>{{item.MeltMoney ? item.MeltMoney : '/'}}</span>
+            <span>{{ item.MeltTimes ? item.MeltTimes : '/' }}</span>
+            <span>{{ item.MeltNumber ? item.MeltNumber : '/' }}</span>
+            <span>{{ item.MeltMoney ? item.MeltMoney : '/' }}</span>
             <div>
-              <span>{{item.submitDate ? item.submitDate : '/'}}</span>
+              <span>{{ item.submitDate ? item.submitDate : '/' }}</span>
             </div>
             <div>
-              <span>{{item.checkDate ? item.checkDate : '/'}}</span>
+              <span>{{ item.checkDate ? item.checkDate : '/' }}</span>
             </div>
             <div>
               <ul>
-                <li>{{item.checkReason ? item.checkReason : '/'}}</li>
+                <li>{{ item.checkReason ? item.checkReason : '/' }}</li>
               </ul>
             </div>
             <div>
               <span
-                :class="[item.status === '2' || item.status === '5'? ('pass') : item.status === '1' || item.status === '6'? 'unpass': 'hassubmit']"
-              >{{item.status === '0'?('未审核'):item.status === '1'?('审核未通过'):item.status === '2'?('审核通过'):item.status === '3'?('暨尽调协议'): item.status === '4'?('财务未审核'):item.status === '5'?('财务审核通过'):'财务审核未通过'}}</span>
+                :class="[
+                  item.status === '2' || item.status === '5'
+                    ? 'pass'
+                    : item.status === '1' || item.status === '6'
+                    ? 'unpass'
+                    : 'hassubmit',
+                ]"
+                >{{
+                  item.status === '0'
+                    ? '未审核'
+                    : item.status === '1'
+                    ? '审核未通过'
+                    : item.status === '2'
+                    ? '审核通过'
+                    : item.status === '3'
+                    ? '暨尽调协议'
+                    : item.status === '4'
+                    ? '财务未审核'
+                    : item.status === '5'
+                    ? '财务审核通过'
+                    : '财务审核未通过'
+                }}</span
+              >
             </div>
             <span>
               <button
-                v-if="item.status === '0' && roleId ==='7992691214771044352'"
-                @click="CheckData(index,item)"
-              >审核</button>
+                v-if="item.status === '0' && roleId === '7992691214771044352'"
+                @click="CheckData(index, item)"
+              >
+                审核
+              </button>
               <button
-                v-if="item.status === '3' && roleId ==='7992691295821774848'"
-                @click="GoReportPayment(index,item)"
-              >缴费</button>
+                v-if="item.status === '3' && roleId === '7992691295821774848'"
+                @click="GoReportPayment(index, item)"
+              >
+                缴费
+              </button>
               <button
-                v-if="item.status==='1' && roleId==='7992691295821774848'"
-                @click="()=>{$router.push({path:'/EditReport',query:{reportId:item.reportId}})}"
-              >编辑</button>
+                v-if="item.status === '1' && roleId === '7992691295821774848'"
+                @click="
+                  () => {
+                    $router.push({
+                      path: '/EditReport',
+                      query: { reportId: item.reportId },
+                    })
+                  }
+                "
+              >
+                编辑
+              </button>
             </span>
           </div>
         </div>
 
-        <div style="text-align: right;margin-top:25px">
+        <div style="text-align: right; margin-top: 25px">
           <el-pagination
             background
             @current-change="searchTbaleData"
@@ -146,25 +190,25 @@ export default {
     return {
       // 调解信息列表数据源
       ReportInfoMsg: [],
-       //表格分页
+      //表格分页
       tablePage: {
         pageSize: 10,
         pageNum: 1,
-        total: 0
+        total: 0,
       },
       //表格查询
       tableQuery: {
-  debtName: '',
+        debtName: '',
         beginDate: '',
         endDate: '',
         reportNo: '',
         status: '',
         companyType: window.sessionStorage.getItem('companyType'),
-        comId: window.sessionStorage.getItem('companyId')
+        comId: window.sessionStorage.getItem('companyId'),
       },
       // 确定选用正常模板还是多选模板
       isNormal: false,
-      roleId:window.sessionStorage.getItem('roleId'),
+      roleId: window.sessionStorage.getItem('roleId'),
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now()
@@ -195,8 +239,8 @@ export default {
         ],
       },
       dialogTableVisible: false,
-     
-      activeTabs:'全部',
+
+      activeTabs: '全部',
       SelectOption: [
         {
           SelectName: '全部',
@@ -239,7 +283,7 @@ export default {
     async searchTbaleData(page) {
       this.tablePage.pageNum = page || 1
       const queryData = Object.assign(this.tableQuery, this.tablePage)
-  const formData = new FormData()
+      const formData = new FormData()
       for (const key in queryData) {
         formData.append(key, queryData[key])
       }
@@ -252,9 +296,9 @@ export default {
         },
       })
       this.ReportInfoMsg = result.data.list
-
+      this.tablePage.total = result.data.total
     },
-    
+
     CheckData(index, item) {
       const { stage, status } = item
       // 如果当前用户处于报备待审批状态 status === '0', stage === '1'
@@ -285,28 +329,28 @@ export default {
         query: { debtId: item.debtId, reportId: item.reportId },
       })
     },
-     addDate() {
-      let nowDate = new Date();
+    addDate() {
+      let nowDate = new Date()
       let date = {
-          year: nowDate.getFullYear(),
-          month: nowDate.getMonth() + 1,
-          date: nowDate.getDate(),
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate(),
       }
-      this.tableQuery.endDate = date.year + '-' +  date.month + '-'  + date.date;
-      let nowDateTime = nowDate - 3600*1000*24*7
+      this.tableQuery.endDate = date.year + '-' + date.month + '-' + date.date
+      let nowDateTime = nowDate - 3600 * 1000 * 24 * 7
       nowDate.setTime(nowDateTime)
       date = {
-          year: nowDate.getFullYear(),
-          month: nowDate.getMonth() + 1,
-          date: nowDate.getDate(),
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate(),
       }
-      this.tableQuery.beginDate = date.year + '-' +  date.month + '-'  + date.date;
-  }
+      this.tableQuery.beginDate = date.year + '-' + date.month + '-' + date.date
+    },
   },
   created() {
     this.searchTbaleData()
     this.addDate()
-  }
+  },
 }
 </script>
 <style lang='scss' scoped>

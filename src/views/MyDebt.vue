@@ -452,6 +452,7 @@ export default {
         },
       })
       this.MyDebtMsg = result.data.list
+      this.tablePage.total = result.data.total
       console.log(this.MyDebtMsg)
     },
 

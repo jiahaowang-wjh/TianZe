@@ -8,11 +8,11 @@
     </div>
     <div class="civil-media-list">
       <div class="public-tabs">
-        <el-tabs v-model="activeTabs" @tab-click="()=>null">
+        <el-tabs v-model="activeTabs" @tab-click="() => null">
           <el-tab-pane
             :label="item.SelectName"
             :name="item.SelectName"
-            v-for="(item) in SelectOption"
+            v-for="item in SelectOption"
             :key="item.SelectName"
           ></el-tab-pane>
         </el-tabs>
@@ -59,7 +59,9 @@
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </div>
-        <div class="civil-media-list-search-button" @click="searchTbaleData()">搜索</div>
+        <div class="civil-media-list-search-button" @click="searchTbaleData()">
+          搜索
+        </div>
       </div>
       <div class="civil-media-list-content">
         <!-- 正常显示模板 -->
@@ -75,28 +77,45 @@
           <div class="civil-media-list-content-tab">
             <div
               class="civil-media-list-content-tab-item"
-              v-for="(item,index) in MediateMsg"
+              v-for="(item, index) in MediateMsg"
               :key="index"
             >
-              <span>{{index+1}}</span>
-              <span>{{item.reportNo}}</span>
-              <span>{{item.civilno}}</span>
-              <span>{{item.personName}}</span>
+              <span>{{ index + 1 }}</span>
+              <span>{{ item.reportNo }}</span>
+              <span>{{ item.civilno }}</span>
+              <span>{{ item.personName }}</span>
               <span
-                :class="item.status === '2' ? ('pass') : item.status === '1' ? 'unpass': ' '"
-              >{{item.status === '0' ? ('调解信息待审核') : item.status === '2' ? '调解信息审核通过' : '调解信息审核未通过'}}</span>
+                :class="
+                  item.status === '2'
+                    ? 'pass'
+                    : item.status === '1'
+                    ? 'unpass'
+                    : ' '
+                "
+                >{{
+                  item.status === '0'
+                    ? '调解信息待审核'
+                    : item.status === '2'
+                    ? '调解信息审核通过'
+                    : '调解信息审核未通过'
+                }}</span
+              >
               <span>
                 <button
-                  v-show="item.status === '0' && roleId ==='7992691214771044352'"
-                  @click="CheckMediaMsg(index,item)"
-                >审核</button>
+                  v-show="
+                    item.status === '0' && roleId === '7992691214771044352'
+                  "
+                  @click="CheckMediaMsg(index, item)"
+                >
+                  审核
+                </button>
               </span>
             </div>
           </div>
         </template>
       </div>
 
-      <div style="text-align: right;margin-top:25px">
+      <div style="text-align: right; margin-top: 25px">
         <el-pagination
           background
           @current-change="searchTbaleData"
@@ -117,7 +136,7 @@ export default {
       tablePage: {
         pageSize: 10,
         pageNum: 1,
-        total: 0
+        total: 0,
       },
       //表格查询
       tableQuery: {
@@ -126,26 +145,26 @@ export default {
         status: '',
         beginDate: '',
         endDate: '',
-        companyType: window.sessionStorage.getItem('companyType')
+        companyType: window.sessionStorage.getItem('companyType'),
       },
       // 选项卡
       SelectOption: [
         {
           SelectName: '全部',
-          isSelect: true
+          isSelect: true,
         },
         {
           SelectName: '待审核',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核通过',
-          isSelect: false
+          isSelect: false,
         },
         {
           SelectName: '审核驳回',
-          isSelect: false
-        }
+          isSelect: false,
+        },
       ],
       // 查询数据的数据源
       SearchData: {
@@ -155,7 +174,7 @@ export default {
         pageNum: '1',
         status: '1',
         beginDate: '',
-        endDate: ''
+        endDate: '',
       },
       // 调解信息列表数据源
       MediateMsg: [],
@@ -164,7 +183,7 @@ export default {
       roleId: window.sessionStorage.getItem('roleId'),
       TimeSelect: {
         TimeStart: '2020-02-30',
-        TimeEnd: '2020-04-28'
+        TimeEnd: '2020-04-28',
       },
 
       pickerOptions: {
@@ -176,7 +195,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            }
+            },
           },
           {
             text: '昨天',
@@ -184,7 +203,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            }
+            },
           },
           {
             text: '一周前',
@@ -192,10 +211,10 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     }
   },
   methods: {
@@ -204,7 +223,7 @@ export default {
       this.isNormal = !this.isNormal
     },
     HandleSelect(item) {
-      this.SelectOption.forEach(v => {
+      this.SelectOption.forEach((v) => {
         v.isSelect = false
       })
       item.isSelect = true
@@ -224,11 +243,12 @@ export default {
         url: '/api/api/busCivilController/selectBusList',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       console.log(result)
       this.MediateMsg = result.data.list
+      this.tablePage.total = result.data.total
     },
 
     CheckMediaMsg(index, item) {
@@ -237,16 +257,16 @@ export default {
         query: {
           relativePerId: item.relativePerId,
           reportId: item.reportId,
-          civilId: item.civilId
-        }
+          civilId: item.civilId,
+        },
       })
     },
-    addDate () {
-      let nowDate = new Date();
+    addDate() {
+      let nowDate = new Date()
       let date = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
-        date: nowDate.getDate()
+        date: nowDate.getDate(),
       }
       this.tableQuery.endDate = date.year + '-' + date.month + '-' + date.date
       let nowDateTime = nowDate - 3600 * 1000 * 24 * 7
@@ -254,15 +274,15 @@ export default {
       date = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
-        date: nowDate.getDate()
+        date: nowDate.getDate(),
       }
       this.tableQuery.beginDate = date.year + '-' + date.month + '-' + date.date
-    }
+    },
   },
   created() {
     this.searchTbaleData()
     this.addDate()
-  }
+  },
 }
 </script>
 <style lang='scss' scoped>
