@@ -1446,12 +1446,7 @@
               <el-row>
                 <el-col :span="8">
                   <span class="col-label">债事人是否配合：</span>
-                  <el-form-item
-                    :rules="[
-                      { required: true, message: '请选择', trigger: 'change' },
-                    ]"
-                    prop="ifWork"
-                  >
+                  <el-form-item>
                     <el-select v-model="RelativeIscoordinate" placeholder="是">
                       <el-option label="是" value="1"></el-option>
                       <el-option label="否" value="2"></el-option>
@@ -1460,12 +1455,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">类型：</span>
-                  <el-form-item
-                    :rules="[
-                      { required: true, message: '请选择', trigger: 'change' },
-                    ]"
-                    prop="ifWork"
-                  >
+                  <el-form-item>
                     <el-select v-model="RelativeType" placeholder="债务人">
                       <el-option label="债权人" value="1"></el-option>
                       <el-option label="债务人" value="2"></el-option>
@@ -1475,12 +1465,7 @@
                 </el-col>
                 <el-col :span="8">
                   <span class="col-label">性质：</span>
-                  <el-form-item
-                    :rules="[
-                      { required: true, message: '请选择', trigger: 'change' },
-                    ]"
-                    prop="ifWork"
-                  >
+                  <el-form-item>
                     <el-select v-model="RelativeProperties" placeholder="个人">
                       <el-option label="个人" value="person"></el-option>
                       <el-option label="企业" value="business"></el-option>
@@ -1496,7 +1481,7 @@
               <el-form
                 label-width
                 :model="PersonalRelativeMsg"
-                ref="BankReportMsg"
+                ref="PersonalRelativeMsg"
               >
                 <el-row>
                   <el-col :span="8">
@@ -1893,7 +1878,7 @@
             <!-- 企业 -->
             <template v-else-if="RelativeProperties === 'business'">
               <h3>企业:</h3>
-              <el-form ref="form" label-width :model="BusinessRelativeMsg">
+              <el-form ref="BusinessRelativeMsg" label-width :model="BusinessRelativeMsg">
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
@@ -2259,7 +2244,7 @@
             <!-- 银行 -->
             <template v-else>
               <h3>银行:</h3>
-              <el-form ref="form" label-width :model="BankRelativeMsg">
+              <el-form ref="BankRelativeMsg" label-width :model="BankRelativeMsg">
                 <el-row>
                   <el-col :span="8">
                     <span class="col-label">企业名称：</span>
@@ -3347,6 +3332,8 @@ export default {
             this.PersonalReportMsg.bankCard = this.Certification[0].bankCard
             this.PersonalReportMsg.bankTel = this.Certification[0].mobilePhone
             this.PersonalReportMsg.telCheck = this.NoteCode[0].PersonReportNodeCode
+            this.PersonalReportMsg.iscoordinate = this.ReportIscoordinate
+            this.PersonalReportMsg.reportType = this.reportType
             console.log(this.PersonalReportMsg)
             const formData = new FormData()
             for (const key in this.PersonalReportMsg) {
@@ -3381,6 +3368,8 @@ export default {
             this.BusinessReportMsg.bankCard = this.Certification[1].bankCard
             this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
             this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
+            this.BusinessReportMsg.iscoordinate = this.ReportIscoordinate
+            this.BusinessReportMsg.reportType = this.reportType
             const formData = new FormData()
             for (const key in this.BusinessReportMsg) {
               formData.append(key, this.BusinessReportMsg[key])
@@ -3402,6 +3391,8 @@ export default {
             this.BankReportMsg.companyId = window.sessionStorage.getItem(
               'companyId'
             )
+            this.BankReportMsg.iscoordinate = this.ReportIscoordinate
+            this.BankReportMsg.reportType = this.reportType
             const formData = new FormData()
             for (const key in this.BankReportMsg) {
               formData.append(key, this.BankReportMsg[key])
@@ -3724,6 +3715,8 @@ export default {
           this.$refs['PersonalRelativeMsg'].validate(async (valid) => {
             // 个人用户
             this.PersonalRelativeMsg.reportId = this.ResponseReportId
+            this.PersonalRelativeMsg.reportType = this.RelativeType
+            this.PersonalRelativeMsg.iscoordinate = this.RelativeIscoordinate
             console.log(this.PersonalRelativeMsg)
             const formData = new FormData()
             for (const key in this.PersonalRelativeMsg) {
@@ -3743,46 +3736,52 @@ export default {
             Result = result
           })
         } else if (this.RelativeProperties === 'business') {
-          this.$refs['BusinessRelativeMsg'].validate(async (valid) => {})
+          this.$refs['BusinessRelativeMsg'].validate(async (valid) => {
 
-          // 当用户选择企业报备时
+            // 当用户选择企业报备时
 
-          this.BusinessRelativeMsg.reportId = this.ResponseReportId
-          console.log(this.BusinessRelativeMsg)
-          const formData = new FormData()
-          for (const key in this.BusinessRelativeMsg) {
-            formData.append(key, this.BusinessRelativeMsg[key])
-          }
-          const addUrl = '/api/api/busRelativePersonController/insertEnterprise'
-          const updateUrl = ''
-          const { data: result } = await this.$http({
-            method: 'post',
-            url: formData.relativePerId ? updateUrl : addUrl,
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
+            this.BusinessRelativeMsg.reportId = this.ResponseReportId
+            this.BusinessRelativeMsg.reportType = this.RelativeType
+            this.BusinessRelativeMsg.iscoordinate = this.RelativeIscoordinate
+            console.log(this.BusinessRelativeMsg)
+            const formData = new FormData()
+            for (const key in this.BusinessRelativeMsg) {
+              formData.append(key, this.BusinessRelativeMsg[key])
+            }
+            const addUrl = '/api/api/busRelativePersonController/insertEnterprise'
+            const updateUrl = ''
+            const { data: result } = await this.$http({
+              method: 'post',
+              url: formData.relativePerId ? updateUrl : addUrl,
+              data: formData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+            Result = result
           })
-          Result = result
         } else {
-          this.$refs['BankRelativeMsg'].validate(async (valid) => {})
-          this.BankRelativeMsg.reportId = this.ResponseReportId
-          console.log(this.BankRelativeMsg)
-          const formData = new FormData()
-          for (const key in this.BankRelativeMsg) {
-            formData.append(key, this.BankRelativeMsg[key])
-          }
-          const addUrl = '/api/api/busRelativePersonController/insertBank'
-          const updateUrl = ''
-          const { data: result } = await this.$http({
-            method: 'post',
-            url: formData.relativePerId ? updateUrl : addUrl,
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
+          this.$refs['BankRelativeMsg'].validate(async (valid) => {
+            this.BankRelativeMsg.reportId = this.ResponseReportId
+            this.BankRelativeMsg.reportType = this.RelativeType
+            this.BankRelativeMsg.iscoordinate = this.RelativeIscoordinate
+            console.log(this.BankRelativeMsg)
+            const formData = new FormData()
+            for (const key in this.BankRelativeMsg) {
+              formData.append(key, this.BankRelativeMsg[key])
+            }
+            const addUrl = '/api/api/busRelativePersonController/insertBank'
+            const updateUrl = ''
+            const { data: result } = await this.$http({
+              method: 'post',
+              url: formData.relativePerId ? updateUrl : addUrl,
+              data: formData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+            Result = result
           })
-          Result = result
         }
         if (Result.resultCode !== '200')
           return this.$message.error(Result.resultMessage)
@@ -3803,6 +3802,7 @@ export default {
           // 个人用户
           console.log(this.PersonalRelativeMsg)
           const formData = new FormData()
+          this.PersonalRelativeMsg.reportId= this.ResponseReportId
           for (const key in this.PersonalRelativeMsg) {
             formData.append(key, this.PersonalRelativeMsg[key])
           }
@@ -3821,6 +3821,7 @@ export default {
           // 当用户选择企业报备时
           console.log(this.BusinessRelativeMsg)
           const formData = new FormData()
+          this.BusinessRelativeMsg.reportId= this.ResponseReportId
           for (const key in this.BusinessRelativeMsg) {
             formData.append(key, this.BusinessRelativeMsg[key])
           }
@@ -3838,6 +3839,7 @@ export default {
         this.$refs['PersonalRelativeMsg'].validate(async (valid) => {
           console.log(this.BankRelativeMsg)
           const formData = new FormData()
+          this.BankRelativeMsg.reportId= this.ResponseReportId
           for (const key in this.BankRelativeMsg) {
             formData.append(key, this.BankRelativeMsg[key])
           }

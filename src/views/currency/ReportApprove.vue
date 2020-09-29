@@ -10,7 +10,7 @@
       <div class="report-approve-container-form">
         <el-collapse>
           <!-- 债务人基本信息登记表 -->
-          <el-collapse-item title="债权人基本信息登记表" name="1">
+          <el-collapse-item title="债事人基本信息登记表" name="1">
             <!-- 第一行表单 -->
             <div class="report-approve-container-form-first">
               <div class="report-approve-container-form-first-item">
