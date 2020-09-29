@@ -5,11 +5,7 @@
     <div class="download-list">
       <div class="download-list-search">
         <span>输入债权人名称</span>
-        <input
-          type="text"
-          placeholder="请输入想查的人的姓名"
-          v-model="SearchForm.debtName"
-        />
+        <input type="text" placeholder="请输入想查的人的姓名" v-model="SearchForm.debtName" />
         <span>输入日期</span>
         <el-date-picker
           align="left"
@@ -20,7 +16,9 @@
           v-model="SearchForm.time"
         ></el-date-picker>
         <button type="button" @click="SearchData">搜索</button>
-        <button>下载表格</button>
+        <a :href="`/api/api/busRelativePersonController/selectDow${downParams}`" target="_blank">
+          <button class="download-button">下载表格</button>
+        </a>
       </div>
       <div class="download-list-content">
         <div class="download-list-content-title">
@@ -47,15 +45,19 @@
             <span>{{ item.debtName }}</span>
             <span>{{ item.personName }}</span>
             <span>{{ item.createTime ? item.createTime : '/' }}</span>
-            <span>{{
+            <span>
+              {{
               item.assignmentAgreementNo ? item.assignmentAgreementNo : '/'
-            }}</span>
+              }}
+            </span>
             <span>{{ item.bbCost ? item.bbCost : '/' }}</span>
             <span>{{ item.zxCost ? item.zxCost : '/' }}</span>
             <span>{{ item.zxCost ? item.zxCost : '/' }}</span>
-            <span>{{
+            <span>
+              {{
               item.amountCumulative ? item.amountCumulative : '/'
-            }}</span>
+              }}
+            </span>
             <span>{{ item.debtYaer ? item.debtYaer : '/' }}</span>
             <span>{{ item.companyName ? item.companyName : '/' }}</span>
             <span>{{ item.debtType ? item.debtType : '/' }}</span>
@@ -73,7 +75,7 @@ export default {
       // 分页器结构数据源
       bgc: true,
       queryInfo: {
-        pageSize: 10,
+        pageSize: 10
       },
       // 用户信息列表数据源
       downloadMsg: [],
@@ -81,9 +83,9 @@ export default {
       isNormal: true,
       SearchForm: {
         pageNum: '1',
-        pageSize: '15',
+        pageSize: '10',
         debtName: '',
-        time: '',
+        time: ''
       },
       pickerOptions: {
         disabledDate(time) {
@@ -94,7 +96,7 @@ export default {
             text: '今天',
             onClick(picker) {
               picker.$emit('pick', new Date())
-            },
+            }
           },
           {
             text: '昨天',
@@ -102,7 +104,7 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
-            },
+            }
           },
           {
             text: '一周前',
@@ -110,10 +112,23 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
-      },
+            }
+          }
+        ]
+      }
+    }
+  },
+  computed: {
+    downParams() {
+      let params = '?'
+      params +=
+        'pageNum=' +
+        this.SearchForm.pageNum +
+        'pageSize=' +
+        this.SearchForm.pageSize
+      params +=
+        'debtName=' + this.SearchForm.debtName + 'time=' + this.SearchForm.time
+      return params
     }
   },
   methods: {
@@ -128,22 +143,32 @@ export default {
         url: '/api/api/busRelativePersonController/selectDow',
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
       this.downloadMsg = result.data.list
     },
     async SearchData() {
       this.InitData()
-    },
+    }
   },
   created() {
     this.InitData()
-  },
+  }
 }
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+
+.download-button {
+  background-color: #fc7f89;
+  color: #ffffff;
+  border: none;
+  margin: 0 px2rem(2);
+  padding: px2rem(1) px2rem(4);
+  border-radius: px2rem(1);
+}
+
 .download {
   display: flex;
   flex-direction: column;
@@ -185,9 +210,6 @@ export default {
       }
       :nth-child(5) {
         background-color: #616789;
-      }
-      :nth-child(6) {
-        background-color: #fc7f89;
       }
     }
 

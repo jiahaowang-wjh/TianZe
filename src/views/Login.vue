@@ -31,6 +31,7 @@
         <el-form-item prop="password">
           <el-input
             v-model="loginForm.password"
+             @keyup.enter.native="login"
             placeholder="请输入用户密码"
           ></el-input>
         </el-form-item>
@@ -38,6 +39,7 @@
         <el-form-item class="login-box-form-code" prop="name">
           <el-input
             placeholder="验证码"
+            @keyup.enter.native="login"
             v-model="loginForm.randomStr"
           ></el-input>
           <!-- 验证码形成的图片 -->
