@@ -496,6 +496,7 @@ export default {
     async InitData() {
       const formData = new FormData()
   
+      console.log(this.$route.query.reportId)
       formData.append('reportId', this.$route.query.reportId)
       formData.append('debtId', this.$route.query.debtId)
       const { data: result } = await this.$http({
