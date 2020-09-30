@@ -497,6 +497,7 @@ export default {
       const formData = new FormData()
       console.log(this.$route.query.reportId)
       formData.append('reportId', this.$route.query.reportId)
+      formData.append('debtId', this.$route.query.debtId)
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/busInvestigateReportController/selectByPrimaryKey',
