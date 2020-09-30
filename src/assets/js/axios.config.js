@@ -18,7 +18,9 @@ axios.defaults.timeout = 10000
 axios.interceptors.request.use(config => {
     _loading.open()
     const token = window.sessionStorage.getItem('token')
-    config.headers.Authorization = token
+    config.headers.Authorization = token;
+    //每次请求都修改token
+    document.cookie='token='+token;
     return config
 }, error => {
     _loading.close();
