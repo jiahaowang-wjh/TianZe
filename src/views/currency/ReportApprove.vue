@@ -670,8 +670,8 @@
                     item.personalName ? item.personalName : item.companyName
                   }}</span>
                   <span>{{
-                    item.reportType === '债权人'
-                      ? '个人'
+                    item.reportType === '1'
+                      ? '债权人'
                       : item.reportType === '2'
                       ? '债务人'
                       : '债权债务人'
