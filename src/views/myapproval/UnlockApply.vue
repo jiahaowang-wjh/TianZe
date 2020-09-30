@@ -247,8 +247,8 @@ export default {
       this.$router.push({
         path: '/ExamineReportFormApprove',
         query: {
-          debtId: item.debtId,
           reportId: item.reportId,
+          debtId: item.debtId,
         },
       })
     },
@@ -257,8 +257,8 @@ export default {
       this.$router.push({
         path: '/UnlockApplyApprove',
         query: {
-          debtId: item.debtId,
           reportId: item.reportId,
+          debtId: item.debtId,
           relativePerId: item.relativePerId,
         },
       })

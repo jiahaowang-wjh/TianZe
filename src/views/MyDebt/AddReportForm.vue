@@ -1359,8 +1359,8 @@
                   </span>
                   <span>{{ item.phone ? item.phone : item.contactPhone }}</span>
                   <span>
-                    <button type="button" @click="RelativeEdit(item)">编辑</button>
-                    <button>删除</button>
+                    <button type="button" @click="EditRelativeDetailMsg(index,item)">编辑</button>
+                    <!--<button>删除</button>-->
                   </span>
                 </div>
               </div>
@@ -3658,16 +3658,16 @@ export default {
         this.SearchCounterpartList()
         this.ClearRelativeForm()
       }
-
+      console.log(this.ResponseReportId+'==='+this.PersonalRelativeMsg.relativePerId+'===' + this.BusinessRelativeMsg.relativePerId +'===' + this.BankRelativeMsg.relativePerId)
       // 当前是新增页面
-      if (this.currentPath === 'add') {
-        console.log(this.ResponseReportId)
+      if (this.currentPath === 'add' || (this.PersonalRelativeMsg.relativePerId === undefined && this.BusinessRelativeMsg.relativePerId === undefined && this.BankRelativeMsg.relativePerId === undefined)) {
         if (this.RelativeProperties === 'person') {
           this.$refs['PersonalRelativeMsg'].validate(async valid => {
             // 个人用户
             this.PersonalRelativeMsg.reportId = this.ResponseReportId
             this.PersonalRelativeMsg.reportType = this.RelativeType
             this.PersonalRelativeMsg.iscoordinate = this.RelativeIscoordinate
+            this.PersonalRelativeMsg.relativePerId = ""
             console.log(this.PersonalRelativeMsg)
             const formData = new FormData()
             for (const key in this.PersonalRelativeMsg) {
@@ -3690,7 +3690,7 @@ export default {
         } else if (this.RelativeProperties === 'business') {
           this.$refs['BusinessRelativeMsg'].validate(async valid => {
             // 当用户选择企业报备时
-
+            this.BusinessRelativeMsg.relativePerId = ""
             this.BusinessRelativeMsg.reportId = this.ResponseReportId
             this.BusinessRelativeMsg.reportType = this.RelativeType
             this.BusinessRelativeMsg.iscoordinate = this.RelativeIscoordinate
@@ -3715,6 +3715,7 @@ export default {
           })
         } else {
           this.$refs['BankRelativeMsg'].validate(async valid => {
+            this.BankRelativeMsg.relativePerId = ""
             this.BankRelativeMsg.reportId = this.ResponseReportId
             this.BankRelativeMsg.reportType = this.RelativeType
             this.BankRelativeMsg.iscoordinate = this.RelativeIscoordinate
@@ -3834,6 +3835,7 @@ export default {
         this.PersonalRelativeMsg.createUserId = window.sessionStorage.getItem(
           'userId'
         )
+        this.PersonalRelativeMsg.relativePerId = undefined
         this.PersonalRelativeMsg.uploadDebtCertificate = []
       }
       for (const key in this.BusinessRelativeMsg) {
@@ -3845,6 +3847,7 @@ export default {
           'userId'
         )
         this.BusinessRelativeMsg.agreementNo = '111'
+        this.BusinessRelativeMsg.relativePerId = undefined
         this.BusinessRelativeMsg.uploadDebtCertificate = []
       }
       for (const key in this.BankRelativeMsg) {
@@ -3856,8 +3859,11 @@ export default {
           'userId'
         )
         this.BankRelativeMsg.agreementNo = '111'
+        this.BankRelativeMsg.relativePerId = undefined
         this.BankRelativeMsg.uploadDebtCertificate = []
       }
+      console.log(this.ResponseReportId)
+      this.SearchCounterpartList()
     },
     async InitEditData() {
       // 判断当前路由是新增路由还是修改路由
@@ -3869,6 +3875,7 @@ export default {
         this.currentPath = 'edit'
         // 如果当前是编辑页面, 获取数据
         const reportId = this.$route.query.reportId
+        this.ResponseReportId = reportId
         // 获取债事人信息
         const formData = new FormData()
         formData.append('reportId', reportId)
