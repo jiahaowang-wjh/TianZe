@@ -12,7 +12,7 @@
           <!-- 调查报告 -->
           <el-collapse-item title="调查报告" name="1">
             <div class="examine-report-container-form-title">
-              <div>XXXXXXX有限公司</div>
+              <!--<div>XXXXXXX有限公司</div> -->
               <div>调查报告</div>
             </div>
             <div class="examine-report-container-form-header">
@@ -497,11 +497,11 @@ export default {
       const formData = new FormData()
   
       console.log(this.$route.query.reportId)
-      formData.append('reportId', this.$route.query.reportId)
+      //formData.append('reportId', this.$route.query.reportId)
       formData.append('debtId', this.$route.query.debtId)
       const { data: result } = await this.$http({
         method: 'post',
-        url: '/api/api/busInvestigateReportController/selectByPrimaryKey',
+        url: '/api/api/busInvestigateReportController/selectByDebtId',
         data: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -522,7 +522,7 @@ export default {
     async UpdateCheckStatus(status) {
       const formData = new FormData()
       this.SubmitApproveData.status = status
-      this.SubmitApproveData.debtId = this.$route.params.debtId
+      this.SubmitApproveData.debtId = this.$route.query.debtId
       for (const key in this.SubmitApproveData) {
         formData.append(key, this.SubmitApproveData[key])
       }
