@@ -961,9 +961,8 @@ export default {
           this.$set(this.SubmitData, `busGuarantee[${i}].${key}`, v[key])
         }
       })
-      this.SubmitData.longs = this.ConciliatorMsg.map((v) => {
-        return v.userId
-      })
+      this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
+      this.SubmitData.longs=this.SubmitData.longs.join(',');
       const formData = new FormData()
       console.log(this.SubmitData)
       for (const key in this.SubmitData) {
