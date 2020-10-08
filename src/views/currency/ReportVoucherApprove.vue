@@ -60,26 +60,32 @@
 export default {
   data() {
     return {
-      PamentMsg: {
-        CardNum: '收款卡号：810101201421046328',
-        AccountName: '开户名：山东盛世天泽公关顾问有限公司',
-        OpeningBank: '开户行：日照银行股份有限公司银海支行',
-        FeePayable: '应缴费用：880（元）',
-        Contractor: '',
-      },
-      VoucherData: {},
-      SubmitData: {
-        CheckReason: '',
-        reportId: '',
-        status: '',
-      },
-      payId: '',
-      reportId: '',
-      // 更新支付明细状态接口
-      UpdatePay: {
-        status: '',
+        PamentMsg: {
+            CardNum: '收款卡号：810101201421046328',
+            AccountName: '开户名：山东盛世天泽公关顾问有限公司',
+            OpeningBank: '开户行：日照银行股份有限公司银海支行',
+            FeePayable: '应缴费用：880（元）',
+            Contractor: '',
+        },
+        VoucherData: {},
+        SubmitData: {
+            CheckReason: '',
+            reportId: '',
+            status: '',
+        },
         payId: '',
-      },
+        reportId: '',
+        // 更新支付明细状态接口
+        UpdatePay: {
+            status: '',
+            payId: '',
+        },
+        AddSealData: {
+            reportId: this.$route.query.reportId,
+            parta: '邓丽清',
+            partaCard: '440981198801011427',
+            partaTel: '15218801056'
+        }
     }
   },
   methods: {
@@ -101,41 +107,56 @@ export default {
       this.VoucherData.voucher = this.VoucherData.voucher.split(',')
     },
     async PassPayment() {
-      await this.UpdatePayStatus('2')
-      await this.UpdateStatus('5').then((result) => {
-        if (result.resultCode !== '200')
-          return this.$message.error(result.resultMessage)
-        this.$message.success('数据审批完成')
-        // 调用stage改变接口
-        const StageUpdateformData = new FormData()
-        StageUpdateformData.append('reportId', this.reportId)
-        StageUpdateformData.append('stage', '2')
-        this.$http({
-          method: 'post',
-          url: '/api/api/busReportController/updateDebtStage',
-          data: StageUpdateformData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }).then((StageUpdateResult) => {
-          if (StageUpdateResult.data.resultCode !== '200')
-            return this.$message.error(StageUpdateResult.data.resultMessage)
-          this.$message.success('进入调解阶段')
-          this.$router.push({
-            path: '/PaymentVoucher',
-          })
+        await this.UpdatePayStatus('2')
+        // 调用公章和发票生成接口
+        const AddSealFormData = new FormData()
+        for (const key in this.AddSealData) {
+            AddSealFormData.append(key, this.AddSealData[key])
+        }
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/wordConversion/fillInWordAndSaveAsSpecifyFormatReportFee',
+            data: AddSealFormData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
-      })
+        console.log(result)
+        await this.UpdateStatus('5').then((result) => {
+            if (result.resultCode !== '200')
+            return this.$message.error(result.resultMessage)
+            this.$message.success('数据审批完成')
+            // 调用stage改变接口
+            const StageUpdateformData = new FormData()
+            StageUpdateformData.append('reportId', this.reportId)
+            StageUpdateformData.append('stage', '2')
+            this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/updateDebtStage',
+            data: StageUpdateformData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            }).then((StageUpdateResult) => {
+                if (StageUpdateResult.data.resultCode !== '200') {
+                    return this.$message.error(StageUpdateResult.data.resultMessage)
+                }
+                this.$message.success('进入调解阶段')
+                this.$router.push({
+                    path: '/PaymentVoucher',
+                })
+            })
+        })
     },
     RejectPayment() {
-      if (!this.SubmitData.CheckReason.trim())
-        return this.$message.error('请先填写审批原因')
-      this.UpdateStatus('6').then((result) => {
-        if (result.resultCode !== '200')
-          return this.$message.error(result.resultMessage)
-        this.$message.success('数据审批完成')
-      })
-      this.UpdatePayStatus('1')
+        if (!this.SubmitData.CheckReason.trim())
+            return this.$message.error('请先填写审批原因')
+        this.UpdateStatus('6').then((result) => {
+            if (result.resultCode !== '200')
+            return this.$message.error(result.resultMessage)
+            this.$message.success('数据审批完成')
+        })
+        this.UpdatePayStatus('1')
     },
     async UpdateStatus(status) {
       const formData = new FormData()

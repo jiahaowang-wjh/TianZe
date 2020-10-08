@@ -27,9 +27,6 @@
             <img :src="SubmitData.voucher" alt />
           </div>
         </div>
-        <button type="button" class="payment-civil-content-update-button">
-          点击上传
-        </button>
       </div>
       <div class="payment-civil-content-payer">
         合同人姓名：
@@ -61,38 +58,44 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      PamentMsg: {
-        CardNum: '收款卡号：',
-        AccountName: '开户名：',
-        OpeningBank: '开户行：',
-        FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
-        Contractor: '',
-      },
-      SubmitData: {
-        voucher: '',
-      },
-      SubmitApproveData: {
-        checkReason: '',
-        status: '',
-        debtId: '',
-      },
-      // 新增资产信息所需参数
-      AddPropertyMsg: {
-        relativePerId: '',
-        reportId: '',
-        civilId: '',
-        debtId: '',
-        createId: '',
-        status: '0',
-      },
-      payId: '',
-      reportId: '',
-      debtId: '',
-      // 更新支付明细状态接口
-      UpdatePay: {
-        status: '',
+        PamentMsg: {
+            CardNum: '收款卡号：',
+            AccountName: '开户名：',
+            OpeningBank: '开户行：',
+            FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
+            Contractor: '',
+        },
+        SubmitData: {
+            voucher: '',
+        },
+        SubmitApproveData: {
+            checkReason: '',
+            status: '',
+            debtId: '',
+        },
+        // 新增资产信息所需参数
+        AddPropertyMsg: {
+            relativePerId: '',
+            reportId: '',
+            civilId: '',
+            debtId: '',
+            createId: '',
+            status: '0',
+        },
         payId: '',
-      },
+        reportId: '',
+        debtId: '',
+        // 更新支付明细状态接口
+        UpdatePay: {
+            status: '',
+            payId: '',
+        },
+        AddSealData: {
+            reportId: this.$route.query.reportId,
+            parta: '邓丽清',
+            partaCard: '440981198801011427',
+            partaTel: '15218801056'
+        }
     }
   },
   computed: { ...mapState(['receiveMoney']) },
@@ -121,55 +124,68 @@ export default {
       this.UpdateCheckStatus('8')
     },
     async PassCheck() {
-      await this.UpdatePayStatus('2')
-      await this.UpdateCheckStatus('9').then(() => {
-        // 通过解债ID查询信息
-        const formData = new FormData()
-        const debtId = this.debtId
-        console.log(debtId)
-        formData.append('debtId', debtId)
-        this.$http({
-          method: 'post',
-          url: '/api/api/pubDebtController/selectByPrimaryKey',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }).then((result) => {
-          this.AddPropertyMsg.relativePerId = result.data.data.relativePerId
-          this.AddPropertyMsg.reportId = result.data.data.reportId
-          this.AddPropertyMsg.civilId = result.data.data.civilId
-          this.AddPropertyMsg.debtId = this.debtId
-          this.AddPropertyMsg.createId = window.sessionStorage.getItem('userId')
-          const formData = new FormData()
-          for (const key in this.AddPropertyMsg) {
-            formData.append(key, this.AddPropertyMsg[key])
-          }
-          this.$http({
+        await this.UpdatePayStatus('2')
+        // 生成发票及公章
+        const AddSealFormData = new FormData()
+        for (const key in this.AddSealData) {
+            AddSealFormData.append(key, this.AddSealData[key])
+        }
+        const { data: result } = await this.$http({
             method: 'post',
-            url: '/api/api/busPropertController/insertSelective',
+            url: '/api/wordConversion/fillInWordAndSaveAsSpecifyFormatdvisory',
+            data: AddSealFormData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        await this.UpdateCheckStatus('9').then(() => {
+            // 通过解债ID查询信息
+            const formData = new FormData()
+            const debtId = this.debtId
+            console.log(debtId)
+            formData.append('debtId', debtId)
+            this.$http({
+            method: 'post',
+            url: '/api/api/pubDebtController/selectByPrimaryKey',
             data: formData,
             headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }).then((AddResult) => {
-            if (AddResult.data.resultCode !== '200')
-              this.$message.error('新增资产信息错误')
-            // 调用stage改变接口
-            const StageUpdateformData = new FormData()
-            StageUpdateformData.append('reportId', this.reportId)
-            StageUpdateformData.append('stage', '4')
-            this.$http({
-              method: 'post',
-              url: '/api/api/busReportController/updateDebtStage',
-              data: StageUpdateformData,
-              headers: {
                 'Content-Type': 'multipart/form-data',
-              },
-            }).then((StageUpdateResult) => {
-              if (StageUpdateResult.data.resultCode !== '200')
-                return this.$message.error(StageUpdateResult.data.resultMessage)
-              this.$message.success('进入资产阶段，新增资产信息成功')
+            },
+            }).then((result) => {
+            this.AddPropertyMsg.relativePerId = result.data.data.relativePerId
+            this.AddPropertyMsg.reportId = result.data.data.reportId
+            this.AddPropertyMsg.civilId = result.data.data.civilId
+            this.AddPropertyMsg.debtId = this.debtId
+            this.AddPropertyMsg.createId = window.sessionStorage.getItem('userId')
+            const formData = new FormData()
+            for (const key in this.AddPropertyMsg) {
+                formData.append(key, this.AddPropertyMsg[key])
+            }
+            this.$http({
+                method: 'post',
+                url: '/api/api/busPropertController/insertSelective',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            }).then((AddResult) => {
+                if (AddResult.data.resultCode !== '200')
+                this.$message.error('新增资产信息错误')
+                // 调用stage改变接口
+                const StageUpdateformData = new FormData()
+                StageUpdateformData.append('reportId', this.reportId)
+                StageUpdateformData.append('stage', '4')
+                this.$http({
+                method: 'post',
+                url: '/api/api/busReportController/updateDebtStage',
+                data: StageUpdateformData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                }).then((StageUpdateResult) => {
+                if (StageUpdateResult.data.resultCode !== '200')
+                    return this.$message.error(StageUpdateResult.data.resultMessage)
+                this.$message.success('进入资产阶段，新增资产信息成功')
             })
             // 调用报备状态更改的接口
           })

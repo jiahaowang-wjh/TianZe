@@ -37,33 +37,34 @@
                 <el-option label="审核已提交" value="0"></el-option>
               </el-select>
             </el-form-item>
+            <el-form-item>
+                <span>时间:</span>
+                <el-date-picker
+                    align="left"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    :picker-options="pickerOptions"
+                    v-model="tableQuery.beginDate"
+                    value-format="yyyy-MM-dd"
+                ></el-date-picker>
+                <span class="report-info-list-search-time-select-separator">—</span>
+                    <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择结束日期"
+                        :picker-options="pickerOptions"
+                        v-model="tableQuery.endDate"
+                        value-format="yyyy-MM-dd"
+                    ></el-date-picker>
+                </el-form-item>
+                <el-form-item>
+                    <el-button class='button-search' @click="searchTbaleData()">
+                        搜索
+                    </el-button>
+                </el-form-item>
           </el-form>
         </div>
         <div class="report-info-list-search-time-select">
-          <span>时间:</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择开始日期"
-            :picker-options="pickerOptions"
-            v-model="tableQuery.beginDate"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-          <span class="report-info-list-search-time-select-separator">—</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择结束日期"
-            :picker-options="pickerOptions"
-            v-model="tableQuery.endDate"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-        </div>
-        <div
-          class="report-info-list-search-button-search"
-          @click="searchTbaleData()"
-        >
-          搜索
         </div>
       </div>
       <div class="report-info-list-content">
@@ -417,52 +418,36 @@ export default {
           .el-form-item {
             display: flex;
             align-items: center;
-            width: px2rem(51);
+            height: px2rem(10);
+            line-height: px2rem(10);
             span {
-              width: px2rem(20);
+              flex-shrink: 0;
               font-size: px2rem(3.2);
               display: inline-block;
-              padding-right: px2rem(1);
+              margin: 0 5px;
+            }
+            .el-date-editor{
+                width: 160px;
+            }
+            .button-search {
+                padding: 8px 15px;
+                background-color: #616789;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .el-input {
+                width: 160px;
+            }
+            .el-select {
+                width: 160px;
+            }
+            .button-add {
+                padding: 10px 15px;
+                background-color: #fc7f89;
+                color: #fff;
             }
           }
         }
-        &-item1 {
-          width: px2rem(63) !important;
-
-          span {
-            width: px2rem(40) !important;
-            font-size: px2rem(3.2);
-            display: inline-block;
-            padding-right: px2rem(1);
-          }
-        }
-      }
-
-      &-time-select {
-        display: flex;
-        align-items: center;
-        margin-left: px2rem(2);
-        .el-date-picker {
-          width: px2rem(51);
-        }
-        span {
-          font-size: px2rem(3.2);
-          width: px2rem(8);
-        }
-
-        &-separator {
-          width: px2rem(6);
-          text-align: center;
-        }
-      }
-
-      &-button-search {
-        margin-left: px2rem(4);
-        padding: px2rem(1.4) px2rem(4);
-        font-size: px2rem(3.2);
-        background-color: #616789;
-        border-radius: px2rem(2);
-        color: #fff;
       }
     }
 

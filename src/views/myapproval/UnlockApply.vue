@@ -28,10 +28,10 @@
               <span>录入编号:</span>
               <el-input v-model="tableQuery.debtNo"></el-input>
             </el-form-item>
+            <el-form-item @click="searchTbaleData()">
+                <el-button class='button-search'>搜索</el-button>
+            </el-form-item>
           </el-form>
-        </div>
-        <div class="unlock-apply-list-search-button" @click="searchTbaleData()">
-          搜索
         </div>
       </div>
       <div class="unlock-apply-list-content">
@@ -337,30 +337,48 @@ export default {
       height: px2rem(16);
       line-height: px2rem(16);
       &-form {
+        display: flex;
+        height: px2rem(14);
+        line-height: px2rem(14);
+        margin-left: px2rem(2);
         .el-form {
           display: flex;
+          height: 100%;
           align-items: center;
+          margin-bottom: 0;
           .el-form-item {
-            .el-input {
-              width: px2rem(45);
-            }
+            display: flex;
+            align-items: center;
+            height: px2rem(10);
+            line-height: px2rem(10);
             span {
-              margin: 0 px2rem(2);
+              flex-shrink: 0;
               font-size: px2rem(3.2);
+              display: inline-block;
+              margin: 0 5px;
+            }
+            .el-date-editor{
+                width: 200px;
+            }
+            .button-search {
+                padding: 8px 15px;
+                background-color: #616789;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .el-input {
+                width: 200px;
+            }
+            .el-select {
+                width: 200px;
+            }
+            .button-add {
+                padding: 10px 15px;
+                background-color: #fc7f89;
+                color: #fff;
             }
           }
         }
-      }
-      &-button {
-        margin-left: px2rem(4);
-        height: px2rem(7);
-        line-height: px2rem(7);
-        width: px2rem(15);
-        text-align: center;
-        font-size: px2rem(3.2);
-        background-color: #616789;
-        border-radius: px2rem(2);
-        color: #fff;
       }
     }
 

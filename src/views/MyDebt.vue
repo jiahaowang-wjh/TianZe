@@ -18,7 +18,7 @@
         <div class="my-debt-list-search-form">
           <el-form ref="form">
             <el-form-item>
-              <span class="item1">债权人/债务人:</span>
+              <span>债权人/债务人:</span>
               <el-input v-model="SelectForm.SearchName"></el-input>
             </el-form-item>
             <el-form-item>
@@ -34,40 +34,31 @@
                 <el-option label="审核驳回" value="1"></el-option>
               </el-select>
             </el-form-item>
+            <el-form-item>
+                <span>时间:</span>
+                <el-date-picker
+                    align="left"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    :picker-options="pickerOptions"
+                    v-model="TimeSelect.TimeStart"
+                    value-format="yyyy-MM-dd"
+                ></el-date-picker>
+                <span class="my-debt-list-search-time-select-separator">—</span>
+                <el-date-picker
+                    align="left"
+                    type="date"
+                    placeholder="请选择结束日期"
+                    :picker-options="pickerOptions"
+                    v-model="TimeSelect.TimeEnd"
+                    value-format="yyyy-MM-dd"
+                ></el-date-picker>
+            </el-form-item>
+            <el-form-item>
+                <el-button class='button-search' @click="searchTbaleData()">搜索</el-button>
+                <el-button @click="GoAddReportForm" class='button-add' v-show="roleId === '7992691295821774848'">新增录入</el-button>
+            </el-form-item>
           </el-form>
-        </div>
-        <div class="my-debt-list-search-time-select">
-          <span>时间:</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择开始日期"
-            :picker-options="pickerOptions"
-            v-model="TimeSelect.TimeStart"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-          <span class="my-debt-list-search-time-select-separator">—</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择结束日期"
-            :picker-options="pickerOptions"
-            v-model="TimeSelect.TimeEnd"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-        </div>
-        <div
-          class="my-debt-list-search-button-search"
-          @click="searchTbaleData()"
-        >
-          搜索
-        </div>
-        <div
-          class="my-debt-list-search-button-add"
-          @click="GoAddReportForm"
-          v-show="roleId === '7992691295821774848'"
-        >
-          新增录入
         </div>
       </div>
       <div class="my-debt-list-content">
@@ -501,29 +492,6 @@ export default {
     background-color: #ffffff;
     margin: 0 px2rem(4);
     padding: px2rem(4);
-
-    // &-select {
-    //   display: flex;
-    //   height: px2rem(8);
-    //   border-bottom: px2rem(0.1) solid #dfe0e7;
-    //   span {
-    //     display: inline-block;
-    //     font-size: px2rem(4);
-    //     color: #999999;
-    //     margin: 0 px2rem(4);
-    //     height: px2rem(8);
-    //     line-height: px2rem(8);
-    //     width: px2rem(22);
-    //     text-align: center;
-    //   }
-    //   span:hover,
-    //   span:active {
-    //     background-color: #efeff3;
-    //   }
-    //   .active {
-    //     border-bottom: px2rem(0.4) solid #616789;
-    //   }
-    // }
     &-search {
       display: flex;
       align-items: center;
@@ -534,9 +502,6 @@ export default {
         height: px2rem(14);
         line-height: px2rem(14);
         margin-left: px2rem(2);
-        .item1 {
-          width: px2rem(36) !important;
-        }
         .el-form {
           display: flex;
           height: 100%;
@@ -547,58 +512,34 @@ export default {
             align-items: center;
             height: px2rem(10);
             line-height: px2rem(10);
-            width: px2rem(55) !important;
             span {
+              flex-shrink: 0;
               font-size: px2rem(3.2);
               display: inline-block;
-              width: px2rem(20);
-              padding-right: px2rem(1);
+              margin: 0 5px;
+            }
+            .el-date-editor{
+                width: 160px;
+            }
+            .button-search {
+                padding: 8px 15px;
+                background-color: #616789;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .el-input {
+                width: 160px;
+            }
+            .el-select {
+                width: 160px;
+            }
+            .button-add {
+                padding: 10px 15px;
+                background-color: #fc7f89;
+                color: #fff;
             }
           }
         }
-      }
-
-      &-time-select {
-        display: flex;
-        align-items: center;
-        margin-left: px2rem(2);
-        height: px2rem(10);
-        line-height: px2rem(10);
-        .el-date-picker {
-          width: px2rem(51);
-        }
-        span {
-          font-size: px2rem(3.2);
-          width: px2rem(10);
-        }
-
-        &-separator {
-          width: px2rem(6);
-          text-align: center;
-        }
-      }
-
-      &-button-search {
-        margin-left: px2rem(2);
-        width: px2rem(14);
-        height: px2rem(7);
-        line-height: px2rem(7);
-        font-size: px2rem(3);
-        text-align: center;
-        background-color: #616789;
-        border-radius: px2rem(2);
-        color: #fff;
-      }
-      &-button-add {
-        margin-left: px2rem(2);
-        width: px2rem(14);
-        height: px2rem(7);
-        line-height: px2rem(7);
-        font-size: px2rem(3);
-        text-align: center;
-        background-color: #fc7f89;
-        border-radius: px2rem(2);
-        color: #fff;
       }
     }
 

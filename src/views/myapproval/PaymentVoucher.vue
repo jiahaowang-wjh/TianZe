@@ -24,10 +24,10 @@
               <span>录入编号：</span>
               <el-input v-model="tableQuery.debtNo"></el-input>
             </el-form-item>
+            <el-form-item>
+                <el-button @click="searchTbaleData()" class='button-search'>搜索</el-button>
+            </el-form-item>
           </el-form>
-        </div>
-        <div class="report-info-list-search-button" @click="searchTbaleData()">
-          搜索
         </div>
       </div>
       <div class="report-info-list-content">
@@ -281,34 +281,39 @@ export default {
       display: flex;
       align-items: center;
       height: px2rem(16);
-
+      
       &-form {
         display: flex;
-        align-items: center;
-        height: px2rem(10);
-        line-height: px2rem(10);
+        height: px2rem(14);
+        line-height: px2rem(14);
         margin-left: px2rem(2);
         .el-form {
           display: flex;
+          height: 100%;
           align-items: center;
+          margin-bottom: 0;
           .el-form-item {
+            display: flex;
+            align-items: center;
             height: px2rem(10);
             line-height: px2rem(10);
             span {
+              flex-shrink: 0;
               font-size: px2rem(3.2);
-              width: px2rem(24);
+              display: inline-block;
+              margin: 0 5px;
+            }
+            .button-search {
+                padding: 8px 15px;
+                background-color: #616789;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .el-input {
+                width: 200px;
             }
           }
         }
-      }
-      &-button {
-        margin-left: px2rem(4);
-        padding: px2rem(1.4) px2rem(3.5);
-        font-size: px2rem(3.2);
-        text-align: center;
-        background-color: #616789;
-        border-radius: px2rem(2);
-        color: #fff;
       }
     }
 

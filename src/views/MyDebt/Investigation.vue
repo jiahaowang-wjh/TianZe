@@ -125,6 +125,14 @@ export default {
         agreementDate: '',
         agreementNo: '',
       },
+      // 新增公章数据
+      AddSealData: {
+          reportId: this.$route.query.reportId,
+          comId: window.sessionStorage.getItem('companyId'),
+          parta: '',
+          partaCard: '',
+          partaTel: ''
+      }
     }
   },
   created() {
@@ -156,46 +164,61 @@ export default {
       })
       //result.data.agreementDate=result.data.thisTime
       this.userMsg = result.data
+      console.log(this.userMsg)
     },
     async SubmitInvestigation() {
-      // 协议信息提交,生成协议编号
-      this.SubmitData.reportId = this.$route.query.reportId
-      this.SubmitData.agreementDate = this.userMsg.agreementDate
-      this.SubmitData.partyA = this.userMsg.debtName
-      this.SubmitData.partyB = '山东盛世天泽公关顾问有限公司'
-      this.SubmitData.agreementNo = this.userMsg.agreementNo
-      const formData = new FormData()
-      for (const key in this.SubmitData) {
-        formData.append(key, this.SubmitData[key])
-      }
-      const { data: AddResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/busReportController/addAgreementNo',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (AddResult.resultCode === '200' && AddResult.data !== '0')
-        this.$message.success('生成协议编号成功')
-      // 调用状态更改接口
-      formData.append('status', '3')
-      const { data: StatusChangeResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/busReportController/updateStatus',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (
-        StatusChangeResult.resultCode === '200' &&
-        StatusChangeResult.data === 1
-      )
-        this.$router.push({
-          path: '/Mydebt',
+        // 协议信息提交,生成协议编号
+        this.SubmitData.reportId = this.$route.query.reportId
+        this.SubmitData.agreementDate = this.userMsg.agreementDate
+        this.SubmitData.partyA = this.userMsg.debtName
+        this.SubmitData.partyB = '山东盛世天泽公关顾问有限公司'
+        this.SubmitData.agreementNo = this.userMsg.agreementNo
+        const formData = new FormData()
+        for (const key in this.SubmitData) {
+            formData.append(key, this.SubmitData[key])
+        }
+        const { data: AddResult } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/addAgreementNo',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
         })
-    },
+        if (AddResult.resultCode === '200' && AddResult.data !== '0')
+            this.$message.success('生成协议编号成功')
+        // 调用状态更改接口
+        formData.append('status', '3')
+        const { data: StatusChangeResult } = await this.$http({
+            method: 'post',
+            url: '/api/api/busReportController/updateStatus',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        // 调用合同盖章
+        const AddSealFormData = new FormData()
+        this.AddSealData.parta = this.userMsg.debtName
+        this.AddSealData.partaCard = this.userMsg.idCard
+        if (this.userMsg.reportPropert === '1') {
+            this.AddSealData.partaTel = this.userMsg.priPhone
+        } else {
+            this.AddSealData.partaTel = this.userMsg.corBankPhone
+        }
+        for (const key in this.AddSealData) {
+            AddSealFormData.append(key, this.AddSealData[key])
+        }
+        await this.$http({
+            method: 'post',
+            url: '/api/wordConversion/fillInWordAndSaveAsSpecifyFormatCumOut',
+            data: AddSealFormData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        this.$router.push({ path: '/Mydebt'})
+    }
   },
 }
 </script>

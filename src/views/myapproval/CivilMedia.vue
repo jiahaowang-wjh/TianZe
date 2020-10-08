@@ -37,30 +37,30 @@
                 <el-option label="审核已提交" value="3"></el-option>
               </el-select>
             </el-form-item>
+            <el-form-item>
+                <span>时间:</span>
+                <el-date-picker
+                    align="left"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    :picker-options="pickerOptions"
+                    v-model="tableQuery.beginDate"
+                    value-format="yyyy-MM-dd"
+                ></el-date-picker>
+                <span class="civil-media-list-search-time-select-separator">—</span>
+                <el-date-picker
+                    align="left"
+                    type="date"
+                    placeholder="请选择结束日期"
+                    :picker-options="pickerOptions"
+                    v-model="tableQuery.endDate"
+                    value-format="yyyy-MM-dd"
+                ></el-date-picker>
+            </el-form-item>
+            <el-form-item>
+                <el-button class='button-search' @click="searchTbaleData()">搜索</el-button>
+            </el-form-item>
           </el-form>
-        </div>
-        <div class="civil-media-list-search-time-select">
-          <span>时间:</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择开始日期"
-            :picker-options="pickerOptions"
-            v-model="tableQuery.beginDate"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-          <span class="civil-media-list-search-time-select-separator">—</span>
-          <el-date-picker
-            align="left"
-            type="date"
-            placeholder="请选择结束日期"
-            :picker-options="pickerOptions"
-            v-model="tableQuery.endDate"
-            value-format="yyyy-MM-dd"
-          ></el-date-picker>
-        </div>
-        <div class="civil-media-list-search-button" @click="searchTbaleData()">
-          搜索
         </div>
       </div>
       <div class="civil-media-list-content">
@@ -339,48 +339,49 @@ export default {
       display: flex;
       align-items: center;
       height: px2rem(16);
-      .el-select {
-        width: px2rem(42);
-      }
       &-form {
         display: flex;
-        margin-left: px2rem(1);
+        height: px2rem(14);
+        line-height: px2rem(14);
+        margin-left: px2rem(2);
         .el-form {
           display: flex;
+          height: 100%;
           align-items: center;
+          margin-bottom: 0;
           .el-form-item {
+            display: flex;
+            align-items: center;
             height: px2rem(10);
             line-height: px2rem(10);
-            .el-input {
-              width: px2rem(40);
-            }
             span {
-              font-size: px2rem(3);
-              margin: 0 px2rem(2);
+              flex-shrink: 0;
+              font-size: px2rem(3.2);
+              display: inline-block;
+              margin: 0 5px;
+            }
+            .el-date-editor{
+                width: 160px;
+            }
+            .button-search {
+                padding: 8px 15px;
+                background-color: #616789;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .el-input {
+                width: 160px;
+            }
+            .el-select {
+                width: 160px;
+            }
+            .button-add {
+                padding: 10px 15px;
+                background-color: #fc7f89;
+                color: #fff;
             }
           }
         }
-      }
-
-      &-time-select {
-        display: flex;
-        align-items: center;
-        margin-left: px2rem(2);
-        span {
-          font-size: px2rem(3);
-          margin: 0 px2rem(1);
-        }
-      }
-      &-button {
-        margin-left: px2rem(2);
-        width: px2rem(14);
-        height: px2rem(7);
-        line-height: px2rem(7);
-        font-size: px2rem(3);
-        text-align: center;
-        background-color: #616789;
-        border-radius: px2rem(2);
-        color: #fff;
       }
     }
 

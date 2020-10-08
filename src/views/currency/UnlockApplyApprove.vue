@@ -530,9 +530,6 @@
                         </el-col>
                         <el-col :span="8">
                             <span class="col-label">乙方(签字盖章捺印)：</span>
-                            <el-form-item label="">
-                                <button type='button' @click="UpdatePartBSeal" class='update-voucher-button'>上传电子章</button>
-                            </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row :gutter="24">
@@ -706,21 +703,19 @@ export default {
         status: '',
         debtId: '',
       },
+      // 新增公章数据
+      AddSealData: {
+          debtId: this.$route.query.debtId,
+          comId: window.sessionStorage.getItem('companyId'),
+          parta: '',
+          partaCard: '',
+          partaTel: ''
+      }
     }
   },
   methods: {
     SelectMore() {
       this.isNormal = !this.isNormal
-    },
-    UpdatePartASeal() {
-      //   this.$UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
-      //     this.SubmitData.partyaSeal = result
-      //   })
-    },
-    UpdatePartBSeal() {
-      //   this.$UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
-      //     this.SubmitData.partybSeal = result
-      //   })
     },
     // 上传资料
     UpdateVoucher() {
@@ -766,13 +761,6 @@ export default {
       this.SubmitData.civilId = this.MediaSrc[this.MediaIndex].civilId
       // 获取担保人信息列表
       this.Getguarantor(civilId)
-    },
-    // 进入调查报告页面
-    GoInvestigationReport(index, item) {
-      this.$router.push({
-        path: '/ExamineReportForm',
-        query: { debtId: item.debtId },
-      })
     },
     // 查询担保人信息
     async Getguarantor(civilId) {
@@ -837,6 +825,7 @@ export default {
         },
       })
       this.PlanInitData = result.data
+      console.log(this.PlanInitData)
     },
     // 通过审批
     RejectCheck() {
@@ -845,9 +834,29 @@ export default {
       this.UpdateCheckStatus('5')
       this.$router.push({ path: 'UnlockApply' })
     },
-    PassCheck() {
-      this.UpdateCheckStatus('6')
-      this.$router.push({ path: 'UnlockApply' })
+    async PassCheck() {
+        this.UpdateCheckStatus('6')
+        // 调用合同盖章
+        const AddSealFormData = new FormData()
+        this.AddSealData.parta = this.PlanInitData.debtName
+        this.AddSealData.partaCard = this.PlanInitData.personCard
+        if (this.PlanInitData.reportPropert === '1') {
+            this.AddSealData.partaTel = this.PlanInitData.priPhone
+        } else {
+            this.AddSealData.partaTel = this.PlanInitData.corBankPhone
+        }
+        for (const key in this.AddSealData) {
+            AddSealFormData.append(key, this.AddSealData[key])
+        }
+        await this.$http({
+            method: 'post',
+            url: '/api/wordConversion/fillInWordAndSaveAsSpecifyFormat',
+            data: AddSealFormData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        this.$router.push({ path: 'UnlockApply' })
     },
     // 提交审批状态
     async UpdateCheckStatus(status) {

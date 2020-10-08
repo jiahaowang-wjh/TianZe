@@ -4,6 +4,11 @@
     <div class="document-title">文档管理</div>
     <div class="document-list">
       <div class="document-list-button">
+        <div class="document-list-button-form">
+          <span>报备ID：</span>
+          <input type="text" v-model='DocumentSearch.reportId' />
+        </div>
+        <el-button class="document-list-button-search" @click='DocumentInit'>搜索</el-button>
         <el-button class="document-list-button-more" @click="SelectMore"
           >选择多项</el-button
         >
@@ -37,6 +42,9 @@
               <span>
                 <button type="button" @click="OpenEditDocument(index)">
                   编辑
+                </button>
+                <button type="button" class='download' @click="Download(index, item)">
+                  下载
                 </button>
               </span>
             </div>
@@ -144,6 +152,12 @@ export default {
         docPath: '',
         note: '',
       },
+      // 查询文档数据
+      DocumentSearch: {
+          pageNum: '1',
+          pageSize: '10',
+          reportId: ''
+      }
     }
   },
   methods: {
@@ -152,11 +166,18 @@ export default {
     },
     // 获取查询文档信息
     async DocumentInit() {
+      const formData = new FormData()
+      console.log(this.DocumentSearch)
+      for(const key in this.DocumentSearch) {
+          formData.append(key, this.DocumentSearch[key])
+      }
       const { data: result } = await this.$http({
         method: 'post',
+        data: formData,
         url: '/api/api/pubDocController/queryDoc',
       })
-      this.DocMsg = result.data.map((v) => {
+      console.log(result)
+      this.DocMsg = result.data.list.map((v) => {
         return { ...v, isSelected: false }
       })
       console.log(this.DocMsg)
@@ -254,6 +275,28 @@ export default {
           })
       })
     },
+    async Download (index, item) {
+        const formData = new FormData()
+        console.log(item.docId)
+        formData.append('docId', item.docId)
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/BusElectron/getBusElectronDoc',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        let aLink = document.createElement("a")
+        aLink.style.display = "none"
+        aLink.href = result.data
+        aLink.setAttribute("download", name)
+        document.body.appendChild(aLink)
+        aLink.click()
+        document.body.removeChild(aLink)
+        window.URL.revokeObjectURL(result.data)
+        this.$message.success('下载中')
+    }
   },
   created() {
     this.DocumentInit()
@@ -290,22 +333,40 @@ export default {
       .el-button {
         padding: px2rem(2) px2rem(4);
       }
+      &-form {
+        display: flex;
+        align-items: center;
+        font-size: px2rem(3.5);
+        justify-content: space-around;
+        input {
+          border: 1px solid #dcdfe6;
+          font-size: px2rem(3.5);
+          width: px2rem(45);
+          height: px2rem(6);
+          margin-left: px2rem(4);
+          border-radius: px2rem(1);
+        }
+        span {
+          display: inline-block;
+          margin-right: px2rrem(4);
+        }
+      }
       &-more {
         background-color: #fc7f89;
         color: #fff;
+      }
+      &-search {
+        background-color: #616789;
+        color: #fff;
+        margin-left: 10px;
       }
       &-add {
         color: #fff;
         background-color: #ad94e2;
       }
-      &-edit {
-        color: #fff;
-        background-color: #ecc87f;
-      }
-
       &-del {
         color: #fff;
-        background-color: #616789;
+        background-color:#ecc87f;
       }
     }
 
@@ -328,6 +389,9 @@ export default {
         }
         :nth-child(1) {
           flex: 1;
+        }
+        :nth-child(3) {
+            flex: 5;
         }
       }
 
@@ -363,6 +427,15 @@ export default {
           :nth-child(1) {
             flex: 1;
           }
+          :nth-child(3) {
+            flex: 5;
+          }
+          :nth-child(5) {
+              .download {
+                  background-color: #fc7f89;
+                  margin: 0 10px;
+              }
+          }
         }
         div:nth-child(even) {
           display: flex;
@@ -383,6 +456,15 @@ export default {
           }
           :nth-child(1) {
             flex: 1;
+          }
+          :nth-child(3) {
+            flex: 5;
+          }
+          :nth-child(5) {
+              .download {
+                  background-color: #fc7f89;
+                  margin: 0 10px;
+              }
           }
         }
       }
