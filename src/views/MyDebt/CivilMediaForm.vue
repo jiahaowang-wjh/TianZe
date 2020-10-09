@@ -434,7 +434,7 @@
                   <el-col :span="8">
                     <span class="col-label">债权人手机号码：</span>
                     <el-form-item label>
-                      <el-input v-model="PhoneNumber[0]"></el-input>
+                      <el-input v-model="SendPhoneAndChekno[0].tel"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -456,7 +456,7 @@
                   <el-col :span="8">
                     <span class="col-label">债务人手机号码：</span>
                     <el-form-item label>
-                      <el-input v-model="PhoneNumber[1]"></el-input>
+                      <el-input v-model="SendPhoneAndChekno[1].tel"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -850,7 +850,6 @@ export default {
       MediatorListDetailContent: [],
       // 调解员页面展示列表
       ConciliatorMsg: [],
-      PhoneNumber: ['', ''],
       SendPhoneAndChekno: [
         // 债权人
         {
@@ -863,7 +862,6 @@ export default {
           checkNo: '',
         },
       ],
-      IsSendPhoneCheckMsg: ['', ''],
       // 上传图片列表
       VoucherList: [],
     }
@@ -962,7 +960,7 @@ export default {
         }
       })
       this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
-      this.SubmitData.longs=this.SubmitData.longs.join(',');
+      this.SubmitData.longs = this.SubmitData.longs.join(',')
       const formData = new FormData()
       console.log(this.SubmitData)
       for (const key in this.SubmitData) {
@@ -993,10 +991,11 @@ export default {
         })
         if (StatusUpdateResult.resultCode === '200') {
           this.GetMediaHistory()
-          return this.$message.success('新增调解信息成功')
+          this.$message.success('新增调解信息成功')
           this.$router.push({
             path: '/MyDebt',
           })
+          return
         } else {
           return this.$message.error('新增调解信息状态失败')
         }
@@ -1070,7 +1069,7 @@ export default {
     // 发送债权人短信
     async SendCreditorPhoneCheck() {
       // 发送短信验证码
-      const tel = this.PhoneNumber[0]
+      const tel = this.SendPhoneAndChekno[0].tel
       if (!/^1[3456789]\d{9}$/.test(tel))
         return this.$message.error('填写手机号码格式不正确,请重新填入')
       // 发送验证码
@@ -1091,14 +1090,11 @@ export default {
         message: '手机验证码发送成功, 请填写正确的验证码',
         type: 'success',
       })
-      // 存储发送成功的电话号码
-      this.SendPhoneAndChekno[0].tel = tel
-      this.IsSendPhoneCheckMsg[0] = true
     },
     // 发送债务人短信
     async SendDebtorPhoneCheck() {
       // 发送短信验证码
-      const tel = this.PhoneNumber[1]
+      const tel = this.SendPhoneAndChekno[1].tel
       if (!/^1[3456789]\d{9}$/.test(tel))
         return this.$message.error('填写手机号码格式不正确,请重新填入')
       // 发送验证码
@@ -1118,10 +1114,6 @@ export default {
         message: '手机验证码发送成功, 请填写正确的验证码',
         type: 'success',
       })
-      // 存储发送成功的电话号码
-      this.SendPhoneAndChekno[1].tel = tel
-      this.IsSendPhoneCheckMsg[1] = true
-      console.log(this.IsSendPhoneCheckMsg)
     },
     UpdateVoucher() {
       const file = this.$refs.Voucher.files[0]
