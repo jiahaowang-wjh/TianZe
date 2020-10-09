@@ -537,12 +537,6 @@ export default {
       RelativeList: [],
       // 确定选用正常模板还是多选模板
       isNormal: false,
-      // 初始事件选择器
-      TimeSelect: {
-        TimeStart: '',
-        TimeEnd: '',
-        ClosingTime: '',
-      },
       DebtTreatment: '',
       // 调解员信息
       ConciliatorMsg: [],
@@ -563,6 +557,10 @@ export default {
         status: '',
         checkReason: '',
       },
+      RelativeStatus: {
+          status: '1',
+          relativePerId: this.$route.query.relativePerId
+      }
     }
   },
   methods: {
@@ -628,11 +626,23 @@ export default {
     },
     async PassCheck() {
       await this.UpdateCheckStatus('2')
-      await this.$emit('onChangeFragment', 'ReportInfo')
+      // 更新相对人状态
+      const RelativeStatusFormData = new FormData()
+      for(const key in this.RelativeStatus) {
+          RelativeStatusFormData.append(key, this.RelativeStatus[key])
+      }
+      await this.$http({
+          method: 'post',
+          url: '/api/api/busRelativePersonController/updateStatus',
+          data: RelativeStatusFormData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+      })
       const StageUpdateformData = new FormData()
       StageUpdateformData.append('reportId', this.reportId)
       StageUpdateformData.append('stage', '3')
-      this.$http({
+      await this.$http({
         method: 'post',
         url: '/api/api/busReportController/updateDebtStage',
         data: StageUpdateformData,

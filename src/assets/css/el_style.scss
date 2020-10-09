@@ -44,7 +44,7 @@
   height: px2rem(8) !important;
   line-height: px2rem(8) !important;
 
-  button {
+  .el-button{
     border: none;
     padding: px2rem(0.6) px2rem(2);
     margin: 0 px2rem(3);
@@ -307,25 +307,6 @@ input::-webkit-input-placeholder {
 
   // 示例
   //  <el-form :label-width="0"class="pub-row-box"><el-row><el-col :span="8"><span class="col-label">债权总金额：</span><el-form-item><el-input type="text"v-model="SubmitData.amountTotal"/></el-form-item></el-col></el-row></el-form>
-}
-
-.el-table .cell {
-    height: px2rem(8)!important;
-    line-height: px2rem(8)!important;
-    button {
-        border: none;
-        padding: px2rem(0.6) px2rem(2);
-        margin: 0 px2rem(3);
-        border-radius: px2rem(1);
-        color: #fff;
-        font-size: px2rem(3.5);
-    }
-    button:nth-child(1) {
-        background-color: #AD94E2;
-    }
-    button:nth-child(2) {
-        background-color: #B3BCF2;
-    }
 }
 .el-table__row {
     width: 45vw!important;

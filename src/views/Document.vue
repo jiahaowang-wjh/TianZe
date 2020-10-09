@@ -43,9 +43,6 @@
                 <button type="button" @click="OpenEditDocument(index)">
                   编辑
                 </button>
-                <button type="button" class='download' @click="Download(index, item)">
-                  下载
-                </button>
               </span>
             </div>
           </div>
@@ -177,7 +174,7 @@ export default {
         url: '/api/api/pubDocController/queryDoc',
       })
       console.log(result)
-      this.DocMsg = result.data.list.map((v) => {
+      this.DocMsg = result.data.map((v) => {
         return { ...v, isSelected: false }
       })
       console.log(this.DocMsg)

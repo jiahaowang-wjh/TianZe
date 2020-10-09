@@ -171,11 +171,7 @@
               >
                 债权处理
               </button>
-              <button
-                type="button"
-                @click="dialogTableVisible = true"
-                v-show="item.status === '5'"
-              >
+              <button type="button" @click="DownloadDocumnet(item)"  v-show="item.status === '5'">
                 下载
               </button>
               <button
@@ -209,13 +205,15 @@
     </div>
     <div class="my-debt-pop-download">
       <el-dialog title="下载" :visible.sync="dialogTableVisible">
-        <el-table :data="gridData">
-          <el-table-column property="Order" label="序号"></el-table-column>
-          <el-table-column property="WordName" label="文件名"></el-table-column>
-          <el-table-column property="WordType" label="类型"></el-table-column>
+        <el-table :data="gridData" stripe>
+          <el-table-column type='index' property="Order" label="序号"></el-table-column>
+          <el-table-column property="docName" label="文件名"></el-table-column>
+          <el-table-column property="docType" label="类型"></el-table-column>
           <el-table-column width="247" label="操作">
-            <button>查看</button>
-            <button>下载</button>
+            <template slot-scope="scope">
+                <el-button>查看</el-button>
+                <el-button @click="Download(scope.$index, scope.row)">下载</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </el-dialog>
@@ -300,58 +298,7 @@ export default {
         ],
       },
       // 下载弹出窗的数据源
-      gridData: [
-        {
-          Order: '1',
-          WordName: '《债务人基本信息登记表》',
-          WordType: 'word',
-        },
-        {
-          Order: '2',
-          WordName: '《附件》',
-          WordType: 'excel',
-        },
-        {
-          Order: '3',
-          WordName: '《债务人身份证正面附件》',
-          WordType: 'mp3',
-        },
-        {
-          Order: '4',
-          WordName: '《债务人身份证反面附件》',
-          WordType: 'mp3',
-        },
-        {
-          Order: '5',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-        {
-          Order: '6',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-        {
-          Order: '7',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-        {
-          Order: '8',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-        {
-          Order: '9',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-        {
-          Order: '10',
-          WordName: '王小虎',
-          WordType: 'mp3',
-        },
-      ],
+      gridData: [],
       dialogTableVisible: false,
       // 选择表单的数据源
       SelectForm: {
@@ -415,11 +362,9 @@ export default {
         })
       }
     },
-
     // 搜索表格数据
     async searchTbaleData(page) {
       this.tablePage.pageNum = page || 1
-
       const formData = new FormData()
       const DataList = {
         companyType: window.sessionStorage.getItem('companyType'),
@@ -446,7 +391,6 @@ export default {
       this.tablePage.total = result.data.total
       console.log(this.MyDebtMsg)
     },
-
     async AddDate() {
       let nowDate = new Date()
       let date = {
@@ -464,6 +408,29 @@ export default {
       }
       this.TimeSelect.TimeStart = date.year + '-' + date.month + '-' + date.date
     },
+    async DownloadDocumnet (item) {
+        const formData = new FormData()
+        formData.append('reportId', item.reportId)
+        const { data: result } = await this.$http({
+            method: 'post',
+            data: formData,
+            url: '/api/api/pubDocController/queryDoc',
+        })
+        this.gridData = result.data
+        console.log(result.data)
+        this.dialogTableVisible = true
+    },
+    async Download (index, row) {
+        let aLink = document.createElement("a")
+        aLink.style.display = "none"
+        aLink.href = row.docPath
+        aLink.setAttribute("download", row.docName)
+        document.body.appendChild(aLink)
+        aLink.click()
+        document.body.removeChild(aLink)
+        window.URL.revokeObjectURL(row.docPath)
+        this.$message.success('下载中')
+    }
   },
   created() {
     this.AddDate()
