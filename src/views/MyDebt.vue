@@ -411,19 +411,26 @@ export default {
     async DownloadDocumnet (item) {
         const formData = new FormData()
         formData.append('reportId', item.reportId)
+        formData.append('docType', '1')
         const { data: result } = await this.$http({
             method: 'post',
             data: formData,
             url: '/api/api/pubDocController/queryDoc',
         })
         this.gridData = result.data
-        console.log(result.data)
         this.dialogTableVisible = true
     },
     async Download (index, row) {
+        const formData = new FormData()
+        formData.append('docId', row.docId)
+        const { data: result } = await this.$http({
+            method: 'post',
+            data: formData,
+            url: '/api/api/BusElectron/getBusElectronDoc',
+        })
         let aLink = document.createElement("a")
         aLink.style.display = "none"
-        aLink.href = row.docPath
+        aLink.href = result.data
         aLink.setAttribute("download", row.docName)
         document.body.appendChild(aLink)
         aLink.click()
@@ -533,7 +540,7 @@ export default {
           flex: 1;
         }
         :nth-child(2) {
-          flex: 4;
+          flex: 5;
         }
         :nth-child(8),
         :nth-child(4) {
@@ -557,14 +564,13 @@ export default {
       &-tab {
         display: flex;
         flex-direction: column;
-        font-size: px2rem(3);
         div:nth-child(odd) {
           display: flex;
           height: px2rem(28);
           line-height: px2rem(28);
           background-color: #fff;
           text-align: center;
-          font-size: px2rem(2);
+          font-size: 10px;
           .pass {
             color: #17c67a !important;
           }
@@ -586,7 +592,7 @@ export default {
             flex: 1;
           }
           :nth-child(2) {
-            flex: 4;
+            flex: 5;
             ul {
               display: flex;
               flex-direction: column;
@@ -620,7 +626,7 @@ export default {
               line-height: px2rem(2);
               border: none;
               padding: none;
-              font-size: px2rem(3);
+              font-size: 10px;
               color: #4699ff;
             }
           }
@@ -628,14 +634,7 @@ export default {
           :nth-child(5) {
             flex: 2.5;
           }
-          :nth-child(6) {
-            flex: 2.1;
-            background-color: #fff;
-            span {
-              text-align: center;
-            }
-          }
-          :nth-child(7) {
+          :nth-child(6),:nth-child(7) {
             flex: 2.1;
             background-color: #fff;
             span {
@@ -694,7 +693,7 @@ export default {
           line-height: px2rem(28);
           background-color: #e0e3f8;
           text-align: center;
-          font-size: px2rem(2);
+          font-size: 10px;
           .pass {
             color: #17c67a !important;
           }
@@ -715,8 +714,11 @@ export default {
             flex: 1;
           }
           :nth-child(2) {
-            flex: 4;
+            flex: 5;
             ul {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
               padding: px2rem(5) 0;
             }
             li {
@@ -743,7 +745,6 @@ export default {
               line-height: px2rem(2);
               border: none;
               padding: none;
-              font-size: px2rem(3);
               color: #4699ff;
             }
           }
@@ -751,14 +752,7 @@ export default {
           :nth-child(5) {
             flex: 2.5;
           }
-          :nth-child(6) {
-            flex: 2.1;
-            background-color: #e0e3f8;
-            span {
-              text-align: center;
-            }
-          }
-          :nth-child(7) {
+          :nth-child(6),:nth-child(7) {
             flex: 2.1;
             background-color: #e0e3f8;
             span {
