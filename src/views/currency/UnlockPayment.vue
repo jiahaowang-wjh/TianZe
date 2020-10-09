@@ -67,9 +67,9 @@ export default {
   data() {
     return {
       PamentMsg: {
-        CardNum: '收款卡号：4785124845218451',
-        AccountName: '开户名：默默',
-        OpeningBank: '开户行：中国建设银行',
+        CardNum: '收款卡号：810101201421046328',
+        AccountName: '开户名：山东盛世天泽公关顾问有限公司',
+        OpeningBank: '开户行：日照银行股份有限公司银海支行',
         FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
         Contractor: '',
       },
