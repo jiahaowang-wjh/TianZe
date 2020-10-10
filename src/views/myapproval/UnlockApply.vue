@@ -264,11 +264,11 @@ export default {
       })
     },
     GoUnlockPayment(index, item) {
-      // this.$emit('onChangeFragment', 'UnlockPayment')
       const queryData = {
         debtId: item.debtId,
         reportId: item.reportId,
         payId: item.payId,
+        thisPlanMoney: item.thisPlanMoney
       }
       this.$router.push({
         path: '/UnlockPayment',

@@ -21,7 +21,7 @@
         <input type="text" v-model="PamentMsg.OpeningBank" disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.FeePayable" disabled="true" />
+        <input type="text" :value="'应缴费用：' + PamentMsg.FeePayable" disabled="true" />
       </div>
       <div class="payment-civil-content-update">
         上传凭证：
@@ -70,7 +70,7 @@ export default {
         CardNum: '收款卡号：4785124845218451',
         AccountName: '开户名：默默',
         OpeningBank: '开户行：中国建设银行',
-        FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
+        FeePayable: this.$route.query.thisPlanMoney,
         Contractor: '',
       },
       SubmitData: {
@@ -78,7 +78,7 @@ export default {
         contractName: '',
         payertName: '',
         voucher: [],
-        cost: '880',
+        cost: this.$route.query.thisPlanMoney,
         flag: '3',
         status: '0',
         debtId: '',
@@ -127,6 +127,7 @@ export default {
       if (StatusResult.resultCode !== '200')
         return this.$message.error('提交错误, 请重试')
       this.$message.success(StatusResult.resultMessage)
+      this.$router.push({path: '/UnlockApply'})
     },
     UpdataVoucher() {
       const file = this.$refs.Voucher.files[0]

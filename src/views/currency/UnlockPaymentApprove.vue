@@ -18,7 +18,7 @@
         <input type="text" v-model="receiveMoney.openAddr" disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.FeePayable" disabled="true" />
+        <input type="text" disabled="true" :value="'应缴费用：' + PamentMsg.FeePayable" />
       </div>
       <div class="payment-civil-content-update">
         上传凭证：
@@ -62,7 +62,7 @@ export default {
             CardNum: '收款卡号：',
             AccountName: '开户名：',
             OpeningBank: '开户行：',
-            FeePayable: '应缴费用：=解债金额×10%或者解债金额×13%',
+            FeePayable: this.$route.query.cost,
             Contractor: '',
         },
         SubmitData: {

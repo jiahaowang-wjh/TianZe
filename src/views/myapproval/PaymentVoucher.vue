@@ -53,7 +53,7 @@
             <span>{{ item.reportNo }}</span>
             <span>{{ item.payertName }}</span>
             <span>{{ item.contractName }}</span>
-            <span>{{ item.payType }}</span>
+            <span>{{ item.payType === '1' ? '录入缴费': item.payType === '3' ? '债权处理缴费' : item.payType === '4' ? '资产缴费' : '' }}</span>
             <span>{{ item.payNo }}</span>
             <span>{{ item.cost }}</span>
             <span>
@@ -76,7 +76,7 @@
             <span>
               <button
                 type="button"
-                v-show="item.status === '0'"
+                v-show="item.status === '0' && item.payType !=='4'"
                 @click="CheckPayment(index, item)"
               >
                 审核
@@ -213,6 +213,7 @@ export default {
       let queryData = {
         payId: item.payId,
         reportId: item.reportId,
+        cost: item.cost
       }
       if (item.stage === '1') {
         this.$router.push({ path: '/ReportVoucherApprove', query: queryData })

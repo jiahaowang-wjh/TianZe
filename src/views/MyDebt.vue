@@ -171,7 +171,7 @@
               >
                 债权处理
               </button>
-              <button type="button" @click="DownloadDocumnet(item)"  v-show="item.status === '5'">
+              <button type="button" @click="DownloadDocumnet(item)">
                 下载
               </button>
               <button

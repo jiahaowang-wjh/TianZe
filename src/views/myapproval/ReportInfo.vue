@@ -270,16 +270,12 @@ export default {
     }
   },
   methods: {
-    GoInfoPayment() {
-      this.$emit('onChangeFragment', 'InfoPayment')
-    },
     HandleSelect(item) {
       this.SelectOption.forEach((v) => {
         v.isSelect = false
       })
       item.isSelect = true
     },
-
     // 搜索表格数据
     async searchTbaleData(page) {
       this.tablePage.pageNum = page || 1
