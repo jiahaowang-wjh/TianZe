@@ -513,7 +513,11 @@ export default {
     return {
       // 是否展示选择相对人列表
       IsPopSelectiveList: true,
-      handleTypeList: [],
+      handleTypeList: [
+        { label: '（1）自行约定还款金额、还款时间、还款方式', value: '1' }, 
+        { label: '（2）共同委托第三方帮助处理', value: '2' }, 
+        { label: '（3）债权转让第三人', value: '3' },
+      ],
       UserMsg: [
         {
           IsCoordinate: 'true',
@@ -558,9 +562,9 @@ export default {
         checkReason: '',
       },
       RelativeStatus: {
-          status: '1',
-          relativePerId: this.$route.query.relativePerId
-      }
+        status: '1',
+        relativePerId: this.$route.query.relativePerId,
+      },
     }
   },
   methods: {
@@ -603,7 +607,7 @@ export default {
       if (this.MediaData.certificate.indexOf(',') !== -1) {
         this.MediaData.certificate = this.MediaData.certificate.split(',')
       }
-      this.ConciliatorMsg = this.MediaData.userName.split(',')
+      this.ConciliatorMsg = this.MediaData.userName||[];
       // this.$set(this.MediaData, 'civilType', 1)
 
       // 获取担保人信息
@@ -628,16 +632,16 @@ export default {
       await this.UpdateCheckStatus('2')
       // 更新相对人状态
       const RelativeStatusFormData = new FormData()
-      for(const key in this.RelativeStatus) {
-          RelativeStatusFormData.append(key, this.RelativeStatus[key])
+      for (const key in this.RelativeStatus) {
+        RelativeStatusFormData.append(key, this.RelativeStatus[key])
       }
       await this.$http({
-          method: 'post',
-          url: '/api/api/busRelativePersonController/updateStatus',
-          data: RelativeStatusFormData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
+        method: 'post',
+        url: '/api/api/busRelativePersonController/updateStatus',
+        data: RelativeStatusFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       })
       const StageUpdateformData = new FormData()
       StageUpdateformData.append('reportId', this.reportId)

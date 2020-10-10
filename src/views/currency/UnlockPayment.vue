@@ -12,50 +12,56 @@
       </div>
       <div>汇款账户：</div>
       <div>
-        <input type="text" v-model="PamentMsg.CardNum" disabled="true" />
+        <input type="text"
+               v-model="PamentMsg.CardNum"
+               disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.AccountName" disabled="true" />
+        <input type="text"
+               v-model="PamentMsg.AccountName"
+               disabled="true" />
       </div>
       <div>
-        <input type="text" v-model="PamentMsg.OpeningBank" disabled="true" />
+        <input type="text"
+               v-model="PamentMsg.OpeningBank"
+               disabled="true" />
       </div>
       <div>
-        <input type="text" :value="'应缴费用：' + PamentMsg.FeePayable" disabled="true" />
+        <input type="text"
+               :value="'应缴费用：' + PamentMsg.FeePayable"
+               disabled="true" />
       </div>
       <div class="payment-civil-content-update">
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img
-              :src="item"
-              v-for="(item, index) in SubmitData.voucher"
-              :key="index"
-            />
+            <img :src="item"
+                 v-for="(item, index) in SubmitData.voucher"
+                 :key="index" />
           </div>
         </div>
-        <button type="button" class="payment-civil-content-update-button">
+        <button type="button"
+                class="payment-civil-content-update-button">
           点击上传
         </button>
-        <input @change="UpdataVoucher" type="file" ref="Voucher" />
+        <input @change="UpdataVoucher"
+               type="file"
+               ref="Voucher" />
       </div>
       <div class="payment-civil-content-payer">
         合同人姓名：
-        <input type="text" v-model="SubmitData.contractName" />
+        <input type="text"
+               v-model="SubmitData.contractName" />
       </div>
       <div class="payment-civil-content-payer">
         打款人姓名：
-        <input
-          type="text"
-          placeholder="请输入"
-          v-model="SubmitData.payertName"
-        />
+        <input type="text"
+               placeholder="请输入"
+               v-model="SubmitData.payertName" />
       </div>
-      <button
-        type="button"
-        class="payment-civil-content-submit"
-        @click="SubmitPayment"
-      >
+      <button type="button"
+              class="payment-civil-content-submit"
+              @click="SubmitPayment">
         提交
       </button>
     </div>
@@ -64,12 +70,12 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       PamentMsg: {
-        CardNum: '收款卡号：4785124845218451',
-        AccountName: '开户名：默默',
-        OpeningBank: '开户行：中国建设银行',
+        CardNum: '收款卡号：810101201421046328',
+        AccountName: '开户名：山东盛世天泽公关顾问有限公司',
+        OpeningBank: '开户行：日照银行股份有限公司银海支行',
         FeePayable: this.$route.query.thisPlanMoney,
         Contractor: '',
       },
@@ -90,13 +96,14 @@ export default {
     }
   },
   methods: {
-    async SubmitPayment() {
+    async SubmitPayment () {
       // 提交缴费
       // this.SubmitData.reportId = ''
       this.SubmitData.reportId = this.$route.query.reportId
       this.SubmitData.debtId = this.$route.query.debtId
       const formData = new FormData()
-      for (const key in this.SubmitData) {
+      for (const key in this.SubmitData)
+      {
         formData.append(key, this.SubmitData[key])
       }
       const { data: result } = await this.$http({
@@ -127,20 +134,21 @@ export default {
       if (StatusResult.resultCode !== '200')
         return this.$message.error('提交错误, 请重试')
       this.$message.success(StatusResult.resultMessage)
-      this.$router.push({path: '/UnlockApply'})
+      this.$router.push({ path: '/UnlockApply' })
     },
-    UpdataVoucher() {
+    UpdataVoucher () {
       const file = this.$refs.Voucher.files[0]
       this.$UpdateFile(file).then((result) => {
         console.log(result)
         this.SubmitData.voucher.push(result)
       })
     },
-    async UpdatePayStatus(data) {
+    async UpdatePayStatus (data) {
       const formData = new FormData()
       this.UpdatePay.status = '0'
       this.UpdatePay.payId = data
-      for (const key in this.UpdatePay) {
+      for (const key in this.UpdatePay)
+      {
         formData.append(key, this.UpdatePay[key])
       }
       const { data: result } = await this.$http({
