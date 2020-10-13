@@ -19,8 +19,11 @@
           value-format="yyyy-MM-dd"
           v-model="SearchForm.time"
         ></el-date-picker>
-        <button type="button" @click="SearchData">搜索</button>
-        <button>下载表格</button>
+        <button type="button" @click="SearchData">搜索</button> 
+         <a :href="`/wordConversion/downSelectDebtDow`" target="_blank">
+          <button class="download-button">下载表格</button>
+        </a>
+       
       </div>
       <div class="download-list-content">
         <div class="download-list-content-title">
