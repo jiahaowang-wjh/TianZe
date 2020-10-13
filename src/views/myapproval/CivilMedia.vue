@@ -109,6 +109,14 @@
                 >
                   审核
                 </button>
+                <button
+                  v-show="
+                    item.status === '1' && roleId === '7992691295821774848'
+                  "
+                  @click="EditMediaMsg(index, item)"
+                >
+                  编辑
+                </button>
               </span>
             </div>
           </div>
@@ -211,10 +219,10 @@ export default {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
-            },
-          },
-        ],
-      },
+            }
+          }
+        ]
+      }
     }
   },
   methods: {
@@ -278,6 +286,9 @@ export default {
       }
       this.tableQuery.beginDate = date.year + '-' + date.month + '-' + date.date
     },
+    EditMediaMsg (index, item) {
+        this.$router.push({path:'/EditCivilMedia', query: {civilId: item.civilId,reportId:item.reportId}})
+    }
   },
   created() {
     this.searchTbaleData()

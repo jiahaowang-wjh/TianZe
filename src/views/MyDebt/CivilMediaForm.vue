@@ -391,7 +391,8 @@
                 <span
                   >确认债权债务本息金额合计（小写）：<input
                     type="text"
-                    v-model="SubmitData.interestAll"
+                    v-model="SubmitData.interestAll" 
+                    style='width:0.93rem'
                 /></span>
                 <span
                   >确认债权债务本息金额合计（大写）：<input
@@ -405,10 +406,11 @@
                   >债事人自愿放弃的内容：<input
                     type="text"
                     v-model="SubmitData.abandonContent"
+                    style='width:1.44rem'
                 /></span>
                 <span
                   >债务处理方式：
-                  <el-select v-model="DebtTreatment" placeholder="请选择">
+                  <el-select v-model="SubmitData.treatmentMethod" placeholder="请选择">
                     <el-option
                       label="（1）自行约定还款金额、还款时间、还款方式"
                       value="1"
@@ -633,7 +635,11 @@
             <input type="text" v-model="GuaranteeContent.card" />
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            单位类型: <input type="text" v-model="GuaranteeContent.unitType" />
+            单位类型: 
+            <el-select v-model="GuaranteeContent.unitType">
+                <el-option value='1' label='单位类型1'></el-option>
+                <el-option value='2' label='单位类型2'></el-option>
+            </el-select>
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
             联系电话: <input type="text" v-model="GuaranteeContent.tel" />
@@ -649,7 +655,7 @@
       </div>
     </div>
     <!-- 选择相对人 -->
-    <div class="civil-media-pop-relative" v-if="IsPopSelectiveList">
+    <div class="civil-media-pop-relative" v-if="IsPopSelectiveList && !IsEditCivilMedia">
       <div class="civil-media-pop-relative-box">
         <div class="civil-media-pop-relative-box-header">
           <span>提示</span>
@@ -721,7 +727,6 @@ export default {
       GuarantorMsg: [],
       // 相对人数据源
       RelativeList: [],
-      DebtTreatment: '',
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now()
@@ -864,6 +869,8 @@ export default {
       ],
       // 上传图片列表
       VoucherList: [],
+      // 判断当前是否为编辑页面
+      IsEditCivilMedia: false
     }
   },
   methods: {
@@ -917,6 +924,7 @@ export default {
         },
       })
       this.MediaUserMsg = result.data
+      // 获取路由判断当前是否为编辑页面
     },
     // 数据提交及状态更改
     async SubmitMessage() {
@@ -1020,18 +1028,24 @@ export default {
     },
     // 查询相对人信息
     async SearchRelative() {
-      const reportId = this.$route.query.reportId
-      const formData = new FormData()
-      formData.append('reportId', reportId)
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/busRelativePersonController/selectByreportId',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      this.RelativeList = result.data
+      const queryPath = this.$route.path
+      if (queryPath === '/EditCivilMedia') {
+          this.IsEditCivilMedia = true
+      } else {
+            this.IsEditCivilMedia = false
+            const reportId = this.$route.query.reportId
+            const formData = new FormData()
+            formData.append('reportId', reportId)
+            const { data: result } = await this.$http({
+                method: 'post',
+                url: '/api/api/busRelativePersonController/selectByreportId',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+            this.RelativeList = result.data
+      }
     },
     AddGuarantee() {
       this.IsAddConciliator = true
@@ -1657,7 +1671,7 @@ export default {
       position: absolute;
       background-color: #ffffff;
       width: px2rem(120);
-      height: px2rem(70);
+      height: px2rem(75);
       top: 45%;
       left: 45%;
       transform: translate(-50%, -50%);
@@ -1686,12 +1700,16 @@ export default {
           margin: px2rem(1);
           display: flex;
           align-items: center;
-          height: px2rem(7);
+          height: px2rem(8);
           input {
             border: 1px solid #e8eaec;
             margin-left: px2rem(2);
             padding-left: px2rem(2);
-            height: px2rem(5);
+            height: px2rem(6);
+            border-radius: 4px;
+          }
+          .el-select {
+              width: 385px;
           }
         }
         :nth-child(1) {

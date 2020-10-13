@@ -18,7 +18,7 @@
         <input type="text" v-model="receiveMoney.openAddr" disabled="true" />
       </div>
       <div>
-        <input type="text" disabled="true" :value="'应缴费用：' + PamentMsg.FeePayable" />
+        <input type="text" disabled="true" :value="'应缴费用：' + PamentMsg.FeePayable +'元'" />
       </div>
       <div class="payment-civil-content-update">
         上传凭证：

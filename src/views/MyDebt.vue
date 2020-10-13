@@ -151,7 +151,7 @@
             <span>
               <button
                 @click.stop="GoCivilMediaForm(index)"
-                v-show="item.stage === '2' && roleId === '7992691295821774848'"
+                v-show="item.stage === '2' && item.status=== '5' && roleId === '7992691295821774848'"
               >
                 调解
               </button>
@@ -181,10 +181,7 @@
                 查看
               </button>
               <button
-                v-show="
-                  (item.status === '1' || item.status === '') &&
-                  roleId === '7992691295821774848'
-                "
+                v-if="(item.status === '1' || item.status === '') && roleId === '7992691295821774848'"
                 @click="EditMsg(index)"
               >
                 编辑
@@ -439,7 +436,7 @@ export default {
         this.$message.success('下载中')
     }
   },
-  created() {
+  created() {   
     this.AddDate()
     this.searchTbaleData()
   },
@@ -554,10 +551,10 @@ export default {
           flex: 2.8;
         }
         :nth-child(10) {
-          flex: 4;
+          flex: 3;
         }
         :last-child {
-          flex: 5;
+          flex: 6;
         }
       }
 
@@ -653,12 +650,12 @@ export default {
             }
           }
           :nth-child(10) {
-            flex: 4;
+            flex: 3;
             margin: 0 auto;
             background: #fff;
           }
           :nth-child(11) {
-            flex: 5;
+            flex: 6;
             margin: 0 auto;
             button {
               font-size: px2rem(3);
@@ -781,12 +778,12 @@ export default {
             }
           }
           :nth-child(10) {
-            flex: 4;
+            flex: 3;
             margin: 0 auto;
             background: #e0e3f8;
           }
           :nth-child(11) {
-            flex: 5;
+            flex: 6;
             button {
               font-size: px2rem(3);
               color: #fff;

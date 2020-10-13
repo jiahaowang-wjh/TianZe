@@ -8,13 +8,12 @@
     </div>
     <div class="unlock-apply-list">
       <div class="public-tabs">
-        <el-tabs v-model="activeTabs" @tab-click="() => null">
-          <el-tab-pane
-            :label="item.SelectName"
-            :name="item.SelectName"
-            v-for="item in SelectOption"
-            :key="item.SelectName"
-          ></el-tab-pane>
+        <el-tabs v-model="activeTabs"
+                 @tab-click="() => null">
+          <el-tab-pane :label="item.SelectName"
+                       :name="item.SelectName"
+                       v-for="item in SelectOption"
+                       :key="item.SelectName"></el-tab-pane>
         </el-tabs>
       </div>
       <div class="unlock-apply-list-search">
@@ -29,7 +28,7 @@
               <el-input v-model="tableQuery.debtNo"></el-input>
             </el-form-item>
             <el-form-item @click="searchTbaleData()">
-                <el-button class='button-search'>搜索</el-button>
+              <el-button class='button-search'>搜索</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -48,77 +47,49 @@
             <span>操作</span>
           </div>
           <div class="unlock-apply-list-content-tab">
-            <div
-              class="unlock-apply-list-content-tab-item"
-              v-for="(item, index) in UnlockMsg"
-              :key="index"
-            >
+            <div class="unlock-apply-list-content-tab-item"
+                 v-for="(item, index) in UnlockMsg"
+                 :key="index">
               <span>{{ index + 1 }}</span>
               <span>{{ item.reportId }}</span>
               <span>{{ item.reportNo }}</span>
               <span>{{ item.debtId }}</span>
               <span>{{ item.debtNo }}</span>
-              <span
-                :class="[
+              <span :class="[
                   item.status === '2' ||
                   item.status === '6' ||
                   item.status === '9'
                     ? 'pass'
                     : item.status === '1' ||
-                      item.status === '4' ||
-                      item.status === '7'
+                      item.status === '5' ||
+                      item.status === '8'
                     ? 'unpass'
                     : 'hassubmit',
-                ]"
-                >{{
-                  item.status === '0'
-                    ? '调查报告未审核'
-                    : item.status === '1'
-                    ? '调查报告审核未通过'
-                    : item.status === '2'
-                    ? '调查报告审批通过,债权信息未审核'
-                    : item.status === '3'
-                    ? '置换信息审核未通过'
-                    : item.status === '4'
-                    ? '置换信息审核通过'
-                    : item.status === '5'
-                    ? '债权处理信息审核通过'
-                    : item.status === '6'
-                    ? '债权处理信息通过,开始缴费'
-                    : item.status === '7'
-                    ? '财务未审核'
-                    : item.status === '8'
-                    ? '财务审核未通过'
-                    : '财务审核通过'
-                }}</span
-              >
+                ]">{{
+                  item.statusStr
+                 
+                }}</span>
               <span>{{ item.personName }}</span>
               <span>
-                <button
-                  type="button"
-                  v-show="
+                <button type="button"
+                        v-show="
                     item.status === '6' && roleId === '7992691295821774848'
                   "
-                  @click="GoUnlockPayment(index, item)"
-                >
+                        @click="GoUnlockPayment(index, item)">
                   缴费
                 </button>
-                <button
-                  type="button"
-                  v-show="
+                <button type="button"
+                        v-show="
                     item.status === '0' && roleId === '7992691214771044352'
                   "
-                  @click="CheckData(index, item)"
-                >
+                        @click="CheckData(index, item)">
                   调查报告审批
                 </button>
-                <button
-                  type="button"
-                  v-show="
+                <button type="button"
+                        v-show="
                     item.status === '4' && roleId === '7992691214771044352'
                   "
-                  @click="CheckUnlockData(index, item)"
-                >
+                        @click="CheckUnlockData(index, item)">
                   债权信息审核
                 </button>
               </span>
@@ -128,12 +99,10 @@
       </div>
 
       <div style="text-align: right; margin-top: 25px">
-        <el-pagination
-          background
-          @current-change="searchTbaleData"
-          layout="prev, pager, next"
-          :total="tablePage.total"
-        >
+        <el-pagination background
+                       @current-change="searchTbaleData"
+                       layout="prev, pager, next"
+                       :total="tablePage.total">
         </el-pagination>
       </div>
     </div>
@@ -141,8 +110,9 @@
 </template>
 
 <script>
+import { UnlockStatus } from "@/util/publicJson"
 export default {
-  data() {
+  data () {
     return {
       activeTabs: '全部',
       //表格分页
@@ -183,19 +153,19 @@ export default {
       isNormal: false,
       roleId: window.sessionStorage.getItem('roleId'),
       pickerOptions: {
-        disabledDate(time) {
+        disabledDate (time) {
           return time.getTime() > Date.now()
         },
         shortcuts: [
           {
             text: '今天',
-            onClick(picker) {
+            onClick (picker) {
               picker.$emit('pick', new Date())
             },
           },
           {
             text: '昨天',
-            onClick(picker) {
+            onClick (picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
@@ -203,7 +173,7 @@ export default {
           },
           {
             text: '一周前',
-            onClick(picker) {
+            onClick (picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
@@ -213,8 +183,11 @@ export default {
       },
     }
   },
+  computed: {
+     
+  },
   methods: {
-    HandleSelect(item) {
+    HandleSelect (item) {
       this.SelectOption.forEach((v) => {
         v.isSelect = false
       })
@@ -222,11 +195,12 @@ export default {
     },
 
     // 搜索表格数据
-    async searchTbaleData(page) {
+    async searchTbaleData (page) {
       this.tablePage.pageNum = page || 1
       const queryData = Object.assign(this.tableQuery, this.tablePage)
       const formData = new FormData()
-      for (const key in queryData) {
+      for (const key in queryData)
+      {
         formData.append(key, queryData[key])
       }
       const { data: result } = await this.$http({
@@ -237,13 +211,22 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-      this.UnlockMsg = result.data.list
+      let UnlockMsg = result.data.list
+      console.log(UnlockStatus)
+      UnlockMsg.forEach(item => {
+     
+        const statusData = UnlockStatus.find(a => a.value === item.status) || {};
+        item.statusStr = statusData.label || '-';
+
+      }) 
+
+      this.UnlockMsg = UnlockMsg
       this.tablePage.total = result.data.total
       console.log(this.UnlockMsg)
     },
 
     // 调查报告审批
-    CheckData(index, item) {
+    CheckData (index, item) {
       this.$router.push({
         path: '/ExamineReportFormApprove',
         query: {
@@ -253,7 +236,7 @@ export default {
       })
     },
     // 解债信息审批
-    CheckUnlockData(index, item) {
+    CheckUnlockData (index, item) {
       this.$router.push({
         path: '/UnlockApplyApprove',
         query: {
@@ -263,7 +246,7 @@ export default {
         },
       })
     },
-    GoUnlockPayment(index, item) {
+    GoUnlockPayment (index, item) {
       const queryData = {
         debtId: item.debtId,
         reportId: item.reportId,
@@ -276,7 +259,7 @@ export default {
       })
     },
   },
-  created() {
+  created () {
     this.searchTbaleData()
   },
 }
@@ -357,25 +340,25 @@ export default {
               display: inline-block;
               margin: 0 5px;
             }
-            .el-date-editor{
-                width: 200px;
+            .el-date-editor {
+              width: 200px;
             }
             .button-search {
-                padding: 8px 15px;
-                background-color: #616789;
-                color: #fff;
-                margin-left: 10px;
+              padding: 8px 15px;
+              background-color: #616789;
+              color: #fff;
+              margin-left: 10px;
             }
             .el-input {
-                width: 200px;
+              width: 200px;
             }
             .el-select {
-                width: 200px;
+              width: 200px;
             }
             .button-add {
-                padding: 10px 15px;
-                background-color: #fc7f89;
-                color: #fff;
+              padding: 10px 15px;
+              background-color: #fc7f89;
+              color: #fff;
             }
           }
         }

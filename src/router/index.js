@@ -198,6 +198,14 @@ const routes = [{
                             leftMenu: '/CivilMedia',
                         }
                     },
+                    { // 调解信息编辑
+                        path: '/EditCivilMedia',
+                        name: 'EditCivilMedia',
+                        component: () => import('@/views/MyDebt/CivilMediaForm'),
+                        meta: {
+                            leftMenu: '/CivilMediaForm',
+                        }
+                    },
                     { //债权处理
                         path: '/UnlockApply',
                         name: 'UnlockApply',
@@ -233,9 +241,9 @@ const routes = [{
                     { // 调查报告审批
                         path: '/ExamineReportFormApprove',
                         name: 'ExamineReportFormApprove',
-                        component: () => import('@/views/currency/ExamineReportFormApprove'),
+                        component: () => import('@/views/MyDebt/ExamineReportForm'),
                         meta: {
-                            leftMenu: '/ReportInfo',
+                            leftMenu: '/UnlockApply',
                         }
                     }, { // 解债审批
                         path: '/UnlockApplyApprove',
