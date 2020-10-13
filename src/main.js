@@ -38,9 +38,14 @@ router.beforeEach((to, from, next) => {
 
                 if (sessionUserInfo.userInfoId) {
                     store.commit('SAVE_USER_INFO', sessionUserInfo);
-                    store.dispatch('userMenus').then(() => {
-                        next(store.state.userMenuTree[0])
-                    })
+                    if (store.state.userMenuTree.length) {
+                        next()
+                    } else {
+                        store.dispatch('userMenus').then(() => {
+                            next(store.state.userMenuTree[0])
+                        })
+                    }
+
                 } else {
 
                     loginOut();
@@ -104,7 +109,7 @@ Vue.mixin(mixin);
 
 new Vue({
     router,
-    
+
     store,
     render: h => h(App)
 }).$mount('#app')
