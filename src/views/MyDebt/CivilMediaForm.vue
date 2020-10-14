@@ -429,55 +429,57 @@
               </div>
             </div>
             <!-- 双方短信验证 -->
-            <h3>手机验证码认证</h3>
-            <div>
-              <el-form ref="form" label-width>
-                <el-row>
-                  <el-col :span="8">
-                    <span class="col-label">债权人手机号码：</span>
-                    <el-form-item label>
-                      <el-input v-model="SendPhoneAndChekno[0].tel"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <span class="col-label">手机验证码：</span>
-                    <el-form-item label>
-                      <el-input
-                        v-model="SendPhoneAndChekno[0].checkNo"
-                        maxlength="4"
-                      ></el-input>
-                    </el-form-item>
-                    <el-button
-                      class="phonecheck-button"
-                      @click="SendCreditorPhoneCheck"
-                      >点击获取</el-button
-                    >
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <span class="col-label">债务人手机号码：</span>
-                    <el-form-item label>
-                      <el-input v-model="SendPhoneAndChekno[1].tel"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <span class="col-label">手机验证码：</span>
-                    <el-form-item label>
-                      <el-input
-                        v-model="SendPhoneAndChekno[1].checkNo"
-                        maxlength="4"
-                      ></el-input>
-                    </el-form-item>
-                    <el-button
-                      class="phonecheck-button"
-                      @click="SendDebtorPhoneCheck"
-                      >点击获取</el-button
-                    >
-                  </el-col>
-                </el-row>
-              </el-form>
-            </div>
+            <template v-if='!IsEditCivilMedia'>
+                <h3>手机验证码认证</h3>
+                <div>
+                <el-form ref="form" label-width>
+                    <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">债权人手机号码：</span>
+                        <el-form-item label>
+                        <el-input v-model="SendPhoneAndChekno[0].tel"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">手机验证码：</span>
+                        <el-form-item label>
+                        <el-input
+                            v-model="SendPhoneAndChekno[0].checkNo"
+                            maxlength="4"
+                        ></el-input>
+                        </el-form-item>
+                        <el-button
+                        class="phonecheck-button"
+                        @click="SendCreditorPhoneCheck"
+                        >点击获取</el-button
+                        >
+                    </el-col>
+                    </el-row>
+                    <el-row>
+                    <el-col :span="8">
+                        <span class="col-label">债务人手机号码：</span>
+                        <el-form-item label>
+                        <el-input v-model="SendPhoneAndChekno[1].tel"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="col-label">手机验证码：</span>
+                        <el-form-item label>
+                        <el-input
+                            v-model="SendPhoneAndChekno[1].checkNo"
+                            maxlength="4"
+                        ></el-input>
+                        </el-form-item>
+                        <el-button
+                        class="phonecheck-button"
+                        @click="SendDebtorPhoneCheck"
+                        >点击获取</el-button
+                        >
+                    </el-col>
+                    </el-row>
+                </el-form>
+                </div>
+            </template>
             <h3>选择调解员</h3>
             <div class="civil-media-container-form-add-conciliator">
               <button type="button" @click="OpenAddConciliator">
@@ -499,7 +501,7 @@
                 <span>{{ index + 1 }}</span>
                 <span>{{ item.personName }}</span>
                 <span>
-                  <button type="button" @click="DeleteConciliator(index)">
+                  <button type="button" @click="DeleteConciliator(index)" v-if='!IsEditCivilMedia'>
                     删除
                   </button>
                 </span>
@@ -509,13 +511,14 @@
             <div class="civil-media-container-form-update-imgs">
               <span>上传凭证：</span>
               <div class="civil-media-container-form-update-imgs-list">
-                <img
-                  v-for="(item, index) in VoucherList"
-                  :key="index"
-                  :src="item"
-                  alt=""
-                  @click="openImgToLink(item)"
-                />
+                  <div class='civil-media-container-form-update-imgs-list-item' v-for="(item, index) in SubmitData.certificate" :key="index">
+                    <img
+                        :src="item"
+                        alt=""
+                        @click="openImgToLink(item)"
+                        />
+                    <img class='civil-media-container-form-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
+                  </div>
               </div>
               <input
                 type="file"
@@ -525,6 +528,7 @@
                 value="点击上传"
               />
               <button>点击上传</button>
+
             </div>
             <div class="civil-media-container-form-determine">
               <button type="button" @click="SubmitMessage">确定</button>
@@ -790,8 +794,6 @@ export default {
         reportId: '',
         // 相对人ID
         relativePerId: '',
-        // 化解方式
-        solutions: '',
         // 债券债务类型
         civilType: '',
         // 欠款总客额
@@ -832,6 +834,7 @@ export default {
         longs: [],
         // 凭证信息
         certificate: [],
+        solutions: '1'
       },
       // 相对人名称
       RelativeName: '',
@@ -867,8 +870,6 @@ export default {
           checkNo: '',
         },
       ],
-      // 上传图片列表
-      VoucherList: [],
       // 判断当前是否为编辑页面
       IsEditCivilMedia: false
     }
@@ -928,90 +929,113 @@ export default {
     },
     // 数据提交及状态更改
     async SubmitMessage() {
-      // 先进行双方手机验证
-      // 债务人手机验证
-      const CreditorPhoneCheckFormData = new FormData()
-      for (const key in this.SendPhoneAndChekno[0]) {
-        CreditorPhoneCheckFormData.append(key, this.SendPhoneAndChekno[0][key])
-      }
-      const { data: CreditorPhoneCheckResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/smsSend/checkNO',
-        data: CreditorPhoneCheckFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (CreditorPhoneCheckResult.resultCode !== '200')
-        return this.$message.error('债权人短信验证码输入错误,请重新输入')
-      // 债务人手机验证
-      const DebtorPhoneCheckFormData = new FormData()
-      for (const key in this.SendPhoneAndChekno[1]) {
-        DebtorPhoneCheckFormData.append(key, this.SendPhoneAndChekno[1][key])
-      }
-      const { data: DebtorPhoneCheckResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/smsSend/checkNO',
-        data: DebtorPhoneCheckFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (DebtorPhoneCheckResult.resultCode !== '200')
-        return this.$message.error('债务人短信验证码输入错误,请重新输入')
-      // 数据提交
-      this.SubmitData.reportId = this.$route.query.reportId
-      this.SubmitData.relativePerId = this.relativePerId
-      this.GuaranteesList.map((v, i) => {
-        for (const key in v) {
-          this.$set(this.SubmitData, `busGuarantee[${i}].${key}`, v[key])
+        // 先进行双方手机验证
+        // 债务人手机验证
+        // 如果非编辑情况,进行短信验证
+        if (!this.IsEditCivilMedia) {
+            const CreditorPhoneCheckFormData = new FormData()
+            for (const key in this.SendPhoneAndChekno[0]) {
+                CreditorPhoneCheckFormData.append(key, this.SendPhoneAndChekno[0][key])
+            }
+            const { data: CreditorPhoneCheckResult } = await this.$http({
+                method: 'post',
+                url: '/api/api/smsSend/checkNO',
+                data: CreditorPhoneCheckFormData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            })
+            if (CreditorPhoneCheckResult.resultCode !== '200')
+                return this.$message.error('债权人短信验证码输入错误,请重新输入')
+            // 债务人手机验证
+            const DebtorPhoneCheckFormData = new FormData()
+            for (const key in this.SendPhoneAndChekno[1]) {
+                DebtorPhoneCheckFormData.append(key, this.SendPhoneAndChekno[1][key])
+            }
+            const { data: DebtorPhoneCheckResult } = await this.$http({
+                method: 'post',
+                url: '/api/api/smsSend/checkNO',
+                data: DebtorPhoneCheckFormData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            })
+            if (DebtorPhoneCheckResult.resultCode !== '200') {
+                return this.$message.error('债务人短信验证码输入错误,请重新输入')
+            }
         }
-      })
-      this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
-      this.SubmitData.longs = this.SubmitData.longs.join(',')
-      const formData = new FormData()
-      console.log(this.SubmitData)
-      for (const key in this.SubmitData) {
-        formData.append(key, this.SubmitData[key])
-      }
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/busCivilController/insertSelective',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      // 修改信息阶段,  如果返回结果
-      if (result.resultCode === '200') {
-        // 调用status改变接口
+        // 数据提交
+        this.SubmitData.reportId = this.$route.query.reportId
+        this.SubmitData.relativePerId = this.relativePerId
+        this.GuaranteesList.map((v, i) => {
+            for (const key in v) {
+                this.$set(this.SubmitData, `busGuarantee[${i}].${key}`, v[key])
+            }
+        })
+        this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
+        this.SubmitData.longs = this.SubmitData.longs.join(',')
+        console.log(this.SubmitData)
+        // 字段缺少, 先进行测试用
+        if (this.IsEditCivilMedia) {
+            this.$delete(this.SubmitData,'longs')
+        }
+        const formData = new FormData()
+        for (const key in this.SubmitData) {
+            formData.append(key, this.SubmitData[key])
+        }
+        const result = ''
+        // 非编辑情况
+        if (!this.IsEditCivilMedia) { 
+            const { data : result } = await this.$http({
+                method: 'post',
+                url: '/api/api/busCivilController/insertSelective',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        } else {
+            // 编辑情况, 调用更新接口
+            const { data : result } = await this.$http({
+                method: 'post',
+                url: '/api/api/busCivilController/updateByPrimaryKeySelective',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+        }
+        // // 调用status改变接口
         const StatusUpdateformData = new FormData()
         // 获取返回ID
-        StatusUpdateformData.append('civilId', result.data)
+        if (!this.IsEditCivilMedia) {
+            StatusUpdateformData.append('civilId', result.data)
+        } else {
+            StatusUpdateformData.append('civilId', this.$route.query.civilId)
+        }
         StatusUpdateformData.append('status', '0')
         const { data: StatusUpdateResult } = await this.$http({
-          method: 'post',
-          url: '/api/api/busCivilController/updateStatus',
-          data: StatusUpdateformData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            method: 'post',
+            url: '/api/api/busCivilController/updateStatus',
+            data: StatusUpdateformData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
         })
-        if (StatusUpdateResult.resultCode === '200') {
-          this.GetMediaHistory()
-          this.$message.success('新增调解信息成功')
-          this.$router.push({
-            path: '/MyDebt',
-          })
-          return
+        // 非编辑情况
+        if (!this.IsEditCivilMedia) {
+            this.$message.success('新增调解信息成功')
+            this.$router.push({
+                path: '/MyDebt'
+            })
         } else {
-          return this.$message.error('新增调解信息状态失败')
+        // 编辑情况
+            this.$message.success('修改调解信息成功')
+            this.$router.push({
+                path: '/CivilMedia'
+            })
         }
-      } else {
-        this.$message.error(result.resultMessage)
-      }
     },
-
     // 确定选择相对人页面 并 通过relativePerId查询得到报备人及相对人信息
     SelectRelative() {
       // 未选择相对人, 提示错误信息
@@ -1028,10 +1052,54 @@ export default {
     },
     // 查询相对人信息
     async SearchRelative() {
-      const queryPath = this.$route.path
-      if (queryPath === '/EditCivilMedia') {
-          this.IsEditCivilMedia = true
-      } else {
+        const queryPath = this.$route.path
+        if (queryPath === '/EditCivilMedia') {
+            // 如果当前为编辑页面
+            // 1、获取submit内容
+            this.IsEditCivilMedia = true
+            const civilId = this.$route.query.civilId
+            const formData = new FormData()
+            formData.append('civilId', civilId)
+            const { data: result } = await this.$http({
+                method: 'post',
+                url: '/api/api/busCivilController/selectByPrimaryKey',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+            this.SubmitData = result.data
+            console.log(this.SubmitData)
+            // 时间处理
+            this.SubmitData.breachDate = this.SubmitData.breachDate.substring(0,10)
+            this.SubmitData.endDate = this.SubmitData.endDate.substring(0,10)
+            this.SubmitData.starDate = this.SubmitData.starDate.substring(0,10)
+            this.$delete(this.SubmitData,'createTime')
+            this.$delete(this.SubmitData,'updateTime')
+            // console.log(this.SubmitData.breachDate)
+            console.log(this.SubmitData)
+            // 测试,后面应该删除
+            this.$set(this.SubmitData,'solutions','1')
+
+            this.SubmitData.certificate = result.data.certificate.split(',')
+            // 解债人信息还原
+            this.relativePerId = result.data.relativePerId
+            this.InitData(result.data.relativePerId)
+            // 调解员信息还原
+            this.SubmitData.userName.map((v,index) => {
+                this.$set(this.ConciliatorMsg, index, {personName: v})
+            })
+            // 担保人信息还原
+            const { data: GuaranteeResult } = await this.$http({
+                method: 'post',
+                url: '/api/api/busGuaranteeController/selectByPrimaryKey',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+            this.GuaranteesList = GuaranteeResult.data
+        } else {
             this.IsEditCivilMedia = false
             const reportId = this.$route.query.reportId
             const formData = new FormData()
@@ -1045,7 +1113,7 @@ export default {
                 }
             })
             this.RelativeList = result.data
-      }
+        }
     },
     AddGuarantee() {
       this.IsAddConciliator = true
@@ -1132,9 +1200,12 @@ export default {
     UpdateVoucher() {
       const file = this.$refs.Voucher.files[0]
       this.$UpdateFile(file).then((result) => {
-        this.VoucherList.push(result)
         this.SubmitData.certificate.push(result)
       })
+    },
+    // 删除凭证
+    DelectVocher (index) {
+        this.SubmitData.certificate.splice(index,1)
     },
     // 获取民事调解记录
     async GetMediaHistory() {
@@ -1149,7 +1220,7 @@ export default {
         },
       })
       this.MediateMsg = result.data
-    },
+    }
   },
   created() {
     // this.InitData()
@@ -1556,10 +1627,20 @@ export default {
           width: px2rem(180.5);
           display: flex;
           align-items: center;
-          img {
-            margin: 0 px2rem(2);
-            width: px2rem(18);
-            height: px2rem(12.5);
+          &-item {
+            position: relative;
+            img {
+                margin: 0 px2rem(2);
+                width: px2rem(18);
+                height: px2rem(12.5);
+            }
+            &-delete{
+                position: absolute;
+                left: px2rem(15);
+                top: px2rem(-2);
+                width: 25px!important;
+                height: 25px!important;
+            }
           }
         }
         &-form {

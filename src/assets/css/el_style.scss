@@ -41,26 +41,10 @@
 
 // 下载表单
 .el-table .cell {
-  height: px2rem(8) !important;
-  line-height: px2rem(8) !important;
-
-  .el-button{
-    border: none;
-    padding: px2rem(0.6) px2rem(2);
-    margin: 0 px2rem(3);
-    border-radius: px2rem(1);
-    color: #fff;
-    font-size: px2rem(3.5);
-  }
-
-  button:nth-child(1) {
-    background-color: #ad94e2;
-  }
-
-  button:nth-child(2) {
-    background-color: #b3bcf2;
-  }
+    height: px2rem(8) !important;
+    line-height: px2rem(8) !important;
 }
+
 .el-table__row {
   width: 45vw !important;
   display: flex !important;

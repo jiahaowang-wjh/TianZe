@@ -208,8 +208,11 @@
           <el-table-column property="docType" label="类型"></el-table-column>
           <el-table-column width="247" label="操作">
             <template slot-scope="scope">
-                <el-button>查看</el-button>
-                <el-button @click="Download(scope.$index, scope.row)">下载</el-button>
+                <button class='my-debt-pop-download-button1'>查看</button>
+                <!-- @click="Download(scope.$index, scope.row)" -->
+                <a :href="`/api/api/BusElectron/getBusElectronDoc?docId=${scope.row.docId}`" target="_blank">
+                <button class='my-debt-pop-download-button2'>下载</button>
+                </a>
             </template>
           </el-table-column>
         </el-table>
@@ -416,24 +419,6 @@ export default {
         })
         this.gridData = result.data
         this.dialogTableVisible = true
-    },
-    async Download (index, row) {
-        const formData = new FormData()
-        formData.append('docId', row.docId)
-        const { data: result } = await this.$http({
-            method: 'post',
-            data: formData,
-            url: '/api/api/BusElectron/getBusElectronDoc',
-        })
-        let aLink = document.createElement("a")
-        aLink.style.display = "none"
-        aLink.href = result.data
-        aLink.setAttribute("download", row.docName)
-        document.body.appendChild(aLink)
-        aLink.click()
-        document.body.removeChild(aLink)
-        window.URL.revokeObjectURL(row.docPath)
-        this.$message.success('下载中')
     }
   },
   created() {   
@@ -866,20 +851,23 @@ export default {
       &-footer {
         display: flex;
         justify-content: space-around;
-        button {
-          padding: px2rem(1) px2rem(4);
-          border: 1px solid #616789;
-          border-radius: px2rem(1);
-        }
-        :nth-child(1) {
-          color: #616789;
-          background-color: #fff;
-        }
-        :nth-child(2) {
-          color: #ffffff;
-          background-color: #616789;
-        }
       }
+    }
+  }
+  &-pop-download {
+    button{
+        border: none;
+        padding: px2rem(1) px2rem(2.5);
+        margin: 0 px2rem(3);
+        border-radius: px2rem(1);
+        color: #fff;
+        font-size: px2rem(3.5);
+    }
+    &-button1 {
+        background-color: #ad94e2;
+    }
+    &-button2 {
+        background-color: #b3bcf2;
     }
   }
 }

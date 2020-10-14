@@ -8,11 +8,11 @@
     </div>
     <div class="unlock-apply-container">
       <div class="unlock-apply-container-form">
-        <el-collapse>
+        <el-collapse :value="collapseActive" accordion>
           <!-- 关系绑定 -->
           <el-collapse-item title="关系绑定" name="1">
             <div class="unlock-apply-container-form-new">
-              <button>新增</button>
+              <button @click="collapseActive = '4'">新增</button>
             </div>
             <div class="unlock-apply-container-form-table-1-title">
               <span>序号</span>
@@ -421,7 +421,7 @@
             </div>
           </el-collapse-item>
           <!-- 策划方案服务协义 -->
-          <el-collapse-item title="策划方案服务协议" name="4" v-show='HasSubmitDebtMsg'><!--  -->
+          <el-collapse-item title="策划方案服务协议" name="4" v-show='HasSubmitDebtMsg'>
             <div class="unlock-apply-container-form-plan-agreement">
               <div class="unlock-apply-container-form-plan-agreement-title">策划方案服务协议</div>
               <div class="unlock-apply-container-form-plan-agreement-introduce-part-a">
@@ -762,6 +762,7 @@ export default {
       HasSubmitDebtMsg: false,
       // 策划方案服务协议初始化数据源
       PlanInitData: [],
+      collapseActive: '1'
     }
   },
   methods: {
@@ -885,6 +886,7 @@ export default {
         },
       }).then(() => {
         this.$message.success('进入债权处理阶段,请填写策划方案协议')
+        this.collapseActive = '4'
       })
     },
     // 获取相对人的index及相对人ID

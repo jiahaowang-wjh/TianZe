@@ -504,7 +504,6 @@ export default {
         },
       })
       this.MediaUserMsg = result.data
-
       // 民事调解信息初始化
       const MsgFormData = new FormData()
       MsgFormData.append('civilId', this.civilId)
@@ -520,10 +519,8 @@ export default {
         ? (MsgResult.data.treatmentMetho = '1')
         : ''
       this.MediaData = MsgResult.data
-      if (this.MediaData.certificate.indexOf(',') !== -1)
-      {
-        this.MediaData.certificate = this.MediaData.certificate.split(',')
-      }
+      console.log(this.MediaData)
+      this.MediaData.certificate = this.MediaData.certificate.split(',')
       this.ConciliatorMsg = this.MediaData.userName || [];
       this.$set(this.MediaData, 'guaranteeMeth', MsgResult.data.guaranteeMeth)
       // 获取担保人信息
@@ -536,7 +533,6 @@ export default {
         },
       })
       this.GuarantorMsg = GuaranteeResult.data
-
     },
     RejectCheck () {
       if (!this.CommitApproveData.checkReason)
