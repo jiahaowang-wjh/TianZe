@@ -573,7 +573,7 @@
                         <el-col :span="8">
                             <span class="col-label">乙方(签字盖章捺印)：</span>
                             <el-form-item label="">
-                                <button type='button' @click="UpdatePartBSeal" class='update-voucher-button'>上传电子章</button>
+                                <button type='button' class='update-voucher-button'>上传电子章</button>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -769,16 +769,6 @@ export default {
     SelectMore() {
       this.isNormal = !this.isNormal
     },
-    UpdatePartASeal() {
-      //   this.$UpdateFile(this.$refs.PartASeal.files[0]).then(result => {
-      //     this.SubmitData.partyaSeal = result
-      //   })
-    },
-    UpdatePartBSeal() {
-      //   this.$UpdateFile(this.$refs.PartBSeal.files[0]).then(result => {
-      //     this.SubmitData.partybSeal = result
-      //   })
-    },
     // 上传资料
     UpdateVoucher() {
       this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(
@@ -790,7 +780,7 @@ export default {
     // 解债申请信息初始化
     async InitData(relativePerId) {
       const formData = new FormData()
-      formData.append('relativePerId', relativePerId) // relativePerId
+      formData.append('relativePerId', relativePerId)
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/busRelativePersonController/selectByRelativePerId',
@@ -800,7 +790,6 @@ export default {
         },
       })
       this.UnlockUserMsg = result.data
-      console.log(this.UnlockUserMsg)
     },
     // 提交解债信息
     async SubmitMessage() {
@@ -829,7 +818,6 @@ export default {
       this.SubmitData.amountTotal = this.UnlockUserMsg.amountTotal
       //  累计化解金额
       this.SubmitData.amountCumulative = this.transfeAmount
-
       this.SubmitData.comId = window.sessionStorage.getItem('companyId')
       console.log(this.SubmitData)
       const formData = new FormData()
@@ -868,7 +856,7 @@ export default {
           this.HasSubmitDebtMsg = true
           // 重新获取调解记录列表
           this.GetMsgList()
-          return this.$message.success('新增解债信息成功')
+          this.$message.success('新增解债信息成功')
         } else {
           return this.$message.error('修改调解信息状态失败')
         }
@@ -877,17 +865,16 @@ export default {
       StageUpdateformData.append('reportId', this.$route.query.reportId)
       StageUpdateformData.append('stage', '3')
       StageUpdateformData.append('comId', sessionStorage.getItem('companyId'))
-      this.$http({
+      await this.$http({
         method: 'post',
         url: '/api/api/busReportController/updateDebtStage',
         data: StageUpdateformData,
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
-      }).then(() => {
-        this.$message.success('进入债权处理阶段,请填写策划方案协议')
-        this.collapseActive = '4'
+        }
       })
+      this.$message.success('进入债权处理阶段,请填写策划方案协议')
+      this.collapseActive = '4'
     },
     // 获取相对人的index及相对人ID
     GetMediaMsg(index) {
@@ -923,6 +910,7 @@ export default {
     // 查询调解书信息
     async SearchConciliation() {
       const reportId = this.$route.query.reportId
+      console.log(reportId)
       const formData = new FormData()
       formData.append('reportId', reportId)
       const { data: result } = await this.$http({
@@ -933,6 +921,7 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
+      console.log(result)
       this.MediaSrc = result.data
       this.MediaSrc.forEach((v, i) => {
         v.value = i
@@ -1000,9 +989,9 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(result)
       if (result.resultCode === '200') {
         this.$message.success('新增策划方案服务协议信息成功')
+        this.$router.push({path: '/MyDebt'})
       }
     },
     // 初始化策划方案服务协议

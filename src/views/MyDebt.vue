@@ -210,9 +210,7 @@
             <template slot-scope="scope">
                 <button class='my-debt-pop-download-button1'>查看</button>
                 <!-- @click="Download(scope.$index, scope.row)" -->
-                <a :href="`/api/api/BusElectron/getBusElectronDoc?docId=${scope.row.docId}`" target="_blank">
-                <button class='my-debt-pop-download-button2'>下载</button>
-                </a>
+                <button class='my-debt-pop-download-button2' @click="Download(scope.$index, scope.row)">下载</button>
             </template>
           </el-table-column>
         </el-table>
@@ -419,6 +417,20 @@ export default {
         })
         this.gridData = result.data
         this.dialogTableVisible = true
+    },
+    async Download (index, row) {
+        const { data: result } = await this.$http({
+            method: 'get',
+            params: {docId: row.docId},
+            url: '/api/BusElectron/getBusElectronDoc',
+        })
+        var aLink = document.createElement("a")
+        aLink.style.display = "none"
+        aLink.href = result.data
+        aLink.setAttribute("download", row.docName)
+        document.body.appendChild(aLink)
+        aLink.click()
+        document.body.removeChild(aLink) //下载完成移除元素
     }
   },
   created() {   

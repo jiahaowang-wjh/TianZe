@@ -71,19 +71,32 @@
                 }}</span>
               <span>{{ item.personName }}</span>
               <span>
-                <button type="button"
+                <button type="button" class='enter-and-edit'
                         v-show="
                     item.status === '6' && roleId === '7992691295821774848'
                   "
                         @click="GoUnlockPayment(index, item)">
                   缴费
                 </button>
-                <button type="button"
+                <button
+                    type="button"
                         v-show="
                     item.status === '0' && roleId === '7992691214771044352'
                   "
                         @click="CheckData(index, item)">
                   调查报告审批
+                </button>
+                <button type="button" class='examine-report'
+                        v-show="
+                    item.status === '1' && roleId === '7992691295821774848'
+                  "
+                  @click="EditExamineReport(index, item)">
+                  调查报告编辑
+                </button>
+                <button type="button" v-show="item.status === '8' && roleId === '7992691295821774848'
+                  " @click="EditExamineReport(index, item)"
+                  class='enter-and-edit'>
+                财务信息编辑
                 </button>
                 <button type="button"
                         v-show="
@@ -91,6 +104,13 @@
                   "
                         @click="CheckUnlockData(index, item)">
                   债权信息审核
+                </button>
+                <button type="button"
+                        v-show="
+                    item.status === '5' && roleId === '7992691295821774848'
+                  "
+                        @click="EditUnlockData(index, item)">
+                  编辑债权信息
                 </button>
               </span>
             </div>
@@ -184,7 +204,6 @@ export default {
     }
   },
   computed: {
-     
   },
   methods: {
     HandleSelect (item) {
@@ -193,7 +212,6 @@ export default {
       })
       item.isSelect = true
     },
-
     // 搜索表格数据
     async searchTbaleData (page) {
       this.tablePage.pageNum = page || 1
@@ -224,7 +242,6 @@ export default {
       this.tablePage.total = result.data.total
       console.log(this.UnlockMsg)
     },
-
     // 调查报告审批
     CheckData (index, item) {
       this.$router.push({
@@ -258,6 +275,25 @@ export default {
         query: queryData,
       })
     },
+    EditExamineReport (index, item) {
+      const queryData = {
+        debtId: item.debtId
+      }
+      this.$router.push({
+        path: '/EditExamineReport',
+        query: queryData,
+      })
+    },
+    EditUnlockData (index, item) {
+      this.$router.push({
+        path: '/EditUnlockApplyForm',
+        query: {
+          reportId: item.reportId,
+          debtId: item.debtId,
+          relativePerId: item.relativePerId,
+        }
+      })
+    }
   },
   created () {
     this.searchTbaleData()
@@ -445,14 +481,14 @@ export default {
               border-radius: px2rem(1);
               color: #fff;
             }
-            :first-child {
-              background-color: #616789;
-            }
-            :nth-child(2) {
-              background-color: #616789;
+            .enter-and-edit {
+                background-color: #616789;
             }
             :last-child {
               background-color: #fc7f89;
+            }
+            .examine-report {
+                background-color: #ECC87F;
             }
           }
         }
@@ -489,11 +525,14 @@ export default {
               border-radius: px2rem(1);
               color: #fff;
             }
-            :first-child {
-              background-color: #616789;
+            .enter-and-edit {
+                background-color: #616789;
             }
             :last-child {
               background-color: #fc7f89;
+            }
+            .examine-report {
+                background-color: #ECC87F;
             }
           }
         }

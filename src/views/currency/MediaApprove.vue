@@ -390,7 +390,7 @@
                    v-for="(item, index) in ConciliatorMsg"
                    :key="index">
                 <span>{{ index + 1 }}</span>
-                <span>{{ item }}</span>
+                <span>{{ item.userName}}</span>
               </div>
             </div>
             <!-- 上传凭证 -->
@@ -480,7 +480,7 @@ export default {
       RelativeStatus: {
         status: '1',
         relativePerId: this.$route.query.relativePerId,
-      },
+      }
     }
   },
   methods: {
@@ -521,7 +521,7 @@ export default {
       this.MediaData = MsgResult.data
       console.log(this.MediaData)
       this.MediaData.certificate = this.MediaData.certificate.split(',')
-      this.ConciliatorMsg = this.MediaData.userName || [];
+      this.ConciliatorMsg = this.MediaData.civiliVos;
       this.$set(this.MediaData, 'guaranteeMeth', MsgResult.data.guaranteeMeth)
       // 获取担保人信息
       const { data: GuaranteeResult } = await this.$http({

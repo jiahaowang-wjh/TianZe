@@ -4,7 +4,7 @@
     <div class="unlock-apply-title">
       <span class="unlock-apply-title-go1">我的债行</span>
       <span class="unlock-apply-title-separator">/</span>
-      <span class="unlock-apply-title-go2">债权处理审批</span>
+      <span class="unlock-apply-title-go2">{{IsApproveStatus? '债权处理审批' : '债权处理编辑'}}</span>
     </div>
     <div class="unlock-apply-container">
       <div class="unlock-apply-container-form">
@@ -154,7 +154,7 @@
                 <el-col :span="8">
                   <span class="col-label">本次申请转让债权金额（小写）：</span>
                   <el-form-item>
-                    <el-input type="text" v-model="SubmitData.amountThis" :disabled='true'/>
+                    <el-input type="text" v-model="SubmitData.amountThis" :disabled='IsApproveStatus'/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -176,7 +176,7 @@
                     <el-col :span="8">
                         <span class="col-label">债权处理类型：</span>
                         <el-form-item label="">
-                            <el-select v-model="SubmitData.debtType" placeholder="请选择" :disabled='true'>
+                            <el-select v-model="SubmitData.debtType" placeholder="请选择" :disabled='IsApproveStatus'>
                                 <el-option label="一次性提取转让债权等额资产" value="1"></el-option>
                                 <el-option label="第三方商贸公司代理销售" value="2"></el-option>
                                 <el-option label="第三方电子商务公司线上代理销售" value="3"></el-option>
@@ -187,7 +187,7 @@
                     <el-col :span="8">
                         <span class="col-label">债权处理年限：</span>
                         <el-form-item label="">
-                            <el-select v-model="SubmitData.debtYaer" placeholder="请选择" :disabled='true'>
+                            <el-select v-model="SubmitData.debtYaer" placeholder="请选择" :disabled='IsApproveStatus'>
                                 <el-option label="一年" value="1"></el-option>
                                 <el-option label="二年" value="2"></el-option>
                                 <el-option label="三年" value="3"></el-option>
@@ -332,19 +332,19 @@
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达地址：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaAddr" :disabled='true'></el-input>
+                            <el-input v-model="SubmitData.partyaAddr" :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达联系人：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partyaPerson" :disabled='true'></el-input>
+                            <el-input v-model="SubmitData.partyaPerson" :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">甲方确认送达联系电话：</span>
                         <el-form-item label="">
-                            <el-input v-model='SubmitData.partyaTel' :disabled='true'></el-input>
+                            <el-input v-model='SubmitData.partyaTel' :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -352,19 +352,19 @@
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达地址：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partybAddr" :disabled='true'></el-input>
+                            <el-input v-model="SubmitData.partybAddr" :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达联系人：</span>
                         <el-form-item label="">
-                            <el-input v-model="SubmitData.partybPerson" :disabled='true'></el-input>
+                            <el-input v-model="SubmitData.partybPerson" :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <span class="col-label">乙方确认送达联系电话：</span>
                         <el-form-item label="">
-                            <el-input v-model='SubmitData.partybTel' :disabled='true'></el-input>
+                            <el-input v-model='SubmitData.partybTel' :disabled='IsApproveStatus'></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -372,7 +372,17 @@
                 <el-row :gutter="24">
                     <el-col :span="16">
                         <div class='update-img-list'>
-                            <img :src="item" alt="" v-for='(item, index) in SubmitData.uploadAnnex' :key='index'>
+                            <div v-for='(item, index) in SubmitData.uploadAnnex' :key='index' class='update-img-list-item'>
+                                <img :src="item" alt="">
+                                <img class='delete-voucher' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
+                            </div>
+                        </div>
+                        <div class='update-img-button' v-if='!IsApproveStatus'>
+                            <input type="file"
+                            @change="UpdateVoucher"
+                            ref="UpdateMaterialVoucher"
+                            value="点击上传" />
+                            <button type='button' class='update-voucher-button'>点击上传</button>
                         </div>
                     </el-col>
                 </el-row>
@@ -425,7 +435,7 @@
                 <br />
                 <h3>第二条委托事项</h3>
                 （一）甲方身份属于下列第
-                <el-select v-model='PlanInitData.matters' :disabled='true' >
+                <el-select v-model='PlanInitData.matters' :disabled='IsApproveStatus' >
                     <el-option :label="`(1)债权人`" :value="1" ></el-option>
                     <el-option :label="`(2)债务人`" :value="2" ></el-option>
                 </el-select>种情况
@@ -438,8 +448,8 @@
                 <input type="text" placeholder="解锁金额大写" :value="PlanInitData.amountThisMax" :disabled='true'
                   class='mini-fontsize'
                 /> 元整）。其中包括本金
-                <input type="text" v-model='PlanInitData.servicePrincipal' :disabled='true' />元,利息
-                <input type="text" v-model='PlanInitData.serviceInterest' :disabled='true' />元；
+                <input type="text" v-model='PlanInitData.servicePrincipal' :disabled='IsApproveStatus' />元,利息
+                <input type="text" v-model='PlanInitData.serviceInterest' :disabled='IsApproveStatus' />元；
                 <br />1.收集、查阅本项目相关的买卖合同、服务合同、借款协议及担保协议等协议文件,以及交易凭证、担保登记凭证等。
                 <br />2.在分析本项目相关协议文件及各类凭证资料的基础上，就甲方本次债事咨询提供处置服务方案。
                 <br />3.与本协议确定的债权债务关系相对人沟通债事处置服务方案：如甲方系债务人，相对方债权人不接受该方案，本协议自动终止；如甲方系债权人，相对方债务人不接受该方案的,不影响本协议的履行。
@@ -565,11 +575,14 @@
                 </el-form>
               <div
             </div>
+            <div class="unlock-apply-container-form-determine3" v-if='!IsApproveStatus'>
+              <button type='button' @click="SubmitEditMessage">确定</button>
+            </div>
           </el-collapse-item>
         </el-collapse>
       </div>
     </div>
-    <div class="unlock-apply-check">
+    <div class="unlock-apply-check" v-if='IsApproveStatus'>
       <div class="unlock-apply-check-reason">
         <span>审批原因</span>
         <textarea maxlength="141" v-model="SubmitApproveData.checkReason"></textarea>
@@ -694,7 +707,6 @@ export default {
       MediaSrc: [],
       // 当前用户选择的民事调解书
       MediaIndex: 0,
-      IsSendUnlockPhonecheck: false,
       // 获取提交解债信息返回的解债ID
       ResponseDebtID: '',
       PlanInitData: [],
@@ -710,13 +722,11 @@ export default {
           parta: '',
           partaCard: '',
           partaTel: ''
-      }
+      },
+      IsApproveStatus: true
     }
   },
   methods: {
-    SelectMore() {
-      this.isNormal = !this.isNormal
-    },
     // 上传资料
     UpdateVoucher() {
       this.$UpdateFile(this.$refs.UpdateMaterialVoucher.files[0]).then(
@@ -750,7 +760,7 @@ export default {
         },
       })
       this.SubmitData = DebtResult.data
-      this.SubmitData.uploadAnnex = this.SubmitData.uploadAnnex.split(',')
+      this.SubmitData.uploadAnnex = DebtResult.data.uploadAnnex.split(',')
     },
     // 获取相对人的index及相对人ID
     GetMediaMsg(index) {
@@ -798,6 +808,10 @@ export default {
     },
     // 获取解债信息列表
     async GetMsgList() {
+      // 获取路由状态
+      if (this.$route.path === '/EditUnlockApplyForm') {
+          this.IsApproveStatus = false
+      }
       const formData = new FormData()
       const reportId = this.$route.query.reportId
       formData.append('reportId', reportId)
@@ -880,10 +894,60 @@ export default {
         this.$message.error('操作失败, 请重试')
       }
     },
+    // 删除凭证
+    DelectVocher (index) {
+        this.SubmitData.uploadAnnex.splice(index,1)
+    },
+    async SubmitEditMessage () {
+      // 更新解债信息
+      const DebtFormData = new FormData()
+      this.$delete(this.SubmitData, 'updateTime')
+      this.$delete(this.SubmitData, 'contractDate')
+      this.$delete(this.SubmitData, 'createTime')
+      this.$delete(this.SubmitData, 'checkDate')
+      this.$delete(this.SubmitData, 'serviceDate')
+      for (const key in this.SubmitData) {
+        DebtFormData.append(key, this.SubmitData[key])
+      }
+      await this.$http({
+        method: 'post',
+        url: '/api/api/pubDebtController/updateByPrimaryKeySelective',
+        data: DebtFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      // 更新策划方案服务协议
+      const formData = new FormData()
+      this.SubmitPlanData.debtId = this.PlanInitData.debtId
+      this.SubmitPlanData.contractDate = this.PlanInitData.contractDate
+      this.SubmitPlanData.serviceNo = this.PlanInitData.serviceNo
+      this.SubmitPlanData.matters = this.PlanInitData.reportPropert
+      this.SubmitPlanData.serviceInterest = this.PlanInitData.serviceInterest
+      this.SubmitPlanData.servicePrincipal = this.PlanInitData.servicePrincipal
+      console.log(this.SubmitPlanData)
+      for (const key in this.SubmitPlanData) {
+        formData.append(key, this.SubmitPlanData[key])
+      }
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubDebtController/insertPlanInfo',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      this.UpdateCheckStatus('4')
+      if (result.resultCode === '200') {
+        this.$message.success('修改债权处理信息成功')
+        this.$router.push({path: '/MyDebt'})
+      }
+    }
   },
   created() {
     this.SearchConciliation()
-    this.GetMsgList(), this.InitPlanData()
+    this.GetMsgList(),
+    this.InitPlanData()
   },
   computed: {
     thisPlanMoney: function () {
@@ -943,17 +1007,27 @@ export default {
   }
 }
 .update-img-list {
-  width: 800px;
-  height: 80px;
-  border: 1px solid #e8eaec;
-  margin-left: 20px;
-  img {
-    float: left;
-    height: 75px;
-    margin: 0 6px;
-    width: 100px;
-  }
-  margin-right: 10px;
+    width: 800px;
+    height: 80px;
+    border: 1px solid #e8eaec;
+    margin-left: 20px;
+    display: flex;
+    img {
+        height: 75px;
+        margin: 0 6px;
+        width: 100px;
+    }
+    .update-img-list-item {
+        margin: 0 5px;
+        position: relative;
+        .delete-voucher {
+            position: absolute;
+            left: px2rem(19);
+            top: px2rem(-2);
+            width: 25px!important;
+            height: 25px!important;
+        }
+    }
 }
 .update-img-button {
   position: relative;

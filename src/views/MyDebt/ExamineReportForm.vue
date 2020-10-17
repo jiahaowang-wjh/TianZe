@@ -4,7 +4,7 @@
     <div class="examine-report-title">
       <span class="examine-report-title-go1">我的债行</span>
       <span class="examine-report-title-separator"> / </span>
-      <span class="examine-report-title-go2">{{IsApprove ? '调查报告审批': '调查报告'}}</span>
+      <span class="examine-report-title-go2">{{CurrentPage}}</span>
     </div>
     <div class="examine-report-container">
       <div class="examine-report-container-form">
@@ -16,18 +16,18 @@
             </div>
             <div class="examine-report-container-form-header">
               <span>申请单位名称：</span>
-              <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.unitName" />
+              <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.unitName" />
             </div>
             <div class="examine-report-container-form-header">
               <span>客户经理：</span>
-              <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.accountManager" />
+              <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.accountManager" />
             </div>
             <div class="examine-report-container-form-header">
               <span>报告完成日期：</span>
               <el-date-picker
                 align="left"
                 type="date"
-                :disabled='IsApprove'
+                :disabled="ExamineReportStatus === '2'"
                 placeholder="请选择日期"
                 :picker-options="pickerOptions"
                 v-model="SubmitDataMsg.reportFinashDate"
@@ -36,20 +36,20 @@
             </div>
             <div class="examine-report-container-form-item-1">
               <h3>一、申请客户名称：</h3>
-              <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.accountName" />
+              <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.accountName" />
             </div>
             <h3>二、申请客户基本情况调查</h3>
             <div class="examine-report-container-form-item-2">
               <div>
-                （1）注册资金：<input :disabled='IsApprove'
+                （1）注册资金：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'200"
+                  class="examine-report-container-form-input200"
                   v-model="SubmitDataMsg.registeredCapital"
                 />元
               </div>
               <div>
                 <span>（2）成立时间：</span>
-                <el-date-picker :disabled='IsApprove'
+                <el-date-picker :disabled="ExamineReportStatus === '2'"
                   align="left"
                   type="date"
                   placeholder="请选择日期"
@@ -59,24 +59,24 @@
                 ></el-date-picker>
               </div>
               <div>
-                （3）经营地址：<input :disabled='IsApprove'
+                （3）经营地址：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.managementAddr"
-                  class="examine-report-container-form-input :disabled='IsApprove'200"
+                  class="examine-report-container-form-input200"
                 />
               </div>
               <div>
-                （4）经营范围：从事<input :disabled='IsApprove'
+                （4）经营范围：从事<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.business"
                 />相关业务。取得从事该行业必备的有效的经营资质（经营许可证、建筑资质等）
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="management"
                   value="1"
                   v-model="SubmitDataMsg.management"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="management"
                   value="2"
@@ -86,123 +86,123 @@
               </div>
               <div>（5）法定代表人（实际控制人）简介：</div>
               <div>
-                法人：<input :disabled='IsApprove'
+                法人：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonName"
                 />
-                性别：<input :disabled='IsApprove'
+                性别：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonSex"
                 />
-                年龄：<input :disabled='IsApprove'
+                年龄：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonAge"
                 />
-                学历：<input :disabled='IsApprove'
+                学历：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonEdu"
                 />
-                婚否：<input :disabled='IsApprove'
+                婚否：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonMirr"
                 />
-                电话：<input :disabled='IsApprove'
+                电话：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonTel"
                 />
-                公司占股：<input :disabled='IsApprove'
+                公司占股：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.legalpersonStock"
                 />
               </div>
               <div>
-                股东：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockName" />
-                性别：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockSex" />
-                年龄：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockAge" />
-                学历：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockEdu" />
-                婚否：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockMirr" />
-                电话：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stockTel" />
-                公司占股：<input :disabled='IsApprove'
+                股东：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockName" />
+                性别：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockSex" />
+                年龄：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockAge" />
+                学历：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockEdu" />
+                婚否：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockMirr" />
+                电话：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stockTel" />
+                公司占股：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.stockStock"
                 />
               </div>
               <div>
-                股东：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Name" />
-                性别：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Sex" />
-                年龄：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Age" />
-                学历：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Edu" />
-                婚否：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Mirr" />
-                电话：<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.stock1Tel" />
-                公司占股：<input :disabled='IsApprove'
+                股东：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Name" />
+                性别：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Sex" />
+                年龄：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Age" />
+                学历：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Edu" />
+                婚否：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Mirr" />
+                电话：<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.stock1Tel" />
+                公司占股：<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.stock1Stock"
                 />
               </div>
               <div>（6）债务构成：</div>
               <div>
-                公司总负债<input :disabled='IsApprove'
+                公司总负债<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.companyTotalLiab"
-                />元人民币、总负债率<input :disabled='IsApprove'
+                />元人民币、总负债率<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.totalLiabRate"
                 />%
               </div>
               <div>
-                合计银行<input :disabled='IsApprove'
+                合计银行<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.totalBank"
                 />元
               </div>
               <div>
-                其中<input :disabled='IsApprove'
+                其中<input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'200"
+                  class="examine-report-container-form-input200"
                   v-model="SubmitDataMsg.bank1"
-                />银行 <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.amount1" />元、
-                <input :disabled='IsApprove'
+                />银行 <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.amount1" />元、
+                <input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'200"
+                  class="examine-report-container-form-input200"
                   v-model="SubmitDataMsg.bank2"
                 />
-                银行<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.amount2" />元、
-                <input :disabled='IsApprove'
+                银行<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.amount2" />元、
+                <input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'200"
+                  class="examine-report-container-form-input200"
                   v-model="SubmitDataMsg.bank3"
                 />
-                银行<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.amount3" />元；
+                银行<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.amount3" />元；
               </div>
               <div>
-                合计民营金融机构<input :disabled='IsApprove'
+                合计民营金融机构<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.privateFinance"
                 />元
               </div>
               <div>
                 其中小贷公司
-                <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.smallCompany" />元、
-                担保公司<input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.smallCompany" />元、
+                担保公司<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.guaranteeCompany"
-                />元、 基金公司<input :disabled='IsApprove'
+                />元、 基金公司<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.fundCompany"
                 />元；
               </div>
               <div>
-                民间借贷合计<input :disabled='IsApprove'
+                民间借贷合计<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.toloanCount"
                 />元人民币：
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="isIllFund"
                   value="1"
                   v-model="SubmitDataMsg.isIllFund"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="isIllFund"
                   value="2"
@@ -210,63 +210,63 @@
                 />否 涉及非法集资；
               </div>
               <div>
-                5万以下<input :disabled='IsApprove'
+                5万以下<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.fiftyThousand"
-                />人、 20万以下<input :disabled='IsApprove'
+                />人、 20万以下<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.twoHundredThousand"
-                />人、 50万以下<input :disabled='IsApprove'
+                />人、 50万以下<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.fiveHundredThousand"
-                />人、 100万以下<input :disabled='IsApprove'
+                />人、 100万以下<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.oneMillion"
-                />人、 100万以上<input :disabled='IsApprove'
+                />人、 100万以上<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.oneMillionAbove"
                 />人；
               </div>
               <div>
-                项目施工欠款<input :disabled='IsApprove'
+                项目施工欠款<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.projectArrears"
                 />元
               </div>
               <div>
-                拖欠税款<input :disabled='IsApprove'
+                拖欠税款<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.defaultTaxes"
-                />元, 拖欠工资<input :disabled='IsApprove'
+                />元, 拖欠工资<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.defaultWages"
-                />元, 拖欠社保金<input :disabled='IsApprove'
+                />元, 拖欠社保金<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.defaultSocialsecurity"
                 />元；
               </div>
               <div>
-                应收账款<input :disabled='IsApprove'
+                应收账款<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.receivableAccount"
-                />元, 应付帐<input :disabled='IsApprove'
+                />元, 应付帐<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.copewith"
                 />元；
               </div>
               <div>
-                涉及司法<input :disabled='IsApprove'
+                涉及司法<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.involvingJustice"
                 />
                 个、公司股权是否质押
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="stockIspledge"
                   v-model="SubmitDataMsg.stockIspledge"
                   value="1"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="stockIspledge"
                   v-model="SubmitDataMsg.stockIspledge"
@@ -278,43 +278,43 @@
             <div class="examine-report-container-form-item-3">
               <div>
                 （1）经营模式：
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="1"
                 />批发
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="2"
                 />配套
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="3"
                 />出口
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="4"
                 />贸易型
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="5"
                 />生产型；
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
                   value="6"
                 />有
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="managModel"
                   v-model="SubmitDataMsg.managModel"
@@ -323,22 +323,22 @@
               </div>
               <div>
                 （2）经营规模：
-                <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.managModelYear1" />年
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.managModelYear1" />年
+                <input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.managModelMoney1"
-                />元、 产品毛利<input :disabled='IsApprove'
+                />元、 产品毛利<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.prodousGrossprofit1"
-                />% 纯利<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.netprofit1" />
-                <input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.managModelYear2" />年
-                <input :disabled='IsApprove'
+                />% 纯利<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.netprofit1" />
+                <input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.managModelYear2" />年
+                <input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.managModelMoney2"
-                />元、 产品毛利<input :disabled='IsApprove'
+                />元、 产品毛利<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.prodousGrossprofit2"
-                />%； 纯利<input :disabled='IsApprove'
+                />%； 纯利<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.netprofit2"
                 />
@@ -346,13 +346,13 @@
               <div>（3）主要产品行业：</div>
               <div>
                 朝阳行业
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="sunriseIndustry"
                   value="1"
                   v-model="SubmitDataMsg.sunriseIndustry"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="sunriseIndustry"
                   value="2"
@@ -361,13 +361,13 @@
               </div>
               <div>
                 夕阳行业
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="sunsetIndustry"
                   value="1"
                   v-model="SubmitDataMsg.sunsetIndustry"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="sunsetIndustry"
                   value="2"
@@ -376,13 +376,13 @@
               </div>
               <div>
                 新型行业
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="newIndustry"
                   value="1"
                   v-model="SubmitDataMsg.newIndustry"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="newIndustry"
                   value="2"
@@ -391,13 +391,13 @@
               </div>
               <div>
                 未来行业
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="futureIndustry"
                   value="1"
                   v-model="SubmitDataMsg.futureIndustry"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="futureIndustry"
                   value="2"
@@ -406,25 +406,25 @@
               </div>
               <div>
                 是否属产能过剩行业：
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="surplusIndustry"
                   value="1"
                   v-model="SubmitDataMsg.surplusIndustry"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="surplusIndustry"
                   value="2"
                   v-model="SubmitDataMsg.surplusIndustry"
                 />否； 生产工艺是否属国家政策限制和淘汰类：
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="elimination"
                   value="1"
                   v-model="SubmitDataMsg.elimination"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="elimination"
                   value="2"
@@ -435,49 +435,49 @@
             <h3>四、企业固定资产情况</h3>
             <div class="examine-report-container-form-item-4">
               <div>
-                （1）土地<input :disabled='IsApprove' type="text" v-model="SubmitDataMsg.land" />
-                亩、土地性质<input :disabled='IsApprove'
+                （1）土地<input :disabled="ExamineReportStatus === '2'" type="text" v-model="SubmitDataMsg.land" />
+                亩、土地性质<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.landNature"
                 />
-                出让、划拨、流转、租赁; 购买价<input :disabled='IsApprove'
+                出让、划拨、流转、租赁; 购买价<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.purchasePrice"
-                />元/亩、 评估价值<input :disabled='IsApprove'
+                />元/亩、 评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.priceAccessValue"
                 />元/亩; 是否质押
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIspledge"
                   value="1"
                   v-model="SubmitDataMsg.priceIspledge"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIspledge"
                   value="2"
                   v-model="SubmitDataMsg.priceIspledge"
                 />否、 是否进入司法诉讼
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.priceIsjudicial"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.priceIsjudicial"
                 />否、 是否进入查封
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.priceIsseizure"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="priceIsseizure"
                   value="2"
@@ -485,43 +485,43 @@
                 />否；
               </div>
               <div>
-                详细地址:<input :disabled='IsApprove'
+                详细地址:<input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'450"
+                  class="examine-report-container-form-input450"
                   v-model="SubmitDataMsg.priceAddr"
                 />
               </div>
               <div>
-                （2）房产<input :disabled='IsApprove'
+                （2）房产<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.houseProperty"
                 />
-                平方米、房产性质: 住宅<input :disabled='IsApprove'
+                平方米、房产性质: 住宅<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="result9"
                   value="1"
                   v-model="SubmitDataMsg.residence"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="result9"
                   value="2"
                   v-model="SubmitDataMsg.residence"
-                />否、 商业<input :disabled='IsApprove'
+                />否、 商业<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="busines"
                   value="1"
                   v-model="SubmitDataMsg.busines"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="busines"
                   value="2"
                   v-model="SubmitDataMsg.busines"
-                />否、 商服<input :disabled='IsApprove'
+                />否、 商服<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesService"
                   value="1"
                   v-model="SubmitDataMsg.businesService"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesService"
                   value="2"
@@ -529,44 +529,44 @@
                 />否；
               </div>
               <div>
-                详细地址:<input :disabled='IsApprove'
+                详细地址:<input :disabled="ExamineReportStatus === '2'"
                   type="text"
-                  class="examine-report-container-form-input :disabled='IsApprove'450"
+                  class="examine-report-container-form-input450" 
                   v-model="SubmitDataMsg.houseAddr"
                 />
               </div>
               <div>
-                评估价值<input :disabled='IsApprove'
+                评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.houseAccessValue"
-                />元; 是否质押<input :disabled='IsApprove'
+                />元; 是否质押<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIspledge"
                   value="1"
                   v-model="SubmitDataMsg.houseIspledge"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIspledge"
                   value="2"
                   v-model="SubmitDataMsg.houseIspledge"
                 />否、 是否进入司法诉讼
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.houseIsjudicial"
                 />是
-                <input :disabled='IsApprove'
+                <input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.houseIsjudicial"
-                />否、 是否进入查封<input :disabled='IsApprove'
+                />否、 是否进入查封<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.houseIsseizure"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="houseIsseizure"
                   value="2"
@@ -574,38 +574,38 @@
                 />否；
               </div>
               <div>
-                其中住宅<input :disabled='IsApprove'
+                其中住宅<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.residence1"
-                />平方米、评估价值<input :disabled='IsApprove'
+                />平方米、评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.residenceAccessValue"
-                />元; 是否质押<input :disabled='IsApprove'
+                />元; 是否质押<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIspledge"
                   v-model="SubmitDataMsg.residenceIspledge"
                   value="1"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIspledge"
                   v-model="SubmitDataMsg.residenceIspledge"
                   value="2"
-                />否、 是否进入司法诉讼<input :disabled='IsApprove'
+                />否、 是否进入司法诉讼<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.residenceIsjudicial"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.residenceIsjudicial"
-                />否、 是否进入查封<input :disabled='IsApprove'
+                />否、 是否进入查封<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.residenceIsseizure"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="residenceIsseizure"
                   value="2"
@@ -613,38 +613,38 @@
                 />否；
               </div>
               <div>
-                商业<input :disabled='IsApprove'
+                商业<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.busines1"
-                />平方米、评估价值<input :disabled='IsApprove'
+                />平方米、评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.businesAccessValue"
-                />元; 是否质押<input :disabled='IsApprove'
+                />元; 是否质押<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesIspledge"
                   value="1"
                   v-model="SubmitDataMsg.businesIspledge"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesIspledge"
                   value="2"
                   v-model="SubmitDataMsg.businesIspledge"
-                />否、 是否进入司法诉讼<input :disabled='IsApprove'
+                />否、 是否进入司法诉讼<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.businesIsjudicial"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.businesIsjudicial"
-                />否、 是否进入查封<input :disabled='IsApprove'
+                />否、 是否进入查封<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="businesIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.businesIsseizure"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   value="2"
                   name="businesIsseizure"
@@ -652,38 +652,38 @@
                 />否；
               </div>
               <div>
-                厂房<input :disabled='IsApprove'
+                厂房<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.workshop"
-                />平方米、评估价值<input :disabled='IsApprove'
+                />平方米、评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.workshopAccessValue"
-                />元; 是否质押<input :disabled='IsApprove'
+                />元; 是否质押<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIspledge"
                   value="1"
                   v-model="SubmitDataMsg.workshopIspledge"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIspledge"
                   value="2"
                   v-model="SubmitDataMsg.workshopIspledge"
-                />否、 是否进入司法诉讼<input :disabled='IsApprove'
+                />否、 是否进入司法诉讼<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.workshopIsjudicial"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.workshopIsjudicial"
-                />否、 是否进入查封<input :disabled='IsApprove'
+                />否、 是否进入查封<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.workshopIsseizure"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="workshopIsseizure"
                   value="2"
@@ -691,28 +691,28 @@
                 />否
               </div>
               <div>
-                设备<input :disabled='IsApprove'
+                设备<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.device"
-                />台/套、评估价值<input :disabled='IsApprove'
+                />台/套、评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.deviceAccessValue"
-                />元; 专业设备<input :disabled='IsApprove'
+                />元; 专业设备<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="majorDevice"
                   value="1"
                   v-model="SubmitDataMsg.majorDevice"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="majorDevice"
                   value="2"
                   v-model="SubmitDataMsg.majorDevice"
-                />否 通用设备<input :disabled='IsApprove'
+                />否 通用设备<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="commonDevice"
                   value="1"
                   v-model="SubmitDataMsg.commonDevice"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="commonDevice"
                   value="2"
@@ -720,35 +720,35 @@
                 />否
               </div>
               <div>
-                其它无型资产:专利技术、老字号品牌等无型资产,评估价值<input :disabled='IsApprove'
+                其它无型资产:专利技术、老字号品牌等无型资产,评估价值<input :disabled="ExamineReportStatus === '2'"
                   type="text"
                   v-model="SubmitDataMsg.oterAccessValue"
-                />元; 是否质押<input :disabled='IsApprove'
+                />元; 是否质押<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIspledge"
                   value="1"
                   v-model="SubmitDataMsg.oterIspledge"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIspledge"
                   value="2"
                   v-model="SubmitDataMsg.oterIspledge"
-                />否 是否进入司法诉讼<input :disabled='IsApprove'
+                />否 是否进入司法诉讼<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIsjudicial"
                   value="1"
                   v-model="SubmitDataMsg.oterIsjudicial"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIsjudicial"
                   value="2"
                   v-model="SubmitDataMsg.oterIsjudicial"
-                />否 是否进入查封<input :disabled='IsApprove'
+                />否 是否进入查封<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIsseizure"
                   value="1"
                   v-model="SubmitDataMsg.oterIsseizure"
-                />是<input :disabled='IsApprove'
+                />是<input :disabled="ExamineReportStatus === '2'"
                   type="radio"
                   name="oterIsseizure"
                   value="2"
@@ -758,92 +758,92 @@
             </div>
             <h3>五、项目(生产)证照</h3>
             <div class="examine-report-container-form-item-5">
-              建设用地规划许可证<input :disabled='IsApprove'
+              建设用地规划许可证<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="buildUselandLicence"
                 value="1"
                 v-model="SubmitDataMsg.buildUselandLicence"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="buildUselandLicence"
                 value="2"
                 v-model="SubmitDataMsg.buildUselandLicence"
-              />否 建设工程规划许可证<input :disabled='IsApprove'
+              />否 建设工程规划许可证<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="buildEnginLicence"
                 value="1"
                 v-model="SubmitDataMsg.buildEnginLicence"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="buildEnginLicence"
                 value="2"
                 v-model="SubmitDataMsg.buildEnginLicence"
-              />否 建设工程施工许可证<input :disabled='IsApprove'
+              />否 建设工程施工许可证<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="enginConstrucLicence"
                 value="1"
                 v-model="SubmitDataMsg.enginConstrucLicence"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="enginConstrucLicence"
                 value="2"
                 v-model="SubmitDataMsg.enginConstrucLicence"
-              />否 投资项目备案证<input :disabled='IsApprove'
+              />否 投资项目备案证<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="investmentProjectRecord"
                 value="1"
                 v-model="SubmitDataMsg.investmentProjectRecord"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="investmentProjectRecord"
                 value="2"
                 v-model="SubmitDataMsg.investmentProjectRecord"
-              />否 项目预售房许可证<input :disabled='IsApprove'
+              />否 项目预售房许可证<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectPrehouseLicence"
                 value="1"
                 v-model="SubmitDataMsg.projectPrehouseLicence"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectPrehouseLicence"
                 value="2"
                 v-model="SubmitDataMsg.projectPrehouseLicence"
-              />否 项目建设合同<input :disabled='IsApprove'
+              />否 项目建设合同<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectBuildContract"
                 value="1"
                 v-model="SubmitDataMsg.projectBuildContract"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectBuildContract"
                 value="2"
                 v-model="SubmitDataMsg.projectBuildContract"
-              />否 项目建设公司资质<input :disabled='IsApprove'
+              />否 项目建设公司资质<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectBuildCompany"
                 value="1"
                 v-model="SubmitDataMsg.projectBuildCompany"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectBuildCompany"
                 value="2"
                 v-model="SubmitDataMsg.projectBuildCompany"
-              />否 营业执照是否年检<input :disabled='IsApprove'
+              />否 营业执照是否年检<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="businessLicense"
                 value="1"
                 v-model="SubmitDataMsg.businessLicense"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="businessLicense"
                 value="2"
                 v-model="SubmitDataMsg.businessLicense"
-              />否 税务申报是否正常<input :disabled='IsApprove'
+              />否 税务申报是否正常<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="taxDeclaration"
                 value="1"
                 v-model="SubmitDataMsg.taxDeclaration"
-              />是<input :disabled='IsApprove'
+              />是<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="taxDeclaration"
                 value="2"
@@ -855,7 +855,7 @@
               <textarea
                 name="textarea1"
                 v-model="SubmitDataMsg.enterpriseBusReport"
-                :disabled='IsApprove'
+                :disabled="ExamineReportStatus === '2'"
               ></textarea>
             </div>
             <h3>七、企业产调证明</h3>
@@ -863,61 +863,61 @@
               <textarea
                 name="textarea1"
                 v-model="SubmitDataMsg.enterpriseProducProve"
-                :disabled='IsApprove'
+                :disabled="ExamineReportStatus === '2'"
               ></textarea>
             </div>
             <h3>八、简介项目情况</h3>
             <div>
-              （1）项目优势（独特性、政策支持予否）：<input :disabled='IsApprove'
+              （1）项目优势（独特性、政策支持予否）：<input :disabled="ExamineReportStatus === '2'"
                 type="text"
-                class="examine-report-container-form-item-8-input :disabled='IsApprove'"
+                class="examine-report-container-form-item-8-input"
                 v-model="SubmitDataMsg.projectAdvantage"
               />
             </div>
             <div>
-              （2）项目弱点（困难）存在一定瑕疵说明：<input :disabled='IsApprove'
+              （2）项目弱点（困难）存在一定瑕疵说明：<input :disabled="ExamineReportStatus === '2'"
                 type="text"
-                class="examine-report-container-form-item-8-input :disabled='IsApprove'"
+                class="examine-report-container-form-item-8-input"
                 v-model="SubmitDataMsg.projectWeakness"
               />
             </div>
             <div class="examine-report-container-form-item-8">
-              （3）你对项目总体评价：<input :disabled='IsApprove'
+              （3）你对项目总体评价：<input :disabled="ExamineReportStatus === '2'"
                 type="text"
                 name="projectPopulation"
                 v-model="SubmitDataMsg.projectPopulation"
               />
-              完全满足本公司要求<input :disabled='IsApprove'
+              完全满足本公司要求<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectIspopulation"
                 value="1"
                 v-model="SubmitDataMsg.projectIspopulation"
               />
-              基本满足公司要求<input :disabled='IsApprove'
+              基本满足公司要求<input :disabled="ExamineReportStatus === '2'"
                 type="radio"
                 name="projectIspopulation"
-                class="examine-report-container-form-item-8-input :disabled='IsApprove'3"
+                class="examine-report-container-form-item-8-input"
                 value="2"
                 v-model="SubmitDataMsg.projectIspopulation"
               />
             </div>
             <h3>九、你对债事人评价</h3>
-            <input :disabled='IsApprove'
+            <input :disabled="ExamineReportStatus === '2'"
               type="radio"
               name="debtorEvaluate"
               value="1"
               v-model="SubmitDataMsg.debtorEvaluate"
             />诚信
-            <input :disabled='IsApprove'
+            <input :disabled="ExamineReportStatus === '2'"
               type="radio"
               name="debtorEvaluate"
               value="2"
               v-model="SubmitDataMsg.debtorEvaluate"
             />精明会经营
-            <input :disabled='IsApprove' type="radio" name="debtorEvaluate" value="3" />能干懂管理
-            <input :disabled='IsApprove'
+            <input :disabled="ExamineReportStatus === '2'" type="radio" name="debtorEvaluate" value="3" />能干懂管理
+            <input :disabled="ExamineReportStatus === '2'"
               type="text"
-              class="examine-report-container-form-item-9-input :disabled='IsApprove'"
+              class="examine-report-container-form-item-9-input"
               value="1"
               v-model="SubmitDataMsg.debtorEvaluate"
             />
@@ -925,14 +925,14 @@
             <textarea
               name="textarea1"
               v-model="SubmitDataMsg.otherSupplement"
-              :disabled='IsApprove'
+              :disabled="ExamineReportStatus === '2'"
             ></textarea>
             <h3>十一、调查结论</h3>
             <div class="examine-report-container-form-item-11">
               <span>你的建议方案：</span>
               <textarea
                 v-model="SubmitDataMsg.investigationConclusion"
-                :disabled='IsApprove'
+                :disabled="ExamineReportStatus === '2'"
               ></textarea>
             </div>
             <h3>十二、调查报告的真实性调查人保证</h3>
@@ -940,29 +940,29 @@
               保证调查报告内容的真实、准确、完整，不存在虚假记载、误导性陈述或重大遗漏，并承担连带法律责任。
             </div>
             <div class="examine-report-container-form-sign-1">
-              调查人：<el-input :disabled='IsApprove'
+              调查人：<el-input :disabled="ExamineReportStatus === '2'"
                 v-model="SubmitDataMsg.investigationPerson"
-              ></el-input :disabled='IsApprove'>
+              ></el-input :disabled="ExamineReportStatus === '2'">
             </div>
             <div class="examine-report-container-form-sign-2">
               <el-date-picker
                 align="left"
                 type="date"
                 placeholder="请选择日期"
-                :disabled='IsApprove'
+                :disabled="ExamineReportStatus === '2'"
                 :picker-options="pickerOptions"
                 v-model="SubmitDataMsg.investigationDate"
                 value-format="yyyy-MM-dd"
               ></el-date-picker>
             </div>
-            <div class="examine-report-container-form-submit" v-if="!IsApprove">
+            <div class="examine-report-container-form-submit" v-if="!ExamineReportStatus === '2'">
               <button type="button" @click="SubmitData">提交</button>
             </div>
           </el-collapse-item>
         </el-collapse>
       </div>
     </div>
-    <div class="examine-report-check" v-if="IsApprove">
+    <div class="examine-report-check" v-if="ExamineReportStatus === '2'">
       <div class="examine-report-check-reason">
         <span>审批原因</span>
         <textarea
@@ -1288,11 +1288,14 @@ export default {
         debtId: '',
         checkReason: '',
       },
-      IsApprove: false
+      // 当前页面的状态 
+      // 0: 调查报告录入
+      // 1: 调查报告编辑
+      // 2: 调查报告审批
+      ExamineReportStatus: '0'
     }
   },
   methods: {
-    handleCurrentChange(e) {},
     SelectMore() {
       this.isNormal = !this.isNormal
     },
@@ -1371,15 +1374,17 @@ export default {
     },
     async InitData() {
       // 判断当前页面是否为审批页面, 用来控制按钮disabled属性
-      if (this.$route.path === '/ExamineReportFormApprove') {
-          this.IsApprove = true
+      const path = this.$route.path
+      if (path === '/ExamineReportForm') {
+         this.ExamineReportStatus = '0'
+      } else if (path === '/EditExamineReport'){
+         this.ExamineReportStatus = '1'
       } else {
-          this.IsApprove = false
+         this.ExamineReportStatus = '2'
       }
-      if(this.$route.path !== '/ExamineReportForm') {
+      // 如果当前不是录入页面则回显页面信息
+      if(this.ExamineReportStatus !== '0') {
         const formData = new FormData()
-        console.log(this.$route.query.reportId)
-        //formData.append('reportId', this.$route.query.reportId)
         formData.append('debtId', this.$route.query.debtId)
         const { data: result } = await this.$http({
         method: 'post',
@@ -1389,12 +1394,24 @@ export default {
             'Content-Type': 'multipart/form-data',
         },
         })
+        console.log(result)
         this.SubmitDataMsg = result.data
       }
     }
   },
   created() {
       this.InitData()
+  },
+  computed: {
+      CurrentPage: function () {
+          if (this.ExamineReportStatus === '0') {
+              return '调查报告录入'
+          } else if (this.ExamineReportStatus === '1') {
+              return '调查报告编辑'
+          } else {
+              return '调查报告审批'
+          }
+      }
   }
 }
 </script>

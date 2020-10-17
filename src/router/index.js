@@ -2,18 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
-
-
-
-
-
-
-
 Vue.use(VueRouter)
-
-
-
-
 const routes = [{
         path: '/',
         redirect: '/login'
@@ -127,6 +116,14 @@ const routes = [{
                     leftMenu: '/MyDebt',
                 }
             },
+            { //调查报告编辑
+                path: '/EditExamineReport',
+                name: 'EditExamineReport',
+                component: () => import('@/views/MyDebt/ExamineReportForm'),
+                meta: {
+                    leftMenu: '/MyDebt',
+                }
+            },
             { //信息分析暨尽调协议
                 path: '/Investigation',
                 name: 'Investigation',
@@ -210,6 +207,14 @@ const routes = [{
                         path: '/UnlockApply',
                         name: 'UnlockApply',
                         component: () => import('@/views/myapproval/UnlockApply'),
+                        meta: {
+                            leftMenu: '/UnlockApply',
+                        }
+                    },
+                    { //债权处理编辑
+                        path: '/EditUnlockApplyForm',
+                        name: 'EditUnlockApplyForm',
+                        component: () => import('@/views/currency/UnlockApplyApprove'),
                         meta: {
                             leftMenu: '/UnlockApply',
                         }

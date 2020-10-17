@@ -4,7 +4,7 @@
     <div class="civil-media-title">
       <span class="civil-media-title-go1">我的债行</span>
       <span class="civil-media-title-separator"> / </span>
-      <span class="civil-media-title-go2">调解</span>
+      <span class="civil-media-title-go2">{{IsEditCivilMedia?'调解编辑':'调解'}}</span>
     </div>
     <div class="civil-media-container">
       <div class="civil-media-container-form">
@@ -501,7 +501,7 @@
                 <span>{{ index + 1 }}</span>
                 <span>{{ item.personName }}</span>
                 <span>
-                  <button type="button" @click="DeleteConciliator(index)" v-if='!IsEditCivilMedia'>
+                  <button type="button" @click="DeleteConciliator(index)">
                     删除
                   </button>
                 </span>
@@ -528,7 +528,6 @@
                 value="点击上传"
               />
               <button>点击上传</button>
-
             </div>
             <div class="civil-media-container-form-determine">
               <button type="button" @click="SubmitMessage">确定</button>
@@ -833,8 +832,7 @@ export default {
         // 调解员UserID列表
         longs: [],
         // 凭证信息
-        certificate: [],
-        solutions: '1'
+        certificate: []
       },
       // 相对人名称
       RelativeName: '',
@@ -972,21 +970,21 @@ export default {
                 this.$set(this.SubmitData, `busGuarantee[${i}].${key}`, v[key])
             }
         })
+        this.$delete(this.SubmitData, 'busGuarantee')
         this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
         this.SubmitData.longs = this.SubmitData.longs.join(',')
-        console.log(this.SubmitData)
-        // 字段缺少, 先进行测试用
         if (this.IsEditCivilMedia) {
-            this.$delete(this.SubmitData,'longs')
+            this.$set(this.SubmitData,'civilId', this.$route.query.civilId)
         }
+        console.log(this.SubmitData)
         const formData = new FormData()
         for (const key in this.SubmitData) {
             formData.append(key, this.SubmitData[key])
         }
-        const result = ''
+        let result = {}
         // 非编辑情况
         if (!this.IsEditCivilMedia) { 
-            const { data : result } = await this.$http({
+            const { data : AddResult } = await this.$http({
                 method: 'post',
                 url: '/api/api/busCivilController/insertSelective',
                 data: formData,
@@ -994,9 +992,11 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             })
+            console.log('AddResult', AddResult)
+            result = AddResult
         } else {
             // 编辑情况, 调用更新接口
-            const { data : result } = await this.$http({
+            const { data : EditResult } = await this.$http({
                 method: 'post',
                 url: '/api/api/busCivilController/updateByPrimaryKeySelective',
                 data: formData,
@@ -1004,7 +1004,10 @@ export default {
                 'Content-Type': 'multipart/form-data',
                 }
             })
+            console.log('EditResult', EditResult)
+            result = EditResult
         }
+        console.log(result)
         // // 调用status改变接口
         const StatusUpdateformData = new FormData()
         // 获取返回ID
@@ -1069,25 +1072,20 @@ export default {
                 }
             })
             this.SubmitData = result.data
-            console.log(this.SubmitData)
             // 时间处理
             this.SubmitData.breachDate = this.SubmitData.breachDate.substring(0,10)
             this.SubmitData.endDate = this.SubmitData.endDate.substring(0,10)
             this.SubmitData.starDate = this.SubmitData.starDate.substring(0,10)
+            this.GuaranteesList = this.SubmitData.busGuarantee
             this.$delete(this.SubmitData,'createTime')
             this.$delete(this.SubmitData,'updateTime')
-            // console.log(this.SubmitData.breachDate)
-            console.log(this.SubmitData)
-            // 测试,后面应该删除
-            this.$set(this.SubmitData,'solutions','1')
-
             this.SubmitData.certificate = result.data.certificate.split(',')
             // 解债人信息还原
             this.relativePerId = result.data.relativePerId
             this.InitData(result.data.relativePerId)
             // 调解员信息还原
-            this.SubmitData.userName.map((v,index) => {
-                this.$set(this.ConciliatorMsg, index, {personName: v})
+            this.SubmitData.civiliVos.map((v,index) => {
+                this.$set(this.ConciliatorMsg, index, {personName: v.userName,userId: v.userId})
             })
             // 担保人信息还原
             const { data: GuaranteeResult } = await this.$http({
@@ -1099,6 +1097,13 @@ export default {
                 }
             })
             this.GuaranteesList = GuaranteeResult.data
+            this.GuaranteesList.map((v,i) => {
+                for(const key in v) {
+                    if (key === 'civilId' || key === 'guaranteeId') {
+                        this.$delete(this.GuaranteesList[i], key)
+                    }
+                }
+            })
         } else {
             this.IsEditCivilMedia = false
             const reportId = this.$route.query.reportId

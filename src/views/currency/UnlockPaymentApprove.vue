@@ -92,6 +92,7 @@ export default {
         },
         AddSealData: {
             reportId: this.$route.query.reportId,
+            debtId: this.$route.query.debtId,
             parta: '邓丽清',
             partaCard: '440981198801011427',
             partaTel: '15218801056'

@@ -3888,6 +3888,15 @@ export default {
           }
         })
         const Result = result.data
+        this.ReportIscoordinate = result.data.iscoordinate
+        this.reportType = result.data.reportType
+        if (result.data.reportPropert === '1') {
+            this.ReporterProperties = 'person'
+        } else if (result.data.reportPropert === '2') {
+            this.ReporterProperties = 'business'
+        } else {
+            this.ReporterProperties = 'bank'
+        }
         // ','分隔的字符串 因此需要用split分割
         if (Result.uploadDebtCertificate.indexOf(',') !== -1) {
           Result.uploadDebtCertificate = Result.uploadDebtCertificate.split(',')
