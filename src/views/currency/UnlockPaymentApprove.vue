@@ -24,7 +24,7 @@
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img :src="SubmitData.voucher" alt />
+            <img :src="item" v-for='(item,index) in SubmitData.voucher' :key='index'>
           </div>
         </div>
       </div>
@@ -117,12 +117,16 @@ export default {
         },
       })
       this.SubmitData = result.data
+      this.SubmitData.voucher = this.SubmitData.voucher.split(',')
+      console.log(this.SubmitData)
     },
     RejectCheck() {
       if (!this.SubmitApproveData.checkReason)
         return this.$message.error('请先填写审核原因')
       this.UpdatePayStatus('1')
       this.UpdateCheckStatus('8')
+      this.$message.success('审核成功')
+      this.$router.push({ path: '/PaymentVoucher' })
     },
     async PassCheck() {
         await this.UpdatePayStatus('2')
@@ -184,9 +188,8 @@ export default {
                     'Content-Type': 'multipart/form-data',
                 },
                 }).then((StageUpdateResult) => {
-                if (StageUpdateResult.data.resultCode !== '200')
-                    return this.$message.error(StageUpdateResult.data.resultMessage)
                 this.$message.success('进入资产阶段，新增资产信息成功')
+                this.$router.push({ path: '/PaymentVoucher' })
             })
             // 调用报备状态更改的接口
           })
@@ -281,18 +284,15 @@ export default {
       line-height: px2rem(10);
       margin: px2rem(1) 0;
       border-radius: px2rem(1);
+      font-size: 16px;
     }
     &-title {
       font-weight: 600;
     }
     &-update {
-      height: px2rem(16);
       display: flex;
       margin: px2rem(4) 0;
       &-box {
-        width: px2rem(140);
-        height: px2rem(16);
-        border: 1px solid #e8eaec;
         margin: 0 px2rem(4);
         display: flex;
         align-items: center;
@@ -300,14 +300,15 @@ export default {
         &-container {
           border: 1px solid #e8e8e8;
           display: flex;
-          justify-content: center;
           align-items: center;
           margin: 0 px2rem(1);
-          height: px2rem(10);
-          width: px2rem(14);
+          height: 80px;
+          width: 800px;
           img {
-            width: px2rem(14);
-            height: px2rem(8);
+            border: none;
+            width: 100px;
+            height: 60px;
+            margin: 0 10px;
           }
         }
       }

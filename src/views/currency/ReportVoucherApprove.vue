@@ -147,6 +147,7 @@ export default {
                 })
             })
         })
+        this.$router.push('/PaymentVoucher')
     },
     RejectPayment() {
         if (!this.SubmitData.CheckReason.trim())
@@ -157,6 +158,7 @@ export default {
             this.$message.success('数据审批完成')
         })
         this.UpdatePayStatus('1')
+        this.$router.push('/PaymentVoucher')
     },
     async UpdateStatus(status) {
       const formData = new FormData()
@@ -188,7 +190,7 @@ export default {
         data: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
+        }
       })
     },
   },
@@ -240,6 +242,7 @@ export default {
       line-height: px2rem(10);
       margin: px2rem(1) 0;
       border-radius: px2rem(1);
+      font-size: 16px;
     }
     &-title {
       font-weight: 600;
@@ -308,6 +311,7 @@ export default {
       align-items: center;
       margin: px2rem(6) 0;
       textarea {
+        font-size: 20px;
         width: px2rem(100);
         height: px2rem(20);
         resize: none;
@@ -324,6 +328,7 @@ export default {
         height: px2rem(10);
         color: #fff;
         border: none;
+        font-size: 20px;
         border-radius: px2rem(1);
         margin-top: px2rem(4);
       }

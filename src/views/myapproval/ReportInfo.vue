@@ -155,6 +155,12 @@
               >
                 缴费
               </button>
+              <button class='enter-and-edit'
+                v-if="item.status === '6' && roleId === '7992691295821774848'"
+                @click="EditReportVoucher (index, item)"
+              >
+                录入缴费编辑
+              </button>
               <button
                 v-if="item.status === '1' && roleId === '7992691295821774848'"
                 @click="
@@ -293,6 +299,7 @@ export default {
         },
       })
       this.ReportInfoMsg = result.data.list
+      console.log(this.ReportInfoMsg)
       this.tablePage.total = result.data.total
     },
 
@@ -323,7 +330,7 @@ export default {
     GoReportPayment(index, item) {
       this.$router.push({
         path: '/ReportPayment',
-        query: { debtId: item.debtId, reportId: item.reportId },
+        query: { reportId: item.reportId },
       })
     },
     addDate() {
@@ -343,6 +350,12 @@ export default {
       }
       this.tableQuery.beginDate = date.year + '-' + date.month + '-' + date.date
     },
+    EditReportVoucher (index, item) {
+        this.$router.push({
+            path: '/EditReportPayment',
+            query: { reportId: item.reportId }
+        })
+    }
   },
   created() {
     this.searchTbaleData()
@@ -563,11 +576,14 @@ export default {
           }
           :nth-child(10) {
             flex: 4;
+            .enter-and-edit {
+                background-color: #616789;
+            }
             button {
               font-size: px2rem(3.2);
               color: #fff;
               border: none;
-              padding: px2rem(0.5) px2rem(2);
+              padding: px2rem(1) px2rem(2.5);
               border-radius: px2rem(1);
               margin: 0 px2rem(0.8);
               background-color: #fc7f89;
@@ -652,11 +668,14 @@ export default {
           }
           :nth-child(10) {
             flex: 4;
+            .enter-and-edit {
+                background-color: #616789;
+            }
             button {
               font-size: px2rem(3.2);
               color: #fff;
               border: none;
-              padding: px2rem(0.5) px2rem(2);
+              padding: px2rem(1) px2rem(2.5);
               border-radius: px2rem(1);
               margin: 0 px2rem(0.8);
               background-color: #fc7f89;

@@ -36,9 +36,9 @@
             >
               <span>{{ index + 1 }}</span>
               <span>{{ item.companyName }}</span>
-              <span>{{ item.userName }}</span>
+              <span>{{ item.personName }}</span>
               <span>{{ item.personType }}</span>
-              <span>{{ item.TypeNum }}</span>
+              <span>{{ item.companyType }}</span>
               <span>{{ item.age }}</span>
               <span>{{ item.tel }}</span>
             </div>
@@ -96,34 +96,39 @@
           class="user-manage-list-pop-container"
         >
           <div class="user-manage-list-pop-container-form">
-            <div class="user-manage-list-pop-container-form-content">
-              <span>用户姓名:</span>
-              <input v-model="AddEmployeeMsg.userName" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>人员ID:</span>
-              <input v-model="AddEmployeeMsg.personId" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>角色ID:</span>
-              <input v-model="AddEmployeeMsg.roleId" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>登陆名:</span>
-              <input v-model="AddEmployeeMsg.loginName" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>密码:</span>
-              <input v-model="UserPassword" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>用户头像:</span>
-              <input v-model="AddEmployeeMsg.userAvatar" />
-            </div>
-            <div class="user-manage-list-pop-container-form-content">
-              <span>备注:</span>
-              <input v-model="AddEmployeeMsg.note" />
-            </div>
+              <el-form>
+                <el-form-item>
+                    <span class='col-label'>人员ID:</span>
+                    <el-select v-model="AddEmployeeMsg.personId">
+                        <el-option v-for='(item,index) in PersonsList'  :key='index' :label="item.personName" :value="item.personId"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <span class='col-label'>角色ID:</span>
+                    <el-select v-model="AddEmployeeMsg.roleId">
+                        <el-option v-for='(item,index) in RolesList'  :key='index' :label="item.rolename" :value="item.roleId"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <span class='col-label'>用户类型:</span>
+                    <el-select v-model="AddEmployeeMsg.userType">
+                        <el-option label="天泽" value="1"></el-option>
+                        <el-option label="资产" value="2"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <span class='col-label'>登陆名:</span>
+                    <el-input v-model="AddEmployeeMsg.loginName" ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <span class='col-label'>密码:</span>
+                    <el-input v-model="AddEmployeeMsg.passwordMd5" />
+                </el-form-item>
+                <el-form-item>
+                    <span class='col-label'>备注:</span>
+                    <el-input v-model="AddEmployeeMsg.note" />
+                </el-form-item>
+            </el-form>
           </div>
           <div class="user-manage-list-pop-container-footer">
             <button type="button" @click="UserCancelled">取 消</button>
@@ -144,7 +149,7 @@ export default {
       // 分页器结构数据源
       bgc: true,
       queryInfo: {
-        pageSize: 2,
+        pageSize: 10,
         pageNum: 1,
       },
       // 用户信息列表数据源
@@ -155,17 +160,23 @@ export default {
       // 用户原密码
       UserPassword: '',
       AddEmployeeMsg: {
-        userName: '',
-        userId: '',
+        // 人员ID
+        personId: '',
+        // 角色ID
         roleId: '',
+        // 登陆名
         loginName: '',
-        // md5加密后密码
+        // 密码
         passwordMd5: '',
-        userAvatar: '',
+        // 备注
         note: '',
+        // 用户类型（1.天泽2.资产）
+        userType: ''
       },
       // 是否打开新增用户页面
       dialogFormVisible: false,
+      RolesList: [],
+      PersonsList: []
     }
   },
   methods: {
@@ -183,6 +194,21 @@ export default {
         data: QS.stringify(this.queryInfo),
       })
       this.userMsg = result.data.list
+      console.log('this.userMsg', this.userMsg)
+      // 查询所有角色
+      const { data: RolesResult } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubRoleController/queryRole'
+      })
+      this.RolesList = RolesResult.data
+      // 查询所有人员
+      const { data: PersonsResult } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubPersonController/queryPer'
+      })
+      console.log(PersonsResult)
+      this.PersonsList = PersonsResult.data
+      console.log(this.PersonsList)
     },
     // 用户取消
     UserCancelled() {
@@ -194,13 +220,12 @@ export default {
     },
     // 用户确定添加
     async AddEmployee() {
-      // 密码使用MD5加密
-      this.AddEmployeeMsg.passwordMd5 = md5(this.UserPassword)
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/pubUser/addPubUser',
         data: QS.stringify(this.AddEmployeeMsg),
       })
+      console.log(result)
       if (result.resultCode === '200') {
         this.$message({
           message: '用户添加成功',
@@ -281,7 +306,7 @@ export default {
           line-height: px2rem(8);
           font-size: px2rem(4);
           background-color: #616789;
-          flex: 3;
+          flex: 2.5;
           text-align: center;
           color: #fff;
           border: 1px solid #fff;
@@ -290,6 +315,12 @@ export default {
         :nth-child(1) {
           flex: 1;
         }
+        :nth-child(3){
+            flex: 6
+        }
+        :nth-child(2) {
+            flex: 5;
+        }
       }
       &-tab {
         display: flex;
@@ -297,12 +328,11 @@ export default {
         div:nth-child(odd) {
           display: flex;
           span {
-            flex: 3;
+            flex: 2.5;
             background-color: #fff;
             height: px2rem(10);
             line-height: px2rem(10);
             font-size: px2rem(4);
-            flex: 3;
             text-align: center;
             color: #000;
             display: inline-block;
@@ -315,16 +345,21 @@ export default {
           :nth-child(1) {
             flex: 1;
           }
+          :nth-child(3){
+            flex: 6
+          }   
+          :nth-child(2) {
+            flex: 5;
+          }
         }
         div:nth-child(even) {
           display: flex;
           span {
-            flex: 3;
+            flex: 2.5;
             background-color: #e0e3f8;
             height: px2rem(10);
             line-height: px2rem(10);
             font-size: px2rem(4);
-            flex: 3;
             text-align: center;
             color: #000;
             display: inline-block;
@@ -335,6 +370,12 @@ export default {
           }
           :nth-child(1) {
             flex: 1;
+          }
+          :nth-child(3){
+            flex: 6
+          }
+          :nth-child(2) {
+            flex: 5;
           }
         }
       }
@@ -368,6 +409,24 @@ export default {
     &-pop {
       &-container {
         &-form {
+            .col-label {
+                flex-shrink: 0;
+                line-height: 40px;
+                height: 40px;
+                margin-right: 20px;
+            }
+            /deep/.el-form-item {
+                width: 100%;
+                .el-select {
+                    width: 100%;
+                }
+                .el-input {
+                    width: 100%;
+                }
+                .el-date-editor {
+                    width: 100%;
+                }
+            }
           &-content {
             margin: px2rem(4) 0;
 

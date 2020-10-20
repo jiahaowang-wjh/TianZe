@@ -93,11 +93,6 @@
                   @click="EditExamineReport(index, item)">
                   调查报告编辑
                 </button>
-                <button type="button" v-show="item.status === '8' && roleId === '7992691295821774848'
-                  " @click="EditExamineReport(index, item)"
-                  class='enter-and-edit'>
-                财务信息编辑
-                </button>
                 <button type="button"
                         v-show="
                     item.status === '4' && roleId === '7992691214771044352'
@@ -111,6 +106,11 @@
                   "
                         @click="EditUnlockData(index, item)">
                   编辑债权信息
+                </button>
+                <button type="button" v-show="item.status === '8' && roleId === '7992691295821774848'
+                  " @click="EditVoucher(index, item)"
+                  class='enter-and-edit'>
+                财务信息编辑
                 </button>
               </span>
             </div>
@@ -230,14 +230,11 @@ export default {
         },
       })
       let UnlockMsg = result.data.list
-      console.log(UnlockStatus)
       UnlockMsg.forEach(item => {
-     
         const statusData = UnlockStatus.find(a => a.value === item.status) || {};
         item.statusStr = statusData.label || '-';
 
       }) 
-
       this.UnlockMsg = UnlockMsg
       this.tablePage.total = result.data.total
       console.log(this.UnlockMsg)
@@ -293,11 +290,22 @@ export default {
           relativePerId: item.relativePerId,
         }
       })
-    }
+    },
+    EditVoucher (index, item) {
+        const queryData = {
+            debtId: item.debtId,
+            reportId: item.reportId,
+            thisPlanMoney: item.thisPlanMoney
+        }
+        this.$router.push({
+            path: '/EditDebtVoucher',
+            query: queryData,
+        })
+    },
   },
   created () {
     this.searchTbaleData()
-  },
+  }
 }
 </script>
 <style lang='scss' scoped>

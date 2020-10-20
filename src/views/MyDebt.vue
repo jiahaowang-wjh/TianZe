@@ -419,14 +419,22 @@ export default {
         this.dialogTableVisible = true
     },
     async Download (index, row) {
+        const formData = new FormData()
+        formData.append('docId', row.docId)
         const { data: result } = await this.$http({
-            method: 'get',
-            params: {docId: row.docId},
-            url: '/api/BusElectron/getBusElectronDoc',
+            method: 'post',
+            data: formData,
+            url: '/api/api/BusElectron/getBusElectronDoc'
         })
-        var aLink = document.createElement("a")
+        let aLink = document.createElement("a")
         aLink.style.display = "none"
-        aLink.href = result.data
+        if (result.data.slice(0,5) === '/root') {
+            aLink.href = `http://47.108.135.174:9000/docFile${result.data}`
+            console.log(aLink.href)
+            return this.$message.error('正在下载未盖章文件')
+        } else {
+            aLink.href = result.data
+        }
         aLink.setAttribute("download", row.docName)
         document.body.appendChild(aLink)
         aLink.click()

@@ -404,7 +404,10 @@
                 <el-row :gutter="24">
                     <el-col :span="16">
                         <div class='update-img-list'>
-                            <img :src="item" alt="" v-for='(item, index) in SubmitData.uploadAnnex' :key='index'>
+                            <div class='update-img-list-item' v-for='(item, index) in SubmitData.uploadAnnex':key='index'>
+                                <img :src="item">
+                                <img class='update-img-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
+                            </div>
                         </div>
                         <div class='update-img-button'>
                             <input type="file"
@@ -1008,8 +1011,10 @@ export default {
         },
       })
       this.PlanInitData = result.data
-      console.log('InitPlanData', result)
     },
+    DelectVocher(index) {
+        this.SubmitData.uploadAnnex.splice(index, 1)
+    }
   },
   created() {
     this.SearchConciliation()
@@ -1074,9 +1079,23 @@ export default {
 }
 .update-img-list {
   width: 800px;
-  height: 80px;
+  height: 100px;
+  display: flex;
+  align-items: center;
   border: 1px solid #e8eaec;
   margin-left: 20px;
+  .update-img-list-item {
+      position: relative;
+      width: 90px;
+      margin: 0 5px;
+      &-delete {
+          position: absolute;
+          width: 25px;
+          height: 25px;
+          left: 80px;
+          top: -8px;
+      }
+  }
   img {
     float: left;
     height: 75px;

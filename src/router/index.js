@@ -265,6 +265,14 @@ const routes = [{
                             leftMenu: '/PaymentVoucher',
                         }
                     },
+                    { // 解债缴费编辑 EditDebtVoucher
+                        path: '/EditDebtVoucher',
+                        name: 'EditDebtVoucher',
+                        component: () => import('@/views/currency/UnlockPayment'),
+                        meta: {
+                            leftMenu: '/UnlockApply',
+                        }
+                    },
                     { // 重新编辑报备页面
                         path: '/EditReport',
                         name: 'EditReport',
@@ -276,7 +284,7 @@ const routes = [{
                     { // 重新编辑报备缴费页面
                         path: '/EditReportPayment',
                         name: 'EditReportPayment',
-                        component: () => import('@/views/EditMsg/EditReportPayment'),
+                        component: () => import('@/views/currency/ReportPayment'),
                         meta: {
                             leftMenu: '/ReportInfo'
                         }

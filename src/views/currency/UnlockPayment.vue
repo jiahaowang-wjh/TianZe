@@ -4,7 +4,7 @@
     <div class="payment-civil-title">
       <span class="payment-civil-title-go1">我的审批</span>
       <span class="payment-civil-title-separator">/</span>
-      <span class="payment-civil-title-go2">债权处理信息缴费</span>
+      <span class="payment-civil-title-go2">{{this.$route.path === '/EditDebtVoucher'?'债权缴费信息编辑':'债权处理信息缴费'}}</span>
     </div>
     <div class="payment-civil-content">
       <div class="payment-civil-content-title">
@@ -35,18 +35,21 @@
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img :src="item"
-                 v-for="(item, index) in SubmitData.voucher"
-                 :key="index" />
+            <div class='payment-civil-content-update-box-container-item' v-for="(item, index) in SubmitData.voucher" :key="index">
+                <img :src="item"/>
+                <img class='payment-civil-content-update-box-container-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
+            </div>
           </div>
         </div>
-        <button type="button"
-                class="payment-civil-content-update-button">
-          点击上传
-        </button>
-        <input @change="UpdataVoucher"
-               type="file"
-               ref="Voucher" />
+        <div class='payment-civil-content-update-button'>
+            <button type="button"
+            class="payment-civil-content-update-button-form">
+            点击上传
+            </button>
+            <input @change="UpdataVoucher"
+                type="file"
+                ref="Voucher" />
+        </div>
       </div>
       <div class="payment-civil-content-payer">
         合同人姓名：
@@ -99,26 +102,42 @@ export default {
     async SubmitPayment () {
       // 提交缴费
       // this.SubmitData.reportId = ''
-      this.SubmitData.reportId = this.$route.query.reportId
-      this.SubmitData.debtId = this.$route.query.debtId
-      const formData = new FormData()
-      for (const key in this.SubmitData)
-      {
-        formData.append(key, this.SubmitData[key])
+      if (this.$route.path === '/EditDebtVoucher') {
+            const formData = new FormData()
+            this.$delete(this.SubmitData, 'propertId')
+            console.log(this.SubmitData)
+            for (const key in this.SubmitData)
+            {
+                formData.append(key, this.SubmitData[key])
+            }
+            await this.$http({
+                method: 'post',
+                url: '/api/api/busPayDetailController/updateByPrimaryKeySelective',
+                data: formData,
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                }
+            })
+            await this.UpdatePayStatus(this.SubmitData.payId)
+      } else {
+        this.SubmitData.reportId = this.$route.query.reportId
+        this.SubmitData.debtId = this.$route.query.debtId
+        const formData = new FormData()
+        for (const key in this.SubmitData)
+        {
+            formData.append(key, this.SubmitData[key])
+        }
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busPayDetailController/insertSelective',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        this.UpdatePayStatus(result.data)
       }
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/busPayDetailController/insertSelective',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      console.log(result)
-      if (result.resultCode !== '200')
-        return this.$message.error('提交错误, 请重试')
       // 调用状态接口更改缴费状态
-      this.UpdatePayStatus(result.data)
       // 调用状态改变接口
       const UpdateStatusFormData = new FormData()
       UpdateStatusFormData.append('debtId', this.SubmitData.debtId)
@@ -129,17 +148,14 @@ export default {
         data: UpdateStatusFormData,
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
+        }
       })
-      if (StatusResult.resultCode !== '200')
-        return this.$message.error('提交错误, 请重试')
       this.$message.success(StatusResult.resultMessage)
       this.$router.push({ path: '/UnlockApply' })
     },
     UpdataVoucher () {
       const file = this.$refs.Voucher.files[0]
       this.$UpdateFile(file).then((result) => {
-        console.log(result)
         this.SubmitData.voucher.push(result)
       })
     },
@@ -161,7 +177,33 @@ export default {
       })
       console.log(result)
     },
+    // 编辑情况下信息初始化
+    async InitVoucher () {
+        const formData = new FormData()
+        formData.append('reportId', this.$route.query.reportId)
+        formData.append('debtId', this.$route.query.debtId)
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busPayDetailController/selectByReportIdAndDebtId',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            }
+        })
+        this.SubmitData = result.data[0]
+        console.log(this.SubmitData)
+        this.SubmitData.voucher = this.SubmitData.voucher.split(',')
+    },
+    // 删除凭证
+    DelectVocher (index) {
+        this.SubmitData.voucher.splice(index,1)
+    }
   },
+  created () {
+      if (this.$route.path === '/EditDebtVoucher') {
+          this.InitVoucher()
+      }
+  }
 }
 </script>
 <style lang='scss' scoped>
@@ -207,6 +249,7 @@ export default {
       line-height: px2rem(10);
       margin: px2rem(1) 0;
       border-radius: px2rem(1);
+      font-size: 16px;
     }
     &-title {
       font-weight: 600;
@@ -217,40 +260,51 @@ export default {
       display: flex;
       margin: px2rem(4) 0;
       &-box {
-        width: px2rem(140);
         border: 1px solid #e8eaec;
         margin: 0 px2rem(4);
         display: flex;
         align-items: center;
 
         &-container {
-          margin: 0 px2rem(2);
-          display: flex;
-          align-items: center;
-          margin: 0 px2rem(1);
-          height: px2rem(10);
-          img {
-            width: px2rem(16);
-            height: px2rem(10);
-            margin: 0 px2rem(1);
-          }
+            border: 1px solid #e8eaec;
+            width: px2rem(180.5);
+            display: flex;
+            align-items: center;
+            &-item {
+                position: relative;
+                img {
+                    margin: 0 px2rem(2);
+                    width: px2rem(18);
+                    height: px2rem(12.5);
+                }
+                &-delete{
+                    position: absolute;
+                    left: px2rem(15);
+                    top: px2rem(-2);
+                    width: 25px!important;
+                    height: 25px!important;
+                }
+            }
         }
       }
       &-button {
-        height: px2rem(9);
-        width: px2rem(25);
-        border: none;
-        background-color: #616789;
-        color: #fff;
-        border-radius: px2rem(2);
-      }
-      input[type='file'] {
-        height: px2rem(9);
-        width: px2rem(20);
-        position: absolute;
-        left: px2rem(166);
-        bottom: px2rem(6);
-        opacity: 0;
+          position: relative;
+          &-form {
+            height: px2rem(9);
+            width: px2rem(25);
+            border: none;
+            background-color: #616789;
+            color: #fff;
+            border-radius: px2rem(2);
+          }
+          input[type='file'] {
+              height: px2rem(9);
+              width: px2rem(20);
+              position: absolute;
+              left: 0;
+              top: -4px;
+              opacity: 0;
+          }
       }
     }
     &-payer {
