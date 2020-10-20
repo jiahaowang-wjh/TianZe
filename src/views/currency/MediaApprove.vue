@@ -521,7 +521,11 @@ export default {
       this.MediaData = MsgResult.data
       console.log(this.MediaData)
       this.MediaData.certificate = this.MediaData.certificate.split(',')
-      this.ConciliatorMsg = this.MediaData.civiliVos;
+      if (this.MediaData.civiliVos[0] === null) {
+          this.ConciliatorMsg = []
+      } else {
+          this.ConciliatorMsg = this.MediaData.civiliVos;
+      }
       this.$set(this.MediaData, 'guaranteeMeth', MsgResult.data.guaranteeMeth)
       // 获取担保人信息
       const { data: GuaranteeResult } = await this.$http({
@@ -658,7 +662,6 @@ export default {
       border-radius: px2rem(2);
       background-color: #fff;
       padding: px2rem(2) px2rem(6);
-      font-size: px2rem(3.2);
       input[type='radio'] {
         width: px2rem(4) !important;
         height: px2rem(4) !important;
@@ -672,6 +675,7 @@ export default {
         border-radius: px2rem(1);
         height: 40px;
         padding-left: px2rem(2);
+        font-size: 16px;
         margin: px2rem(2);
       }
       input:disabled {
@@ -912,6 +916,8 @@ export default {
           display: flex;
           span {
             flex: 1;
+            display: flex;
+            align-items: center;
           }
           span:nth-child(1) {
             input {
