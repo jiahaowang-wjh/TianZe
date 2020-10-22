@@ -28,7 +28,7 @@
         <div class="payment-info-content-update-box">
           <div class="payment-info-content-update-box-container">
             <div class='payment-info-content-update-box-container-item' v-for="(item, index) in SubmitData.voucher" :key="index">
-                <img :src="item"/>
+                <img :src="item" @click="openImgToLink(item)"/>
                 <img class='payment-info-content-update-box-container-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
             </div>
           </div>
@@ -259,25 +259,22 @@ export default {
     }
     &-update {
       position: relative;
-      height: px2rem(16);
       display: flex;
       margin: px2rem(4) 0;
       &-box {
         border: 1px solid #e8eaec;
+        height: 160px;
         margin: 0 px2rem(4);
-        display: flex;
-        align-items: center;
-
         &-container {
             width: px2rem(180.5);
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             &-item {
                 position: relative;
                 img {
                     margin: 0 px2rem(2);
                     width: px2rem(18);
-                    height: px2rem(12.5);
+                    height: 75px;
                 }
                 &-delete{
                     position: absolute;
@@ -342,6 +339,7 @@ export default {
       border: none;
       border-radius: px2rem(1);
       margin-top: px2rem(4);
+      font-size: 18px;
     }
   }
 }

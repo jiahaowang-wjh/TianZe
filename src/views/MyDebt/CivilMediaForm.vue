@@ -630,25 +630,27 @@
         </div>
         <div class="civil-media-add-guarantor-pop-box-body">
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            担保人（姓名/企业名称）:
+            <span>担保人（姓名/企业名称）:</span>
             <input type="text" v-model="GuaranteeContent.authname" />
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            身份证号码/信用代码:
+            <span>身份证号码/信用代码:</span>
             <input type="text" v-model="GuaranteeContent.card" />
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            单位类型: 
+            <span>单位类型: </span>
             <el-select v-model="GuaranteeContent.unitType">
                 <el-option value='1' label='单位类型1'></el-option>
                 <el-option value='2' label='单位类型2'></el-option>
             </el-select>
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            联系电话: <input type="text" v-model="GuaranteeContent.tel" />
+            <span>联系电话:</span>
+            <input type="text" v-model="GuaranteeContent.tel" />
           </div>
           <div class="civil-media-add-guarantor-pop-box-body-item">
-            所住地: <input type="text" v-model="GuaranteeContent.address" />
+            <span>所住地:</span>
+             <input type="text" v-model="GuaranteeContent.address" />
           </div>
         </div>
         <div class="civil-media-add-guarantor-pop-box-footer">
@@ -971,8 +973,8 @@ export default {
             }
         })
         this.$delete(this.SubmitData, 'busGuarantee')
-        this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId)
-        this.SubmitData.longs = this.SubmitData.longs.join(',')
+        this.$delete(this.SubmitData, 'solutions')
+        this.SubmitData.longs = this.ConciliatorMsg.map((v) => v.userId).join(',')
         if (this.IsEditCivilMedia) {
             this.$set(this.SubmitData,'civilId', this.$route.query.civilId)
         }
@@ -1084,9 +1086,13 @@ export default {
             this.relativePerId = result.data.relativePerId
             this.InitData(result.data.relativePerId)
             // 调解员信息还原
-            this.SubmitData.civiliVos.map((v,index) => {
-                this.$set(this.ConciliatorMsg, index, {personName: v.userName,userId: v.userId})
-            })
+            if (this.SubmitData.civiliVos[0] === null) {
+                this.ConciliatorMsg = []
+            } else {
+                this.SubmitData.civiliVos.map((v,index) => {
+                    this.$set(this.ConciliatorMsg, index, {personName: v.userName,userId: v.userId})
+                })
+            }
             // 担保人信息还原
             const { data: GuaranteeResult } = await this.$http({
                 method: 'post',
@@ -1265,6 +1271,9 @@ export default {
   background-color: #e9f0f5;
   height: 100%;
   width: 100%;
+  input[type="text"] {
+    font-size: 16px;
+  }
   &-title {
     height: px2rem(12);
     line-height: px2rem(12);
@@ -1622,7 +1631,7 @@ export default {
       &-update-imgs {
         margin-top: px2rem(6);
         display: flex;
-        height: px2rem(20);
+        height: 160px;
         box-sizing: border-box;
         span {
           margin: 0 px2rem(2);
@@ -1631,13 +1640,13 @@ export default {
           border: 1px solid #e8eaec;
           width: px2rem(180.5);
           display: flex;
-          align-items: center;
+          flex-wrap: wrap;
           &-item {
             position: relative;
             img {
                 margin: 0 px2rem(2);
                 width: px2rem(18);
-                height: px2rem(12.5);
+                height: 75px;
             }
             &-delete{
                 position: absolute;
@@ -1767,7 +1776,7 @@ export default {
         background-color: #616789;
         display: flex;
         justify-content: space-between;
-        font-size: px2rem(3.5);
+        font-size: 20px;
         align-items: center;
         padding: 0 px2rem(4);
         box-sizing: border-box;
@@ -1779,7 +1788,7 @@ export default {
       }
       &-body {
         margin: px2rem(4);
-        font-size: px2rem(4);
+        font-size: 18px;
         padding-left: px2rem(4);
 
         &-item {
@@ -1787,40 +1796,21 @@ export default {
           display: flex;
           align-items: center;
           height: px2rem(8);
+          span {
+              flex-shrink: 0;
+              margin-right: 20px;
+          }
           input {
             border: 1px solid #e8eaec;
             margin-left: px2rem(2);
             padding-left: px2rem(2);
+            font-size: 16px;
             height: px2rem(6);
             border-radius: 4px;
+            width: 100%;
           }
           .el-select {
-              width: 385px;
-          }
-        }
-        :nth-child(1) {
-          input {
-            width: px2rem(50);
-          }
-        }
-        :nth-child(2) {
-          input {
-            width: px2rem(57.8);
-          }
-        }
-        :nth-child(3) {
-          input {
-            width: px2rem(79.5);
-          }
-        }
-        :nth-child(4) {
-          input {
-            width: px2rem(79.5);
-          }
-        }
-        :nth-child(5) {
-          input {
-            width: px2rem(83.5);
+              width: 100%;
           }
         }
       }
@@ -1831,6 +1821,7 @@ export default {
           padding: px2rem(1.5) px2rem(6);
           border: 1px solid #616789;
           border-radius: px2rem(1);
+          font-size: 18px;
         }
         :nth-child(1) {
           color: #616789;

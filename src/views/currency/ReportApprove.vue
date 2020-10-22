@@ -1876,36 +1876,23 @@ export default {
         }
       }
       &-person-update-imgs {
-        margin-top: px2rem(6);
+        margin: 10px 0;
         display: flex;
-        height: px2rem(20);
         box-sizing: border-box;
         span {
           margin: 0 px2rem(2);
         }
         &-list {
-          border: 1px solid #e8eaec;
-          width: px2rem(180.5);
-          display: flex;
-          align-items: center;
+            border: 1px solid #e8eaec;
+            width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            height: 160px;
           img {
             margin: 0 px2rem(2);
             width: px2rem(18);
-            height: px2rem(12.5);
+            height: 75px;
           }
-        }
-        button {
-          margin: 0 px2rem(2);
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
-          width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          margin: 0 px2rem(2);
-          padding: px2rem(1) px2rem(2);
         }
       }
       &-person-lawsuit {
@@ -2328,36 +2315,23 @@ export default {
         }
       }
       &-business-update-imgs {
-        margin-top: px2rem(6);
+        margin: 10px 0;
         display: flex;
-        height: px2rem(20);
         box-sizing: border-box;
         span {
           margin: 0 px2rem(2);
         }
         &-list {
-          margin: 0 px2rem(4);
-          border: 1px solid #e8eaec;
-          width: px2rem(180.5);
-          display: flex;
-          align-items: center;
+            border: 1px solid #e8eaec;
+            width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            height: 160px;
           img {
             margin: 0 px2rem(2);
             width: px2rem(18);
-            height: px2rem(12.5);
+            height: 75px;
           }
-        }
-        button {
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
-          width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          margin: 0 px2rem(2);
-          padding: px2rem(1) px2rem(2);
         }
       }
       &-business-lawsuit {
@@ -2700,36 +2674,23 @@ export default {
         }
       }
       &-bank-update-imgs {
-        margin-top: px2rem(6);
+        margin: 10px 0;
         display: flex;
-        height: px2rem(20);
         box-sizing: border-box;
         span {
           margin: 0 px2rem(2);
         }
         &-list {
-          margin: 0 px2rem(4);
-          border: 1px solid #e8eaec;
-          width: px2rem(180.5);
-          display: flex;
-          align-items: center;
+            border: 1px solid #e8eaec;
+            width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            height: 160px;
           img {
             margin: 0 px2rem(2);
             width: px2rem(18);
-            height: px2rem(12.5);
+            height: 75px;
           }
-        }
-        button {
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
-          width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          margin: 0 px2rem(2);
-          padding: px2rem(1) px2rem(2);
         }
       }
       &-bank-lawsuit {
@@ -3176,37 +3137,24 @@ export default {
           }
         }
         &-person-update-imgs {
-          margin-top: px2rem(6);
-          display: flex;
-          height: px2rem(20);
-          box-sizing: border-box;
-          span {
-            margin: 0 px2rem(2);
-          }
-          &-list {
-            border: 1px solid #e8eaec;
-            width: px2rem(180.5);
+            margin: 10px 0;
             display: flex;
-            align-items: center;
-            img {
-              margin: 0 px2rem(2);
-              width: px2rem(18);
-              height: px2rem(12.5);
-            }
-          }
-          button {
-            margin: 0 px2rem(2);
-            border: none;
-            background: #616789;
-            color: #fff;
-            font-size: px2rem(3.4);
-            width: px2rem(20);
-            height: px2rem(7);
-            border-radius: px2rem(1);
             box-sizing: border-box;
-            margin: 0 px2rem(2);
-            padding: px2rem(1) px2rem(2);
-          }
+            span {
+                margin: 0 px2rem(2);
+            }
+            &-list {
+                border: 1px solid #e8eaec;
+                width: 800px;
+                display: flex;
+                flex-wrap: wrap;
+                height: 160px;
+                img {
+                    margin: 0 px2rem(2);
+                    width: px2rem(18);
+                    height: 75px;
+                }
+            }
         }
         &-person-lawsuit {
           margin-top: px2rem(6);
@@ -3624,37 +3572,24 @@ export default {
           }
         }
         &-business-update-imgs {
-          margin-top: px2rem(6);
-          display: flex;
-          height: px2rem(20);
-          box-sizing: border-box;
-          span {
-            margin: 0 px2rem(2);
-          }
-          &-list {
-            margin: 0 px2rem(4);
-            border: 1px solid #e8eaec;
-            width: px2rem(180.5);
+            margin: 10px 0;
             display: flex;
-            align-items: center;
-            img {
-              margin: 0 px2rem(2);
-              width: px2rem(18);
-              height: px2rem(12.5);
-            }
-          }
-          button {
-            border: none;
-            background: #616789;
-            color: #fff;
-            font-size: px2rem(3.4);
-            width: px2rem(20);
-            height: px2rem(7);
-            border-radius: px2rem(1);
             box-sizing: border-box;
-            margin: 0 px2rem(2);
-            padding: px2rem(1) px2rem(2);
-          }
+            span {
+                margin: 0 px2rem(2);
+            }
+            &-list {
+                border: 1px solid #e8eaec;
+                width: 800px;
+                display: flex;
+                flex-wrap: wrap;
+                height: 160px;
+                img {
+                    margin: 0 px2rem(2);
+                    width: px2rem(18);
+                    height: 75px;
+                }
+            }
         }
         &-business-lawsuit {
           margin-top: px2rem(6);
@@ -3983,37 +3918,24 @@ export default {
           }
         }
         &-bank-update-imgs {
-          margin-top: px2rem(6);
-          display: flex;
-          height: px2rem(20);
-          box-sizing: border-box;
-          span {
-            margin: 0 px2rem(2);
-          }
-          &-list {
-            margin: 0 px2rem(4);
-            border: 1px solid #e8eaec;
-            width: px2rem(180.5);
+            margin: 10px 0;
             display: flex;
-            align-items: center;
-            img {
-              margin: 0 px2rem(2);
-              width: px2rem(18);
-              height: px2rem(12.5);
-            }
-          }
-          button {
-            border: none;
-            background: #616789;
-            color: #fff;
-            font-size: px2rem(3.4);
-            width: px2rem(20);
-            height: px2rem(7);
-            border-radius: px2rem(1);
             box-sizing: border-box;
-            margin: 0 px2rem(2);
-            padding: px2rem(1) px2rem(2);
-          }
+            span {
+                margin: 0 px2rem(2);
+            }
+            &-list {
+                border: 1px solid #e8eaec;
+                width: 800px;
+                display: flex;
+                flex-wrap: wrap;
+                height: 160px;
+                img {
+                    margin: 0 px2rem(2);
+                    width: px2rem(18);
+                    height: 75px;
+                }
+            }
         }
         &-bank-lawsuit {
           margin-top: px2rem(6);

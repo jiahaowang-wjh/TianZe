@@ -524,7 +524,7 @@ export default {
       if (this.MediaData.civiliVos[0] === null) {
           this.ConciliatorMsg = []
       } else {
-          this.ConciliatorMsg = this.MediaData.civiliVos;
+          this.ConciliatorMsg = this.MediaData.civiliVos
       }
       this.$set(this.MediaData, 'guaranteeMeth', MsgResult.data.guaranteeMeth)
       // 获取担保人信息
@@ -1036,36 +1036,23 @@ export default {
         }
       }
       &-update-imgs {
-        margin-top: px2rem(6);
-        display: flex;
-        height: px2rem(20);
+        margin-top: 40px;
+        height: 160px;
         box-sizing: border-box;
+        display: flex;
         span {
           margin: 0 px2rem(2);
         }
         &-list {
-          border: 0.5px solid #e8eaec;
-          width: px2rem(160);
+          border: 1px solid #e8eaec;
+          width: px2rem(180.5);
           display: flex;
-          align-items: center;
+          flex-wrap: wrap;
           img {
-            margin: 0 px2rem(1);
+            margin: 0 px2rem(2);
             width: px2rem(18);
-            height: px2rem(12.5);
+            height: 75px;
           }
-        }
-        button {
-          margin: 0 px2rem(2);
-          border: none;
-          background: #616789;
-          color: #fff;
-          font-size: px2rem(3.4);
-          width: px2rem(20);
-          height: px2rem(7);
-          border-radius: px2rem(1);
-          box-sizing: border-box;
-          margin: 0 px2rem(2);
-          padding: px2rem(1) px2rem(2);
         }
       }
       &-update-audio {

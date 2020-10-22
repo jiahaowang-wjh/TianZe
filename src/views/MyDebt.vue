@@ -429,7 +429,7 @@ export default {
         let aLink = document.createElement("a")
         aLink.style.display = "none"
         if (result.data.slice(0,5) === '/root') {
-            aLink.href = `http://47.108.135.174:9000/docFile${result.data}`
+            aLink.href = result.data
             console.log(aLink.href)
             return this.$message.error('正在下载未盖章文件')
         } else {

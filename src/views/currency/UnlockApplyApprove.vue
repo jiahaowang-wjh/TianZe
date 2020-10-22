@@ -374,7 +374,7 @@
                         <div class='update-img-list'>
                             <div v-for='(item, index) in SubmitData.uploadAnnex' :key='index' class='update-img-list-item'>
                                 <img :src="item" alt="">
-                                <img class='delete-voucher' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
+                                <img class='delete-voucher' v-if='!IsApproveStatus' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
                             </div>
                         </div>
                         <div class='update-img-button' v-if='!IsApproveStatus'>
@@ -1008,10 +1008,11 @@ export default {
 }
 .update-img-list {
     width: 800px;
-    height: 80px;
+    height: 160px;
     border: 1px solid #e8eaec;
     margin-left: 20px;
     display: flex;
+    flex-wrap: wrap;
     img {
         height: 75px;
         margin: 0 6px;

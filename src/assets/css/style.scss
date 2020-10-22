@@ -128,8 +128,8 @@ input[type='checkbox']:after {
 
 // 全局得上传按钮布局
 .pub-upload-box {
-  width: px2rem(20);
-  height: px2rem(6);
+  width: 100px;
+  height: 32px;
   position: relative; 
   input[type="file"] {
     position: absolute;
@@ -138,7 +138,6 @@ input[type='checkbox']:after {
     top: 0;
     left: 0;
     opacity: 0;
-
   }
 
   button { 

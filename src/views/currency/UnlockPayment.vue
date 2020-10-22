@@ -266,7 +266,6 @@ export default {
         align-items: center;
 
         &-container {
-            border: 1px solid #e8eaec;
             width: px2rem(180.5);
             display: flex;
             align-items: center;

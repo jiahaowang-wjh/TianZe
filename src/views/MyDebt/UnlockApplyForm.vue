@@ -405,7 +405,7 @@
                     <el-col :span="16">
                         <div class='update-img-list'>
                             <div class='update-img-list-item' v-for='(item, index) in SubmitData.uploadAnnex':key='index'>
-                                <img :src="item">
+                                <img @click="openImgToLink(item)" :src="item">
                                 <img class='update-img-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
                             </div>
                         </div>
@@ -1078,15 +1078,14 @@ export default {
   }
 }
 .update-img-list {
-  width: 800px;
-  height: 100px;
+  width: 1000px;
+  height: 160px;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   border: 1px solid #e8eaec;
-  margin-left: 20px;
   .update-img-list-item {
       position: relative;
-      width: 90px;
+      width: 100px;
       margin: 0 5px;
       &-delete {
           position: absolute;
@@ -1097,24 +1096,27 @@ export default {
       }
   }
   img {
-    float: left;
     height: 75px;
-    margin: 0 6px;
     width: 100px;
   }
   margin-right: 10px;
 }
 .update-img-button {
   position: relative;
-  width: 90px;
-  height: 28px;
+  width: 100px;
+  height: 34px;
   input[type='file'] {
-    width: 90px;
-    height: 28px;
+    height: 100%;
+    width: 100%;
     position: absolute;
     margin: 0;
     padding: 0;
     opacity: 0;
+  }
+  button {
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
   }
 }
 .unlock-apply {

@@ -374,14 +374,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in PersonalReportMsg.uploadDebtCertificate"
-                        :key="index"
-                        @click="openImgToLink(item)"
-                        :src="item"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in PersonalReportMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectReportVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -831,14 +828,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in BusinessReportMsg.uploadDebtCertificate"
-                        @click="openImgToLink(item)"
-                        :key="index"
-                        :src="item"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in BusinessReportMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectReportVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -1249,14 +1243,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in BankReportMsg.uploadDebtCertificate"
-                        :key="index"
-                        :src="item"
-                        @click="openImgToLink(item)"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in BankReportMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectReportVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -1307,8 +1298,7 @@
           <el-collapse-item
             title="相对人基本信息表"
             name="2"
-            v-show="ResponseReportId || currentPath === 'edit'"
-          >
+          > <!-- v-show="ResponseReportId || currentPath === 'edit'" -->
             <!-- 新增页面相对人表单 -->
             <div class="add-report-container-relative-add-button">
               <button type="button" @click="ClearRelativeForm">新增相对人</button>
@@ -1771,14 +1761,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in PersonalRelativeMsg.uploadDebtCertificate"
-                        :key="index"
-                        @click="openImgToLink(item)"
-                        :src="item"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in PersonalRelativeMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectRelativeVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -2130,14 +2117,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in BusinessRelativeMsg.uploadDebtCertificate"
-                        :key="index"
-                        @click="openImgToLink(item)"
-                        :src="item"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in BusinessRelativeMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectRelativeVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -2447,14 +2431,11 @@
                   <el-col :span="24">
                     <span class="col-label">上传债事凭证：</span>
                     <div class="add-report-container-update-imgs-list">
-                      <img
-                        v-for="(item,
-                        index) in BankRelativeMsg.uploadDebtCertificate"
-                        :key="index"
-                        @click="openImgToLink(item)"
-                        :src="item"
-                        alt
-                      />
+                        <div class='add-report-container-update-imgs-list-item' v-for="(item,index) in BankRelativeMsg.uploadDebtCertificate"
+                        :key="index">
+                            <img :src="item" @click="openImgToLink(item)"/>
+                            <img class='add-report-container-update-imgs-list-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectRelativeVocher(index)'>
+                        </div>
                     </div>
                     <div class="pub-upload-box">
                       <input
@@ -3994,6 +3975,25 @@ export default {
       })
       this.$message.success('提交至总公司成功')
       this.$router.push({ path: '/MyDebt' })
+    },
+    DelectReportVocher(index) {
+        if (this.ReporterProperties === 'person') {
+            this.PersonalReportMsg.uploadDebtCertificate.splice(index, 1)
+        } else if (this.ReporterProperties === 'business')  {
+            this.BusinessRelativeMsg.uploadDebtCertificate.splice(index, 1)
+        } else {
+            this.BankReportMsg.uploadDebtCertificate.splice(index, 1)
+        }
+    }
+    ,
+    DelectRelativeVocher(index) {
+        if (this.RelativeProperties === 'person') {
+            this.PersonalRelativeMsg.uploadDebtCertificate.splice(index, 1)
+        } else if (this.RelativeProperties === 'business')  {
+            this.BusinessRelativeMsg.uploadDebtCertificate.splice(index, 1)
+        } else {
+            this.BankRelativeMsg.uploadDebtCertificate.splice(index, 1)
+        }
     }
   },
   created() {
@@ -4082,22 +4082,32 @@ input[type='file'] {
       }
     }
     &-update-imgs {
-      height: px2rem(20);
       box-sizing: border-box;
       position: relative;
+      margin: 10px 0;
       span {
         margin: 0 px2rem(2);
       }
       &-list {
         border: 1px solid #e8eaec;
-        width: px2rem(180.5);
+        width: 800px;
         display: flex;
-        align-items: center;
-        height: 80px;
-        img {
-          margin: 0 px2rem(2);
-          width: px2rem(20);
-          height: px2rem(14);
+        flex-wrap: wrap;
+        height: 160px;
+        &-item {
+            position: relative;
+            img {
+                margin: 0 px2rem(2);
+                width: px2rem(20);
+                height: px2rem(14);
+            }
+            &-delete{
+                position: absolute;
+                left: px2rem(15);
+                top: px2rem(-2);
+                width: 25px!important;
+                height: 25px!important;
+            }
         }
       }
     }

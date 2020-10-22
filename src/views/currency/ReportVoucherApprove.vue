@@ -248,29 +248,19 @@ export default {
       font-weight: 600;
     }
     &-update {
-      height: px2rem(16);
       display: flex;
       margin: px2rem(4) 0;
       &-box {
-        width: px2rem(140);
-        height: px2rem(16);
         border: 1px solid #e8eaec;
+        height: 160px;
         margin: 0 px2rem(4);
+        width: px2rem(180.5);
         display: flex;
-        align-items: center;
-
-        &-container {
-          border: 1px solid #e8e8e8;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 0 px2rem(1);
-          height: px2rem(10);
-          width: px2rem(14);
-          img {
-            width: px2rem(14);
-            height: px2rem(8);
-          }
+        flex-wrap: wrap;
+        img {
+            margin: 0 px2rem(2);
+            width: px2rem(18);
+            height: 75px;
         }
       }
       &-button {

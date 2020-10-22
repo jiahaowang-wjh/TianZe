@@ -31,10 +31,10 @@
             <el-form-item placeholder="审核状态">
               <span>审核状态:</span>
               <el-select v-model="tableQuery.status">
-                <el-option label="全部" value></el-option>
-                <el-option label="审核通过" value="1"></el-option>
-                <el-option label="审核驳回" value="2"></el-option>
-                <el-option label="审核已提交" value="3"></el-option>
+                <el-option label="全部" value=''></el-option>
+                <el-option label="审核通过" value="2"></el-option>
+                <el-option label="审核驳回" value="1"></el-option>
+                <el-option label="审核已提交" value="0"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item>
