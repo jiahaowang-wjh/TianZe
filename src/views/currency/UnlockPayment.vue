@@ -36,7 +36,7 @@
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
             <div class='payment-civil-content-update-box-container-item' v-for="(item, index) in SubmitData.voucher" :key="index">
-                <img :src="item"/>
+                <img :src="item" @click="openImgToLink(item)" />
                 <img class='payment-civil-content-update-box-container-item-delete' src="@imgs/other/delete.png" alt="" @click='DelectVocher(index)'>
             </div>
           </div>
@@ -256,19 +256,18 @@ export default {
     }
     &-update {
       position: relative;
-      height: px2rem(16);
       display: flex;
       margin: px2rem(4) 0;
       &-box {
-        border: 1px solid #e8eaec;
-        margin: 0 px2rem(4);
+        margin: 10px 0;
         display: flex;
-        align-items: center;
-
+        height: 180px;
         &-container {
-            width: px2rem(180.5);
+            width: 800px;
+            border: 1px solid #e8eaec;
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            margin: 0 10px;
             &-item {
                 position: relative;
                 img {
@@ -289,8 +288,8 @@ export default {
       &-button {
           position: relative;
           &-form {
-            height: px2rem(9);
-            width: px2rem(25);
+            padding: 10px 30px;
+            font-size: 16px;
             border: none;
             background-color: #616789;
             color: #fff;

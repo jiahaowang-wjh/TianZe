@@ -33,6 +33,7 @@
             v-model="loginForm.password"
              @keyup.enter.native="login"
             placeholder="请输入用户密码"
+            type="password"
           ></el-input>
         </el-form-item>
         <!-- 验证码 -->

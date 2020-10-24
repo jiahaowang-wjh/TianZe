@@ -24,7 +24,9 @@
         上传凭证：
         <div class="payment-civil-content-update-box">
           <div class="payment-civil-content-update-box-container">
-            <img :src="item" v-for='(item,index) in SubmitData.voucher' :key='index'>
+            <div class='payment-civil-content-update-box-container-item' v-for="(item, index) in SubmitData.voucher" :key="index">
+                <img :src="item" @click="openImgToLink(item)" />
+            </div>
           </div>
         </div>
       </div>
@@ -290,26 +292,27 @@ export default {
       font-weight: 600;
     }
     &-update {
+      position: relative;
       display: flex;
       margin: px2rem(4) 0;
       &-box {
-        margin: 0 px2rem(4);
+        margin: 10px 0;
         display: flex;
-        align-items: center;
-
+        height: 180px;
         &-container {
-          border: 1px solid #e8e8e8;
-          display: flex;
-          align-items: center;
-          margin: 0 px2rem(1);
-          height: 80px;
-          width: 800px;
-          img {
-            border: none;
-            width: 100px;
-            height: 60px;
+            width: 800px;
+            border: 1px solid #e8eaec;
+            display: flex;
+            flex-wrap: wrap;
             margin: 0 10px;
-          }
+            &-item {
+                position: relative;
+                img {
+                    margin: 0 px2rem(2);
+                    width: px2rem(18);
+                    height: px2rem(12.5);
+                }
+            }
         }
       }
       &-button {
@@ -326,23 +329,7 @@ export default {
       input {
         width: px2rem(80);
         height: px2rem(8);
-        background-color: #fff;
         border: 1px solid #e8eaec;
-      }
-      input::-webkit-input-placeholder {
-        font-size: px2rem(3.5);
-      }
-      input::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        font-size: px2rem(3.5);
-      }
-      input:-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        font-size: px2rem(3.5);
-      }
-      input:-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        font-size: px2rem(3.5);
       }
     }
     &-submit {
