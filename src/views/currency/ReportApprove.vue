@@ -789,7 +789,7 @@
                       :value="
                         RelativeMsg.sex === '1'
                           ? '男'
-                          : RelativeMsg.ifWork === '2'
+                          : RelativeMsg.sex === '2'
                           ? '女'
                           : ' '
                       "
@@ -1561,7 +1561,7 @@ export default {
   height: 100%;
   width: 100%;
   textarea:disabled {
-    background-color: #f5f7fa;
+    background-color: #e0e3f8;
   }
   &-title {
     height: px2rem(12);

@@ -116,6 +116,8 @@
                   ? '债权处理阶段'
                   : item.stage === '4'
                   ? '资产处理阶段'
+                  : item.stage === '5'
+                  ? '业务完成'
                   : '/'
               }}</span>
             </div>
@@ -167,7 +169,7 @@
               </button>
               <button
                 @click="GoUnlockApplyForm(index)"
-                v-show="item.stage === '3' && roleId === '7992691295821774848'"
+                v-show="Number(item.stage) >= 3 && roleId === '7992691295821774848'"
               >
                 债权处理
               </button>

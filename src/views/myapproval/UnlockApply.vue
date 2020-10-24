@@ -80,37 +80,34 @@
                 </button>
                 <button
                     type="button"
-                        v-show="
-                    item.status === '0' && roleId === '7992691214771044352'
-                  "
-                        @click="CheckData(index, item)">
+                    class='check'
+                    v-show="item.status === '0' && roleId === '7992691214771044352'"
+                    @click="CheckData(index, item)">
                   调查报告审批
                 </button>
-                <button type="button" class='examine-report'
-                        v-show="
-                    item.status === '1' && roleId === '7992691295821774848'
-                  "
-                  @click="EditExamineReport(index, item)">
-                  调查报告编辑
-                </button>
                 <button type="button"
-                        v-show="
-                    item.status === '4' && roleId === '7992691214771044352'
-                  "
-                        @click="CheckUnlockData(index, item)">
+                    v-show="item.status === '1' && roleId === '7992691295821774848'"
+                    class='enter-and-edit'
+                    @click="EditExamineReport(index, item)">
+                    调查报告编辑
+                </button>
+                <button 
+                    type="button"
+                    v-show="item.status === '4' && roleId === '7992691214771044352'"
+                    class='check'
+                    @click="CheckUnlockData(index, item)">
                   债权信息审核
                 </button>
                 <button type="button"
-                        v-show="
-                    item.status === '5' && roleId === '7992691295821774848'
-                  "
+                        v-show="item.status === '5' && roleId === '7992691295821774848'"
+                        class='enter-and-edit'
                         @click="EditUnlockData(index, item)">
                   编辑债权信息
                 </button>
-                <button type="button" v-show="item.status === '8' && roleId === '7992691295821774848'
-                  " @click="EditVoucher(index, item)"
-                  class='enter-and-edit'>
-                财务信息编辑
+                    <button type="button" v-show="item.status === '8' && roleId === '7992691295821774848'
+                    " @click="EditVoucher(index, item)"
+                    class='enter-and-edit'>
+                    财务信息编辑
                 </button>
               </span>
             </div>
@@ -492,7 +489,7 @@ export default {
             .enter-and-edit {
                 background-color: #616789;
             }
-            :last-child {
+            .check {
               background-color: #fc7f89;
             }
             .examine-report {

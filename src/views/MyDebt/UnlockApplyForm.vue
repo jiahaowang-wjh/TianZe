@@ -150,7 +150,7 @@
             </div>
             <!-- 手机号码验证 -->
             <!-- 本次债权处理信息 -->
-            <h3>本次债权处理信息</h3>
+            <h3 style='margin-top: 40px'>本次债权处理信息</h3>
             <el-form label-width="0" class="pub-row-box page-row-box1"  :model="SubmitData"   >
               <el-row>
                 <el-col :span="8">
@@ -183,7 +183,7 @@
                   <span class="col-label" style="color:red">注：请确定金额无误后在输入，输入后不可更改</span>
                 </el-col>
                 <br />
-                <el-col :span="24">
+                <!-- <el-col :span="24">
                   <h3>手机验证码认证</h3>
                 </el-col>
                 <el-col :span="8">
@@ -198,7 +198,7 @@
                     <el-input maxlength="4" v-model="SendPhoneAndChekno.checkNo"></el-input>
                     <el-button @click="SendPhoneCheck" class="getVcode" style size="mini" type="primary">点击获取</el-button>
                   </el-form-item>
-                </el-col>
+                </el-col> -->
               </el-row>
             </el-form>
           </el-collapse-item>
@@ -756,10 +756,10 @@ export default {
       PhoneNumber: '',
       // 获取提交解债信息返回的解债ID
       ResponseDebtID: '',
-      SendPhoneAndChekno: {
-        tel: '',
-        checkNo: '',
-      },
+    //   SendPhoneAndChekno: {
+    //     tel: '',
+    //     checkNo: '',
+    //   },
       IsSendPhoneCheckMsg: false,
       // 是否提交了解债信息
       HasSubmitDebtMsg: false,
@@ -797,21 +797,21 @@ export default {
     // 提交解债信息
     async SubmitMessage() {
       // 短信验证
-      const PhoneCheckFormData = new FormData()
-      for (const key in this.SendPhoneAndChekno) {
-        PhoneCheckFormData.append(key, this.SendPhoneAndChekno[key])
-      }
-      const { data: PhoneCheckResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/smsSend/checkNO',
-        data: PhoneCheckFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (PhoneCheckResult.resultCode !== '200') {
-        return this.$message.error('短信验证码输入错误,请重新输入')
-      }
+    //   const PhoneCheckFormData = new FormData()
+    //   for (const key in this.SendPhoneAndChekno) {
+    //     PhoneCheckFormData.append(key, this.SendPhoneAndChekno[key])
+    //   }
+    //   const { data: PhoneCheckResult } = await this.$http({
+    //     method: 'post',
+    //     url: '/api/api/smsSend/checkNO',
+    //     data: PhoneCheckFormData,
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   })
+    //   if (PhoneCheckResult.resultCode !== '200') {
+    //     return this.$message.error('短信验证码输入错误,请重新输入')
+    //   }
       // 数据提交
       this.SubmitData.reportId = this.$route.query.reportId
       this.SubmitData.relativePerId = this.relativePerId
@@ -948,32 +948,32 @@ export default {
       this.UnlockApplyMsg = result.data
       console.log(this.UnlockApplyMsg)
     },
-    async SendPhoneCheck() {
-      // 发送短信验证码
-      const tel = this.PhoneNumber
-      if (!/^1[3456789]\d{9}$/.test(tel))
-        return this.$message.error('填写手机号码格式不正确,请重新填入')
-      // 发送验证码
-      const formData = new FormData()
-      formData.append('tel', tel)
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/smsSend/sendCheckNO',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      if (result.resultCode !== '200')
-        this.$message.error('手机验证失败, 请重试')
-      this.$message({
-        message: '手机验证码发送成功, 请填写正确的验证码',
-        type: 'success',
-      })
-      // 存储发送成功的电话号码
-      this.SendPhoneAndChekno.tel = tel
-      this.IsSendPhoneCheckMsg = true
-    },
+    //  async SendPhoneCheck() {
+    //   // 发送短信验证码
+    //   const tel = this.PhoneNumber
+    //   if (!/^1[3456789]\d{9}$/.test(tel))
+    //     return this.$message.error('填写手机号码格式不正确,请重新填入')
+    //   // 发送验证码
+    //   const formData = new FormData()
+    //   formData.append('tel', tel)
+    //   const { data: result } = await this.$http({
+    //     method: 'post',
+    //     url: '/api/api/smsSend/sendCheckNO',
+    //     data: formData,
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   })
+    //   if (result.resultCode !== '200')
+    //     this.$message.error('手机验证失败, 请重试')
+    //   this.$message({
+    //     message: '手机验证码发送成功, 请填写正确的验证码',
+    //     type: 'success',
+    //   })
+    //   // 存储发送成功的电话号码
+    //   this.SendPhoneAndChekno.tel = tel
+    //   this.IsSendPhoneCheckMsg = true
+    // },
     // 提交策划方案服务协议
     async SubmitPlanMessage() {
       const formData = new FormData()
