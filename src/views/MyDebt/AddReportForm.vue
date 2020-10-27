@@ -1295,10 +1295,10 @@
             </div>
           </el-collapse-item>
           <!-- 相对人基本信息表 -->
-          <el-collapse-item
+          <el-collapse-item v-show="ResponseReportId || currentPath === 'edit'"
             title="相对人基本信息表"
             name="2"
-          > <!-- v-show="ResponseReportId || currentPath === 'edit'" -->
+          > <!--  -->
             <!-- 新增页面相对人表单 -->
             <div class="add-report-container-relative-add-button">
               <button type="button" @click="ClearRelativeForm">新增相对人</button>

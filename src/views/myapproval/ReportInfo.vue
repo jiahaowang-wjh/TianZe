@@ -435,9 +435,6 @@ export default {
               display: inline-block;
               margin: 0 5px;
             }
-            .el-date-editor{
-                width: 160px;
-            }
             .button-search {
                 padding: 8px 15px;
                 background-color: #616789;
@@ -445,10 +442,10 @@ export default {
                 margin-left: 10px;
             }
             .el-input {
-                width: 160px;
+                width: 170px;
             }
             .el-select {
-                width: 160px;
+                width: 170px;
             }
             .button-add {
                 padding: 10px 15px;

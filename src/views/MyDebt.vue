@@ -182,12 +182,6 @@
               >
                 查看
               </button>
-              <button
-                v-if="(item.status === '1' || item.status === '') && roleId === '7992691295821774848'"
-                @click="EditMsg(index)"
-              >
-                编辑
-              </button>
             </span>
           </div>
         </div>

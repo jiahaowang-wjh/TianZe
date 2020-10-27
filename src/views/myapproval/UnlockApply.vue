@@ -42,6 +42,7 @@
             <span>录入编号</span>
             <span>服务协议ID</span>
             <span>债权处理编号</span>
+            <span>审核内容</span>
             <span>审核状态</span>
             <span>债事人</span>
             <span>操作</span>
@@ -55,6 +56,7 @@
               <span>{{ item.reportNo }}</span>
               <span>{{ item.debtId }}</span>
               <span>{{ item.debtNo }}</span>
+              <span>{{ item.checkReason }}</span>
               <span :class="[
                   item.status === '2' ||
                   item.status === '6' ||
@@ -427,11 +429,12 @@ export default {
           flex: 1;
         }
         :nth-child(2),
-        :nth-child(4) {
-          flex: 4.5;
+        :nth-child(3),
+        :nth-child(5) {
+          flex: 3.5;
         }
-        :nth-child(6) {
-          flex: 5;
+        :nth-child(4), :nth-child(6),:nth-child(7) {
+          flex: 4;
         }
         :last-child {
           flex: 4;
@@ -471,11 +474,12 @@ export default {
             flex: 1;
           }
           :nth-child(2),
-          :nth-child(4) {
-            flex: 4.5;
+          :nth-child(3),
+          :nth-child(5) {
+            flex: 3.5;
           }
-          :nth-child(6) {
-            flex: 5;
+          :nth-child(4),:nth-child(6),:nth-child(7) {
+            flex: 4;
           }
           :last-child {
             flex: 4;
@@ -515,11 +519,12 @@ export default {
             flex: 1;
           }
           :nth-child(2),
-          :nth-child(4) {
-            flex: 4.5;
+          :nth-child(3),
+          :nth-child(5) {
+            flex: 3.5;
           }
-          :nth-child(6) {
-            flex: 5;
+          :nth-child(4),:nth-child(6),:nth-child(7) {
+            flex: 4;
           }
           :last-child {
             flex: 4;

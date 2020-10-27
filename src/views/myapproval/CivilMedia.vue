@@ -71,6 +71,7 @@
             <span>录入编号</span>
             <span>调解编号</span>
             <span>相对人</span>
+            <span>审核内容</span>
             <span>审核状态</span>
             <span>操作</span>
           </div>
@@ -84,6 +85,9 @@
               <span>{{ item.reportNo }}</span>
               <span>{{ item.civilno }}</span>
               <span>{{ item.personName }}</span>
+              <span>
+                  {{ item.checkReason }}
+              </span>
               <span
                 :class="
                   item.status === '2'
@@ -420,13 +424,13 @@ export default {
           flex: 5;
         }
         :nth-child(3) {
-          flex: 10;
+          flex: 8;
         }
         :nth-child(4) {
           flex: 4;
         }
-        :nth-child(5) {
-          flex: 8;
+        :nth-child(5), :nth-child(6) {
+          flex: 6;
         }
         :last-child {
           flex: 4;
@@ -448,7 +452,6 @@ export default {
             color: #ff0000 !important;
           }
           span {
-            flex: 3;
             text-align: center;
             color: #272a39;
             border: 0.5px solid #fff;
@@ -462,15 +465,15 @@ export default {
             flex: 5;
           }
           :nth-child(3) {
-            flex: 10;
+            flex: 8;
           }
           :nth-child(4) {
             flex: 4;
           }
-          :nth-child(5) {
-            flex: 8;
+          :nth-child(5), :nth-child(6) {
+            flex: 6;
           }
-          :nth-child(6) {
+          :nth-child(7) {
             flex: 4;
             button {
               flex: 1;
@@ -503,7 +506,6 @@ export default {
           span {
             height: px2rem(10);
             line-height: px2rem(10);
-            flex: 2.5;
             text-align: center;
             color: #272a39;
             border: 0.5px solid #fff;
@@ -517,15 +519,15 @@ export default {
             flex: 5;
           }
           :nth-child(3) {
-            flex: 10;
+            flex: 8;
           }
           :nth-child(4) {
             flex: 4;
           }
-          :nth-child(5) {
-            flex: 8;
+          :nth-child(5), :nth-child(6) {
+            flex: 6;
           }
-          :last-child {
+          :nth-child(7) {
             flex: 4;
             button {
               flex: 1;
