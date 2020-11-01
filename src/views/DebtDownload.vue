@@ -21,7 +21,7 @@
         ></el-date-picker>
         <button type="button" @click="SearchData">搜索</button> 
          
-        <a :href="`http://113.204.236.218:8889/wordConversion/downSelectDebtDow`" target="_blank">
+        <a :href="`http://47.108.135.174:8889/wordConversion/downSelectDebtDow`" target="_blank">
           <button class="download-button">下载表格</button>
         </a>
        
@@ -143,6 +143,16 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import '@css/style.scss';
+
+.download-button {
+  background-color: #fc7f89;
+  color: #ffffff;
+  border: none;
+  margin: 0 px2rem(2);
+  padding: px2rem(1) px2rem(4);
+  border-radius: px2rem(1);
+}
+
 .download {
   display: flex;
   flex-direction: column;
