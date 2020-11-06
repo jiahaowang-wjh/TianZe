@@ -56,7 +56,12 @@
               <span>{{item.payType}}</span>
               <span>{{item.payNo}}</span>
               <span>{{item.cost}}</span>
-              <span>{{item.voucher}}</span>
+              <span><img
+                :src="ImgItem"
+                v-for="(ImgItem, Imgindex) in item.voucher"
+                :key="Imgindex"
+                alt
+              /></span>
               <span
                 :class="[item.status === '2' ? ('pass') : item.status === '1'? 'unpass': 'hassubmit']"
               >{{item.status === '0'?('未审核'):item.status === '1'?('审核未通过'):item.status === '2'?('审核通过'):item.status === '3'?('财务未审核'):('财务审核') }}</span>

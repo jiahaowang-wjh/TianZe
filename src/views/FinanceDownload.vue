@@ -16,7 +16,7 @@
           v-model="SearchForm.time"
         ></el-date-picker>
         <button type="button" @click="SearchData">搜索</button> 
-        <a :href="`http://113.204.236.218:8889/wordConversion/downSelectDow`" target="_blank">
+        <a :href="`http://47.108.135.174:8889/wordConversion/downSelectDow`" target="_blank">
           <button class="download-button">下载表格</button>
         </a>
       </div>

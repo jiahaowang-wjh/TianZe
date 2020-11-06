@@ -1381,7 +1381,7 @@
                 <div
                   class="report-approve-container-relative-form-bank-lawsuit"
                 >
-                  <span>经济使用用途</span>
+                  <span>资金使用用途</span>
 
                   <textarea
                     disabled="true"
