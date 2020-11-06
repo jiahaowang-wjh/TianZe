@@ -3180,6 +3180,7 @@ export default {
       }
       this.$message.success('债事人信息登记成功')
       // 将报备ID放至新增相对人信息源
+      console.log(Responseresult.data)
       this.ResponseReportId = Responseresult.data || ''
       // 当返回报备ID时, 添加报备ID至提价总公司页面
       this.ToHeadCompanyData.reportId = Responseresult.data || ''
@@ -3289,7 +3290,7 @@ export default {
             this.BusinessReportMsg.bank = this.Certification[1].bank
             this.BusinessReportMsg.bankCard = this.Certification[1].bankCard
             this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
-            this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
+            this.BusinessReportMsg.telCheck = this.NoteCode[0].BusinessReportNodeCode
             this.BusinessReportMsg.iscoordinate = this.ReportIscoordinate
             this.BusinessReportMsg.reportType = this.reportType
             const formData = new FormData()

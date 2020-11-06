@@ -538,7 +538,7 @@ export default {
             .enter-and-edit {
                 background-color: #616789;
             }
-            :last-child {
+            .check {
               background-color: #fc7f89;
             }
             .examine-report {
