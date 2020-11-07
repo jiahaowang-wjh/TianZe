@@ -3180,6 +3180,7 @@ export default {
       }
       this.$message.success('债事人信息登记成功')
       // 将报备ID放至新增相对人信息源
+      console.log(Responseresult.data)
       this.ResponseReportId = Responseresult.data || ''
       // 当返回报备ID时, 添加报备ID至提价总公司页面
       this.ToHeadCompanyData.reportId = Responseresult.data || ''

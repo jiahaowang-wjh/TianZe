@@ -426,6 +426,7 @@ export default {
         })
         let aLink = document.createElement("a")
         aLink.style.display = "none"
+        console.log(result.data)
         if (result.data.slice(0,5) === '/root') {
             aLink.href = result.data
             console.log(aLink.href)
@@ -435,6 +436,7 @@ export default {
         }
         aLink.setAttribute("download", row.docName)
         document.body.appendChild(aLink)
+        console.log(aLink)
         aLink.click()
         document.body.removeChild(aLink) //下载完成移除元素
     }
