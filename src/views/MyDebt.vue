@@ -132,7 +132,9 @@
                 ]"
                 v-if="item.stage === '1'"
                 >{{
-                  item.status === '0'
+                  item.status === ''
+                    ? '信息录入中'
+                    : item.status === '0'
                     ? '录入数据未审核'
                     : item.status === '1'
                     ? '录入数据审核未通过'
@@ -153,7 +155,7 @@
             <span>
               <button
                 @click.stop="GoCivilMediaForm(index)"
-                v-show="item.stage === '2' && item.status=== '5' && roleId === '7992691295821774848'"
+                v-show="Number(item.stage) >= 2 && item.status=== '5' && roleId === '7992691295821774848'"
               >
                 调解
               </button>

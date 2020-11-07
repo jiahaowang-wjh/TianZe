@@ -3289,7 +3289,7 @@ export default {
             this.BusinessReportMsg.bank = this.Certification[1].bank
             this.BusinessReportMsg.bankCard = this.Certification[1].bankCard
             this.BusinessReportMsg.bankTel = this.Certification[1].mobilePhone
-            this.BusinessReportMsg.telCheck = this.NoteCode[1].PersonReportNodeCode
+            this.BusinessReportMsg.telCheck = this.NoteCode[0].BusinessReportNodeCode
             this.BusinessReportMsg.iscoordinate = this.ReportIscoordinate
             this.BusinessReportMsg.reportType = this.reportType
             const formData = new FormData()
