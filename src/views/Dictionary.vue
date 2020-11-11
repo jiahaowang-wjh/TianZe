@@ -77,13 +77,21 @@
             </div>
           </div>
         </template>
+        <div style="text-align: right; margin-top: 25px">
+          <el-pagination
+            background
+            @current-change="searchTbaleData"
+            layout="prev, pager, next"
+            :total="tablePage.total"
+          ></el-pagination>
+        </div>
       </div>
     </div>
     <!-- 是否显示添加页面 -->
     <div class="dictionary-add-dictionary" v-if="IsAddDictionary">
       <div class="dictionary-add-dictionary-box">
         <div class="dictionary-add-dictionary-box-header">
-          <span>提示</span>
+          <span>字典新增</span>
           <img src="@imgs/other/error@2x.png" alt="" @click="CloseDictionary" />
         </div>
         <div class="dictionary-add-dictionary-box-body">
@@ -134,7 +142,7 @@
     <div class="dictionary-add-dictionary" v-if="IsEditDictionary">
       <div class="dictionary-add-dictionary-box">
         <div class="dictionary-add-dictionary-box-header">
-          <span>提示</span>
+          <span>字典修改</span>
           <img src="@imgs/other/error@2x.png" alt="" @click="CloseEdit" />
         </div>
         <div class="dictionary-add-dictionary-box-body">
@@ -195,6 +203,11 @@ export default {
       bgc: true,
       queryInfo: {
         pageSize: 10,
+      },//表格分页
+      tablePage: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0,
       },
       // 用户信息列表数据源
       DictionaryMsg: [],
@@ -204,7 +217,7 @@ export default {
       IsEditDictionary: false,
       DiractionType: [
         'BANK_PAY',
-        'COMMODITY_NAME',
+        'COMMODITY',
         'PLACE',
         'NORM',
         'MEASURE',
@@ -233,12 +246,12 @@ export default {
     SelectMore() {
       this.isNormal = !this.isNormal
     },
-    async InitDictionaryList() {
-      const pageNum = '1'
-      const pageSize = '20'
+    async InitDictionaryList(page) {
+      this.tablePage.pageNum = page || 1
       const formData = new FormData()
-      formData.append('pageNum', pageNum)
-      formData.append('pageSize', pageSize)
+      for (const key in this.tablePage) {
+        formData.append(key, this.tablePage[key])
+      }
       const { data: result } = await this.$http({
         method: 'post',
         url: '/api/api/pubDictionController/queryDicList',
@@ -247,6 +260,7 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
+      this.tablePage.total = result.data.total
       this.DictionaryMsg = result.data.list.map((v) => {
         return { ...v, isSelected: false }
       })
@@ -260,6 +274,9 @@ export default {
       DeleteList.map((v) => {
         dictionIds += v.dictionId + ','
       })
+      if(dictionIds===''){
+        return this.$message.error('删除必须选择一项')
+      }
       dictionIds = dictionIds.substring(0, dictionIds.length - 1)
       const formData = new FormData()
       formData.append('dictionIds', dictionIds)
@@ -321,9 +338,26 @@ export default {
     CloseEdit() {
       this.IsEditDictionary = false
     },
-    AlterDictionary(index) {
+    async AlterDictionary(index) {
       this.IsEditDictionary = true
       this.AlterDictionaryMsg.dictionId = this.DictionaryMsg[index].dictionId
+
+      const formData = new FormData()
+      for (const key in this.AlterDictionaryMsg) {
+        formData.append(key, this.AlterDictionaryMsg[key])
+      }
+      const { data: result } = await this.$http({
+        method: 'post',
+        url: '/api/api/pubDictionController/selectByPrimaryKey',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (result.resultCode !== '200')
+        return this.$message.error(result.resultMessage)
+      this.AlterDictionaryMsg=result.data
+
     },
     async SubmitAlterDictionary() {
       const formData = new FormData()
@@ -341,6 +375,8 @@ export default {
       if (result.resultCode !== '200')
         return this.$message.error('修改错误,请重新输入')
       this.$message.success('修改信息成功')
+      this.IsEditDictionary = false
+      this.InitDictionaryList()
     },
   },
   created() {
