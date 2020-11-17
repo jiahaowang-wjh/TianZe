@@ -3549,6 +3549,9 @@ export default {
       } else {
         RequestMsg = this.Certification[1]
       }
+      if (RequestMsg.bank === '') {
+        return this.$message.error('必须选择银行！')
+      }
       const CertificationformData = new FormData()
       for (const key in RequestMsg) {
         CertificationformData.append(key, RequestMsg[key])

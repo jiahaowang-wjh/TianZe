@@ -203,7 +203,7 @@
         <el-table :data="gridData" stripe>
           <el-table-column type='index' property="Order" label="序号"></el-table-column>
           <el-table-column property="docName" label="文件名"></el-table-column>
-          <el-table-column property="docType" label="类型"></el-table-column>
+          <el-table-column property="docType" label="类型" :formatter="typeFormat"></el-table-column>
           <el-table-column width="247" label="操作">
             <template slot-scope="scope">
                 <button class='my-debt-pop-download-button1'>查看</button>
@@ -315,7 +315,13 @@ export default {
         path: '/Assignment',
         query: { reportId: this.MyDebtMsg[index].reportId },
       })
-    },
+    },typeFormat(row, column) {
+    if (row.docType === '1') {
+      return '天泽'
+    } else  {
+      return '资产'
+    } 
+  },
     // 前往新增报备
     GoAddReportForm() {
       this.$router.push({ path: '/AddReportForm' })
