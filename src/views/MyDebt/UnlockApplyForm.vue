@@ -822,6 +822,9 @@ export default {
       //  累计化解金额
       this.SubmitData.amountCumulative = this.transfeAmount
       this.SubmitData.comId = window.sessionStorage.getItem('companyId')
+      if(this.UnlockUserMsg.amountTotal<this.transfeAmount || this.SubmitData.amountTotal === 0.0){
+        return this.$message.error('请确认总金额不能为0.0，或者小于累计化解金额！') 
+      }
       console.log(this.SubmitData)
       if (Number(this.UnlockUserMsg.amountTotal) < this.transfeAmount) {
           return this.$message.error('累计解债金额应小于等于解债总金额,请重新输入')

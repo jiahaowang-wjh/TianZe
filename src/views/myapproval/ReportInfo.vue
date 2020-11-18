@@ -126,7 +126,9 @@
                     : 'hassubmit',
                 ]"
                 >{{
-                  item.status === '0'
+                  item.status === ''
+                    ? '信息录入中'
+                    : item.status === '0'
                     ? '未审核'
                     : item.status === '1'
                     ? '审核未通过'
@@ -162,7 +164,7 @@
                 录入缴费编辑
               </button>
               <button
-                v-if="item.status === '1' && roleId === '7992691295821774848'"
+                v-if="(item.status === '1' || item.status === '') && roleId === '7992691295821774848'"
                 @click="
                   () => {
                     $router.push({
