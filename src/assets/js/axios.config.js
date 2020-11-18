@@ -69,3 +69,4 @@ axios.interceptors.response.use(result => {
     return Promise.reject(error)
 })
 Vue.prototype.$http = axios
+export default axios

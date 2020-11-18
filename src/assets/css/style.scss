@@ -67,6 +67,7 @@ input[type='checkbox']:checked {
 
 input[type='checkbox']:after {
   content: "✔";
+  font-size: 20px;
 }
 
 // 中间大按钮
@@ -102,7 +103,12 @@ input[type='checkbox']:after {
   font-size: 12px;
   border-radius: 4px;
 }
-
+.edit-button {
+    background-color: #ecc87f;
+}
+.normal-button {
+    background-color: #FC7F89;
+}
 // 删除小按钮
 .mini-delete-button {
   width: 60px;

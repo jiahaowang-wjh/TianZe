@@ -66,11 +66,6 @@
     flex: 6;
   }
 }
-
-.el-dialog {
-  width: 48vw !important;
-}
-
 thead>tr {
   width: 45vw !important;
   display: flex !important;
@@ -155,22 +150,6 @@ input::-webkit-input-placeholder {
   }
 }
 
-// 弹出窗样式修改
-.el-dialog__body {
-  width: 100%;
-  box-sizing: border-box;
-  padding: px2rem(1) px2rem(4) !important;
-}
-
-.el-dialog__headerbtn {
-  top: px2rem(4) !important;
-  right: px2rem(4) !important;
-}
-
-.el-dialog__title {
-  font-size: px2rem(4) !important;
-}
-
 .el-dialog__header {
   height: px2rem(10);
   padding: 0 !important;
@@ -238,12 +217,15 @@ input::-webkit-input-placeholder {
 // pagination
 .el-pagination {
   font-weight: 600 !important;
+  font-size: 18px;
 }
 
 .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: #616789 !important;
 }
-
+.el-pager li {
+    font-size: 16px;
+}
 .el-pagination__jump {
   height: px2rem(8) !important;
   line-height: px2rem(8) !important;
@@ -309,9 +291,6 @@ input::-webkit-input-placeholder {
     :nth-child(4) {
         flex: 6
     }
-}
-.el-dialog {
-    width: 48vw !important;
 }
 thead > tr {
     width: 45vw!important;

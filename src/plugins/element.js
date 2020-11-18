@@ -26,9 +26,11 @@ import {
     CollapseItem,
     MessageBox,
     Row,
-    Col
+    Col,
+    Cascader
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(Cascader)
 Vue.use(Row)
 Vue.use(Tabs)
 Vue.use(TabPane)

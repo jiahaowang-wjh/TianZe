@@ -823,6 +823,12 @@ export default {
       this.SubmitData.amountCumulative = this.transfeAmount
       this.SubmitData.comId = window.sessionStorage.getItem('companyId')
       console.log(this.SubmitData)
+      if (Number(this.UnlockUserMsg.amountTotal) < this.transfeAmount) {
+          return this.$message.error('累计解债金额应小于等于解债总金额,请重新输入')
+      }
+      if(Number(this.SubmitData.amountThis) <= 0 ) {
+          return this.$message.error('本次解债金额应大于0,请重新输入')
+      }
       const formData = new FormData()
       for (const key in this.SubmitData) {
         formData.append(key, this.SubmitData[key])

@@ -54,15 +54,7 @@
         </div>
         <!-- 右侧内容主体 -->
         <el-main class="home-container-body-main">
-          <!-- <component
-            :is="currentComponent"
-            @onChangeFragment="onChangeFragment"
-            @RenovateFragment="RenovateFragment"
-            v-if="isRouterAlive"
-          ></component>
-          -->
           <router-view></router-view>
-          <!-- :ComponentName='Componentname'-->
         </el-main>
       </el-container>
     </el-container>
