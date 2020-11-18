@@ -18,7 +18,6 @@
             >新增员工</el-button
             >
             <el-button class="user-manage-list-button-del" @click='DeleteStaffMsg'>人员信息删除</el-button>
-            <el-button class="user-manage-list-button-del" @click='DeleteAccountMsg'>账号信息删除</el-button>
         </div>
         <div class="user-manage-list-content">
             <!-- 正常显示模板 -->
@@ -114,8 +113,9 @@
             :background="bgc"
             :page-size="10"
             layout="prev, pager, next, jumper"
-            :total="1000"
+            :total="UserListTotal"
             @current-change="handleCurrentChange"
+            :page-count='UserListMaxPage'
             >
             <!--:current-page.sync="currentPage3" -->
             </el-pagination>
@@ -309,10 +309,11 @@
         <div class="user-manage-list-pagination">
             <el-pagination
             :background="bgc"
-            :page-size="10"
+            :page-size="5"
             layout="prev, pager, next, jumper"
-            :total="1000"
+            :total="CompanyListTotal"
             @current-change="handleCurrentCompanyChange"
+            :page-count='CompanyListMaxPage'
             >
             <!--:current-page.sync="currentPage3" -->
             </el-pagination>
@@ -536,7 +537,13 @@ export default {
             isenable: ''
         },
         // 分配账号页面
-        OpenDistributeAccountPage: false
+        OpenDistributeAccountPage: false,
+        // 用户列表展示
+        UserListMaxPage: 0,
+        UserListTotal: 0,
+        // 公司列表展示
+        CompanyListMaxPage: 0,
+        CompanyListTotal: 0
     }
   },
   methods: {
@@ -554,6 +561,8 @@ export default {
         url: '/api/api/pubUser/queryList',
         data: QS.stringify(this.queryInfo),
       })
+      this.UserListMaxPage = result.data.navigateLastPage
+      this.UserListTotal = result.data.total
       this.userMsg = result.data.list.map((v) => {
         return { ...v, isSelected: false }
       })
@@ -572,6 +581,8 @@ export default {
             data: QS.stringify(this.CompanyQueryInfo),
         })
         this.CompanyMsgList = result.data.list
+        this.CompanyListMaxPage = result.data.navigateLastPage
+        this.CompanyListTotal = result.data.total
         // 查询所有公司信息, 用于用户新增
         const { data: CompanyListResult } = await this.$http({
             method: 'post',
@@ -706,10 +717,9 @@ export default {
         DeleteList.map((v) => {
             DeleteUersIds += v.personId + ','
         })
-        if (DeleteList === []) return this.$message.error('删除信息不能为空') 
         DeleteUersIds = DeleteUersIds.substring(0, DeleteUersIds.length - 1)
         const formData = new FormData()
-        formData.append('userIds', DeleteUersIds)
+        formData.append('ids', DeleteUersIds)
         this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -717,57 +727,13 @@ export default {
         }).then(() => {
             this.$http({
                 method: 'post',
-                url: '/api/api/pubUser/delUserList',
+                url: '/api/api/pubUser/delListPerson',
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
             })
         .then((result) => {
-            console.log(result)
-            if (result.data.resultCode === '200') {
-              this.$message({
-                type: 'success',
-                message: '删除成功!',
-              })
-              this.getUserMsg()
-            }
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除',
-            })
-          })
-      })
-    },
-    // 账号信息群体删除
-    async DeleteAccountMsg () {
-        const DeleteList = this.userMsg.filter( v => {
-            return v.isSelected === true
-        })
-        if (DeleteList === []) return this.$message.error('删除信息不能为空') 
-        let DeleteUersIds = ''
-        DeleteList.map((v) => {
-            DeleteUersIds += v.personId + ','
-        })
-        DeleteUersIds = DeleteUersIds.substring(0, DeleteUersIds.length - 1)
-        const formData = new FormData()
-        formData.append('userIds', DeleteUersIds)
-        this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.$http({
-          method: 'post',
-          url: '/api/api/pubUser/delUserList',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
-        }).then((result) => {
-            console.log(result)
             if (result.data.resultCode === '200') {
               this.$message({
                 type: 'success',
