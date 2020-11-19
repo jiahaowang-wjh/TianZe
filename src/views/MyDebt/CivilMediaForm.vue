@@ -222,59 +222,73 @@
             </div>
             <h3>乙方尚欠甲方款项金额：</h3>
             <!-- 欠款金额 -->
-            <div class="civil-media-container-form-own-amount">
-              <div class="civil-media-container-form-own-amount-item-1">
-                <span
-                  >欠款总额（小写）：<input
-                    type="text"
-                    v-model="SubmitData.amountTotal"
-                /></span>
-                <span
-                  >欠款总额（大写）：<input
-                    type="text"
-                    disabled="true"
-                    :value="SubmitData.amountTotal | Uppercase"
-                /></span>
-              </div>
-              <div class="civil-media-container-form-own-amount-item">
-                <span
-                  >欠款总额中包含本金（小写）：<input
-                    type="text"
-                    v-model="SubmitData.amountPrincipal"
-                /></span>
-                <span
-                  >欠款总额中包含本金（大写）：<input
-                    type="text"
-                    disabled="true"
-                    :value="SubmitData.amountPrincipal | Uppercase"
-                /></span>
-              </div>
-              <div>
-                <span
-                  >欠款总额中包含利息（小写）：<input
-                    type="text"
-                    v-model="SubmitData.amountInterest"
-                /></span>
-                <span
-                  >欠款总额中包含利息（大写）：<input
-                    type="text"
-                    disabled="true"
-                    :value="SubmitData.amountInterest | Uppercase"
-                /></span>
-              </div>
-              <div>
-                <span
-                  >欠款总额中包含违约（小写）：<input
-                    type="text"
-                    v-model="SubmitData.amountBreach"
-                /></span>
-                <span
-                  >欠款总额中包含违约（大写）：<input
-                    type="text"
-                    disabled="true"
-                    :value="SubmitData.amountBreach | Uppercase"
-                /></span>
-              </div>
+            <div class="civil-media-container-form-interest">
+                <el-form ref="form" label-width>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="SubmitData.amountTotal"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="SubmitData.amountTotal | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含本金（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="SubmitData.amountPrincipal"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含本金（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="SubmitData.amountPrincipal | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含利息（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="SubmitData.amountInterest"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含利息（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="SubmitData.amountInterest | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含违约（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="SubmitData.amountBreach"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含违约（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="SubmitData.amountBreach | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                </el-form>
             </div>
             <!-- 支付利息 -->
             <h3>乙方向甲方支付款利息：</h3>
@@ -387,46 +401,57 @@
             </div>
             <h3>甲方、乙方、担保人经协商一致约定信息</h3>
             <div class="civil-media-container-form-appoint">
-              <div class="civil-media-container-form-appoint-row1">
-                <span
-                  >确认债权债务本息金额合计（小写）：<input
-                    type="text"
-                    v-model="SubmitData.interestAll" 
-                    style='width:0.93rem'
-                /></span>
-                <span
-                  >确认债权债务本息金额合计（大写）：<input
-                    type="text"
-                    disabled="true"
-                    :value="SubmitData.interestAll | Uppercase"
-                /></span>
-              </div>
-              <div class="civil-media-container-form-appoint-row2">
-                <span
-                  >债事人自愿放弃的内容：<input
-                    type="text"
-                    v-model="SubmitData.abandonContent"
-                    style='width:1.44rem'
-                /></span>
-                <span
-                  >债务处理方式：
-                  <el-select v-model="SubmitData.treatmentMethod" placeholder="请选择">
-                    <el-option
-                      label="（1）自行约定还款金额、还款时间、还款方式"
-                      value="1"
-                    ></el-option>
-                    <el-option
-                      label="（2）共同委托第三方帮助处理"
-                      value="2"
-                    ></el-option>
-                    <el-option
-                      label="（3）债权转让第三人"
-                      value="3"
-                    ></el-option>
-                  </el-select>
-                </span>
-                <span></span>
-              </div>
+                <el-form ref="form" label-width>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">确认债权债务本息金额合计（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="SubmitData.interestAll"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">确认债权债务本息金额合计（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="SubmitData.interestAll | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">债事人自愿放弃的内容：</span>
+                            <el-form-item label>
+                                <el-input v-model="SubmitData.abandonContent"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">债务处理方式：</span>
+                            <el-form-item label>
+                                <el-select v-model="SubmitData.treatmentMethod" placeholder="请选择">
+                                    <el-option
+                                    label="（1）自行约定还款金额、还款时间、还款方式"
+                                    value="1"
+                                    ></el-option>
+                                    <el-option
+                                    label="（2）共同委托第三方帮助处理"
+                                    value="2"
+                                    ></el-option>
+                                    <el-option
+                                    label="（3）债权转让第三人"
+                                    value="3"
+                                    ></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">债务形成原因：</span>
+                            <el-form-item label>
+                                <el-input v-model="SubmitData.debtReason"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
             </div>
             <!-- 双方短信验证 -->
             <template v-if='!IsEditCivilMedia'>
@@ -834,7 +859,9 @@ export default {
         // 调解员UserID列表
         longs: [],
         // 凭证信息
-        certificate: []
+        certificate: [],
+        // 债务形成原因
+        debtReason: ''
       },
       // 相对人名称
       RelativeName: '',

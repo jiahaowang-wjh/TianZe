@@ -184,120 +184,142 @@
             </div>
             <h3>乙方尚欠甲方款项金额：</h3>
             <!-- 欠款金额 -->
-            <div class="civil-media-container-form-own-amount">
-              <div class="civil-media-container-form-own-amount-item-1">
-                <span>
-                  欠款总额（小写）：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.amountTotal" />
-                </span>
-                <span>
-                  欠款总额（大写）：
-                  <input type="text"
-                         :disabled="true"
-                         :value="MediaData.amountTotal | Uppercase" />
-                </span>
-              </div>
-              <div class="civil-media-container-form-own-amount-item">
-                <span>
-                  欠款总额中包含本金（小写）：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.amountPrincipal" />
-                </span>
-                <span>
-                  欠款总额中包含本金（大写）：
-                  <input type="text"
-                         :disabled="true"
-                         :value="MediaData.amountPrincipal | Uppercase" />
-                </span>
-              </div>
-              <div>
-                <span>
-                  欠款总额中包含利息（小写）：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.amountInterest" />
-                </span>
-                <span>
-                  欠款总额中包含利息（大写）：
-                  <input type="text"
-                         :disabled="true"
-                         :value="MediaData.amountInterest | Uppercase" />
-                </span>
-              </div>
-              <div>
-                <span>
-                  欠款总额中包含违约（小写）：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.amountBreach" />
-                </span>
-                <span>
-                  欠款总额中包含违约（大写）：
-                  <input type="text"
-                         :disabled="true"
-                         :value="MediaData.amountBreach | Uppercase" />
-                </span>
-              </div>
+            <div class="civil-media-container-form-interest">
+                <el-form ref="form" label-width>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="this.MediaData.amountTotal" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="this.MediaData.amountTotal | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含本金（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="this.MediaData.amountPrincipal" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含本金（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="this.MediaData.amountPrincipal | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含利息（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="this.MediaData.amountInterest" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含利息（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="this.MediaData.amountInterest | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含违约（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="this.MediaData.amountBreach" :disabled='true'></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">欠款总额中包含违约（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="this.MediaData.amountBreach | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                </el-form>
             </div>
             <!-- 支付利息 -->
             <h3>乙方向甲方支付款利息：</h3>
             <div class="civil-media-container-form-interest">
-              <div class="civil-media-container-form-interest-row1">
-                <span>
-                  约定月利率标准：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.monthInterest" />
-                </span>
-                <span style="align-items: center;display: flex" >
-                  时间段：
-                  <el-date-picker :disabled="true"
-                                  align="left"
-                                  type="date"
-                                  placeholder="请选择开始日期"
-                                  v-model.trim="MediaData.starDate"
-                                  value-format="yyyy-MM-dd hh-mm-ss"></el-date-picker>
-                  -
-                  <el-date-picker :disabled="true"
-                                  align="left"
-                                  type="date"
-                                  placeholder="请选择结束日期"
-                                  v-model.trim="MediaData.endDate"
-                                  value-format="yyyy-MM-dd hh-mm-ss"></el-date-picker>
-                </span>
-                <span>
-                  利息：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.interest" />
-                </span>
-              </div>
-              <div class="civil-media-container-form-interest-row2">
-                <span>
-                  已支付利息：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.interestPayment" />
-                </span>
-                <span>
-                  违约截止时间：
-                  <el-date-picker :disabled="true"
-                                  align="left"
-                                  type="date"
-                                  placeholder="请选择结束日期"
-                                  v-model.trim="MediaData.breachDate"
-                                  value-format="yyyy-MM-dd hh-mm-ss"></el-date-picker>
-                </span>
-                <span>
-                  已支付违约金额：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.breachMoney" />
-                </span>
-              </div>
+              <el-form ref="form" label-width>
+                <el-row>
+                  <el-col :span="8">
+                    <span class="col-label">约定月利率标准：</span>
+                    <el-form-item label>
+                      <el-input v-model="this.MediaData.monthInterest" :disabled='true'></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <span class="col-label">时间段：</span>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择开始日期"
+                        v-model="this.MediaData.starDate"
+                        value-format="yyyy-MM-dd"
+                        :disabled='true'
+                      ></el-date-picker>
+                      <span>—</span>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择结束日期"
+                        v-model="this.MediaData.endDate"
+                        value-format="yyyy-MM-dd"
+                        :disabled='true'
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <span class="col-label">利息：</span>
+                    <el-form-item label>
+                      <el-input v-model="this.MediaData.interest" :disabled='true'></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <span class="col-label">已支付利息：</span>
+                    <el-form-item label>
+                      <el-input v-model="this.MediaData.interestPayment" :disabled='true'></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <span class="col-label">违约截止时间：</span>
+                    <el-form-item label>
+                      <el-date-picker
+                        align="left"
+                        type="date"
+                        placeholder="请选择开始日期"
+                        v-model="this.MediaData.breachDate"
+                        value-format="yyyy-MM-dd"
+                        :disabled='true'
+                      ></el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <span class="col-label">已支付违约金额</span>
+                    <el-form-item label>
+                      <el-input v-model="this.MediaData.breachMoney" :disabled='true'></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
             </div>
             <!-- 担保人担保方式： -->
             <div>
@@ -338,46 +360,57 @@
             </div>
             <h3>甲方、乙方、担保人经协商一致约定信息</h3>
             <div class="civil-media-container-form-appoint">
-              <div class="civil-media-container-form-appoint-row1">
-                <span>
-                  确认债权债务本息金额合计（小写）：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.interestAll" />
-                </span>
-                <span>
-                  确认债权债务本息金额合计（大写）：
-                  <input type="text"
-                         :disabled="true"
-                         :value="MediaData.interestAll | Uppercase" />
-                </span>
-              </div>
-              <div class="civil-media-container-form-appoint-row2">
-                <span>
-                  债事人自愿放弃的内容：
-                  <input type="text"
-                         :disabled="true"
-                         v-model.trim="MediaData.abandonContent" />
-                </span>
-                <span>
-                  债务处理方式：
-                  <el-select v-model.trim="MediaData.treatmentMethod"
-                             placeholder="请选择"
-                             :disabled="true">
-                    <el-option v-for="item in handleTypeList"
-                               :key="item.value"
-                               :label="item.label"
-                               :value="item.value"></el-option>
-                  </el-select>
-
-                  <!-- <input
-                    type="text"
-                    :disabled="true"
-                    :value="MediaData.treatmentMethod === '1' ? '（1）自行约定还款金额、还款时间、还款方式' : MediaData.treatmentMethod === '2' ? ('（2）共同委托第三方帮助处理') : MediaData.treatmentMethod === '3' ? ('（3）债权转让第三人')"
-                  />-->
-                </span>
-                <span></span>
-              </div>
+                <el-form ref="form" label-width>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">确认债权债务本息金额合计（小写）：</span>
+                            <el-form-item label>
+                            <el-input v-model="this.MediaData.interestAll" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">确认债权债务本息金额合计（大写）：</span>
+                            <el-form-item label>
+                                <el-input :value="this.MediaData.interestAll | Uppercase" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <span class="col-label">债事人自愿放弃的内容：</span>
+                            <el-form-item label>
+                                <el-input v-model="this.MediaData.abandonContent" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">债务处理方式：</span>
+                            <el-form-item label>
+                                <el-select v-model="this.MediaData.treatmentMethod" placeholder="请选择" :disabled="true">
+                                    <el-option
+                                    label="（1）自行约定还款金额、还款时间、还款方式"
+                                    value="1"
+                                    ></el-option>
+                                    <el-option
+                                    label="（2）共同委托第三方帮助处理"
+                                    value="2"
+                                    ></el-option>
+                                    <el-option
+                                    label="（3）债权转让第三人"
+                                    value="3"
+                                    ></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <span class="col-label">债务形成原因：</span>
+                            <el-form-item label>
+                                <el-input v-model="this.MediaData.debtReason" :disabled="true"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
             </div>
             <h3>调解员信息</h3>
             <!-- 新增调解员表格 -->

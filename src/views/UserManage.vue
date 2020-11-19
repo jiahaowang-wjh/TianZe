@@ -63,13 +63,13 @@
                         <span>{{item.age}}</span>
                         <span>{{item.tel}}</span>
                         <span>{{item.loginName}}</span>
-                        <span>{{item.userType === '1' ? '天泽': '资产'}}</span>
+                        <span>{{item.userType === '1' ? '天泽': item.userType === '2' ?'资产' : ''}}</span>
                         <span>{{item.note}}</span>
                         <span>
                             <el-button class='normal-button' @click='DistributeAccount(item)'>
                                 分配账号
                             </el-button>
-                            <el-button class='edit-button'>
+                            <el-button class='edit-button' @click='OpenEditUserMsgPage(item)'>
                                 编辑
                             </el-button>
                         </span>
@@ -185,10 +185,75 @@
             </div>
             </el-dialog>
         </div>
+        <!-- 编辑用户 -->
+        <div class="user-manage-list-pop">
+            <el-dialog
+            title="员工信息编辑"
+            :visible.sync="EditStaffFormVisible"
+            class="user-manage-list-pop-container"
+            >
+            <div class="user-manage-list-pop-container-form">
+                <el-form>
+                    <el-form-item>
+                        <span class='col-label'>人员名称:</span>
+                        <el-input v-model='EditUserMsg.personName'></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>公司名称:</span>
+                        <el-select v-model="EditUserMsg.companyId" filterable>
+                            <el-option v-for='(item,index) in ComanyList'  :key='index' :label="item.companyName" :value="item.companyId"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>人员类型:</span>
+                        <el-select v-model="EditUserMsg.personType">
+                            <el-option label="普通用户" value="1"></el-option>
+                            <el-option label="推荐人" value="2"></el-option>
+                            <el-option label="调解员" value="3"></el-option>
+                            <el-option label="债事处理专家" value="4"></el-option>
+                            <el-option label="律师" value="5"></el-option>
+                            <el-option label="总公司负责人" value="6"></el-option>
+                            <el-option label="总公司司信息审核人员" value="7"></el-option>
+                            <el-option label="总公司财务人员" value="8"></el-option>
+                            <el-option label="分公司负责人" value="9"></el-option>
+                            <el-option label="资产系统总公司负责人" value="10"></el-option>
+                            <el-option label="资产系统总公司司信息审核人员" value="11"></el-option>
+                            <el-option label="资产系统总公司财务人员" value="12"></el-option>
+                            <el-option label="资产系统分公司负责人" value="13"></el-option>
+                            <el-option label="资产系统分公司录入人员" value="14"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>性别:</span>
+                        <el-select v-model="EditUserMsg.sex">
+                            <el-option label="男" value="1"></el-option>
+                            <el-option label="女" value="2"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>年龄:</span>
+                        <el-input v-model='EditUserMsg.age'></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>联系电话:</span>
+                        <el-input v-model="EditUserMsg.tel" />
+                    </el-form-item>
+                    <el-form-item>
+                        <span class='col-label'>备注:</span>
+                        <el-input v-model="EditUserMsg.note" />
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div class="user-manage-list-pop-container-footer">
+                <button type="button" @click="EditStaffFormVisible = false">取 消</button>
+                <button type="button" @click="SubmitEditStaffMsg">确 定</button>
+            </div>
+            </el-dialog>
+        </div>
         <!-- 分配账号 -->
         <div class="user-manage-list-pop">
             <el-dialog
-            title="分配账号"
+            :title="HasAccount? '修改账号信息':'新增账号信息'"
             :visible.sync="OpenDistributeAccountPage"
             class="user-manage-list-pop-container"
             >
@@ -250,7 +315,7 @@
             @click="CompanyDialogFormVisible = true"
             >新增公司</el-button
             >
-            <el-button class="user-manage-list-button-del">删除</el-button>
+            <el-button class="user-manage-list-button-del" @click='DeleteCompanyMsg'>删除</el-button>
         </div>
         <div class="user-manage-list-content">
             <!-- 正常显示模板 -->
@@ -258,6 +323,7 @@
                 <div class="user-manage-list-content-title">
                     <span>序号</span>
                     <span>公司名称</span>
+                    <span>公司名称缩写</span>
                     <span>公司类型</span>
                     <span>公司法人</span>
                     <span>联系电话</span>
@@ -271,8 +337,9 @@
                     >
                         <span>{{ index + 1 }}</span>
                         <span>{{item.companyName}}</span>
-                        <span>{{item.companyType === '1' ? '总公司': '分公司'}}</span>
                         <span>{{item.companyNameMax}}</span>
+                        <span>{{item.companyType === '1' ? '总公司': '分公司'}}</span>
+                        <span>{{item.companyLeperson}}</span>
                         <span>{{item.companyTel}}</span>
                         <span>
                             <el-button class='edit-button' @click='OpenEditCompanyMsgPage(item)'>编辑</el-button>
@@ -285,6 +352,7 @@
                 <div class="user-manage-list-content-title">
                     <span>序号</span>
                     <span>公司名称</span>
+                    <span>公司名称缩写</span>
                     <span>公司类型</span>
                     <span>公司法人</span>
                     <span>联系电话</span>
@@ -299,8 +367,9 @@
                             <input type="checkbox" v-model='item.isSelected'/>
                         </span>
                         <span>{{item.companyName}}</span>
-                        <span>{{item.companyType}}</span>
                         <span>{{item.companyNameMax}}</span>
+                        <span>{{item.companyType === '1' ? '总公司': '分公司'}}</span>
+                        <span>{{item.companyLeperson}}</span>
                         <span>{{item.companyTel}}</span>
                     </div>
                 </div>
@@ -377,13 +446,6 @@
                     <el-form-item>
                         <span class='col-label'>公司名称</span>
                         <el-input v-model='EditCompanyMsg.companyName'></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <span class='col-label'>公司所在区域:</span>
-                        <el-cascader
-                            :options="ProvinceList"
-                            :props="cascader_props" v-model="AreaMsg">
-                        </el-cascader>
                     </el-form-item>
                     <el-form-item>
                         <span class='col-label'>公司类型:</span>
@@ -492,6 +554,8 @@ export default {
         },
         // 是否打开新增用户页面
         StaffDialogFormVisible: false,
+        // 是否打开编辑员工信息
+        EditStaffFormVisible: false,
         CompanyDialogFormVisible: false,
         // 是否打开编辑公司页面
         EditCompanyDialogFormVisible: false,
@@ -520,6 +584,24 @@ export default {
             companyNameMax: '',
             companyId: ''
         },
+        EditUserMsg: {
+            // 人员名称
+            personName: '',
+            // 公司ID
+            companyId: '',
+            // 人员类型
+            personType: '',
+            // 性别
+            sex: '',
+            // 备注
+            age: '',
+            // 用户类型
+            tel: '',
+            // 备注
+            note: '',
+            // 个人id
+            personId: ''
+        },
         ComanyList: [],
         DistributeAccountMsg: {
             // 人员ID
@@ -534,7 +616,8 @@ export default {
             note: '',
             // 用户类型（1.天泽2.资产）
             userType: '',
-            isenable: ''
+            isenable: '',
+            userId: ''
         },
         // 分配账号页面
         OpenDistributeAccountPage: false,
@@ -543,7 +626,11 @@ export default {
         UserListTotal: 0,
         // 公司列表展示
         CompanyListMaxPage: 0,
-        CompanyListTotal: 0
+        CompanyListTotal: 0,
+        // 判断是否有账号信息
+        // 如果有则为编辑账号信息
+        // 如果无则为新增
+        HasAccount: true
     }
   },
   methods: {
@@ -580,6 +667,7 @@ export default {
             url: '/api/api/pubCompanyController/queryListPage',
             data: QS.stringify(this.CompanyQueryInfo),
         })
+        console.log(result.data.list)
         this.CompanyMsgList = result.data.list
         this.CompanyListMaxPage = result.data.navigateLastPage
         this.CompanyListTotal = result.data.total
@@ -610,7 +698,6 @@ export default {
         for ( const key in this.AddEmployeeMsg) {
             formData.append(key, this.AddEmployeeMsg[key])
         }
-        console.log(this.AddEmployeeMsg)
         await this.$http({
             method: 'post',
             url: '/api/api/pubPersonController/insertSelective',
@@ -625,7 +712,7 @@ export default {
             this.AddEmployeeMsg[i] = ''
         }
         this.getUserMsg()
-        this.dialogFormVisible = false
+        this.StaffDialogFormVisible = false
     },
     // 新增公司
     async AddCompany () {
@@ -650,22 +737,27 @@ export default {
     },
     async OpenEditCompanyMsgPage (item) {
         this.EditCompanyMsg.companyId = item.companyId
+        this.EditCompanyMsg.companyName = item.companyName
+        this.EditCompanyMsg.companyTel = item.companyTel
+        this.EditCompanyMsg.companyType = item.companyType
+        this.EditCompanyMsg.companyLeperson = item.companyLeperson
+        this.EditCompanyMsg.companyNameMax = item.companyNameMax
+        this.EditCompanyMsg.areaId = item.areaId
         this.EditCompanyDialogFormVisible = true
     },
     // 提交编辑公司信息
     async SubmitEditCompanyMsg () {
-        const length = this.AreaMsg.length
-        this.EditCompanyMsg.areaId = this.AreaMsg[length-1]
         console.log(this.EditCompanyMsg)
         const formData = new FormData()
         for ( const key in this.EditCompanyMsg) {
             formData.append(key, this.EditCompanyMsg[key])
         }
-        await this.$http({
+        const { data: result } = await this.$http({
             method: 'post',
             url: '/api/api/pubCompanyController/updateByPrimaryKeySelective',
             data: formData
         })
+        console.log(result)
         this.$message.success('修改成功')
         this.EditCompanyMsg = {
             companyId: '',
@@ -679,10 +771,58 @@ export default {
         this.getCompanyMsgList()
         this.EditCompanyDialogFormVisible = false
     },
+    // 删除公司信息
+    async DeleteCompanyMsg () {
+        const DeleteList = this.CompanyMsgList.filter( v => {
+            return v.isSelected === true
+        })
+        let CompanyIds = ''
+        DeleteList.map((v) => {
+            CompanyIds += v.companyId + ','
+        })
+        CompanyIds = DeleteUersIds.substring(0, DeleteUersIds.length - 1)
+        const formData = new FormData()
+        formData.append('companyIds', CompanyIds)
+        this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }).then(() => {
+            this.$http({
+                method: 'post',
+                url: '/api/api/pubCompanyController/deleteByPrimaryKey',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+        }).then((result) => {
+            if (result.data.resultCode === '200') {
+              this.$message({
+                type: 'success',
+                message: '删除成功!',
+              })
+              this.getUserMsg()
+            }
+        }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+        })
+      })
+    },
+    // 分配权限
+    // 判断是否有账号信息
+    // 如果有则为编辑账号信息
+    // 如果无则为新增
     async DistributeAccount (item) {
         this.DistributeAccountMsg.personId = item.personId
+        this.DistributeAccountMsg.userId = item.userId
+        if (!item.loginName) {
+            this.HasAccount = false
+        }
+        this.DistributeAccountMsg.loginName = item.loginName
         this.OpenDistributeAccountPage = true
-        console.log(item)
     },
     CloseDistributeAccountPage () {
         this.OpenDistributeAccountPage = false
@@ -693,19 +833,31 @@ export default {
     },
     async SubmitDistributeMsg () {
         const formData = new FormData()
+        console.log(this.DistributeAccountMsg)
         for ( const key in this.DistributeAccountMsg) {
             formData.append(key, this.DistributeAccountMsg[key])
         }
-        await this.$http({
-            method: 'post',
-            url: '/api/api/pubUser/addPubUser',
-            data: formData
-        })
-        this.$message.success('分配权限成功')
-        // 清除所有填写信息
+        if (!this.HasAccount) {
+            await this.$http({
+                method: 'post',
+                url: '/api/api/pubUser/addPubUser',
+                data: formData
+            })
+            this.$message.success('新增用户权限成功')
+        } else {
+            const { data: result } = await this.$http({
+                method: 'post',
+                url: '/api/api/pubUser/updateByPrimaryKeySelective',
+                data: formData
+            })
+            console.log(result)
+            this.$message.success('修改用户权限成功')
+        }
+        // // 清除所有填写信息
         for (var i in this.DistributeAccountMsg) {
             this.DistributeAccountMsg[i] = ''
         }
+        this.getUserMsg()
         this.OpenDistributeAccountPage = false
     },
     // 人员信息群体删除
@@ -732,8 +884,7 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-            })
-        .then((result) => {
+        }).then((result) => {
             if (result.data.resultCode === '200') {
               this.$message({
                 type: 'success',
@@ -741,14 +892,37 @@ export default {
               })
               this.getUserMsg()
             }
-          })
-          .catch(() => {
+        }).catch(() => {
             this.$message({
               type: 'info',
               message: '已取消删除',
             })
-          })
+        })
       })
+    },
+    OpenEditUserMsgPage (item) {
+        for (const key in this.EditUserMsg) {
+            this.EditUserMsg[key] = item[key]
+        }
+        this.EditStaffFormVisible = true
+    },
+    async SubmitEditStaffMsg () {
+        const formData = new FormData()
+        for ( const key in this.EditUserMsg) {
+            formData.append(key, this.EditUserMsg[key])
+        }
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/pubPersonController/updateByPrimaryKeySelective',
+            data: formData
+        })
+        console.log(result)
+        this.$message.success('修改成功')
+        for (const key in this.EditUserMsg) {
+            this.EditUserMsg[key] = ''
+        }
+        this.getUserMsg()
+        this.EditStaffFormVisible = false
     }
   },
   created() {
