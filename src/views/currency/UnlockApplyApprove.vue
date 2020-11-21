@@ -737,30 +737,30 @@ export default {
     },
     // 解债申请信息初始化
     async InitData(relativePerId) {
-      const formData = new FormData()
-      formData.append('relativePerId', this.$route.query.relativePerId) // relativePerId
-      const { data: result } = await this.$http({
-        method: 'post',
-        url: '/api/api/busRelativePersonController/selectByRelativePerId',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      this.UnlockUserMsg = result.data
-      // 通过ID查询解债信息
-      const DebtFormData = new FormData()
-      DebtFormData.append('debtId', this.$route.query.debtId)
-      const { data: DebtResult } = await this.$http({
-        method: 'post',
-        url: '/api/api/pubDebtController/selectByPrimaryKey',
-        data: DebtFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      this.SubmitData = DebtResult.data
-      this.SubmitData.uploadAnnex = DebtResult.data.uploadAnnex.split(',')
+        const formData = new FormData()
+        formData.append('relativePerId', this.$route.query.relativePerId) // relativePerId
+        const { data: result } = await this.$http({
+            method: 'post',
+            url: '/api/api/busRelativePersonController/selectByRelativePerId',
+            data: formData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        })
+        this.UnlockUserMsg = result.data
+        // 通过ID查询解债信息
+        const DebtFormData = new FormData()
+        DebtFormData.append('debtId', this.$route.query.debtId)
+        const { data: DebtResult } = await this.$http({
+            method: 'post',
+            url: '/api/api/pubDebtController/selectByPrimaryKey',
+            data: DebtFormData,
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        })
+        this.SubmitData = DebtResult.data
+        this.SubmitData.uploadAnnex = DebtResult.data.uploadAnnex.split(',')
     },
     // 获取相对人的index及相对人ID
     GetMediaMsg(index) {
@@ -839,7 +839,6 @@ export default {
         },
       })
       this.PlanInitData = result.data
-      console.log(this.PlanInitData)
     },
     // 通过审批
     RejectCheck() {
@@ -925,7 +924,6 @@ export default {
       this.SubmitPlanData.matters = this.PlanInitData.reportPropert
       this.SubmitPlanData.serviceInterest = this.PlanInitData.serviceInterest
       this.SubmitPlanData.servicePrincipal = this.PlanInitData.servicePrincipal
-      console.log(this.SubmitPlanData)
       for (const key in this.SubmitPlanData) {
         formData.append(key, this.SubmitPlanData[key])
       }
@@ -966,11 +964,8 @@ export default {
     },
     // 累计已转让债权金额：
     transfeAmount: function () {
-      return (
-        Number(this.UnlockUserMsg.amountCumulative) +
-        Number(this.SubmitData.amountThis)
-      )
-    },
+        return  Number(this.SubmitData.amountCumulative) + Number(this.SubmitData.amountThis)
+    }
   },
 }
 </script>
